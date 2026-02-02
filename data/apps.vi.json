@@ -4,41 +4,41 @@
     "title": "Chứng Chỉ Số & Xác Minh",
     "desc": "Cấp, lưu, chia sẻ, quét QR để xác minh trong vài giây.",
     "url": "https://vc.vetuonglai.com",
-    "status": "coming"
+    "status": "live"
   },
   {
     "key": "edu",
     "title": "Giáo Dục Tương Lai",
     "desc": "Micro-credentials, kỹ năng và hành trình học suốt đời.",
     "url": "https://edu.vetuonglai.com",
-    "status": "coming"
+    "status": "live"
   },
   {
     "key": "life",
     "title": "Đời Sống Tương Lai",
     "desc": "Những điều thiết yếu để sống vững, học nhanh, làm bền.",
     "url": "https://life.vetuonglai.com",
-    "status": "coming"
+    "status": "live"
   },
   {
     "key": "green",
     "title": "Chứng Chỉ Môi Trường",
     "desc": "Minh bạch đóng góp xanh và hành động bền vững.",
     "url": "https://green.vetuonglai.com",
-    "status": "coming"
+    "status": "live"
   },
   {
     "key": "finance",
     "title": "Tài Chính Cơ Bản",
     "desc": "Nền tảng tư duy tài chính, quản lý rủi ro và kỷ luật tiền bạc.",
     "url": "https://finance.vetuonglai.com",
-    "status": "coming"
+    "status": "live"
   },
   {
     "key": "invest",
     "title": "Đầu Tư Tỉnh Táo",
     "desc": "Khung tư duy đầu tư dài hạn, nguyên tắc và cảnh báo rủi ro.",
     "url": "https://invest.vetuonglai.com",
-    "status": "coming"
+    "status": "live"
   }
 ]
