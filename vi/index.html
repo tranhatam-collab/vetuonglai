@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Về Tương Lai – Bản đồ những điều thiết yếu cho tương lai</title>
 
+  <meta name="description" content="Về Tương Lai là bản đồ những điều thiết yếu cho tương lai: học tập, kỹ năng, chứng chỉ số, đời sống, tài chính, đầu tư và môi trường – theo hướng xác minh được và tôn trọng riêng tư." />
+
+  <link rel="stylesheet" href="/assets/styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:14px;">
+    <div class="brand">
+      <span class="dot"></span>
+      <strong>VETUONGLAI.COM</strong>
+    </div>
+
+    <nav class="lang">
+      <a class="active" href="/vi/">VI</a>
+      <a href="/en/">EN</a>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="kicker">VỀ TƯƠNG LAI</div>
+    <h1>Tất cả những gì tương lai cần thiết – trong một bản đồ duy nhất.</h1>
+    <p class="lead">
+      Đây là trang trung tâm của hệ sinh thái <strong>Về Tương Lai</strong>.
+      Nơi mỗi người có thể chuẩn bị cho học tập, kỹ năng, sự thật, uy tín
+      và khả năng xác minh – mà không đánh đổi quyền riêng tư.
+    </p>
+  </section>
+
+  <!-- SLOT: AFTER HERO -->
+  <div data-embed="after-hero"></div>
+
+  <div class="hr"></div>
+
+  <!-- APPS -->
+  <section class="section">
+    <h2>Bản đồ ứng dụng</h2>
+    <p>
+      Mỗi ứng dụng bên dưới là một khu vực độc lập,
+      có thể phát triển dài hạn mà không ảnh hưởng khu khác.
+    </p>
+
+    <div class="grid" data-apps-container>
+      <!-- Cards sẽ được render tự động từ data/apps.vi.json -->
+    </div>
+  </section>
+
+  <div class="hr"></div>
+
+  <!-- TRUST -->
+  <section class="section">
+    <h2>Niềm tin & Riêng tư</h2>
+    <p>
+      Về Tương Lai được xây dựng trên nguyên tắc:
+      chỉ xác minh điều cần xác minh, không thu thập dữ liệu đời sống.
+    </p>
+
+    <div class="small-links">
+      <a href="/vi/trust/">Trust & Privacy</a>
+      <a href="/vi/docs/">Tài liệu</a>
+      <a href="/vi/learn/">Bài viết</a>
+      <a href="/vi/roadmap/">Lộ trình</a>
+    </div>
+  </section>
+
+  <!-- SLOT: BEFORE FOOTER -->
+  <div data-embed="before-footer"></div>
+
+  <footer class="footer">
+    <div>© <span id="year"></span> Vetuonglai.com</div>
+    <div class="small-links">
+      <a href="/vi/">Trang chủ</a>
+      <a href="/vi/trust/">Privacy</a>
+      <a href="/vi/docs/">Docs</a>
+    </div>
+  </footer>
+
+</main>
+
+<script src="/assets/app-registry.js"></script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>
