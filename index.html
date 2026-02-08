@@ -1,12 +1,635 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0; url=/vi/" />
-    <link rel="canonical" href="/vi/" />
-    <title>Vetuonglai.com</title>
-  </head>
-  <body>
-    <a href="/vi/">Đi tới phiên bản Tiếng Việt</a>
-  </body>
+<html lang="vi" data-lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    base-uri 'self';
+    form-action 'self';
+    frame-ancestors 'none';
+    object-src 'none';
+    img-src 'self' data:;
+    style-src 'self' 'unsafe-inline';
+    script-src 'self' 'unsafe-inline';
+    connect-src 'self';
+    upgrade-insecure-requests;
+  " />
+
+  <title>Giáo Dục Tương Lai · Khóa học minh bạch · Chứng chỉ có kiểm chứng</title>
+  <meta name="description" content="Nền tảng khóa học ngắn và dài. Minh bạch vừa đủ, không theo dõi. Chứng chỉ có bằng chứng xác minh (liên kết qua VC)." />
+  <link rel="canonical" href="https://edu.vetuonglai.com/" />
+  <link rel="alternate" hreflang="vi" href="https://edu.vetuonglai.com/?lang=vi" />
+  <link rel="alternate" hreflang="en" href="https://edu.vetuonglai.com/?lang=en" />
+  <link rel="alternate" hreflang="ko" href="https://edu.vetuonglai.com/?lang=ko" />
+  <link rel="alternate" hreflang="ja" href="https://edu.vetuonglai.com/?lang=ja" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Giáo Dục Tương Lai" />
+  <meta property="og:description" content="Khóa học minh bạch. Chứng chỉ có kiểm chứng (VC). Không theo dõi, không phân tích hành vi." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://edu.vetuonglai.com/" />
+  <meta property="og:image" content="https://edu.vetuonglai.com/og.png" />
+  <meta property="og:locale" content="vi_VN" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Giáo Dục Tương Lai" />
+  <meta name="twitter:description" content="Khóa học minh bạch. Chứng chỉ có kiểm chứng (VC). Không tracking." />
+  <meta name="twitter:image" content="https://edu.vetuonglai.com/og.png" />
+
+  <style>
+    :root{
+      --bg0:#070a10;
+      --bg1:#0b1220;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --line:rgba(255,255,255,.10);
+      --txt:rgba(255,255,255,.92);
+      --mut:rgba(255,255,255,.72);
+      --mut2:rgba(255,255,255,.56);
+      --good:#2fe6a6;
+      --warn:#ffcc66;
+      --bad:#ff5c7a;
+      --shadow:0 20px 70px rgba(0,0,0,.55);
+      --r:22px;
+      --r2:16px;
+      --max:1120px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 500px at 20% 20%, rgba(47,230,166,.16), transparent 60%),
+        radial-gradient(900px 500px at 80% 10%, rgba(99,157,255,.16), transparent 55%),
+        radial-gradient(900px 700px at 50% 90%, rgba(255,92,122,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      color:var(--txt);
+    }
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 56px}
+    .topbar{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter: blur(14px);
+      background: rgba(7,10,16,.60);
+      border-bottom:1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width:var(--max); margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px; min-width: 220px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(47,230,166,.35));
+      box-shadow: 0 0 0 6px rgba(47,230,166,.12);
+    }
+    .brand b{font-weight:650; letter-spacing:.2px}
+    .brand small{color:var(--mut2)}
+    nav{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .navlink{
+      padding:10px 12px; border-radius:12px;
+      border:1px solid transparent;
+      color:var(--mut);
+    }
+    .navlink:hover{border-color:var(--line); color:var(--txt); background:rgba(255,255,255,.04)}
+    .lang{
+      display:flex; gap:8px; align-items:center;
+      padding-left:6px;
+    }
+    .chip{
+      font: 12px/1 var(--mono);
+      padding:10px 10px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--mut);
+      cursor:pointer;
+      user-select:none;
+    }
+    .chip[aria-pressed="true"]{
+      background: rgba(47,230,166,.12);
+      border-color: rgba(47,230,166,.32);
+      color: rgba(255,255,255,.92);
+    }
+    .hero{
+      padding:42px 0 20px;
+    }
+    h1{
+      margin:0;
+      font-size: clamp(40px, 6vw, 72px);
+      letter-spacing:-.8px;
+      line-height:1.03;
+    }
+    .sub{
+      margin-top:14px;
+      font-size: clamp(16px, 2.1vw, 20px);
+      color:var(--mut);
+      max-width: 900px;
+    }
+    .principle{
+      margin-top:18px;
+      color:var(--mut2);
+      max-width: 900px;
+      font-size: 15px;
+    }
+    .grid{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap:16px;
+    }
+    @media (max-width: 920px){
+      .grid{grid-template-columns:1fr}
+      .brand{min-width:auto}
+    }
+    .card{
+      border-radius: var(--r);
+      border:1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+    .card:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: radial-gradient(700px 300px at 20% 0%, rgba(99,157,255,.10), transparent 60%),
+                  radial-gradient(700px 300px at 80% 0%, rgba(47,230,166,.10), transparent 55%);
+      pointer-events:none;
+      opacity:.8;
+    }
+    .card > *{position:relative}
+    .card h2{
+      margin:0 0 10px;
+      font-size:22px;
+      letter-spacing:-.2px;
+    }
+    .tag{
+      position:absolute; right:16px; top:16px;
+      font: 12px/1 var(--mono);
+      border-radius:999px;
+      padding:8px 10px;
+      border:1px solid rgba(47,230,166,.35);
+      color: rgba(47,230,166,.95);
+      background: rgba(47,230,166,.10);
+    }
+    .card p{margin:0; color:var(--mut); line-height:1.6}
+    .btnrow{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+    .btn{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:12px 14px;
+      border-radius: 14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      color: var(--txt);
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{background: rgba(255,255,255,.06)}
+    .btn.primary{
+      border-color: rgba(47,230,166,.35);
+      background: rgba(47,230,166,.10);
+    }
+    .btn.primary:hover{background: rgba(47,230,166,.14)}
+    .btn .arrow{font-family:var(--mono)}
+    .mini{
+      font: 12px/1.6 var(--mono);
+      color: rgba(255,255,255,.68);
+      margin-top:14px;
+      padding-top:14px;
+      border-top:1px dashed rgba(255,255,255,.14);
+      white-space: pre-wrap;
+    }
+    .statusline{
+      margin-top:10px;
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      color:var(--mut2);
+      font-size: 13px;
+    }
+    .pill{
+      display:inline-flex; gap:8px; align-items:center;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      padding:8px 10px;
+      border-radius:999px;
+      font: 12px/1 var(--mono);
+      color: rgba(255,255,255,.70);
+    }
+    .kdot{width:8px; height:8px; border-radius:999px; background:rgba(99,157,255,.8)}
+    .rdot{width:8px; height:8px; border-radius:999px; background:rgba(47,230,166,.85)}
+    .footer{
+      margin-top:26px;
+      padding-top:18px;
+      border-top: 1px solid rgba(255,255,255,.10);
+      color: rgba(255,255,255,.52);
+      text-align:center;
+      font-size: 14px;
+    }
+    .kbd{
+      font: 12px/1 var(--mono);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.22);
+      padding:6px 8px;
+      border-radius:10px;
+      color: rgba(255,255,255,.72);
+    }
+    .notice{
+      margin-top:14px;
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding:14px;
+      color: var(--mut);
+      line-height: 1.6;
+    }
+    .notice b{color: rgba(255,255,255,.92)}
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin-top:16px;
+    }
+    @media (max-width: 920px){
+      .split{grid-template-columns:1fr}
+    }
+    .smallcard{
+      border-radius: var(--r2);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding:14px;
+    }
+    .smallcard h3{margin:0 0 8px; font-size:16px}
+    .smallcard p{margin:0; color:var(--mut2); line-height:1.6}
+  </style>
+
+  <!-- JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@graph":[
+      {
+        "@type":"Organization",
+        "name":"Vetuonglai EDU",
+        "url":"https://edu.vetuonglai.com/",
+        "logo":"https://edu.vetuonglai.com/logo.png"
+      },
+      {
+        "@type":"WebPage",
+        "name":"Giáo Dục Tương Lai",
+        "url":"https://edu.vetuonglai.com/",
+        "description":"Nền tảng khóa học minh bạch vừa đủ. Không theo dõi. Chứng chỉ có bằng chứng xác minh (liên kết qua VC)."
+      },
+      {
+        "@type":"FAQPage",
+        "mainEntity":[
+          {
+            "@type":"Question",
+            "name":"Dữ liệu có được theo dõi hoặc phân tích hành vi không?",
+            "acceptedAnswer":{"@type":"Answer","text":"Không. Nền tảng không dùng analytics, không tracking. Chỉ ghi nhận tối thiểu những gì cần để vận hành, thanh toán và xác minh chứng chỉ."}
+          },
+          {
+            "@type":"Question",
+            "name":"Chứng chỉ xác minh như thế nào?",
+            "acceptedAnswer":{"@type":"Answer","text":"Chứng chỉ có dữ liệu bằng chứng tối thiểu và liên kết xác minh qua hệ thống VC (verifiable credential) theo cấu hình của tổ chức phát hành."}
+          },
+          {
+            "@type":"Question",
+            "name":"Nếu chưa cấu hình Stripe thì sao?",
+            "acceptedAnswer":{"@type":"Answer","text":"Website vẫn hoạt động. Khi sẵn sàng, bật thanh toán + webhook để tự động cấp chứng cứ/chứng chỉ theo luồng đã thiết kế."}
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <header class="topbar" role="banner">
+    <div class="topbar-inner">
+      <a class="brand" href="/" aria-label="Vetuonglai EDU Home">
+        <span class="dot" aria-hidden="true"></span>
+        <div>
+          <div><b data-i18n="brandTitle">Future</b> <small data-i18n="brandSubtitle">Giáo Dục Tương Lai</small></div>
+        </div>
+      </a>
+
+      <nav aria-label="Primary">
+        <a class="navlink" href="/" data-i18n="navHome">Home</a>
+        <a class="navlink" href="/courses" data-i18n="navCourses">Khóa học</a>
+        <a class="navlink" href="/admin" data-i18n="navAdmin">Admin</a>
+        <a class="navlink" href="/cert" data-i18n="navCert">Chứng chỉ</a>
+        <a class="navlink" href="/api" data-i18n="navApi">API</a>
+
+        <div class="lang" aria-label="Language">
+          <button class="chip" type="button" data-langbtn="vi" aria-pressed="true">VI</button>
+          <button class="chip" type="button" data-langbtn="en" aria-pressed="false">EN</button>
+          <button class="chip" type="button" data-langbtn="ko" aria-pressed="false">KO</button>
+          <button class="chip" type="button" data-langbtn="ja" aria-pressed="false">JA</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" role="main">
+    <section class="hero" aria-label="Hero">
+      <h1 data-i18n="heroTitle">Giáo Dục Tương Lai</h1>
+      <p class="sub" data-i18n="heroSub">
+        Khóa học ngắn và dài, lộ trình rõ ràng, minh bạch. Chứng chỉ có bằng chứng xác minh (liên kết qua VC).
+      </p>
+      <p class="principle" data-i18n="heroPrinciple">
+        Nguyên tắc: Minh bạch vừa đủ, không lộ thông tin thừa. Những gì công bố phải kiểm chứng được.
+      </p>
+
+      <div class="notice" role="note">
+        <b data-i18n="noticeTitle">Trạng thái nền tảng</b>
+        <div class="statusline">
+          <span class="pill"><span class="kdot" aria-hidden="true"></span><span data-i18n="pillLocalFirst">Local-first tư duy</span></span>
+          <span class="pill"><span class="rdot" aria-hidden="true"></span><span data-i18n="pillNoTracking">No tracking</span></span>
+          <span class="pill"><span class="kdot" aria-hidden="true"></span><span data-i18n="pillProof">Proof-based</span></span>
+          <span class="pill"><span class="rdot" aria-hidden="true"></span><span data-i18n="pillCalm">Calm UI</span></span>
+        </div>
+        <div style="margin-top:10px" data-i18n="noticeBody">
+          Nếu anh/chị chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán + webhook để tự cấp chứng cứ/chứng chỉ.
+        </div>
+      </div>
+
+      <div class="grid" aria-label="Core cards">
+        <article class="card">
+          <span class="tag" data-i18n="tagLive">LIVE</span>
+          <h2 data-i18n="cardCoursesTitle">Khóa học</h2>
+          <p data-i18n="cardCoursesBody">
+            Xem danh sách khóa học, mô tả, giá, nội dung, tài liệu đọc theo trang.
+          </p>
+          <div class="btnrow">
+            <a class="btn primary" href="/courses">
+              <span data-i18n="btnOpen">Mở</span><span class="arrow">→</span>
+            </a>
+            <button class="btn" type="button" id="btnHealth">
+              <span data-i18n="btnCheck">Kiểm tra hệ thống</span><span class="arrow">↗</span>
+            </button>
+          </div>
+          <div class="mini" id="healthBox" aria-live="polite" hidden></div>
+        </article>
+
+        <article class="card">
+          <span class="tag" data-i18n="tagLive">LIVE</span>
+          <h2 data-i18n="cardPayTitle">Thanh toán + Webhook</h2>
+          <p data-i18n="cardPayBody">
+            Nếu chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán và tự cấp chứng cứ.
+          </p>
+
+          <div class="split">
+            <div class="smallcard">
+              <h3 data-i18n="smallStripeTitle">Stripe</h3>
+              <p data-i18n="smallStripeBody">
+                Dùng để thanh toán. Webhook xác nhận trả tiền để mở quyền học/thi.
+              </p>
+            </div>
+            <div class="smallcard">
+              <h3 data-i18n="smallVcTitle">VC</h3>
+              <p data-i18n="smallVcBody">
+                Dùng để cấp chứng chỉ/chứng cứ xác minh (liên kết qua VC).
+              </p>
+            </div>
+          </div>
+
+          <div class="btnrow">
+            <a class="btn primary" href="/cert">
+              <span data-i18n="btnCert">Đi tới chứng chỉ</span><span class="arrow">→</span>
+            </a>
+            <a class="btn" href="/api">
+              <span data-i18n="btnApi">Xem API</span><span class="arrow">→</span>
+            </a>
+          </div>
+
+          <div class="mini" id="secretsHint">
+STRIPE_SECRET_KEY: <span id="stripeKey" data-i18n="setMaybe">đang kiểm tra…</span>
+STRIPE_WEBHOOK_SECRET: <span id="stripeWh" data-i18n="setMaybe">đang kiểm tra…</span>
+VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="notice" aria-label="Next steps">
+      <b data-i18n="nextTitle">Các bước căn bản (gợi ý)</b>
+      <div style="margin-top:10px" data-i18n="nextBody">
+        1) Tạo khóa học mẫu để demo. 2) Bật admin tối giản (magic link hoặc allowlist). 3) Thi + cấp chứng chỉ (VC) theo tiêu chí đạt.
+        4) Upload media vào R2 (hoặc Cloudflare Stream nếu cần chống hotlink mạnh hơn).
+      </div>
+      <div class="btnrow" style="margin-top:12px">
+        <a class="btn" href="/admin"><span data-i18n="btnAdmin">Mở Admin</span><span class="arrow">→</span></a>
+        <a class="btn" href="/courses"><span data-i18n="btnBrowse">Xem Khóa học</span><span class="arrow">→</span></a>
+        <a class="btn" href="/cert"><span data-i18n="btnVerify">Xác minh chứng chỉ</span><span class="arrow">→</span></a>
+      </div>
+      <div style="margin-top:10px; color:rgba(255,255,255,.55); font:12px/1.7 var(--mono);">
+        Tip: Nhấn <span class="kbd">Kiểm tra hệ thống</span> để ping endpoint /api/health (nếu backend đã có).
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span data-i18n="footerLine">Không lưu dữ liệu nhạy cảm. Chỉ lưu chứng cứ tối thiểu để xác minh.</span>
+      <span> · </span>
+      <span>© <span id="year"></span> Vetuonglai EDU</span>
+    </footer>
+  </main>
+
+  <script>
+    // ===== Basics =====
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const i18n = {
+      vi: {
+        brandTitle: "Future",
+        brandSubtitle: "Giáo Dục Tương Lai",
+        navHome: "Home",
+        navCourses: "Khóa học",
+        navAdmin: "Admin",
+        navCert: "Chứng chỉ",
+        navApi: "API",
+        heroTitle: "Giáo Dục Tương Lai",
+        heroSub: "Khóa học ngắn và dài, lộ trình rõ ràng, minh bạch. Chứng chỉ có bằng chứng xác minh (liên kết qua VC).",
+        heroPrinciple: "Nguyên tắc: Minh bạch vừa đủ, không lộ thông tin thừa. Những gì công bố phải kiểm chứng được.",
+        noticeTitle: "Trạng thái nền tảng",
+        noticeBody: "Nếu anh/chị chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán + webhook để tự cấp chứng cứ/chứng chỉ.",
+        pillLocalFirst: "Local-first tư duy",
+        pillNoTracking: "No tracking",
+        pillProof: "Proof-based",
+        pillCalm: "Calm UI",
+        tagLive: "LIVE",
+        cardCoursesTitle: "Khóa học",
+        cardCoursesBody: "Xem danh sách khóa học, mô tả, giá, nội dung, tài liệu đọc theo trang.",
+        btnOpen: "Mở",
+        btnCheck: "Kiểm tra hệ thống",
+        cardPayTitle: "Thanh toán + Webhook",
+        cardPayBody: "Nếu chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán và tự cấp chứng cứ.",
+        smallStripeTitle: "Stripe",
+        smallStripeBody: "Dùng để thanh toán. Webhook xác nhận trả tiền để mở quyền học/thi.",
+        smallVcTitle: "VC",
+        smallVcBody: "Dùng để cấp chứng chỉ/chứng cứ xác minh (liên kết qua VC).",
+        btnCert: "Đi tới chứng chỉ",
+        btnApi: "Xem API",
+        nextTitle: "Các bước căn bản (gợi ý)",
+        nextBody: "1) Tạo khóa học mẫu để demo. 2) Bật admin tối giản (magic link hoặc allowlist). 3) Thi + cấp chứng chỉ (VC) theo tiêu chí đạt. 4) Upload media vào R2 (hoặc Cloudflare Stream nếu cần chống hotlink mạnh hơn).",
+        btnAdmin: "Mở Admin",
+        btnBrowse: "Xem Khóa học",
+        btnVerify: "Xác minh chứng chỉ",
+        footerLine: "Không lưu dữ liệu nhạy cảm. Chỉ lưu chứng cứ tối thiểu để xác minh.",
+        setMaybe: "đang kiểm tra…",
+        setOk: "set",
+        setNo: "chưa set"
+      },
+      en: {
+        brandTitle: "Future",
+        brandSubtitle: "Future Education",
+        navHome: "Home",
+        navCourses: "Courses",
+        navAdmin: "Admin",
+        navCert: "Certificates",
+        navApi: "API",
+        heroTitle: "Future Education",
+        heroSub: "Short and long courses with clear, verifiable transparency. Certificates with evidence (via VC).",
+        heroPrinciple: "Principle: enough transparency, no extra exposure. What we publish must be verifiable.",
+        noticeTitle: "Platform status",
+        noticeBody: "If Stripe isn't configured yet, the site still works. When ready, enable payment + webhook to auto-issue evidence/certificates.",
+        pillLocalFirst: "Local-first mindset",
+        pillNoTracking: "No tracking",
+        pillProof: "Proof-based",
+        pillCalm: "Calm UI",
+        tagLive: "LIVE",
+        cardCoursesTitle: "Courses",
+        cardCoursesBody: "Browse courses, pricing, content, and page-by-page reading materials.",
+        btnOpen: "Open",
+        btnCheck: "System check",
+        cardPayTitle: "Payments + Webhook",
+        cardPayBody: "If Stripe isn't configured, the site still works. When ready, enable payment to auto-issue proofs.",
+        smallStripeTitle: "Stripe",
+        smallStripeBody: "Used for payments. Webhook confirms payment to unlock learning/exams.",
+        smallVcTitle: "VC",
+        smallVcBody: "Used to issue verifiable certificates/proofs (via VC).",
+        btnCert: "Go to certificates",
+        btnApi: "View API",
+        nextTitle: "Basic next steps (suggested)",
+        nextBody: "1) Create a demo course. 2) Enable minimal admin (magic link or allowlist). 3) Exams + certificate issuance (VC). 4) Upload media to R2 (or Cloudflare Stream for stronger hotlink protection).",
+        btnAdmin: "Open Admin",
+        btnBrowse: "Browse courses",
+        btnVerify: "Verify certificate",
+        footerLine: "No sensitive data storage. Only minimal evidence for verification.",
+        setMaybe: "checking…",
+        setOk: "set",
+        setNo: "not set"
+      },
+      // KO/JA placeholders
+      ko: { brandTitle:"Future", brandSubtitle:"미래 교육", navHome:"Home", navCourses:"Courses", navAdmin:"Admin", navCert:"Certificates", navApi:"API",
+        heroTitle:"미래 교육", heroSub:"(KO) Translation pending.", heroPrinciple:"(KO) Translation pending.",
+        noticeTitle:"상태", noticeBody:"(KO) Translation pending.",
+        pillLocalFirst:"Local-first", pillNoTracking:"No tracking", pillProof:"Proof-based", pillCalm:"Calm UI",
+        tagLive:"LIVE", cardCoursesTitle:"Courses", cardCoursesBody:"(KO) Translation pending.", btnOpen:"Open", btnCheck:"Check",
+        cardPayTitle:"Payments + Webhook", cardPayBody:"(KO) Translation pending.",
+        smallStripeTitle:"Stripe", smallStripeBody:"(KO) Translation pending.", smallVcTitle:"VC", smallVcBody:"(KO) Translation pending.",
+        btnCert:"Certificates", btnApi:"API",
+        nextTitle:"Next steps", nextBody:"(KO) Translation pending.", btnAdmin:"Admin", btnBrowse:"Courses", btnVerify:"Verify",
+        footerLine:"(KO) Translation pending.", setMaybe:"checking…", setOk:"set", setNo:"not set"
+      },
+      ja: { brandTitle:"Future", brandSubtitle:"未来の教育", navHome:"Home", navCourses:"Courses", navAdmin:"Admin", navCert:"Certificates", navApi:"API",
+        heroTitle:"未来の教育", heroSub:"(JA) Translation pending.", heroPrinciple:"(JA) Translation pending.",
+        noticeTitle:"ステータス", noticeBody:"(JA) Translation pending.",
+        pillLocalFirst:"Local-first", pillNoTracking:"No tracking", pillProof:"Proof-based", pillCalm:"Calm UI",
+        tagLive:"LIVE", cardCoursesTitle:"Courses", cardCoursesBody:"(JA) Translation pending.", btnOpen:"Open", btnCheck:"Check",
+        cardPayTitle:"Payments + Webhook", cardPayBody:"(JA) Translation pending.",
+        smallStripeTitle:"Stripe", smallStripeBody:"(JA) Translation pending.", smallVcTitle:"VC", smallVcBody:"(JA) Translation pending.",
+        btnCert:"Certificates", btnApi:"API",
+        nextTitle:"Next steps", nextBody:"(JA) Translation pending.", btnAdmin:"Admin", btnBrowse:"Courses", btnVerify:"Verify",
+        footerLine:"(JA) Translation pending.", setMaybe:"checking…", setOk:"set", setNo:"not set"
+      }
+    };
+
+    function setLang(lang){
+      const safe = i18n[lang] ? lang : "vi";
+      document.documentElement.setAttribute("lang", safe === "vi" ? "vi" : safe);
+      document.documentElement.dataset.lang = safe;
+
+      document.querySelectorAll("[data-langbtn]").forEach(btn=>{
+        btn.setAttribute("aria-pressed", btn.dataset.langbtn === safe ? "true" : "false");
+      });
+
+      document.querySelectorAll("[data-i18n]").forEach(el=>{
+        const key = el.getAttribute("data-i18n");
+        const v = (i18n[safe] && i18n[safe][key]) || (i18n.vi[key]) || "";
+        el.textContent = v;
+      });
+
+      const url = new URL(location.href);
+      url.searchParams.set("lang", safe);
+      history.replaceState(null, "", url.toString());
+    }
+
+    // Init language
+    (function(){
+      const url = new URL(location.href);
+      const q = (url.searchParams.get("lang") || "vi").toLowerCase();
+      setLang(q);
+      document.querySelectorAll("[data-langbtn]").forEach(btn=>{
+        btn.addEventListener("click", ()=> setLang(btn.dataset.langbtn));
+      });
+    })();
+
+    // Health check + secrets hint (best-effort, non-fatal)
+    const healthBox = document.getElementById("healthBox");
+    const btnHealth = document.getElementById("btnHealth");
+
+    function setHint(id, ok){
+      const el = document.getElementById(id);
+      if(!el) return;
+      const lang = document.documentElement.dataset.lang || "vi";
+      el.textContent = ok ? i18n[lang].setOk : i18n[lang].setNo;
+    }
+
+    async function ping(){
+      healthBox.hidden = false;
+      healthBox.textContent = "GET /api/health …";
+      try{
+        const r = await fetch("/api/health", { headers: { "accept": "application/json" } });
+        const t = await r.text();
+        healthBox.textContent = `Status: ${r.status}\n\n${t.slice(0, 1200)}`;
+
+        // crude checks for config flags inside response (optional)
+        const lower = t.toLowerCase();
+        setHint("stripeKey", lower.includes("stripe_secret_key") ? lower.includes("true") : lower.includes("stripe") ? true : false);
+        setHint("stripeWh", lower.includes("stripe_webhook_secret") ? lower.includes("true") : lower.includes("webhook") ? true : false);
+        setHint("vcUrl", lower.includes("vc_issue_url") ? lower.includes("http") : lower.includes("vc") ? true : false);
+      }catch(e){
+        healthBox.textContent = "Không gọi được /api/health. (Nếu backend chưa có endpoint này thì bỏ qua.)\n\n" + String(e);
+        // if endpoint missing, don't scare users
+        setHint("stripeKey", false);
+        setHint("stripeWh", false);
+        setHint("vcUrl", false);
+      }
+    }
+
+    btnHealth.addEventListener("click", ping);
+
+    // initial best-effort: don't auto-fetch to keep calm + fast
+    setTimeout(()=>{
+      // Only set placeholders to "…" without hitting network
+      const lang = document.documentElement.dataset.lang || "vi";
+      document.getElementById("stripeKey").textContent = i18n[lang].setMaybe;
+      document.getElementById("stripeWh").textContent = i18n[lang].setMaybe;
+      document.getElementById("vcUrl").textContent = i18n[lang].setMaybe;
+    }, 0);
+  </script>
+</body>
 </html>
