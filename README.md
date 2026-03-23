@@ -19,8 +19,10 @@ Static multi-site codebase for:
 - `src/shared/app.js`: shared UI helpers
 - `scripts/build.mjs`: generates deployable static output into `dist/`
 - `cloudflare/pages-projects.json`: live Pages project and domain mapping
+- `cloudflare/workers-projects.json`: live Workers route mapping for domains that are already fronted by Workers
 - `scripts/cloudflare-sync.mjs`: ensures Pages projects and custom domains exist
 - `scripts/deploy-pages.mjs`: deploys each generated site root to Cloudflare Pages
+- `scripts/deploy-workers.mjs`: updates the live Worker scripts that currently front the Vetuonglai domains
 
 ## Build
 
@@ -29,6 +31,7 @@ npm run build
 npm run check
 npm run cloudflare:sync
 npm run cloudflare:deploy
+npm run cloudflare:deploy:workers
 ```
 
 ## Preview
@@ -55,6 +58,7 @@ npm run preview:invest
   - `vetuonglai-vc`
   - `vetuonglai-edu`
 - New subdomain projects are provisioned on demand by `npm run cloudflare:sync`.
+- Current live traffic for `vetuonglai.com`, `vc.vetuonglai.com`, `edu.vetuonglai.com`, `green.vetuonglai.com`, and `finance.vetuonglai.com` is still fronted by Worker routes, so `npm run cloudflare:deploy:workers` is the decisive live-update step.
 - GitHub Actions workflow lives at `.github/workflows/deploy-pages.yml` and expects `CLOUDFLARE_API_TOKEN`.
 
 ## Deploy Mapping

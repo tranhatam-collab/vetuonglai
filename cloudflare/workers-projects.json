@@ -1,0 +1,41 @@
+{
+  "accountId": "f3f9e76222dcb488d5e303e29e8ba192",
+  "compatibilityDate": "2026-03-23",
+  "workers": [
+    {
+      "key": "home",
+      "scriptName": "vetuonglai-home",
+      "entry": "workers/generic-worker.mjs",
+      "assetsDir": "dist/vetuonglai.com",
+      "routes": ["vetuonglai.com/*", "www.vetuonglai.com/*"]
+    },
+    {
+      "key": "vc",
+      "scriptName": "vetuonglai-vc",
+      "entry": "workers/vc-worker.mjs",
+      "assetsDir": "dist/vc.vetuonglai.com",
+      "routes": ["vc.vetuonglai.com/*", "www.vc.vetuonglai.com/*"]
+    },
+    {
+      "key": "edu",
+      "scriptName": "vetuonglai-edu-github",
+      "entry": "workers/generic-worker.mjs",
+      "assetsDir": "dist/edu.vetuonglai.com",
+      "routes": ["edu.vetuonglai.com/*", "www.edu.vetuonglai.com/*"]
+    },
+    {
+      "key": "green",
+      "scriptName": "vetuonglai-green",
+      "entry": "workers/generic-worker.mjs",
+      "assetsDir": "dist/green.vetuonglai.com",
+      "routes": ["green.vetuonglai.com/*", "www.green.vetuonglai.com/*"]
+    },
+    {
+      "key": "finance",
+      "scriptName": "vetuonglai-finance",
+      "entry": "workers/generic-worker.mjs",
+      "assetsDir": "dist/finance.vetuonglai.com",
+      "routes": ["finance.vetuonglai.com/*", "www.finance.vetuonglai.com/*"]
+    }
+  ]
+}
