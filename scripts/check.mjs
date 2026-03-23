@@ -11,6 +11,7 @@ const requiredFiles = [
   "vetuonglai.com/apps.json",
   "vc.vetuonglai.com/index.html",
   "vc.vetuonglai.com/v/index.html",
+  "vc.vetuonglai.com/_worker.js",
   "vc.vetuonglai.com/_redirects",
   "vc.vetuonglai.com/api/certificates.json",
   "edu.vetuonglai.com/index.html",

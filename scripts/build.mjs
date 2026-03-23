@@ -578,6 +578,22 @@ function renderVcRecordPage() {
   });
 }
 
+function renderVcWorker() {
+  return `export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/v" || url.pathname.startsWith("/v/")) {
+      url.pathname = "/v/index.html";
+      return env.ASSETS.fetch(new Request(url.toString(), request));
+    }
+
+    return env.ASSETS.fetch(request);
+  },
+};
+`;
+}
+
 function renderEduHome() {
   const featuredCards = renderCards(courses.map((course) => renderCard({
     title: escapeHtml(course.title),
@@ -1036,6 +1052,7 @@ async function build() {
   await writeAssets(domains.vc);
   await writeSiteFile(domains.vc, "index.html", renderVcHome());
   await writeSiteFile(domains.vc, "v/index.html", renderVcRecordPage());
+  await writeSiteFile(domains.vc, "_worker.js", renderVcWorker());
   await writeSiteFile(domains.vc, "api/certificates.json", renderStaticJson(certificates));
   await writeSiteFile(domains.vc, "_redirects", "/v/* /v/index.html 200\n");
   await writeSiteFile(domains.vc, "robots.txt", renderRobots(domains.vc));
