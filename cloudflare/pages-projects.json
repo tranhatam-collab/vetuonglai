@@ -1,0 +1,50 @@
+{
+  "accountId": "f3f9e76222dcb488d5e303e29e8ba192",
+  "productionBranch": "main",
+  "compatibilityDate": "2026-03-23",
+  "projects": [
+    {
+      "key": "hub",
+      "projectName": "vetuonglai-landing",
+      "distDir": "dist/vetuonglai.com",
+      "customDomains": ["vetuonglai.com", "www.vetuonglai.com"]
+    },
+    {
+      "key": "vc",
+      "projectName": "vetuonglai-vc",
+      "distDir": "dist/vc.vetuonglai.com",
+      "customDomains": ["vc.vetuonglai.com"],
+      "notes": "Existing Pages project currently has Functions and KV bindings."
+    },
+    {
+      "key": "edu",
+      "projectName": "vetuonglai-edu",
+      "distDir": "dist/edu.vetuonglai.com",
+      "customDomains": ["edu.vetuonglai.com"]
+    },
+    {
+      "key": "green",
+      "projectName": "vetuonglai-green",
+      "distDir": "dist/green.vetuonglai.com",
+      "customDomains": ["green.vetuonglai.com"]
+    },
+    {
+      "key": "finance",
+      "projectName": "vetuonglai-finance",
+      "distDir": "dist/finance.vetuonglai.com",
+      "customDomains": ["finance.vetuonglai.com"]
+    },
+    {
+      "key": "life",
+      "projectName": "vetuonglai-life",
+      "distDir": "dist/life.vetuonglai.com",
+      "customDomains": ["life.vetuonglai.com"]
+    },
+    {
+      "key": "invest",
+      "projectName": "vetuonglai-invest",
+      "distDir": "dist/invest.vetuonglai.com",
+      "customDomains": ["invest.vetuonglai.com"]
+    }
+  ]
+}

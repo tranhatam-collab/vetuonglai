@@ -1,0 +1,50 @@
+[
+  {
+    "key": "vc",
+    "title": "Chứng Chỉ Số & Xác Minh",
+    "desc": "Registry độc lập để cấp, tra cứu, quét và xác minh chứng chỉ trong vài giây.",
+    "url": "https://vc.vetuonglai.com",
+    "status": "live",
+    "stageLabel": "LIVE"
+  },
+  {
+    "key": "edu",
+    "title": "Giáo Dục Tương Lai",
+    "desc": "Khóa học, lộ trình năng lực và micro-credential gắn với lớp xác minh VC.",
+    "url": "https://edu.vetuonglai.com",
+    "status": "beta",
+    "stageLabel": "BETA"
+  },
+  {
+    "key": "life",
+    "title": "Đời Sống Tương Lai",
+    "desc": "Life operating system cho sức khỏe, nhịp sống, năng lượng và kỷ luật cá nhân.",
+    "url": "https://life.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  },
+  {
+    "key": "green",
+    "title": "Chứng Chỉ Môi Trường",
+    "desc": "Bằng chứng xanh, đóng góp bền vững và chương trình tác động có thể xác minh.",
+    "url": "https://green.vetuonglai.com",
+    "status": "live",
+    "stageLabel": "LIVE"
+  },
+  {
+    "key": "finance",
+    "title": "Tài Chính Cơ Bản",
+    "desc": "Tư duy tiền bạc, quản trị rủi ro, dấu hiệu lừa đảo và kỷ luật tài chính dài hạn.",
+    "url": "https://finance.vetuonglai.com",
+    "status": "live",
+    "stageLabel": "LIVE"
+  },
+  {
+    "key": "invest",
+    "title": "Đầu Tư Tỉnh Táo",
+    "desc": "Khung đầu tư dài hạn với due diligence, khẩu vị rủi ro và nguyên tắc không FOMO.",
+    "url": "https://invest.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  }
+]

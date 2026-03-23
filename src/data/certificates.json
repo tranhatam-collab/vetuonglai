@@ -1,0 +1,107 @@
+[
+  {
+    "code": "VC-2026-0001",
+    "holder": "Tran Ha Tam",
+    "program": "Khởi Nghiệp Thực Chiến",
+    "issuer": "Vetuonglai EDU",
+    "domain": "edu.vetuonglai.com",
+    "status": "verified",
+    "issuedAt": "2026-01-12",
+    "summary": "Hoàn thành lộ trình sản phẩm, bán hàng và vận hành với bằng chứng đồ án cuối khóa.",
+    "scope": "Micro-credential cấp bởi EDU, xác minh độc lập qua VC.",
+    "evidence": [
+      "Đồ án go-to-market và landing page sản phẩm",
+      "Checklist đánh giá mentor và biên bản chấm đầu ra",
+      "Hash chứng chỉ neo vào registry độc lập"
+    ],
+    "anchors": {
+      "contentHash": "sha256:2ab3a710f71c9d09105c1c644fd455ab0ef2f8d84a9d20d7c6c75f9f6f0f52ce",
+      "ipfs": "bafybeib7t5zq2nmpz3m4g5x1y6f7r8k9l0abcedfghijklmno123456789",
+      "registry": "https://vc.vetuonglai.com/v/VC-2026-0001"
+    }
+  },
+  {
+    "code": "VC-2026-0008",
+    "holder": "Nguyen Hoang Anh",
+    "program": "Green Stewardship Pilot",
+    "issuer": "Vetuonglai GREEN",
+    "domain": "green.vetuonglai.com",
+    "status": "verified",
+    "issuedAt": "2026-01-26",
+    "summary": "Xác nhận hoàn thành 30 ngày đo lường tác động xanh và báo cáo giảm rác thải có kiểm tra chéo.",
+    "scope": "Pilot chứng chỉ hành động xanh cho chương trình cộng đồng.",
+    "evidence": [
+      "Nhật ký ảnh trước và sau can thiệp",
+      "Báo cáo đo lường theo checklist bền vững",
+      "Biên nhận xác nhận từ điều phối viên chương trình"
+    ],
+    "anchors": {
+      "contentHash": "sha256:95f1fd8dfdf892f404c319a6b8fe7b2c4d9a29149ea2a79d90d8423f2949f703",
+      "ipfs": "bafybeidemoecoimpactledger2026greenstewardshippilot0008",
+      "registry": "https://vc.vetuonglai.com/v/VC-2026-0008"
+    }
+  },
+  {
+    "code": "VC-2026-0012",
+    "holder": "Le Minh Tu",
+    "program": "Money Discipline Sprint",
+    "issuer": "Vetuonglai FIN",
+    "domain": "finance.vetuonglai.com",
+    "status": "verified",
+    "issuedAt": "2026-02-03",
+    "summary": "Hoàn thành sprint 21 ngày về ngân sách, quỹ khẩn cấp và phát hiện mô hình lừa đảo phổ biến.",
+    "scope": "Certificate nền tảng cho tài chính cá nhân và an toàn rủi ro.",
+    "evidence": [
+      "Bảng ngân sách 4 tuần đã kiểm tra",
+      "Bài phản biện 3 kịch bản lừa đảo tài chính",
+      "Biểu mẫu đánh giá hành vi tài chính trước và sau sprint"
+    ],
+    "anchors": {
+      "contentHash": "sha256:27dcedd4a4d9b446ef2682d1184f9dbde67119c23f5c9345f46383dce403a0be",
+      "ipfs": "bafybeifinancesprintledgerproof20260012verifiedentrydemo",
+      "registry": "https://vc.vetuonglai.com/v/VC-2026-0012"
+    }
+  },
+  {
+    "code": "VC-2026-0017",
+    "holder": "Pham Bao Ngan",
+    "program": "Life Reset Pilot",
+    "issuer": "Vetuonglai LIFE",
+    "domain": "life.vetuonglai.com",
+    "status": "reviewing",
+    "issuedAt": "2026-02-14",
+    "summary": "Đang chờ xác minh vòng cuối cho pilot 14 ngày về giấc ngủ, năng lượng và nền nếp cá nhân.",
+    "scope": "Pilot nội bộ, chưa mở phát hành công khai hàng loạt.",
+    "evidence": [
+      "Nhật ký nhịp sinh hoạt và năng lượng hằng ngày",
+      "Biểu mẫu tự đánh giá hành vi nền tảng",
+      "Checklist mentor chờ phê duyệt"
+    ],
+    "anchors": {
+      "contentHash": "sha256:83ec8c4d7f0ad9d7f6ea1df4d15a920f7fd8052a681fcad1c7f8494c0f0b2b81",
+      "ipfs": "",
+      "registry": "https://vc.vetuonglai.com/v/VC-2026-0017"
+    }
+  },
+  {
+    "code": "VC-2026-0024",
+    "holder": "Do Quoc Viet",
+    "program": "Long-Term Investing Primer",
+    "issuer": "Vetuonglai INVEST",
+    "domain": "invest.vetuonglai.com",
+    "status": "planned",
+    "issuedAt": "2026-02-28",
+    "summary": "Credential mẫu cho chương trình đầu tư tỉnh táo đang chuẩn bị mở pilot.",
+    "scope": "Chưa phát hành chính thức, dùng làm blueprint cho lifecycle chứng nhận.",
+    "evidence": [
+      "Khung đánh giá khẩu vị rủi ro",
+      "Checklist due diligence cá nhân",
+      "Cam kết nguyên tắc không FOMO"
+    ],
+    "anchors": {
+      "contentHash": "sha256:9b7ae8b6908f7b75001a1ef4cf20de7f2b7ef7dc42e45e2818329da548f5f632",
+      "ipfs": "",
+      "registry": "https://vc.vetuonglai.com/v/VC-2026-0024"
+    }
+  }
+]

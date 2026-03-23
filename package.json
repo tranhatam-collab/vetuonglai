@@ -1,0 +1,20 @@
+{
+  "name": "vetuonglai-system",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Static multi-site system for vetuonglai.com and related subdomains.",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "cloudflare:sync": "node scripts/cloudflare-sync.mjs",
+    "cloudflare:deploy": "node scripts/deploy-pages.mjs",
+    "cloudflare:deploy:preview": "node scripts/deploy-pages.mjs --branch preview",
+    "preview:hub": "python3 -m http.server 4173 --directory dist/vetuonglai.com",
+    "preview:vc": "python3 -m http.server 4174 --directory dist/vc.vetuonglai.com",
+    "preview:edu": "python3 -m http.server 4175 --directory dist/edu.vetuonglai.com",
+    "preview:green": "python3 -m http.server 4176 --directory dist/green.vetuonglai.com",
+    "preview:finance": "python3 -m http.server 4177 --directory dist/finance.vetuonglai.com",
+    "preview:life": "python3 -m http.server 4178 --directory dist/life.vetuonglai.com",
+    "preview:invest": "python3 -m http.server 4179 --directory dist/invest.vetuonglai.com"
+  }
+}
