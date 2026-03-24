@@ -49,6 +49,10 @@ input {
   font: inherit;
 }
 
+[data-lang][hidden] {
+  display: none !important;
+}
+
 .shell {
   max-width: 1220px;
   margin: 0 auto;
@@ -116,6 +120,13 @@ input {
   flex-wrap: wrap;
 }
 
+.nav-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .nav a {
   padding: 9px 12px;
   border-radius: 999px;
@@ -127,6 +138,33 @@ input {
 .nav a.active {
   color: var(--text);
   background: rgba(255, 255, 255, 0.06);
+}
+
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.lang-button {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: 180ms ease;
+}
+
+.lang-button.is-active,
+.lang-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
 }
 
 .hero {

@@ -1,18 +1,27 @@
 [
   {
+    "recordType": "credential",
     "code": "VC-2026-0001",
     "holder": "Tran Ha Tam",
     "program": "Khởi Nghiệp Thực Chiến",
+    "programEn": "Hands-On Startup Building",
     "issuer": "Vetuonglai EDU",
     "domain": "edu.vetuonglai.com",
     "status": "verified",
     "issuedAt": "2026-01-12",
     "summary": "Hoàn thành lộ trình sản phẩm, bán hàng và vận hành với bằng chứng đồ án cuối khóa.",
+    "summaryEn": "Completed the product, sales, and operations path with final project evidence.",
     "scope": "Micro-credential cấp bởi EDU, xác minh độc lập qua VC.",
+    "scopeEn": "A micro-credential issued by EDU and independently verified through VC.",
     "evidence": [
       "Đồ án go-to-market và landing page sản phẩm",
       "Checklist đánh giá mentor và biên bản chấm đầu ra",
       "Hash chứng chỉ neo vào registry độc lập"
+    ],
+    "evidenceEn": [
+      "A go-to-market project and product landing page",
+      "Mentor evaluation checklist and outcome review record",
+      "A certificate hash anchored into the independent registry"
     ],
     "anchors": {
       "contentHash": "sha256:2ab3a710f71c9d09105c1c644fd455ab0ef2f8d84a9d20d7c6c75f9f6f0f52ce",
@@ -21,19 +30,28 @@
     }
   },
   {
+    "recordType": "credential",
     "code": "VC-2026-0008",
     "holder": "Nguyen Hoang Anh",
     "program": "Green Stewardship Pilot",
+    "programEn": "Green Stewardship Pilot",
     "issuer": "Vetuonglai GREEN",
     "domain": "green.vetuonglai.com",
     "status": "verified",
     "issuedAt": "2026-01-26",
     "summary": "Xác nhận hoàn thành 30 ngày đo lường tác động xanh và báo cáo giảm rác thải có kiểm tra chéo.",
+    "summaryEn": "Confirmed completion of a 30-day green-impact measurement and cross-verified waste reduction report.",
     "scope": "Pilot chứng chỉ hành động xanh cho chương trình cộng đồng.",
+    "scopeEn": "A pilot environmental-action credential for a community program.",
     "evidence": [
       "Nhật ký ảnh trước và sau can thiệp",
       "Báo cáo đo lường theo checklist bền vững",
       "Biên nhận xác nhận từ điều phối viên chương trình"
+    ],
+    "evidenceEn": [
+      "Before-and-after photo journal",
+      "Impact report aligned with the sustainability checklist",
+      "Confirmation receipt from the program coordinator"
     ],
     "anchors": {
       "contentHash": "sha256:95f1fd8dfdf892f404c319a6b8fe7b2c4d9a29149ea2a79d90d8423f2949f703",
@@ -42,19 +60,28 @@
     }
   },
   {
+    "recordType": "credential",
     "code": "VC-2026-0012",
     "holder": "Le Minh Tu",
     "program": "Money Discipline Sprint",
+    "programEn": "Money Discipline Sprint",
     "issuer": "Vetuonglai FIN",
     "domain": "finance.vetuonglai.com",
     "status": "verified",
     "issuedAt": "2026-02-03",
     "summary": "Hoàn thành sprint 21 ngày về ngân sách, quỹ khẩn cấp và phát hiện mô hình lừa đảo phổ biến.",
+    "summaryEn": "Completed a 21-day sprint on budgeting, emergency funds, and recognizing common scam patterns.",
     "scope": "Certificate nền tảng cho tài chính cá nhân và an toàn rủi ro.",
+    "scopeEn": "A foundation certificate for personal finance and risk safety.",
     "evidence": [
       "Bảng ngân sách 4 tuần đã kiểm tra",
       "Bài phản biện 3 kịch bản lừa đảo tài chính",
       "Biểu mẫu đánh giá hành vi tài chính trước và sau sprint"
+    ],
+    "evidenceEn": [
+      "A reviewed four-week budget sheet",
+      "A critical response to three scam scenarios",
+      "A before-and-after financial behavior assessment"
     ],
     "anchors": {
       "contentHash": "sha256:27dcedd4a4d9b446ef2682d1184f9dbde67119c23f5c9345f46383dce403a0be",
@@ -63,19 +90,28 @@
     }
   },
   {
+    "recordType": "credential",
     "code": "VC-2026-0017",
     "holder": "Pham Bao Ngan",
     "program": "Life Reset Pilot",
+    "programEn": "Life Reset Pilot",
     "issuer": "Vetuonglai LIFE",
     "domain": "life.vetuonglai.com",
     "status": "reviewing",
     "issuedAt": "2026-02-14",
     "summary": "Đang chờ xác minh vòng cuối cho pilot 14 ngày về giấc ngủ, năng lượng và nền nếp cá nhân.",
+    "summaryEn": "Awaiting final verification for a 14-day pilot on sleep, energy, and personal rhythm.",
     "scope": "Pilot nội bộ, chưa mở phát hành công khai hàng loạt.",
+    "scopeEn": "An internal pilot that is not yet open for public-scale issuance.",
     "evidence": [
       "Nhật ký nhịp sinh hoạt và năng lượng hằng ngày",
       "Biểu mẫu tự đánh giá hành vi nền tảng",
       "Checklist mentor chờ phê duyệt"
+    ],
+    "evidenceEn": [
+      "Daily rhythm and energy log",
+      "A self-assessment form for core behaviors",
+      "A mentor checklist pending final approval"
     ],
     "anchors": {
       "contentHash": "sha256:83ec8c4d7f0ad9d7f6ea1df4d15a920f7fd8052a681fcad1c7f8494c0f0b2b81",
@@ -84,19 +120,28 @@
     }
   },
   {
+    "recordType": "credential",
     "code": "VC-2026-0024",
     "holder": "Do Quoc Viet",
     "program": "Long-Term Investing Primer",
+    "programEn": "Long-Term Investing Primer",
     "issuer": "Vetuonglai INVEST",
     "domain": "invest.vetuonglai.com",
     "status": "planned",
     "issuedAt": "2026-02-28",
     "summary": "Credential mẫu cho chương trình đầu tư tỉnh táo đang chuẩn bị mở pilot.",
+    "summaryEn": "A sample credential for the sane-investing program ahead of its pilot opening.",
     "scope": "Chưa phát hành chính thức, dùng làm blueprint cho lifecycle chứng nhận.",
+    "scopeEn": "Not officially issued yet; used as the blueprint for the credential lifecycle.",
     "evidence": [
       "Khung đánh giá khẩu vị rủi ro",
       "Checklist due diligence cá nhân",
       "Cam kết nguyên tắc không FOMO"
+    ],
+    "evidenceEn": [
+      "A risk-appetite assessment framework",
+      "A personal due diligence checklist",
+      "A commitment to the no-FOMO rule"
     ],
     "anchors": {
       "contentHash": "sha256:9b7ae8b6908f7b75001a1ef4cf20de7f2b7ef7dc42e45e2818329da548f5f632",

@@ -9,6 +9,7 @@ const DIST = path.join(ROOT, "dist");
 const requiredFiles = [
   "vetuonglai.com/index.html",
   "vetuonglai.com/apps.json",
+  "vetuonglai.com/manifest.json",
   "vc.vetuonglai.com/index.html",
   "vc.vetuonglai.com/v/index.html",
   "vc.vetuonglai.com/_worker.js",
@@ -34,13 +35,21 @@ async function main() {
   }
 
   const apps = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "apps.json"), "utf8"));
+  const manifest = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "manifest.json"), "utf8"));
   const certificates = JSON.parse(await readFile(path.join(DIST, "vc.vetuonglai.com", "api", "certificates.json"), "utf8"));
   const catalog = JSON.parse(await readFile(path.join(DIST, "edu.vetuonglai.com", "api", "catalog.json"), "utf8"));
   const redirects = await readFile(path.join(DIST, "vc.vetuonglai.com", "_redirects"), "utf8");
   const health = JSON.parse(await readFile(path.join(DIST, "edu.vetuonglai.com", "api", "health"), "utf8"));
+  const hubHtml = await readFile(path.join(DIST, "vetuonglai.com", "index.html"), "utf8");
+  const vcHtml = await readFile(path.join(DIST, "vc.vetuonglai.com", "index.html"), "utf8");
+  const investHtml = await readFile(path.join(DIST, "invest.vetuonglai.com", "index.html"), "utf8");
 
   if (!Array.isArray(apps) || apps.length < 6) {
     throw new Error("apps.json khong du app registry.");
+  }
+
+  if (manifest.version !== "1.0.0") {
+    throw new Error("manifest.json chua dung version V1.0.");
   }
 
   if (!Array.isArray(certificates) || certificates.length < 5) {
@@ -57,6 +66,26 @@ async function main() {
 
   if (!health.ok || health.name !== "vetuonglai-edu") {
     throw new Error("EDU health endpoint khong hop le.");
+  }
+
+  if (!hubHtml.includes('hreflang="vi-VN"') || !hubHtml.includes('hreflang="en-US"')) {
+    throw new Error("Hub HTML chua co hreflang song ngu.");
+  }
+
+  if (!hubHtml.includes('data-language-option="vi"') || !hubHtml.includes('data-language-option="en"')) {
+    throw new Error("Hub HTML chua co bo chuyen ngon ngu.");
+  }
+
+  if (!vcHtml.includes("?lang=en") || !vcHtml.includes("?lang=vi")) {
+    throw new Error("VC HTML chua xuat alternate link ngon ngu day du.");
+  }
+
+  if (!investHtml.includes("khung đầu tư tỉnh táo đã đủ chiều sâu để mở pilot")) {
+    throw new Error("Trang INVEST chua duoc hoan thien noi dung tieng Viet.");
+  }
+
+  if (!investHtml.includes("a sane investing framework now complete enough for a pilot rollout")) {
+    throw new Error("Trang INVEST chua duoc hoan thien noi dung tieng Anh.");
   }
 
   for (const course of catalog) {

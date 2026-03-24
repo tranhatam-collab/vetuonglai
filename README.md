@@ -14,6 +14,7 @@ Static multi-site codebase for:
 
 - `src/data/apps.json`: app registry exposed by hub
 - `src/data/certificates.json`: sample verification records for VC
+- `src/data/system.json`: V1.0 manifest, release metadata, and NFT bridge mapping
 - `src/data/courses.json`: EDU catalog and course detail data
 - `src/shared/style.css`: shared design system for all subdomains
 - `src/shared/app.js`: shared UI helpers
@@ -70,3 +71,9 @@ npm run preview:invest
 - `dist/finance.vetuonglai.com` -> `finance.vetuonglai.com`
 - `dist/life.vetuonglai.com` -> `life.vetuonglai.com`
 - `dist/invest.vetuonglai.com` -> `invest.vetuonglai.com`
+
+## V1.0 notes
+
+- Hub now exposes `manifest.json` with release metadata for the V1.0 cut.
+- `vc.vetuonglai.com` still ships its local certificate registry, but also fetches runtime asset mirrors from `https://nft.iai.one/api/asset-registrations`.
+- This keeps VC independent from the operational app while letting NFT/crypto asset records appear on the public verification layer without rebuilding VC for every new registration.

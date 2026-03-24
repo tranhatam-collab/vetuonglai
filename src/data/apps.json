@@ -2,7 +2,9 @@
   {
     "key": "vc",
     "title": "Chứng Chỉ Số & Xác Minh",
+    "titleEn": "Digital Credentials & Verification",
     "desc": "Registry độc lập để cấp, tra cứu, quét và xác minh chứng chỉ trong vài giây.",
+    "descEn": "An independent registry for issuing, scanning, searching, and verifying credentials in seconds.",
     "url": "https://vc.vetuonglai.com",
     "status": "live",
     "stageLabel": "LIVE"
@@ -10,7 +12,9 @@
   {
     "key": "edu",
     "title": "Giáo Dục Tương Lai",
+    "titleEn": "Future Education",
     "desc": "Khóa học, lộ trình năng lực và micro-credential gắn với lớp xác minh VC.",
+    "descEn": "Courses, competency pathways, and micro-credentials connected to the VC verification layer.",
     "url": "https://edu.vetuonglai.com",
     "status": "beta",
     "stageLabel": "BETA"
@@ -18,7 +22,9 @@
   {
     "key": "life",
     "title": "Đời Sống Tương Lai",
+    "titleEn": "Future Life",
     "desc": "Life operating system cho sức khỏe, nhịp sống, năng lượng và kỷ luật cá nhân.",
+    "descEn": "A life operating system for health, rhythm, energy, and personal discipline.",
     "url": "https://life.vetuonglai.com",
     "status": "planned",
     "stageLabel": "PLANNED"
@@ -26,7 +32,9 @@
   {
     "key": "green",
     "title": "Chứng Chỉ Môi Trường",
+    "titleEn": "Environmental Credentials",
     "desc": "Bằng chứng xanh, đóng góp bền vững và chương trình tác động có thể xác minh.",
+    "descEn": "Green evidence, sustainable contributions, and impact programs that can be independently verified.",
     "url": "https://green.vetuonglai.com",
     "status": "live",
     "stageLabel": "LIVE"
@@ -34,7 +42,9 @@
   {
     "key": "finance",
     "title": "Tài Chính Cơ Bản",
+    "titleEn": "Core Financial Literacy",
     "desc": "Tư duy tiền bạc, quản trị rủi ro, dấu hiệu lừa đảo và kỷ luật tài chính dài hạn.",
+    "descEn": "Money discipline, risk management, scam awareness, and long-term financial behavior.",
     "url": "https://finance.vetuonglai.com",
     "status": "live",
     "stageLabel": "LIVE"
@@ -42,9 +52,21 @@
   {
     "key": "invest",
     "title": "Đầu Tư Tỉnh Táo",
+    "titleEn": "Sane Investing",
     "desc": "Khung đầu tư dài hạn với due diligence, khẩu vị rủi ro và nguyên tắc không FOMO.",
+    "descEn": "A long-term investing framework built on due diligence, risk appetite, and a strict no-FOMO rule.",
     "url": "https://invest.vetuonglai.com",
     "status": "planned",
     "stageLabel": "PLANNED"
+  },
+  {
+    "key": "nft",
+    "title": "NFT Trust Bridge",
+    "titleEn": "NFT Trust Bridge",
+    "desc": "Cầu nối tới nft.iai.one để mirror các bản ghi tài sản mã hóa sang VC độc lập của Về Tương Lai.",
+    "descEn": "A bridge into nft.iai.one that mirrors digital-asset records into Về Tương Lai's independent VC layer.",
+    "url": "https://nft.iai.one",
+    "status": "live",
+    "stageLabel": "BRIDGE"
   }
 ]

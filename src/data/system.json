@@ -1,0 +1,14 @@
+{
+  "version": "1.0.0",
+  "releaseName": "Vetuonglai Web System V1.0",
+  "releaseNameEn": "Vetuonglai Web System V1.0",
+  "updatedAt": "2026-03-24T10:30:00+07:00",
+  "summary": "Bản V1.0 gom hub, VC, EDU, GREEN, FIN, LIFE, INVEST vào một codebase và nối thêm cầu mirror sang nft.iai.one cho tài sản mã hóa.",
+  "summaryEn": "The V1.0 release unifies the hub, VC, EDU, GREEN, FIN, LIFE, and INVEST into one codebase while connecting an NFT mirror bridge from nft.iai.one for digital-asset verification.",
+  "nftBridge": {
+    "siteUrl": "https://nft.iai.one",
+    "registryUrl": "https://nft.iai.one/api/asset-registrations",
+    "verifyUrl": "https://vc.vetuonglai.com",
+    "mode": "runtime-mirror"
+  }
+}

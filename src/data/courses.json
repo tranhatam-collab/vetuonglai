@@ -2,10 +2,14 @@
   {
     "slug": "startup-1000",
     "title": "Khởi Nghiệp Thực Chiến",
+    "titleEn": "Hands-On Startup Building",
     "tagline": "Từ ý tưởng đến bán được hàng đầu tiên, không tô hồng, không hô khẩu hiệu.",
+    "taglineEn": "From idea to first sale, without hype, without slogans.",
     "summary": "Lộ trình 6-8 tuần cho founder giai đoạn sớm: xác định vấn đề, thiết kế offer, xây landing, thử bán và lập dashboard vận hành.",
+    "summaryEn": "A 6-8 week path for early-stage founders: define the problem, shape the offer, build the landing page, test sales, and set up an operating dashboard.",
     "level": "Intermediate",
     "duration": "6-8 tuần",
+    "durationEn": "6-8 weeks",
     "price": "$1000",
     "certificateCode": "VC-2026-0001",
     "outcomes": [
@@ -13,20 +17,35 @@
       "Có pipeline thử nghiệm bán hàng đầu tiên",
       "Có bảng đo chỉ số tối thiểu để ra quyết định"
     ],
+    "outcomesEn": [
+      "A clear landing page and offer",
+      "An initial sales experimentation pipeline",
+      "A minimum metrics dashboard for decision-making"
+    ],
     "modules": [
       "Problem framing và customer truth",
       "Offer, pricing và narrative",
       "Landing page, lead flow, CRM tối thiểu",
       "Sales call, objection map, weekly review"
+    ],
+    "modulesEn": [
+      "Problem framing and customer truth",
+      "Offer design, pricing, and narrative",
+      "Landing page, lead flow, and lightweight CRM",
+      "Sales calls, objection mapping, and weekly review"
     ]
   },
   {
     "slug": "money-discipline-sprint",
     "title": "Money Discipline Sprint",
+    "titleEn": "Money Discipline Sprint",
     "tagline": "Thiết lập ngân sách, quỹ an toàn và radar nhận biết lừa đảo tài chính.",
+    "taglineEn": "Build a budget, a safety buffer, and a practical radar for financial scams.",
     "summary": "Sprint 21 ngày để chỉnh hành vi tiền bạc và khử mù mờ trong quản trị rủi ro cá nhân.",
+    "summaryEn": "A 21-day sprint for reshaping money behavior and removing ambiguity from personal risk management.",
     "level": "Beginner",
     "duration": "21 ngày",
+    "durationEn": "21 days",
     "price": "$149",
     "certificateCode": "VC-2026-0012",
     "outcomes": [
@@ -34,20 +53,35 @@
       "Tạo được khung quỹ khẩn cấp và nguyên tắc đệm rủi ro",
       "Nhận diện 8 dấu hiệu lừa đảo tài chính thường gặp"
     ],
+    "outcomesEn": [
+      "Build a realistic budget from real cash flow",
+      "Create an emergency-fund framework and risk-buffer rules",
+      "Recognize 8 common financial scam signals"
+    ],
     "modules": [
       "Dòng tiền cá nhân",
       "Quỹ khẩn cấp và giới hạn đòn bẩy",
       "Kịch bản lừa đảo và kiểm tra thông tin",
       "Kỷ luật duy trì sau sprint"
+    ],
+    "modulesEn": [
+      "Personal cash flow",
+      "Emergency funds and leverage limits",
+      "Scam scenarios and information checks",
+      "Discipline after the sprint"
     ]
   },
   {
     "slug": "green-stewardship-pilot",
     "title": "Green Stewardship Pilot",
+    "titleEn": "Green Stewardship Pilot",
     "tagline": "Biến hành động xanh thành bằng chứng kiểm tra được.",
+    "taglineEn": "Turn green actions into evidence that can actually be checked.",
     "summary": "Pilot 30 ngày về thói quen xanh, đo tác động và viết báo cáo có xác nhận chéo.",
+    "summaryEn": "A 30-day pilot on green habits, impact measurement, and writing reports with cross-verification.",
     "level": "Beginner",
     "duration": "30 ngày",
+    "durationEn": "30 days",
     "price": "$99",
     "certificateCode": "VC-2026-0008",
     "outcomes": [
@@ -55,11 +89,22 @@
       "Biết chuẩn hóa bằng chứng trước/sau",
       "Có thể nộp hồ sơ để cấp chứng chỉ xanh"
     ],
+    "outcomesEn": [
+      "Produce a minimum viable green-impact log",
+      "Standardize before/after evidence",
+      "Prepare a valid application for environmental credentials"
+    ],
     "modules": [
       "Đặt baseline và mục tiêu",
       "Thu thập bằng chứng đúng chuẩn",
       "Tổng hợp báo cáo và xác nhận chéo",
       "Neo chứng nhận vào VC"
+    ],
+    "modulesEn": [
+      "Set the baseline and target",
+      "Collect evidence in the right format",
+      "Assemble the report and cross-verification",
+      "Anchor the credential into VC"
     ]
   }
 ]
