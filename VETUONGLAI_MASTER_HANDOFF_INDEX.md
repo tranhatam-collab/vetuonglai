@@ -62,6 +62,9 @@ File bổ sung bắt buộc cho team EDU:
 
 - `VETUONGLAI_MASTER_VISION_AND_POSITIONING.md`
 - `VETUONGLAI_ECOSYSTEM_ARCHITECTURE.md`
+- `VETUONGLAI_MASTER_SYSTEM_UPGRADE_2026_04.md`
+- `VETUONGLAI_NORTH_STAR_VISION_2026.md`
+- `VETUONGLAI_SUBDOMAIN_MISSION_AND_SEO_MASTER.md`
 
 ### Brand / Content / Design
 
@@ -71,12 +74,15 @@ File bổ sung bắt buộc cho team EDU:
 - `VETUONGLAI_FULL_WEBSITE_COPY.md`
 - `AI_TUTOR_HUMAN_SCRIPT.md`
 - `STORY_PACK_50.md`
+- `VETUONGLAI_HOMEPAGE_DIRECTION_SYSTEM.md`
+- `VETUONGLAI_DOMAIN_HOMEPAGE_COPY_GUIDE.md`
 
 ### Product / Domain direction
 
 - `VETUONGLAI_DOMAIN_ROLE_MATRIX.md`
 - `VETUONGLAI_EDU_PRODUCT_SPEC.md`
 - `VETUONGLAI_VC_TRUST_LAYER_MASTER_SPEC.md`
+- `VETUONGLAI_ECONOMY_AND_MEMBER_SYSTEM_MASTER.md`
 
 ### Platform / Data
 
@@ -161,6 +167,41 @@ Các file bổ sung để bộ handoff đủ cho content, admin, onboarding, das
 - `VETUONGLAI_TEAM_OPERATING_MODEL.md`
 - `VETUONGLAI_RUNTIME_TRUTH_AND_QA.md`
 - `VETUONGLAI_LEGAL_ETHICS_AND_DISCLAIMER_PACK.md`
+
+## Batch V2 đã được khóa cho team
+
+Các file V2 sau đây là bộ brief mở rộng chính thức để team DEV, OPS, LEGAL, CONTENT cùng bám khi triển khai economy, member, VC, work, legal, wallet và journey ở cấp hệ thống:
+
+- `01_ecosystem_architecture_v2.md`
+- `02_member_policy_full.md`
+- `03_vc_trust_system.md`
+- `04_proof_based_economy.md`
+- `05_edu_ai_learning_spec.md`
+- `06_work_job_board_spec.md`
+- `07_affiliate_clean_program.md`
+- `08_content_policy_strict.md`
+- `09_tech_architecture_erd.md`
+- `10_launch_roadmap_phases.md`
+- `11_legal_policies_vn.md`
+- `12_creator_earning_wallet.md`
+- `13_brand_tone_of_voice.md`
+- `14_data_flow_journey.md`
+
+## Batch V2 mở rộng đã hoàn tất đến 20 file
+
+Các file bổ sung cho Founder, Investor, Marketing, Design, Content và QA:
+
+- `15_financial_model_brief.md`
+- `16_marketing_launch_plan.md`
+- `17_investor_deck_brief.md`
+- `18_wireframe_ui_brief.md`
+- `19_seed_content_plan.md`
+- `20_testing_plan_vc_escrow.md`
+
+Lưu ý:
+
+- Bộ V2 này là target architecture và operating brief, không mặc định đồng nghĩa với runtime đang live.
+- Mọi trạng thái live/preview/planned phải tiếp tục đối chiếu với runtime truth thật trong repo.
 
 ## Trạng thái handoff hiện tại
 
