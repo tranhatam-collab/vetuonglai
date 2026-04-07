@@ -15,9 +15,10 @@
     "titleEn": "Future Education",
     "desc": "Khóa học, lộ trình năng lực và micro-credential gắn với lớp xác minh VC.",
     "descEn": "Courses, competency pathways, and micro-credentials connected to the VC verification layer.",
-    "url": "https://edu.vetuonglai.com",
+    "url": "https://vetuonglai-edu.pages.dev",
+    "publicUrl": "https://edu.vetuonglai.com",
     "status": "beta",
-    "stageLabel": "BETA"
+    "stageLabel": "PREVIEW"
   },
   {
     "key": "life",
@@ -25,9 +26,10 @@
     "titleEn": "Future Life",
     "desc": "Life operating system cho sức khỏe, nhịp sống, năng lượng và kỷ luật cá nhân.",
     "descEn": "A life operating system for health, rhythm, energy, and personal discipline.",
-    "url": "https://life.vetuonglai.com",
+    "url": "https://vetuonglai-life.pages.dev",
+    "publicUrl": "https://life.vetuonglai.com",
     "status": "planned",
-    "stageLabel": "PLANNED"
+    "stageLabel": "PREVIEW"
   },
   {
     "key": "green",
@@ -55,9 +57,10 @@
     "titleEn": "Sane Investing",
     "desc": "Khung đầu tư dài hạn với due diligence, khẩu vị rủi ro và nguyên tắc không FOMO.",
     "descEn": "A long-term investing framework built on due diligence, risk appetite, and a strict no-FOMO rule.",
-    "url": "https://invest.vetuonglai.com",
+    "url": "https://vetuonglai-invest.pages.dev",
+    "publicUrl": "https://invest.vetuonglai.com",
     "status": "planned",
-    "stageLabel": "PLANNED"
+    "stageLabel": "PREVIEW"
   },
   {
     "key": "nft",

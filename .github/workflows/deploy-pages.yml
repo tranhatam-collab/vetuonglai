@@ -35,3 +35,12 @@ jobs:
 
       - name: Deploy Pages
         run: npm run cloudflare:deploy
+
+      - name: Deploy Workers
+        run: npm run cloudflare:deploy:workers
+
+      - name: Verify Runtime Domains
+        run: npm run cloudflare:verify:runtime
+
+      - name: Smoke Endpoints
+        run: npm run cloudflare:smoke:endpoints

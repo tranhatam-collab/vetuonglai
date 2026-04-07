@@ -10,6 +10,8 @@
     "cloudflare:deploy": "node scripts/deploy-pages.mjs",
     "cloudflare:deploy:preview": "node scripts/deploy-pages.mjs --branch preview",
     "cloudflare:deploy:workers": "node scripts/deploy-workers.mjs",
+    "cloudflare:verify:runtime": "node scripts/verify-runtime.mjs",
+    "cloudflare:smoke:endpoints": "node scripts/smoke-endpoints.mjs",
     "preview:hub": "python3 -m http.server 4173 --directory dist/vetuonglai.com",
     "preview:vc": "python3 -m http.server 4174 --directory dist/vc.vetuonglai.com",
     "preview:edu": "python3 -m http.server 4175 --directory dist/edu.vetuonglai.com",

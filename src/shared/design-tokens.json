@@ -1,0 +1,95 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "meta": {
+    "name": "Vetuonglai Design Tokens",
+    "version": "1.0.0",
+    "updatedAt": "2026-04-07"
+  },
+  "core": {
+    "color": {
+      "background": {
+        "primary": "#F7FBFA",
+        "secondary": "#ECF6F4",
+        "glass": "rgba(255,255,255,0.6)"
+      },
+      "text": {
+        "primary": "#0F172A",
+        "secondary": "#475569"
+      },
+      "accent": {
+        "green": "#4ADE80",
+        "blue": "#22D3EE",
+        "violet": "#818CF8",
+        "gold": "#FACC15"
+      },
+      "border": {
+        "light": "#E2E8F0"
+      }
+    },
+    "gradient": {
+      "main": "linear-gradient(135deg, #4ADE80, #22D3EE, #818CF8)"
+    },
+    "spacing": {
+      "xs": "4px",
+      "sm": "8px",
+      "md": "16px",
+      "lg": "24px",
+      "xl": "40px"
+    },
+    "radius": {
+      "button": "16px",
+      "card": "20px",
+      "modal": "24px",
+      "input": "12px"
+    },
+    "motion": {
+      "durationFast": "200ms",
+      "durationBase": "300ms",
+      "durationSlow": "400ms",
+      "easing": "ease-out"
+    },
+    "layout": {
+      "maxWidth": "1200px",
+      "paddingDesktop": "24px",
+      "paddingMobile": "16px",
+      "navbarHeight": "64px"
+    }
+  },
+  "domains": {
+    "life": {
+      "primary": "#4ADE80",
+      "gradient": "linear-gradient(135deg, #4ADE80, #86EFAC)",
+      "surfaceTint": "rgba(74,222,128,0.12)"
+    },
+    "edu": {
+      "primary": "#22D3EE",
+      "gradient": "linear-gradient(135deg, #22D3EE, #818CF8)",
+      "surfaceTint": "rgba(34,211,238,0.12)"
+    },
+    "finance": {
+      "primary": "#FACC15",
+      "gradient": "linear-gradient(135deg, #FACC15, #FB923C)",
+      "surfaceTint": "rgba(250,204,21,0.14)"
+    },
+    "invest": {
+      "primary": "#818CF8",
+      "gradient": "linear-gradient(135deg, #818CF8, #22D3EE)",
+      "surfaceTint": "rgba(129,140,248,0.14)"
+    },
+    "green": {
+      "primary": "#34D399",
+      "gradient": "linear-gradient(135deg, #34D399, #65A30D)",
+      "surfaceTint": "rgba(52,211,153,0.12)"
+    },
+    "vc": {
+      "primary": "#6366F1",
+      "gradient": "linear-gradient(135deg, #6366F1, #22D3EE)",
+      "surfaceTint": "rgba(99,102,241,0.14)"
+    },
+    "community": {
+      "primary": "#FB7185",
+      "gradient": "linear-gradient(135deg, #FB7185, #A78BFA)",
+      "surfaceTint": "rgba(251,113,133,0.14)"
+    }
+  }
+}

@@ -1,0 +1,83 @@
+:root {
+  --vt-bg-main: #f7fbfa;
+  --vt-bg-soft: #ecf6f4;
+  --vt-bg-glass: rgba(255, 255, 255, 0.6);
+
+  --vt-text-main: #0f172a;
+  --vt-text-soft: #475569;
+  --vt-border-light: #e2e8f0;
+
+  --vt-accent-green: #4ade80;
+  --vt-accent-blue: #22d3ee;
+  --vt-accent-violet: #818cf8;
+  --vt-accent-gold: #facc15;
+
+  --vt-gradient-main: linear-gradient(135deg, #4ade80, #22d3ee, #818cf8);
+
+  --vt-space-xs: 4px;
+  --vt-space-sm: 8px;
+  --vt-space-md: 16px;
+  --vt-space-lg: 24px;
+  --vt-space-xl: 40px;
+
+  --vt-radius-input: 12px;
+  --vt-radius-button: 16px;
+  --vt-radius-card: 20px;
+  --vt-radius-modal: 24px;
+
+  --vt-motion-fast: 200ms;
+  --vt-motion-base: 300ms;
+  --vt-motion-slow: 400ms;
+  --vt-motion-ease: ease-out;
+
+  --vt-layout-max-width: 1200px;
+  --vt-layout-padding-desktop: 24px;
+  --vt-layout-padding-mobile: 16px;
+  --vt-layout-navbar-height: 64px;
+
+  --vt-domain-primary: var(--vt-accent-blue);
+  --vt-domain-gradient: linear-gradient(135deg, #22d3ee, #818cf8);
+  --vt-domain-surface-tint: rgba(34, 211, 238, 0.12);
+}
+
+html[data-domain="life"] {
+  --vt-domain-primary: #4ade80;
+  --vt-domain-gradient: linear-gradient(135deg, #4ade80, #86efac);
+  --vt-domain-surface-tint: rgba(74, 222, 128, 0.12);
+}
+
+html[data-domain="edu"] {
+  --vt-domain-primary: #22d3ee;
+  --vt-domain-gradient: linear-gradient(135deg, #22d3ee, #818cf8);
+  --vt-domain-surface-tint: rgba(34, 211, 238, 0.12);
+}
+
+html[data-domain="finance"] {
+  --vt-domain-primary: #facc15;
+  --vt-domain-gradient: linear-gradient(135deg, #facc15, #fb923c);
+  --vt-domain-surface-tint: rgba(250, 204, 21, 0.14);
+}
+
+html[data-domain="invest"] {
+  --vt-domain-primary: #818cf8;
+  --vt-domain-gradient: linear-gradient(135deg, #818cf8, #22d3ee);
+  --vt-domain-surface-tint: rgba(129, 140, 248, 0.14);
+}
+
+html[data-domain="green"] {
+  --vt-domain-primary: #34d399;
+  --vt-domain-gradient: linear-gradient(135deg, #34d399, #65a30d);
+  --vt-domain-surface-tint: rgba(52, 211, 153, 0.12);
+}
+
+html[data-domain="vc"] {
+  --vt-domain-primary: #6366f1;
+  --vt-domain-gradient: linear-gradient(135deg, #6366f1, #22d3ee);
+  --vt-domain-surface-tint: rgba(99, 102, 241, 0.14);
+}
+
+html[data-domain="community"] {
+  --vt-domain-primary: #fb7185;
+  --vt-domain-gradient: linear-gradient(135deg, #fb7185, #a78bfa);
+  --vt-domain-surface-tint: rgba(251, 113, 133, 0.14);
+}

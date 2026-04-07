@@ -1,0 +1,54 @@
+{
+  "lastUpdated": "2026-04-07",
+  "domains": [
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com",
+      "servingModel": "worker_fronted",
+      "status": "live",
+      "requiredPublic": true
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "live",
+      "requiredPublic": true
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com",
+      "servingModel": "worker_fronted",
+      "status": "live",
+      "requiredPublic": true
+    },
+    {
+      "host": "green.vetuonglai.com",
+      "url": "https://green.vetuonglai.com",
+      "servingModel": "worker_fronted",
+      "status": "live",
+      "requiredPublic": true
+    },
+    {
+      "host": "finance.vetuonglai.com",
+      "url": "https://finance.vetuonglai.com",
+      "servingModel": "worker_fronted",
+      "status": "live",
+      "requiredPublic": true
+    },
+    {
+      "host": "life.vetuonglai.com",
+      "url": "https://life.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false
+    },
+    {
+      "host": "invest.vetuonglai.com",
+      "url": "https://invest.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false
+    }
+  ]
+}

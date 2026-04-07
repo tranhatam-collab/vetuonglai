@@ -8,6 +8,8 @@ const SRC = path.join(ROOT, "src");
 const DIST = path.join(ROOT, "dist");
 
 const styleCss = await readFile(path.join(SRC, "shared", "style.css"), "utf8");
+const designTokensCss = await readFile(path.join(SRC, "shared", "design-tokens.css"), "utf8");
+const designTokensJson = await readFile(path.join(SRC, "shared", "design-tokens.json"), "utf8");
 const sharedJs = await readFile(path.join(SRC, "shared", "app.js"), "utf8");
 const apps = JSON.parse(await readFile(path.join(SRC, "data", "apps.json"), "utf8"));
 const certificates = JSON.parse(await readFile(path.join(SRC, "data", "certificates.json"), "utf8"));
@@ -174,6 +176,7 @@ function statusBadge(status, label) {
 function appStageLabel(app) {
   if (app.stageLabel === "BRIDGE") return pair("Cầu nối", "Bridge");
   if (app.stageLabel === "LIVE") return pair("Trực tiếp", "Live");
+  if (app.stageLabel === "PREVIEW") return pair("Xem trước", "Preview");
   if (app.stageLabel === "BETA") return pair("Thử nghiệm", "Beta");
   if (app.stageLabel === "PLANNED") return pair("Kế hoạch", "Planned");
   return pair(app.stageLabel || app.status || "", app.stageLabel || app.status || "");
@@ -360,7 +363,7 @@ function renderShell({
   const canonical = absoluteUrl(domains[currentKey], pathname);
 
   return `<!doctype html>
-<html lang="vi" data-language="vi">
+<html lang="vi" data-language="vi" data-domain="${escapeHtml(currentKey)}">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -379,6 +382,7 @@ function renderShell({
   <link rel="alternate" hreflang="vi-VN" href="${escapeHtml(localizedUrl(domains[currentKey], pathname, "vi"))}" />
   <link rel="alternate" hreflang="en-US" href="${escapeHtml(localizedUrl(domains[currentKey], pathname, "en"))}" />
   <link rel="alternate" hreflang="x-default" href="${escapeHtml(canonical)}" />
+  <link rel="stylesheet" href="/assets/design-tokens.css" />
   <link rel="stylesheet" href="/assets/style.css" />
   <style>
     :root {
@@ -434,21 +438,28 @@ function renderHubPage() {
     ]),
   });
 
-  const appCards = renderCards(apps.map((app) => renderCard({
+  const appCards = renderCards(apps.map((app) => {
+    const isPreview = app.stageLabel === "PREVIEW";
+    const meta = app.publicUrl
+      ? `<span>preview: ${escapeHtml(app.url)}</span><span>public: ${escapeHtml(app.publicUrl)}</span>`
+      : `<span>${escapeHtml(app.url)}</span>`;
+
+    return renderCard({
     title: cardTitle(pair(app.title, app.titleEn)),
     badge: statusBadge(badgeTone(app.status), appStageLabel(app)),
     body: cardText(pair(app.desc, app.descEn)),
-    meta: `<span>${escapeHtml(app.url)}</span>`,
+    meta,
     actions: button(
       app.url,
       app.key === "nft"
         ? pair("Mở NFT bridge", "Open NFT bridge")
-        : app.status === "planned"
+        : isPreview || app.status === "planned"
           ? pair("Xem bản preview", "Open preview")
           : pair("Mở subdomain", "Open subdomain"),
-      app.status === "planned" ? "ghost" : "primary",
+      isPreview || app.status === "planned" ? "ghost" : "primary",
     ),
-  })));
+  });
+  }));
 
   const languageStandard = renderCards([
     renderCard({
@@ -1724,6 +1735,8 @@ async function writeSiteFile(domain, relativePath, content) {
 }
 
 async function writeAssets(domain) {
+  await writeSiteFile(domain, "assets/design-tokens.css", designTokensCss);
+  await writeSiteFile(domain, "assets/design-tokens.json", designTokensJson);
   await writeSiteFile(domain, "assets/style.css", styleCss);
   await writeSiteFile(domain, "assets/app.js", sharedJs);
 }
