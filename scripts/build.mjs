@@ -272,9 +272,10 @@ function renderTable(headers, rows) {
   `;
 }
 
-function renderSection(title, note, content) {
+function renderSection(title, note, content, sectionId = "") {
+  const idAttr = sectionId ? ` id="${escapeHtml(sectionId)}"` : "";
   return `
-    <section class="section">
+    <section class="section"${idAttr}>
       <div class="section-header">
         <div>
           ${localizedText(title, "h2", { class: "section-title" })}
@@ -401,7 +402,7 @@ function renderShell({
     ${sections.join("\n")}
     <footer class="footer">
       <span>© <span data-year></span> Vetuonglai System</span>
-      ${localizedText(pair("Toàn hệ dùng chung chuẩn ngôn ngữ, metadata và lớp xác minh độc lập.", "The entire system shares one language standard, metadata layer, and independent verification model."), "span", { class: "subtle" })}
+      ${localizedText(pair("Không hứa hẹn thành công nhanh. Chỉ đồng hành để bạn sống tốt hơn, thật hơn, từng ngày.", "No quick-success promises. We walk with you so life gets better, truer, one day at a time."), "span", { class: "subtle" })}
     </footer>
   </main>
   <script src="/assets/app.js" defer></script>
@@ -418,17 +419,16 @@ function renderHubPage() {
   const hero = renderHero({
     eyebrow: pair(`Bản đồ hệ thống • ${system.releaseName}`, `System map • ${system.releaseNameEn}`),
     title: pair(
-      `vetuonglai.com<br><span class="accent">hệ điều hành web và chứng nhận đã đồng bộ</span>`,
-      `vetuonglai.com<br><span class="accent">a synchronized web and credential operating system</span>`,
+      `Một tương lai tốt hơn bắt đầu từ hôm nay`,
+      `A better future starts today`,
     ),
     description: pair(
-      `${system.summary} Mỗi subdomain có vai trò rõ ràng, dùng chung mô hình tin cậy và có thể triển khai độc lập.`,
-      `${system.summaryEn} Each subdomain has a clear role, shares the same trust model, and can be deployed independently.`,
+      `Không phải học để thi, mà học để sống, làm, và trở thành chính mình.`,
+      `Not learning to pass exams, but learning to live, build, and become your true self.`,
     ),
     actions: [
-      button(`https://${domains.vc}`, pair("Mở VC", "Open VC")),
-      button(`https://${domains.edu}`, pair("Mở EDU", "Open EDU"), "ghost"),
-      button(`https://${domains.invest}`, pair("Mở INVEST", "Open INVEST"), "ghost"),
+      button(`https://${domains.edu}`, pair("Bắt đầu hành trình", "Start your journey")),
+      button("#journey-entry", pair("Tìm hướng đi phù hợp với bạn", "Find your path"), "ghost"),
     ].join(""),
     aside: renderMetrics([
       { value: String(liveCount), label: pair("subdomain đang live", "live subdomains") },
@@ -460,6 +460,69 @@ function renderHubPage() {
     ),
   });
   }));
+
+  const problemCards = renderCards([
+    renderCard({
+      title: cardTitle(pair("Mất phương hướng", "Losing direction")),
+      body: cardText(pair("Nhiều người cố gắng rất nhiều nhưng vẫn không rõ mình đang đi đâu.", "Many people work hard but still do not know where they are headed.")),
+    }),
+    renderCard({
+      title: cardTitle(pair("Học sai cách", "Learning the wrong way")),
+      body: cardText(pair("Học để thi và nhớ tạm thời, thay vì học để sống và làm thật.", "Learning for short-term tests instead of learning to live and build real outcomes.")),
+    }),
+    renderCard({
+      title: cardTitle(pair("Sống sai nhịp", "Living out of rhythm")),
+      body: cardText(pair("Nhịp sống rối loạn làm giảm năng lượng, sự tập trung và chất lượng quyết định.", "A disrupted life rhythm weakens energy, focus, and decision quality.")),
+    }),
+  ]);
+
+  const visionSection = `
+    <article class="card">
+      <div class="card-body stack">
+        ${cardTitle(pair("Tầm nhìn sống", "Life vision"))}
+        ${cardText(pair(
+          "Một hệ sinh thái giúp con người sống đủ đầy, tự chủ, hiểu mình, và tạo giá trị bền vững theo từng bước thực hành.",
+          "An ecosystem that helps people live fully, become self-directed, understand themselves, and create sustainable value through practical steps.",
+        ), "body-copy")}
+      </div>
+    </article>
+  `;
+
+  const journeyEntry = renderCards([
+    renderCard({
+      title: cardTitle(pair("Bạn đang mất nhịp sống", "You are losing your life rhythm")),
+      body: cardText(pair("Bắt đầu từ LIFE để ổn định năng lượng, kỷ luật và nhịp sống nền.", "Start with LIFE to stabilize your energy, discipline, and baseline rhythm.")),
+      actions: button(`https://${domains.life}`, pair("Bắt đầu từng bước", "Start step by step"), "ghost"),
+    }),
+    renderCard({
+      title: cardTitle(pair("Bạn cần học để làm", "You need to learn by doing")),
+      body: cardText(pair("Vào EDU để học với AI Tutor, làm project thật và tạo đầu ra có thể xác minh.", "Enter EDU to learn with AI Tutor, build real projects, and create verifiable outcomes.")),
+      actions: button(`https://${domains.edu}`, pair("Vào EDU", "Open EDU")),
+    }),
+    renderCard({
+      title: cardTitle(pair("Bạn cần chuẩn hóa niềm tin", "You need trusted proof")),
+      body: cardText(pair("Dùng VC để xác minh chứng nhận và bằng chứng học tập hoặc thực hành.", "Use VC to verify credentials and proof from learning or practice.")),
+      actions: button(`https://${domains.vc}`, pair("Mở VC", "Open VC"), "ghost"),
+    }),
+  ]);
+
+  const stories = renderCards([
+    renderCard({
+      title: cardTitle(pair("Trước: mất định hướng", "Before: no clear direction")),
+      badge: statusBadge("reviewing", pair("câu chuyện thật", "real story")),
+      body: cardText(pair("Một người học nhiều nhưng không ứng dụng được vào đời sống.", "A learner consumed content but could not apply it in real life.")),
+    }),
+    renderCard({
+      title: cardTitle(pair("Trong: học và làm", "During: learn and do")),
+      badge: statusBadge("beta", pair("hành động", "action")),
+      body: cardText(pair("Đi qua lộ trình ngắn, có AI đồng hành và bài thực hành theo từng mốc.", "They moved through a short pathway with AI guidance and milestone-based practice.")),
+    }),
+    renderCard({
+      title: cardTitle(pair("Sau: có tiến bộ và bằng chứng", "After: progress with proof")),
+      badge: statusBadge("live", pair("xác minh", "verified")),
+      body: cardText(pair("Có kết quả đo được và hồ sơ đủ chuẩn để xác minh tại VC.", "They reached measurable outcomes with evidence that can be verified on VC.")),
+    }),
+  ]);
 
   const languageStandard = renderCards([
     renderCard({
@@ -585,7 +648,11 @@ function renderHubPage() {
     navItems: ecosystemNav("hub"),
     hero,
     sections: [
-      renderSection(pair("Ecosystem Registry", "Ecosystem registry"), pair("Danh mục các domain và vai trò hiện tại", "The current list of domains and their responsibilities"), appCards),
+      renderSection(pair("Vấn đề thực tế", "Real problems"), pair("Những điểm nghẽn con người đang gặp mỗi ngày", "The core frictions people face every day"), problemCards),
+      renderSection(pair("Tầm nhìn", "Vision"), pair("Đích đến của một hệ sống, học và làm thật", "The direction of a life, learning, and action system"), visionSection),
+      renderSection(pair("Bắt đầu hành trình", "Journey entry"), pair("Chọn điểm xuất phát để hệ gợi ý đường đi phù hợp", "Pick your starting point and get a suitable path"), journeyEntry, "journey-entry"),
+      renderSection(pair("Câu chuyện chuyển hóa", "Transformation stories"), pair("Người thật, hành trình thật, kết quả có thể xác minh", "Real people, real journeys, verifiable outcomes"), stories),
+      renderSection(pair("Ecosystem Registry", "Ecosystem registry"), pair("Danh mục các domain và vai trò hiện tại", "The current list of domains and their responsibilities"), appCards, "ecosystem-map"),
       renderSection(pair("Chuẩn ngôn ngữ V1.0", "Language standard in V1.0"), pair("Nền tảng song ngữ áp dụng trên toàn hệ", "The bilingual foundation now applied across the whole system"), languageStandard),
       renderSection(pair("Bản phát hành V1.0", "The V1.0 release"), pair("Phiên bản đồng bộ cho toàn hệ", "The synchronized release across the whole system"), v1),
       renderSection(pair("Mô hình tin cậy", "Trust model"), pair("Đường đi xác minh và tách vai trò theo domain", "Verification paths and responsibility boundaries by domain"), trustFlow),
@@ -598,8 +665,8 @@ function renderVcHome() {
   const hero = renderHero({
     eyebrow: pair("Registry xác minh độc lập", "Independent verification registry"),
     title: pair(
-      `VC<br><span class="accent">xác minh độc lập cho toàn hệ Về Tương Lai</span>`,
-      `VC<br><span class="accent">independent verification for the full Vetuonglai system</span>`,
+      `VC<br><span class="accent">không phải chứng chỉ đẹp, mà là bằng chứng làm được</span>`,
+      `VC<br><span class="accent">not decorative certificates, but proof of real capability</span>`,
     ),
     description: pair(
       "Nhập mã chứng nhận, mở đường dẫn `/v/:code` hoặc duyệt registry. VC giữ vai trò độc lập với app phát hành và đọc thêm NFT mirror từ nft.iai.one cho hồ sơ tài sản mã hóa.",
@@ -1103,15 +1170,15 @@ function renderEduHome() {
   const hero = renderHero({
     eyebrow: pair("Lớp giáo dục tương lai", "Future education layer"),
     title: pair(
-      `EDU<br><span class="accent">học để có bằng chứng, không chỉ có nội dung</span>`,
-      `EDU<br><span class="accent">learn toward proof, not just content</span>`,
+      `Học không phải để thi.<br><span class="accent">Học để làm được.</span>`,
+      `Learning is not for exams.<br><span class="accent">Learning is for real action.</span>`,
     ),
     description: pair(
-      "Kho khóa học, route chi tiết, catalog JSON và lớp cấp chứng nhận qua VC đã được chuẩn hóa thành bản song ngữ hoàn chỉnh.",
-      "The course library, detail routes, catalog JSON, and VC credential flow are now standardized into a complete bilingual release.",
+      "Bạn sẽ học cùng AI, và học bằng chính trải nghiệm của mình.",
+      "You learn with AI, through your own lived experience.",
     ),
     actions: [
-      button("/courses/", pair("Mở danh sách khóa học", "Open course catalog")),
+      button("/courses/", pair("Bắt đầu học", "Start learning")),
       button(`https://${domains.vc}`, pair("Mở VC", "Open VC"), "ghost"),
     ].join(""),
     aside: renderMetrics([
@@ -1330,12 +1397,12 @@ function renderGreenPage() {
   const hero = renderHero({
     eyebrow: pair("Lớp chứng nhận môi trường", "Green proof layer"),
     title: pair(
-      `GREEN<br><span class="accent">biến hành động xanh thành bằng chứng kiểm tra được</span>`,
-      `GREEN<br><span class="accent">turn green actions into evidence that can actually be checked</span>`,
+      `GREEN<br><span class="accent">bạn không cần cứu thế giới</span>`,
+      `GREEN<br><span class="accent">you do not need to save the world</span>`,
     ),
     description: pair(
-      "Thay vì gắn nhãn xanh mơ hồ, GREEN chuẩn hóa impact dossier, evidence checklist và packet sẵn sàng neo vào VC.",
-      "Instead of vague green claims, GREEN standardizes the impact dossier, evidence checklist, and a packet ready to be anchored in VC.",
+      "Chỉ cần sống có trách nhiệm hơn một chút mỗi ngày.",
+      "Just live a little more responsibly each day.",
     ),
     actions: [
       button(`https://${domains.vc}/v/VC-2026-0008`, pair("Mở chứng nhận mẫu", "Open sample credential")),
@@ -1423,12 +1490,12 @@ function renderFinancePage() {
   const hero = renderHero({
     eyebrow: pair("Lớp giáo dục tài chính", "Financial literacy layer"),
     title: pair(
-      `FIN<br><span class="accent">tài chính cơ bản, rõ rủi ro, không thổi phồng</span>`,
-      `FIN<br><span class="accent">financial basics with clear risk and no hype</span>`,
+      `FINANCE<br><span class="accent">không cần kiếm thật nhiều tiền trước</span>`,
+      `FINANCE<br><span class="accent">you do not need to earn a lot first</span>`,
     ),
     description: pair(
-      "FIN là một lớp giáo dục thực dụng xoay quanh dòng tiền, thói quen, tín hiệu lừa đảo và các sprint có thể gắn chứng nhận độc lập.",
-      "FIN is a practical education layer around cash flow, habits, scam signals, and sprint formats that can attach to independent credentials.",
+      "Cần hiểu tiền trước.",
+      "You need to understand money first.",
     ),
     actions: [
       button(`https://${domains.edu}/courses/`, pair("Xem khóa học liên quan", "View related courses")),
@@ -1543,12 +1610,12 @@ function renderLifePage() {
   const hero = renderHero({
     eyebrow: pair("Lớp điều hành đời sống", "Life operating layer"),
     title: pair(
-      `LIFE<br><span class="accent">pilot hoàn chỉnh cho nhịp sống, năng lượng và kỷ luật nền</span>`,
-      `LIFE<br><span class="accent">a complete pilot for rhythm, energy, and foundational discipline</span>`,
+      `LIFE<br><span class="accent">một cuộc sống ổn định không đến từ may mắn</span>`,
+      `LIFE<br><span class="accent">a stable life does not come from luck</span>`,
     ),
     description: pair(
-      "LIFE không còn là landing nháp. Bản này đã có cấu trúc pilot, blueprint chứng nhận, vòng review và ngôn ngữ song ngữ đầy đủ.",
-      "LIFE is no longer a rough landing page. This release now includes a pilot structure, credential blueprint, review loop, and complete bilingual language support.",
+      "Nó đến từ cách bạn sống mỗi ngày.",
+      "It comes from how you live each day.",
     ),
     actions: [
       button(`https://${domains.vc}/v/VC-2026-0017`, pair("Mở blueprint VC", "Open VC blueprint")),
@@ -1668,12 +1735,12 @@ function renderInvestPage() {
   const hero = renderHero({
     eyebrow: pair("Lớp đầu tư tỉnh táo", "Sane investing layer"),
     title: pair(
-      `INVEST<br><span class="accent">khung đầu tư tỉnh táo đã đủ chiều sâu để mở pilot</span>`,
-      `INVEST<br><span class="accent">a sane investing framework now complete enough for a pilot rollout</span>`,
+      `INVEST<br><span class="accent">đầu tư không phải để thắng nhanh</span>`,
+      `INVEST<br><span class="accent">investing is not about winning quickly</span>`,
     ),
     description: pair(
-      "INVEST đã được nâng từ trang chưa hoàn chỉnh thành một site có guardrails, khung due diligence, blueprint VC và bản song ngữ chuẩn.",
-      "INVEST has been upgraded from an incomplete page into a real site with guardrails, a due-diligence framework, a VC blueprint, and proper bilingual support.",
+      "Mà để đi xa mà không mất mình.",
+      "It is about going far without losing yourself.",
     ),
     actions: [
       button(`https://${domains.vc}/v/VC-2026-0024`, pair("Mở blueprint VC", "Open VC blueprint")),

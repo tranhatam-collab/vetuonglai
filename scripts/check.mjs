@@ -80,11 +80,11 @@ async function main() {
     throw new Error("VC HTML chua xuat alternate link ngon ngu day du.");
   }
 
-  if (!investHtml.includes("khung đầu tư tỉnh táo đã đủ chiều sâu để mở pilot")) {
+  if (!investHtml.includes("đầu tư không phải để thắng nhanh")) {
     throw new Error("Trang INVEST chua duoc hoan thien noi dung tieng Viet.");
   }
 
-  if (!investHtml.includes("a sane investing framework now complete enough for a pilot rollout")) {
+  if (!investHtml.includes("investing is not about winning quickly")) {
     throw new Error("Trang INVEST chua duoc hoan thien noi dung tieng Anh.");
   }
 
