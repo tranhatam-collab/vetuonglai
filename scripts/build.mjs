@@ -1339,6 +1339,412 @@ function renderEduCourseDetail(course) {
   });
 }
 
+function buildEduCoursePlayerLessons(course) {
+  const fallbackModules = Array.isArray(course.modules) && course.modules.length > 0
+    ? course.modules
+    : ["Khởi động", "Thực hành", "Tổng kết"];
+  const fallbackModulesEn = Array.isArray(course.modulesEn) && course.modulesEn.length > 0
+    ? course.modulesEn
+    : ["Kickoff", "Practice", "Wrap-up"];
+  const typeCycle = ["reading", "ai_guided", "action", "project", "reflection"];
+
+  return fallbackModules.map((moduleTitle, index) => {
+    const moduleTitleEn = fallbackModulesEn[index] || moduleTitle;
+    const type = typeCycle[index % typeCycle.length];
+    const lessonId = `${course.slug}-lesson-${index + 1}`;
+
+    return {
+      id: lessonId,
+      moduleIndex: index + 1,
+      moduleTitle,
+      moduleTitleEn,
+      type,
+      title: `${moduleTitle}`,
+      titleEn: `${moduleTitleEn}`,
+      objective: "Hiểu đúng trọng tâm bài học và áp dụng được vào ngữ cảnh của bạn.",
+      objectiveEn: "Understand the core of this lesson and apply it to your own context.",
+      why: "Nếu không áp dụng ngay, kiến thức sẽ nhanh chóng bị quên.",
+      whyEn: "If you do not apply it immediately, the knowledge fades quickly.",
+      body: "Đọc phần chính, hỏi AI khi chưa rõ, rồi làm một hành động nhỏ để biến nội dung thành kết quả thật.",
+      bodyEn: "Read the core content, ask AI when you are unclear, then complete one small action to turn content into a real outcome.",
+      actionStep: "Viết ra 1 việc bạn sẽ làm trong hôm nay dựa trên bài này.",
+      actionStepEn: "Write one thing you will do today based on this lesson.",
+      reflectionQuestion: "Điều gì trong bài này giúp bạn rõ hướng hơn?",
+      reflectionQuestionEn: "What in this lesson makes your direction clearer?",
+      completionRule:
+        type === "action"
+          ? "must_submit_proof"
+          : type === "project"
+            ? "must_submit_project"
+            : type === "reflection"
+              ? "must_submit_reflection"
+              : type === "ai_guided"
+                ? "must_open_and_ask_ai"
+                : "must_open_and_confirm_understanding",
+    };
+  });
+}
+
+function renderEduCourseOverview(course, lessons) {
+  const hero = renderHero({
+    eyebrow: pair("Course Player", "Course player"),
+    title: pair(
+      `${escapeHtml(course.title)}<br><span class="accent">học để làm được, có AI đồng hành</span>`,
+      `${escapeHtml(course.titleEn)}<br><span class="accent">learn by doing with AI as your companion</span>`,
+    ),
+    description: pair(
+      "Bạn không cần học hết mọi thứ cùng lúc. Chỉ cần bắt đầu từ một bài, làm một hành động, và tiến lên từng bước.",
+      "You do not need to learn everything at once. Start with one lesson, complete one action, and move step by step.",
+    ),
+    actions: [
+      button(`/learn/${course.slug}/player/`, pair("Bắt đầu bài học", "Start lesson")),
+      button(`/course/${course.slug}/`, pair("Xem lại chi tiết khóa", "Back to course detail"), "ghost"),
+    ].join(""),
+  });
+
+  const modules = renderCards(lessons.map((lesson) => renderCard({
+    title: cardTitle(pair(`Module ${lesson.moduleIndex}: ${lesson.title}`, `Module ${lesson.moduleIndex}: ${lesson.titleEn}`)),
+    badge: statusBadge("beta", pair(lesson.type.replaceAll("_", " "), lesson.type.replaceAll("_", " "))),
+    body: cardText(pair(lesson.objective, lesson.objectiveEn)),
+    meta: `<span class="mono">${escapeHtml(lesson.completionRule)}</span>`,
+  })));
+
+  return renderShell({
+    currentKey: "edu",
+    pathname: `/learn/${course.slug}/`,
+    title: pair(`${course.title} • Course Player`, `${course.titleEn} • Course Player`),
+    description: pair(
+      `Lộ trình học hành động cho khóa ${course.title}.`,
+      `Action-based learning path for ${course.titleEn}.`,
+    ),
+    navItems: ecosystemNav("edu"),
+    hero,
+    sections: [
+      renderSection(pair("Lộ trình bài học", "Lesson roadmap"), pair("Mỗi bài phải tạo được hành động thật và bằng chứng thật", "Each lesson must produce real action and real proof"), modules),
+    ],
+  });
+}
+
+function renderEduCoursePlayer(course, lessons) {
+  const hero = renderHero({
+    eyebrow: pair("Lesson Player", "Lesson player"),
+    title: pair(
+      `${escapeHtml(course.title)}<br><span class="accent">học, hỏi AI, làm thật, ghi nhận tiến bộ</span>`,
+      `${escapeHtml(course.titleEn)}<br><span class="accent">learn, ask AI, act, and record progress</span>`,
+    ),
+    description: pair(
+      "Đây không phải màn hình xem video. Đây là nơi bạn học và hành động theo từng bước có thể kiểm chứng.",
+      "This is not a passive video screen. It is where you learn and act through verifiable steps.",
+    ),
+    actions: [
+      button(`/learn/${course.slug}/`, pair("Về tổng quan khóa", "Back to course overview"), "ghost"),
+      button(`/courses/`, pair("Về danh sách khóa", "Back to catalog"), "ghost"),
+    ].join(""),
+  });
+
+  const shell = `
+    <article class="card">
+      <div class="card-body">
+        <div id="edu-player-root" class="edu-player-root"></div>
+      </div>
+    </article>
+  `;
+
+  const inlineScript = `
+    const course = ${JSON.stringify(course)};
+    const lessons = ${JSON.stringify(lessons)};
+    const root = document.getElementById("edu-player-root");
+    const storageKey = "vt-edu-player:" + course.slug;
+    const currentLanguage = () => document.documentElement.dataset.language === "en" ? "en" : "vi";
+
+    const copy = (vi, en = vi) => ({ vi, en });
+    const statusLabel = (status) => {
+      if (status === "completed") return copy("đã hoàn thành", "completed");
+      if (status === "in_progress") return copy("đang học", "in progress");
+      if (status === "needs_action") return copy("cần thực hành", "needs action");
+      if (status === "needs_review") return copy("cần review", "needs review");
+      return copy("chưa bắt đầu", "not started");
+    };
+
+    const escapeHtml = (value) => String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+
+    const localized = (vi, en = vi) => {
+      const lang = currentLanguage();
+      return lang === "en" ? en : vi;
+    };
+
+    function loadState() {
+      try {
+        const parsed = JSON.parse(localStorage.getItem(storageKey) || "{}");
+        return {
+          currentLessonId: parsed.currentLessonId || lessons[0]?.id || "",
+          completed: parsed.completed || {},
+          actionProofs: parsed.actionProofs || {},
+          reflections: parsed.reflections || {},
+          aiMessages: Array.isArray(parsed.aiMessages) ? parsed.aiMessages : [],
+          vcIssued: Boolean(parsed.vcIssued),
+        };
+      } catch {
+        return {
+          currentLessonId: lessons[0]?.id || "",
+          completed: {},
+          actionProofs: {},
+          reflections: {},
+          aiMessages: [],
+          vcIssued: false,
+        };
+      }
+    }
+
+    function saveState(state) {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function getLessonStatus(lesson, state) {
+      if (state.completed[lesson.id]) return "completed";
+      if (state.currentLessonId === lesson.id) return "in_progress";
+      if (lesson.type === "action" || lesson.type === "project") return "needs_action";
+      if (lesson.type === "reflection") return "needs_review";
+      return "not_started";
+    }
+
+    function nextLesson(lessonId) {
+      const idx = lessons.findIndex((item) => item.id === lessonId);
+      return idx >= 0 ? lessons[idx + 1] || null : null;
+    }
+
+    function aiReply(input, lesson) {
+      const normalized = String(input || "").toLowerCase();
+      if (normalized.includes("ví dụ") || normalized.includes("example")) {
+        return copy(
+          "Ví dụ đơn giản: chọn một việc rất nhỏ bạn có thể làm trong hôm nay, làm ngay trong 15 phút, rồi ghi lại kết quả.",
+          "A simple example: pick one small thing you can do today, do it in 15 minutes, then write down the result.",
+        );
+      }
+      if (normalized.includes("kẹt") || normalized.includes("stuck")) {
+        return copy(
+          "Bạn đang bị kẹt vì cố làm quá nhiều cùng lúc. Mình đề xuất tách bài này thành một bước nhỏ và làm ngay bây giờ.",
+          "You are stuck because you are trying to do too much at once. Break this lesson into one small step and do it now.",
+        );
+      }
+      return copy(
+        "Để mình nói đơn giản: bài này giúp bạn hiểu rõ hơn một điểm quan trọng, rồi chuyển ngay thành hành động có thể kiểm chứng.",
+        "In simple terms: this lesson clarifies one important point, then turns it into a verifiable action right away.",
+      );
+    }
+
+    function render() {
+      const state = loadState();
+      const accessDenied = new URL(window.location.href).searchParams.get("access") === "denied";
+      const lesson = lessons.find((item) => item.id === state.currentLessonId) || lessons[0];
+      const doneCount = Object.values(state.completed).filter(Boolean).length;
+      const progressMilestone = doneCount + " / " + lessons.length;
+      const proofCount = Object.keys(state.actionProofs).length;
+      const reflectionCount = Object.keys(state.reflections).length;
+      const eligible = doneCount >= lessons.length && proofCount > 0 && reflectionCount > 0;
+      const nxt = lesson ? nextLesson(lesson.id) : null;
+
+      if (!lesson) {
+        root.innerHTML = '<div class="result-shell"><h3>' + escapeHtml(localized("Chưa có bài học", "No lessons yet")) + '</h3><p class="body-copy">' + escapeHtml(localized("Khóa học này chưa có lesson khả dụng.", "This course has no available lessons yet.")) + '</p></div>';
+        window.vetuonglaiSyncLanguage?.();
+        return;
+      }
+
+      if (accessDenied) {
+        root.innerHTML = '<div class="result-shell"><h3>' + escapeHtml(localized("Bạn chưa có quyền truy cập", "No access")) + '</h3><p class="body-copy">' + escapeHtml(localized("Bạn cần quyền truy cập hợp lệ để mở Course Player này.", "You need valid access to open this course player.")) + '</p></div>';
+        window.vetuonglaiSyncLanguage?.();
+        return;
+      }
+
+      const systemState = state.vcIssued
+        ? copy("VC issued", "VC issued")
+        : eligible
+          ? copy("eligible for VC", "eligible for VC")
+          : copy("in progress", "in progress");
+
+      root.innerHTML = [
+        '<div class="edu-player-layout">',
+        '<aside class="edu-sidebar card"><div class="card-body stack">',
+        '<h3 class="card-title">' + escapeHtml(localized("Lộ trình khóa học", "Course path")) + '</h3>',
+        '<div class="subtle">' + escapeHtml(localized("Tiến trình", "Progress")) + ': ' + escapeHtml(progressMilestone) + '</div>',
+        '<div class="badge beta">' + escapeHtml(localized(systemState.vi, systemState.en)) + '</div>',
+        '<div class="stack">',
+        lessons.map((item) => {
+          const st = statusLabel(getLessonStatus(item, state));
+          const active = item.id === lesson.id ? ' style="outline:2px solid var(--accent);"' : "";
+          return '<button class="button ghost" data-lesson="' + escapeHtml(item.id) + '"' + active + '>' +
+            '<span class="mono">' + escapeHtml(item.moduleIndex) + '</span> ' +
+            escapeHtml(localized(item.title, item.titleEn)) +
+            '<br><span class="subtle">' + escapeHtml(localized(st.vi, st.en)) + '</span></button>';
+        }).join(''),
+        '</div>',
+        '<a class="button ghost" href="/">' + escapeHtml(localized("Về dashboard", "Back to dashboard")) + '</a>',
+        '</div></aside>',
+
+        '<section class="edu-main card"><div class="card-body stack">',
+        '<div class="badge live">' + escapeHtml(localized("Bài học đang học", "Current lesson")) + '</div>',
+        '<h2 class="section-title">' + escapeHtml(localized(lesson.title, lesson.titleEn)) + '</h2>',
+        '<div class="body-copy"><strong>' + escapeHtml(localized("Mục tiêu:", "Objective:")) + '</strong> ' + escapeHtml(localized(lesson.objective, lesson.objectiveEn)) + '</div>',
+        '<div class="body-copy"><strong>' + escapeHtml(localized("Vì sao quan trọng:", "Why this matters:")) + '</strong> ' + escapeHtml(localized(lesson.why, lesson.whyEn)) + '</div>',
+        '<div class="body-copy">' + escapeHtml(localized(lesson.body, lesson.bodyEn)) + '</div>',
+        '<article class="card"><div class="card-body stack">',
+        '<h3 class="card-title">' + escapeHtml(localized("Action cuối bài", "End-of-lesson action")) + '</h3>',
+        '<div class="body-copy">' + escapeHtml(localized(lesson.actionStep, lesson.actionStepEn)) + '</div>',
+        '<div class="cluster"><button class="button primary" data-mark-complete="true">' + escapeHtml(localized("Đánh dấu đã học", "Mark lesson complete")) + '</button>',
+        '<button class="button ghost" data-next="true">' + escapeHtml(localized("Làm bước tiếp theo", "Take next step")) + '</button></div>',
+        '</div></article>',
+        '<article class="card"><div class="card-body stack">',
+        '<h3 class="card-title">' + escapeHtml(localized("Nộp bằng chứng", "Submit proof")) + '</h3>',
+        '<textarea id="proof-input" class="search-input" style="padding:12px;min-height:90px" placeholder="' + escapeHtml(localized("Mô tả việc bạn đã làm...", "Describe what you did...")) + '"></textarea>',
+        '<div class="cluster"><button class="button" data-submit-proof="true">' + escapeHtml(localized("Nộp kết quả", "Submit outcome")) + '</button></div>',
+        '</div></article>',
+        '<article class="card"><div class="card-body stack">',
+        '<h3 class="card-title">' + escapeHtml(localized("Reflection", "Reflection")) + '</h3>',
+        '<div class="body-copy">' + escapeHtml(localized(lesson.reflectionQuestion, lesson.reflectionQuestionEn)) + '</div>',
+        '<textarea id="reflection-input" class="search-input" style="padding:12px;min-height:90px" placeholder="' + escapeHtml(localized("Viết phản tư ngắn của bạn...", "Write your short reflection...")) + '"></textarea>',
+        '<div class="cluster"><button class="button" data-submit-reflection="true">' + escapeHtml(localized("Lưu phản tư", "Save reflection")) + '</button></div>',
+        '</div></article>',
+        '</div></section>',
+
+        '<aside class="edu-ai card"><div class="card-body stack">',
+        '<h3 class="card-title">' + escapeHtml(localized("AI Tutor", "AI Tutor")) + '</h3>',
+        '<div class="result-shell" id="ai-messages">' +
+          (state.aiMessages.length === 0
+            ? '<div class="subtle">' + escapeHtml(localized("Chào bạn. Bạn đang muốn thay đổi điều gì nhất lúc này?", "Hi. What is the one thing you most want to change right now?")) + '</div>'
+            : state.aiMessages.map((m) => '<div class="body-copy"><strong>' + escapeHtml(m.role) + ':</strong> ' + escapeHtml(m.text) + '</div>').join('')) +
+        '</div>',
+        '<div class="cluster">',
+        '<button class="button ghost" data-quick="Giải thích đơn giản hơn">' + escapeHtml(localized("Giải thích đơn giản hơn", "Simplify this")) + '</button>',
+        '<button class="button ghost" data-quick="Cho tôi ví dụ thật">' + escapeHtml(localized("Cho tôi ví dụ thật", "Give me a real example")) + '</button>',
+        '</div>',
+        '<input id="ai-input" class="search-input" placeholder="' + escapeHtml(localized("Hỏi AI phần bạn chưa rõ...", "Ask AI what is unclear...")) + '" />',
+        '<button class="button primary" data-send-ai="true">' + escapeHtml(localized("Hỏi AI", "Ask AI")) + '</button>',
+        '<article class="card"><div class="card-body stack">',
+        '<h4 class="card-title">' + escapeHtml(localized("Bước tiếp theo", "Next step")) + '</h4>',
+        '<div class="body-copy">' + escapeHtml(nxt ? localized(nxt.title, nxt.titleEn) : localized("Bạn đã hoàn tất lộ trình. Kiểm tra điều kiện VC nhé.", "You completed the path. Check VC eligibility.")) + '</div>',
+        '<div class="subtle">' + escapeHtml(localized("Rule: ", "Rule: ")) + escapeHtml(lesson.completionRule) + '</div>',
+        '</div></article>',
+        '<article class="card"><div class="card-body stack">',
+        '<h4 class="card-title">' + escapeHtml(localized("Eligibility", "Eligibility")) + '</h4>',
+        '<div class="body-copy">' + escapeHtml(localized("Bài hoàn tất", "Completed lessons")) + ': ' + doneCount + '/' + lessons.length + '</div>',
+        '<div class="body-copy">' + escapeHtml(localized("Proof đã nộp", "Submitted proofs")) + ': ' + proofCount + '</div>',
+        '<div class="body-copy">' + escapeHtml(localized("Reflection đã lưu", "Saved reflections")) + ': ' + reflectionCount + '</div>',
+        '<div class="badge ' + (eligible ? 'live' : 'planned') + '">' + escapeHtml(eligible ? localized("Đủ điều kiện VC", "Eligible for VC") : localized("Chưa đủ điều kiện VC", "Not eligible for VC yet")) + '</div>',
+        '<button class="button ' + (eligible ? 'primary' : 'ghost') + '" data-issue-vc="true" ' + (eligible ? '' : 'disabled') + '>' + escapeHtml(state.vcIssued ? localized("VC đã phát hành", "VC issued") : localized("Phát hành VC", "Issue VC")) + '</button>',
+        '</div></article>',
+        '</div></aside>',
+        '</div>',
+      ].join("");
+
+      root.querySelectorAll('[data-lesson]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const nextState = loadState();
+          nextState.currentLessonId = button.getAttribute('data-lesson') || nextState.currentLessonId;
+          saveState(nextState);
+          render();
+        });
+      });
+
+      root.querySelector('[data-mark-complete]')?.addEventListener('click', () => {
+        const nextState = loadState();
+        nextState.completed[lesson.id] = true;
+        if (!nextState.currentLessonId) nextState.currentLessonId = lesson.id;
+        saveState(nextState);
+        render();
+      });
+
+      root.querySelector('[data-next]')?.addEventListener('click', () => {
+        const nextState = loadState();
+        const next = nextLesson(lesson.id);
+        if (next) nextState.currentLessonId = next.id;
+        saveState(nextState);
+        render();
+      });
+
+      root.querySelector('[data-submit-proof]')?.addEventListener('click', () => {
+        const input = root.querySelector('#proof-input');
+        const value = (input && 'value' in input) ? String(input.value || '').trim() : '';
+        if (!value) return;
+        const nextState = loadState();
+        nextState.actionProofs[lesson.id] = value;
+        nextState.completed[lesson.id] = true;
+        saveState(nextState);
+        render();
+      });
+
+      root.querySelector('[data-submit-reflection]')?.addEventListener('click', () => {
+        const input = root.querySelector('#reflection-input');
+        const value = (input && 'value' in input) ? String(input.value || '').trim() : '';
+        if (!value) return;
+        const nextState = loadState();
+        nextState.reflections[lesson.id] = value;
+        nextState.completed[lesson.id] = true;
+        saveState(nextState);
+        render();
+      });
+
+      const send = (text) => {
+        const message = String(text || '').trim();
+        if (!message) return;
+        const nextState = loadState();
+        nextState.aiMessages.push({ role: 'You', text: message });
+        const reply = aiReply(message, lesson);
+        nextState.aiMessages.push({ role: 'AI', text: localized(reply.vi, reply.en) });
+        saveState(nextState);
+        render();
+      };
+
+      root.querySelector('[data-send-ai]')?.addEventListener('click', () => {
+        const input = root.querySelector('#ai-input');
+        const value = (input && 'value' in input) ? String(input.value || '') : '';
+        send(value);
+      });
+
+      root.querySelectorAll('[data-quick]').forEach((button) => {
+        button.addEventListener('click', () => send(button.getAttribute('data-quick') || ''));
+      });
+
+      root.querySelector('[data-issue-vc]')?.addEventListener('click', () => {
+        const nextState = loadState();
+        const completed = Object.values(nextState.completed).filter(Boolean).length;
+        const proofs = Object.keys(nextState.actionProofs).length;
+        const reflections = Object.keys(nextState.reflections).length;
+        if (completed >= lessons.length && proofs > 0 && reflections > 0) {
+          nextState.vcIssued = true;
+          saveState(nextState);
+          render();
+        }
+      });
+
+      window.vetuonglaiSyncLanguage?.();
+    }
+
+    root.innerHTML = '<div class="result-shell"><div class="subtle">' + localized("Đang tải Course Player...", "Loading course player...") + '</div></div>';
+    window.setTimeout(render, 220);
+  `;
+
+  return renderShell({
+    currentKey: "edu",
+    pathname: `/learn/${course.slug}/player/`,
+    title: pair(`${course.title} • Lesson Player`, `${course.titleEn} • Lesson Player`),
+    description: pair(
+      `Màn hình học thực chiến có AI đồng hành cho khóa ${course.title}.`,
+      `AI-guided action learning player for ${course.titleEn}.`,
+    ),
+    navItems: ecosystemNav("edu"),
+    hero,
+    sections: [
+      renderSection(pair("Course Player", "Course player"), pair("Sidebar, nội dung bài học, AI panel, action zone, progress và eligibility VC", "Sidebar, lesson content, AI panel, action zone, progress, and VC eligibility"), shell),
+    ],
+    inlineScript,
+  });
+}
+
 function renderGreenPage() {
   const cards = renderCards([
     renderCard({
@@ -1813,7 +2219,21 @@ async function build() {
 
   const hubPaths = ["/", "/apps.json", "/manifest.json"];
   const vcPaths = ["/", "/v/"];
-  const eduPaths = ["/", "/courses/", "/api/health", "/api/catalog.json", ...courses.map((course) => `/course/${course.slug}/`)];
+  const eduPaths = [
+    "/",
+    "/courses/",
+    "/api/health",
+    "/api/catalog.json",
+    "/api/courses/index.json",
+    ...courses.flatMap((course) => [
+      `/course/${course.slug}/`,
+      `/learn/${course.slug}/`,
+      `/learn/${course.slug}/player/`,
+      `/api/courses/${course.slug}.json`,
+      `/api/courses/${course.slug}/modules.json`,
+      `/api/eligibility/${course.slug}.json`,
+    ]),
+  ];
   const simplePaths = ["/"];
 
   await writeAssets(domains.hub);
@@ -1837,8 +2257,83 @@ async function build() {
   await writeSiteFile(domains.edu, "courses/index.html", renderEduCoursesPage());
   await writeSiteFile(domains.edu, "api/health", renderStaticJson({ ok: true, name: "vetuonglai-edu", mode: "static" }));
   await writeSiteFile(domains.edu, "api/catalog.json", renderStaticJson(courses));
+  await writeSiteFile(domains.edu, "api/courses/index.json", renderStaticJson(courses.map((course) => ({
+    slug: course.slug,
+    title: course.title,
+    titleEn: course.titleEn,
+    level: course.level,
+    duration: course.duration,
+    certificateCode: course.certificateCode,
+    playerUrl: `/learn/${course.slug}/player/`,
+  }))));
+
   for (const course of courses) {
+    const lessons = buildEduCoursePlayerLessons(course);
+
     await writeSiteFile(domains.edu, `course/${course.slug}/index.html`, renderEduCourseDetail(course));
+    await writeSiteFile(domains.edu, `learn/${course.slug}/index.html`, renderEduCourseOverview(course, lessons));
+    await writeSiteFile(domains.edu, `learn/${course.slug}/player/index.html`, renderEduCoursePlayer(course, lessons));
+
+    await writeSiteFile(domains.edu, `api/courses/${course.slug}.json`, renderStaticJson({
+      id: course.slug,
+      title: course.title,
+      titleEn: course.titleEn,
+      summary: course.summary,
+      summaryEn: course.summaryEn,
+      level: course.level,
+      duration: course.duration,
+      durationEn: course.durationEn,
+      outcomes: course.outcomes,
+      outcomesEn: course.outcomesEn,
+      ai_mode: "co-pilot",
+      modules: lessons.map((lesson) => ({
+        id: `${course.slug}-module-${lesson.moduleIndex}`,
+        title: lesson.moduleTitle,
+        titleEn: lesson.moduleTitleEn,
+        order: lesson.moduleIndex,
+      })),
+    }));
+
+    await writeSiteFile(domains.edu, `api/courses/${course.slug}/modules.json`, renderStaticJson(lessons.map((lesson) => ({
+      id: `${course.slug}-module-${lesson.moduleIndex}`,
+      title: lesson.moduleTitle,
+      titleEn: lesson.moduleTitleEn,
+      order: lesson.moduleIndex,
+      lessons: [lesson.id],
+    }))));
+
+    await writeSiteFile(domains.edu, `api/eligibility/${course.slug}.json`, renderStaticJson({
+      courseId: course.slug,
+      required: {
+        paidAccess: course.price !== "$0",
+        lessonCompletion: true,
+        actionProofs: true,
+        projectSubmission: true,
+        reflectionComplete: true,
+      },
+      statuses: ["completed", "verified", "vc_issued"],
+    }));
+
+    for (const lesson of lessons) {
+      await writeSiteFile(domains.edu, `api/lessons/${lesson.id}.json`, renderStaticJson({
+        id: lesson.id,
+        type: lesson.type,
+        title: lesson.title,
+        titleEn: lesson.titleEn,
+        objective: lesson.objective,
+        objectiveEn: lesson.objectiveEn,
+        body: lesson.body,
+        bodyEn: lesson.bodyEn,
+        action_requirements: [lesson.actionStep],
+        ai_prompts: [
+          "giải thích đơn giản hơn",
+          "cho tôi ví dụ thật",
+          "việc này áp dụng thế nào vào cuộc sống",
+          "tôi đang bị kẹt ở đâu",
+        ],
+        completion_rules: lesson.completionRule,
+      }));
+    }
   }
   await writeSiteFile(domains.edu, "robots.txt", renderRobots(domains.edu));
   await writeSiteFile(domains.edu, "sitemap.xml", renderSitemap(domains.edu, eduPaths));

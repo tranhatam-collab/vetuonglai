@@ -17,6 +17,7 @@ const requiredFiles = [
   "vc.vetuonglai.com/api/certificates.json",
   "edu.vetuonglai.com/index.html",
   "edu.vetuonglai.com/courses/index.html",
+  "edu.vetuonglai.com/api/courses/index.json",
   "edu.vetuonglai.com/api/health",
   "edu.vetuonglai.com/api/catalog.json",
   "green.vetuonglai.com/index.html",
@@ -42,6 +43,7 @@ async function main() {
   const health = JSON.parse(await readFile(path.join(DIST, "edu.vetuonglai.com", "api", "health"), "utf8"));
   const hubHtml = await readFile(path.join(DIST, "vetuonglai.com", "index.html"), "utf8");
   const vcHtml = await readFile(path.join(DIST, "vc.vetuonglai.com", "index.html"), "utf8");
+  const eduHtml = await readFile(path.join(DIST, "edu.vetuonglai.com", "index.html"), "utf8");
   const investHtml = await readFile(path.join(DIST, "invest.vetuonglai.com", "index.html"), "utf8");
 
   if (!Array.isArray(apps) || apps.length < 6) {
@@ -80,6 +82,10 @@ async function main() {
     throw new Error("VC HTML chua xuat alternate link ngon ngu day du.");
   }
 
+  if (!eduHtml.includes("Học không phải để thi.") || !eduHtml.includes("Học để làm được.")) {
+    throw new Error("Trang EDU chua dong bo copy moi.");
+  }
+
   if (!investHtml.includes("đầu tư không phải để thắng nhanh")) {
     throw new Error("Trang INVEST chua duoc hoan thien noi dung tieng Viet.");
   }
@@ -94,6 +100,11 @@ async function main() {
     }
 
     await assertFile(path.join("edu.vetuonglai.com", "course", course.slug, "index.html"));
+    await assertFile(path.join("edu.vetuonglai.com", "learn", course.slug, "index.html"));
+    await assertFile(path.join("edu.vetuonglai.com", "learn", course.slug, "player", "index.html"));
+    await assertFile(path.join("edu.vetuonglai.com", "api", "courses", `${course.slug}.json`));
+    await assertFile(path.join("edu.vetuonglai.com", "api", "courses", course.slug, "modules.json"));
+    await assertFile(path.join("edu.vetuonglai.com", "api", "eligibility", `${course.slug}.json`));
   }
 
   for (const record of certificates) {
