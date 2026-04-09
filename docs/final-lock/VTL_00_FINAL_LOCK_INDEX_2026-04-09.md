@@ -65,6 +65,9 @@ Important:
 9. `docs/final-lock/VTL_07_TEAM_SPLIT_WORKLOAD_AND_PROMPTS_FINAL.md`
 10. `docs/final-lock/VTL_08_FOUNDER_UPDATE_CHANGELOG_2026-04-09.md`
 11. `docs/final-lock/VTL_09_EXECUTION_BOARD_1_PAGE_2026-04-09.md`
+12. `docs/final-lock/VTL_10_TEAM_1_KICKOFF_48H.md`
+13. `docs/final-lock/VTL_11_TEAM_2_KICKOFF_48H.md`
+14. `docs/final-lock/VTL_12_TEAM_3_KICKOFF_48H.md`
 
 Only after that may teams reopen earlier reference docs.
 
