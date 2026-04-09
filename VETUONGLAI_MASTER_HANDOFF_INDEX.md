@@ -1,7 +1,7 @@
 # VETUONGLAI MASTER HANDOFF INDEX
 
-Version: 1.0
-Last updated: 2026-04-08
+Version: 1.1
+Last updated: 2026-04-09
 
 ## Mục đích
 
@@ -11,11 +11,35 @@ Bộ tài liệu này được tạo để biến định hướng Về Tương 
 
 Bộ file này không dùng để brainstorm. Đây là bộ source of truth cho team.
 
+## Founder Final Lock 2026-04-09
+
+Từ ngày `2026-04-09`, toàn bộ team phải đọc thêm bộ khóa cuối trong `docs/final-lock/` trước khi quay lại các batch handoff cũ.
+
+Bộ khóa cuối này supersede các giả định chiến lược cũ của Gateway V2.1, đặc biệt các giả định:
+
+- `2 USD lifetime unlock`
+- toàn bộ depth mở chỉ bằng một payment cũ
+- affiliate kích hoạt ở lớp public/gateway cũ
+
+Reading order mới bắt buộc trước khi code:
+
+1. `docs/PROJECT_CONTEXT_ENGINE.md`
+2. `docs/final-lock/VTL_00_FINAL_LOCK_INDEX_2026-04-09.md`
+3. `docs/final-lock/VTL_01_SYSTEM_VALUE_MAP_FINAL.md`
+4. `docs/final-lock/VTL_02_RUNTIME_TRUTH_AND_DOMAIN_MATRIX_FINAL.md`
+5. `docs/final-lock/VTL_03_ACCESS_PRICING_AND_ENTITLEMENT_FINAL.md`
+6. `docs/final-lock/VTL_04_CONTENT_GATE_SEO_AND_COPY_RULES_FINAL.md`
+7. `docs/final-lock/VTL_05_SPECIALIST_PACKS_AND_AFFILIATE_FINAL.md`
+8. `docs/final-lock/VTL_06_EXECUTION_WORKSTREAMS_AND_DEPENDENCIES_FINAL.md`
+9. `docs/final-lock/VTL_07_TEAM_SPLIT_WORKLOAD_AND_PROMPTS_FINAL.md`
+10. `docs/final-lock/VTL_08_FOUNDER_UPDATE_CHANGELOG_2026-04-09.md`
+
 ## Nguyên tắc đọc
 
 - Không đọc từng file rồi suy diễn theo ý riêng.
 - Phải đọc theo đúng thứ tự.
 - Nếu có xung đột giữa ý kiến riêng và file source of truth, team phải mang về review thay vì tự sửa hướng đi.
+- Từ giai đoạn hiện tại, AI agent và engineer phải đọc thêm `docs/PROJECT_CONTEXT_ENGINE.md` như lớp operational truth trước khi code.
 
 ## Reading order bắt buộc
 
@@ -197,6 +221,33 @@ Các file bổ sung cho Founder, Investor, Marketing, Design, Content và QA:
 - `18_wireframe_ui_brief.md`
 - `19_seed_content_plan.md`
 - `20_testing_plan_vc_escrow.md`
+
+## Batch Gateway System (V2.1)
+
+Các file Gateway System dành cho team DEV, OPS, CONTENT, DESIGN để triển khai unlock 2 USD, teaser, demo, SEO public layer và launch roadmap:
+
+- `15_paywall_unlock_strategy.md`
+- `16_homepage_teaser_system.md`
+- `17_demo_kit_all_subdomains.md`
+- `18_payment_magiclink_integration.md`
+- `19_seo_teaser_guideline.md`
+- `20_branding_message_paywall.md`
+- `21_dev_sync_update_v2.md`
+- `22_launch_paywall_roadmap.md`
+
+Lưu ý quan trọng:
+
+- Batch Gateway V2.1 vẫn giữ giá trị lịch sử và tham chiếu kỹ thuật
+- nhưng không còn là product truth cuối cùng sau founder update `2026-04-09`
+- product truth hiện tại nằm trong `docs/final-lock/`
+
+## Batch DEV Gateway Complete
+
+Ba file dev hoàn chỉnh để team kỹ thuật có thể bắt đầu triển khai real app layer:
+
+- `DEV_FILE_01_TECH_ARCHITECTURE_AND_DATABASE.md`
+- `DEV_FILE_02_GATEWAY_SYSTEM_AND_FRONTEND.md`
+- `DEV_FILE_03_ROUTING_SEO_AND_DEPLOYMENT.md`
 
 Lưu ý:
 
