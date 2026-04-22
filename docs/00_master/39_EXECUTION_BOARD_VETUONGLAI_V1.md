@@ -1,0 +1,247 @@
+# EXECUTION_BOARD_VETUONGLAI_V1
+
+## Founder Lock Bắt Buộc
+
+Mọi owner phải đọc xong các file sau trước khi nhận task:
+
+- `docs/00_master/00_VETUONGLAI_MASTER_SYSTEM_LOCK_V1.md`
+- `docs/00_master/22_SUBDOMAIN_TASK_MATRIX_AND_TEAM_ASSIGNMENT_2026.md`
+- `docs/00_master/27_IMPLEMENTATION_TASK_MATRIX_BY_TEAM.md`
+- `docs/00_master/28_EXECUTION_DAILY_CHECK_SYSTEM.md`
+- `docs/00_master/36_FOUNDER_COMMAND_PANEL_AND_AUTOPILOT_FULL_SPEC.md`
+
+Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scope. Không được thiếu nội dung.
+
+---
+
+## Mục tiêu board hiện tại
+
+- giữ core loop xanh
+- mở mô hình `5 team` để tăng tốc đúng chỗ
+- đưa founder command panel + autopilot vào build lane nội bộ
+- buộc Team 1 lead báo `% còn lại` sau mỗi lượt dev
+
+## Snapshot điều phối mới nhất (2026-04-22 09:15 ICT)
+
+- founder lane execution đã khóa xong:
+  - `100% / 0%`
+  - không còn dependency dev mở giữa 5 team trong lane này
+- member required-public promote đã pass
+- founder live release verify đã pass lại trên runtime live mới nhất
+- Team 3 parity đã `go` sau patch build hygiene
+- core live redeploy bước đầu đã pass lại cho:
+  - `home`
+  - `member`
+  - `edu`
+  - `green`
+  - `finance`
+- build pipeline đã được khóa thêm:
+  - dọn sạch `dist`
+  - build lock chống va chạm khi verify song song
+- trọng tâm active của tổng kế hoạch hiện tại là:
+  - Wave B — Mobile V1 Closure
+  - Wave C — Core Subdomains Hardening
+  - sau đó mới tới Wave D — Planned-safe rollout cho các subdomain còn thiếu
+
+## Board điều phối chi tiết đang active
+
+- rollup live + evidence mới nhất:
+  - `docs/final-lock/VTL_47_CORE_LIVE_DEPLOY_ROLLUP_2026-04-22.md`
+- board continuation 5 team cho toàn hệ:
+  - `docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md`
+
+---
+
+## Owner map theo team
+
+- Team 1 — Lead Platform / Runtime / Release Control
+- Team 2 — Frontend / UX / Mobile / Public Surfaces
+- Team 3 — Governance / Runtime Truth / QA Gate
+- Team 4 — Data / Registry / Forms / Content Contracts
+- Team 5 — Smoke / Strict Contract / Release Verification
+
+---
+
+## SPRINT 1 — CORE + TEAM MODEL LOCK (`completed_for_founder_lane`)
+
+### Team 1
+
+- giữ member/access/runtime xanh
+- tổng hợp progress `5` team
+- khóa dependency map cho Team 4 và Team 5
+
+### Team 2
+
+- tiếp tục public layer, dashboard, mobile parity
+- không để founder panel UI drift khỏi contract
+
+### Team 3
+
+- tạo spec `36`
+- nâng cấp board / report sang mô hình `5 team`
+- khóa `% hoàn thành / % còn lại`
+
+### Team 4
+
+- chốt founder backend data entities
+- chốt read APIs
+
+### Team 5
+
+- chốt insight / action schema
+- chốt prompt + guardrails
+
+### DoD
+
+- mô hình `5 team` đã có trên toàn bộ board trung tâm
+- Team 1 có template lead rollup
+- Team 4 và Team 5 có lane start rõ
+- founder command panel + autopilot lane đã chốt execution `100% / 0%`
+
+---
+
+## SPRINT 2 — CORE HARDENING + FOUNDER DATA PLANE (`active_next`)
+
+### Team 1
+
+- auth / entitlement / guarded route / permission model
+
+### Team 2
+
+- member / edu / vc / mobile parity
+- founder overview shell UI
+
+### Team 3
+
+- trust wording review
+- planned-safe review
+
+### Team 4
+
+- `/api/founder/overview`
+- `/api/founder/system-health`
+- `/api/founder/journey-funnel`
+- `/api/founder/domains`
+- `/api/founder/learning-summary`
+- `/api/founder/vc-summary`
+- `/api/founder/review-queue`
+
+### Team 5
+
+- `observe / analyze / recommend` read-only
+- insight sample từ data thật
+
+### DoD
+
+- core loop vẫn xanh
+- founder overview có ít nhất `5` block dữ liệu thật
+- insight sample đúng schema
+
+---
+
+## SPRINT 3 — FOUNDER COMMAND PANEL (`next`)
+
+### Team 1
+
+- permission + action guard
+- apply / rollback wiring
+
+### Team 2
+
+- Overview
+- System Health block
+- User Journey block
+- Insight Drawer
+- Action Modal
+
+### Team 3
+
+- severity wording
+- founder approval wording
+- audit wording
+
+### Team 4
+
+- incidents
+- audit log
+- deployment feed
+- domain performance summary
+
+### Team 5
+
+- insights list
+- insight query
+- recommendations payload
+
+### DoD
+
+- founder nhìn `Overview` thấy system truth thật
+- click insight thấy evidence thật
+- action modal hiển thị `risk + rollback`
+
+---
+
+## SPRINT 4 — LIMITED AUTOPILOT (`next`)
+
+### Team 1
+
+- whitelist execution
+- rollback enforcement
+
+### Team 2
+
+- before / after UI
+- action result UI
+
+### Team 3
+
+- whitelist policy gate
+- stop-line nếu vượt tier
+
+### Team 4
+
+- before / after metrics snapshot
+- verification window
+
+### Team 5
+
+- execute `LOW_RISK`
+- verify
+- learning memory
+
+### DoD
+
+- apply được `1` action `LOW_RISK`
+- rollback được `1` action
+- audit log đúng
+- founder thấy kết quả trước / sau rõ ràng
+
+---
+
+## Báo cáo bắt buộc sau mỗi lượt dev
+
+Team 1 phải cập nhật:
+
+- Team 1 `% hoàn thành / % còn lại`
+- Team 2 `% hoàn thành / % còn lại`
+- Team 3 `% hoàn thành / % còn lại`
+- Team 4 `% hoàn thành / % còn lại`
+- Team 5 `% hoàn thành / % còn lại`
+- Tổng hệ `% hoàn thành / % còn lại`
+
+Team 3 phải audit lại bản này trong cùng ngày.
+
+---
+
+## Không được làm trong board này
+
+- không public founder panel như feature live cho user thường
+- không cho autopilot execute ngoài whitelist
+- không đẩy pricing / legal / entitlement vào AI automation
+- không bỏ qua report `% còn lại`
+
+---
+
+## Câu chốt cho team
+
+Thêm team để tiến nhanh hơn chỉ có ý nghĩa khi Team 1 nhìn một báo cáo là biết hệ còn bao nhiêu phần trăm và vì sao chưa xong.
