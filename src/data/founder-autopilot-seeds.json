@@ -1,0 +1,418 @@
+{
+  "version": "2026-04-21-team4-founder-autopilot-seeds-v1",
+  "owner": "team-4-founder-panel-data",
+  "seedPolicy": {
+    "productionSafe": true,
+    "useFor": [
+      "sample insights",
+      "sample incidents",
+      "command examples",
+      "observer snapshot template",
+      "verification loop defaults"
+    ],
+    "notFor": [
+      "real-time counts",
+      "live incident declaration",
+      "production approval without runtime evidence"
+    ]
+  },
+  "promptSystem": {
+    "tone": [
+      "calm",
+      "precise",
+      "evidence_first",
+      "non_sales"
+    ],
+    "outputSchema": {
+      "summary": "string",
+      "evidence": [
+        "string"
+      ],
+      "riskLevel": "R1|R2|R3|R4",
+      "recommendations": [
+        "string"
+      ],
+      "actions": [
+        "string"
+      ]
+    },
+    "guardrails": [
+      "khong_tu_de_xuat_sua_legal",
+      "khong_tu_de_xuat_doi_pricing_neu_khong_duoc_hoi",
+      "khong_khang_dinh_nguyen_nhan_neu_chi_co_tuong_quan",
+      "luon_neu_evidence_ro_rang_va_hanh_dong_ke_tiep"
+    ]
+  },
+  "observeSnapshotTemplate": {
+    "isSample": true,
+    "dataState": "awaiting_runtime",
+    "window": "7d",
+    "compareTo": "prev_7d",
+    "domains": [
+      "hub",
+      "edu",
+      "life",
+      "finance",
+      "invest",
+      "green",
+      "vc",
+      "member"
+    ],
+    "funnelStages": [
+      "discover",
+      "join",
+      "learn",
+      "submit",
+      "prove",
+      "next"
+    ],
+    "reliability": [
+      "error_rate",
+      "latency_p95_ms",
+      "p0_incidents"
+    ],
+    "noteVi": "Template này dùng để chuẩn hóa dữ liệu trước khi đưa qua analyzer.",
+    "noteEn": "This template normalizes data before it reaches the analyzer."
+  },
+  "insightSeeds": [
+    {
+      "id": "ins_mobile_submit_drop_after_lesson_2",
+      "isSample": true,
+      "type": "critical",
+      "titleVi": "Tỉ lệ nộp bài trên mobile giảm sau bài 2",
+      "titleEn": "Mobile submission rate drops after lesson 2",
+      "summaryVi": "Người dùng mobile vẫn học tiếp nhưng rơi mạnh ở bước nộp bài sau bài 2.",
+      "summaryEn": "Mobile users continue learning but drop sharply at the submission step after lesson 2.",
+      "confidence": 0.84,
+      "riskLevel": "R2",
+      "affectedArea": [
+        "edu",
+        "submission",
+        "mobile"
+      ],
+      "evidence": [
+        "Learn -> Submit trên mobile giảm từ 41% xuống 23% trong 7 ngày gần nhất.",
+        "Desktop không có mức giảm tương ứng trong cùng cửa sổ thời gian.",
+        "Scroll depth ở màn hình submit mobile vẫn cao, cho thấy người dùng thấy form nhưng không hoàn tất."
+      ],
+      "recommendations": [
+        "Bật simple submit mode cho mobile.",
+        "Thêm một dòng hướng dẫn ngắn ngay phía trên nút nộp bài.",
+        "Đẩy retest mobile vào hàng đợi QA trong 24 giờ."
+      ],
+      "relatedActionIds": [
+        "act_simple_submit_mode",
+        "act_request_mobile_submission_retest"
+      ]
+    },
+    {
+      "id": "ins_vc_review_backlog_growing",
+      "isSample": true,
+      "type": "operational",
+      "titleVi": "Backlog review VC đang tăng",
+      "titleEn": "VC review backlog is growing",
+      "summaryVi": "Số submission chờ review tăng liên tục trong 24 giờ gần nhất và đang kéo chậm tỉ lệ submit -> VC.",
+      "summaryEn": "Pending review submissions have climbed over the past 24 hours and are slowing the submit-to-VC rate.",
+      "confidence": 0.79,
+      "riskLevel": "R2",
+      "affectedArea": [
+        "vc",
+        "review_queue",
+        "edu"
+      ],
+      "evidence": [
+        "Review backlog tăng từ 18 lên 43 mục trong 24 giờ.",
+        "Thời gian review trung bình tăng từ 19 giờ lên 51 giờ.",
+        "Submit -> VC rate giảm nhẹ từ 54% xuống 47%."
+      ],
+      "recommendations": [
+        "Tăng ưu tiên hàng đợi review nội dung.",
+        "Hiển thị trạng thái review rõ hơn để giảm ticket hỏi lại.",
+        "Theo dõi lại submit -> VC sau 24 giờ."
+      ],
+      "relatedActionIds": [
+        "act_force_content_review_queue_boost"
+      ]
+    },
+    {
+      "id": "ins_finance_entry_block_outperforms",
+      "isSample": true,
+      "type": "optimization",
+      "titleVi": "Khối Finance đang dẫn tốt hơn EDU ở lớp trust",
+      "titleEn": "Finance entry block outperforms EDU on trust conversion",
+      "summaryVi": "Finance giữ được trust tốt hơn ở lớp public nhưng hiện chưa được ưu tiên đủ ở hub.",
+      "summaryEn": "Finance earns stronger trust at the public layer but is not yet prioritized enough on the hub.",
+      "confidence": 0.74,
+      "riskLevel": "R3",
+      "affectedArea": [
+        "hub",
+        "finance"
+      ],
+      "evidence": [
+        "Finance teaser engagement cao hơn EDU 16 điểm phần trăm trong 7 ngày.",
+        "Onward conversion từ Finance sang next step cao hơn EDU 9 điểm phần trăm.",
+        "Finance không có incident đang mở trong cùng cửa sổ thời gian."
+      ],
+      "recommendations": [
+        "Đưa Finance entry block lên cao hơn ở hub trong 24 giờ.",
+        "Giữ nguyên tone public hiện tại của Finance vì trust đang ổn.",
+        "So sánh lại CTA CTR sau 24 giờ."
+      ],
+      "relatedActionIds": [
+        "act_promote_finance_entry_block"
+      ]
+    },
+    {
+      "id": "ins_invest_public_cta_risk",
+      "isSample": true,
+      "type": "critical",
+      "titleVi": "CTA công khai tới Invest có rủi ro cao hơn lợi ích hiện tại",
+      "titleEn": "Public CTA to Invest carries more risk than current value",
+      "summaryVi": "Invest vẫn ở lớp planned public nhưng CTA công khai có thể làm user kỳ vọng sai nếu route hoặc wording chưa sạch.",
+      "summaryEn": "Invest remains in the planned-public layer, and its public CTA may create false expectations if the route or wording is not yet clean.",
+      "confidence": 0.82,
+      "riskLevel": "R2",
+      "affectedArea": [
+        "hub",
+        "invest"
+      ],
+      "evidence": [
+        "Invest đang ở trạng thái planned/public trong registry hiện tại.",
+        "Public route tới Invest có nguy cơ tạo mismatch giữa teaser và runtime truth nếu còn lỗi hoặc copy kỹ thuật.",
+        "Các domain live an toàn hơn đang có onboarding conversion ổn định hơn."
+      ],
+      "recommendations": [
+        "Tắt CTA công khai tới Invest cho tới khi route sạch và không còn mismatch wording.",
+        "Điều hướng user về Finance hoặc Hub entry an toàn hơn.",
+        "Kiểm tra lại Invest sau khi public wording pass QA."
+      ],
+      "relatedActionIds": [
+        "act_disable_invest_public_cta",
+        "act_lock_broken_cta_route"
+      ]
+    }
+  ],
+  "incidentSeeds": [
+    {
+      "id": "inc_mobile_submit_drop",
+      "isSample": true,
+      "severity": "P1",
+      "titleVi": "Tỉ lệ nộp bài mobile giảm",
+      "titleEn": "Mobile submission rate drop",
+      "descriptionVi": "Luồng nộp bài mobile giảm rõ sau bài 2, cần xác minh lại UI và friction của form.",
+      "descriptionEn": "The mobile submission flow drops noticeably after lesson 2 and needs UI and form-friction validation.",
+      "domain": "edu",
+      "status": "investigating",
+      "ownerRole": "qa_lead",
+      "rootHypothesisVi": "Form nộp bài mobile dài hơn mức cần thiết và thiếu hướng dẫn ngắn.",
+      "rootHypothesisEn": "The mobile submission form is longer than necessary and lacks concise guidance.",
+      "relatedInsightId": "ins_mobile_submit_drop_after_lesson_2",
+      "relatedActionIds": [
+        "act_simple_submit_mode",
+        "act_request_mobile_submission_retest"
+      ]
+    },
+    {
+      "id": "inc_vc_review_queue_backlog",
+      "isSample": true,
+      "severity": "P1",
+      "titleVi": "Hàng đợi review VC tăng",
+      "titleEn": "VC review queue growth",
+      "descriptionVi": "Submission chờ review tăng nhanh, có thể kéo chậm tiến độ cấp VC và làm user mất nhịp.",
+      "descriptionEn": "Pending review submissions are increasing quickly and may delay VC issuance while disrupting user momentum.",
+      "domain": "vc",
+      "status": "open",
+      "ownerRole": "pm_ops_lead",
+      "rootHypothesisVi": "Ưu tiên review hiện tại chưa đủ để xử lý giờ cao điểm.",
+      "rootHypothesisEn": "Current review prioritization is not strong enough for peak hours.",
+      "relatedInsightId": "ins_vc_review_backlog_growing",
+      "relatedActionIds": [
+        "act_force_content_review_queue_boost"
+      ]
+    },
+    {
+      "id": "inc_invest_public_cta_mismatch",
+      "isSample": true,
+      "severity": "P2",
+      "titleVi": "CTA công khai tới Invest cần rà lại runtime truth",
+      "titleEn": "Public Invest CTA needs runtime-truth review",
+      "descriptionVi": "CTA công khai có thể khiến user hiểu Invest đã live đầy đủ hơn thực tế.",
+      "descriptionEn": "The public CTA may imply Invest is more live than it actually is.",
+      "domain": "invest",
+      "status": "open",
+      "ownerRole": "content_lead",
+      "rootHypothesisVi": "Copy và route công khai chưa phản ánh đúng trạng thái planned public hiện tại.",
+      "rootHypothesisEn": "Public copy and routing do not yet fully reflect the current planned-public state.",
+      "relatedInsightId": "ins_invest_public_cta_risk",
+      "relatedActionIds": [
+        "act_disable_invest_public_cta",
+        "act_lock_broken_cta_route"
+      ]
+    }
+  ],
+  "commandPromptExamples": [
+    {
+      "id": "cmd_weakest_domain",
+      "input": "show me the weakest domain",
+      "intentKey": "diagnose_domain_weakness",
+      "requiredSources": [
+        "/api/founder/domains",
+        "/api/founder/incidents",
+        "/api/founder/insights"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations",
+        "actions"
+      ]
+    },
+    {
+      "id": "cmd_drop_after_lesson_2",
+      "input": "why are users dropping after lesson 2",
+      "intentKey": "diagnose_lesson_drop",
+      "requiredSources": [
+        "/api/founder/journey-funnel",
+        "/api/founder/learning-summary",
+        "/api/founder/insights"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations",
+        "actions"
+      ]
+    },
+    {
+      "id": "cmd_fix_today",
+      "input": "what should we fix today",
+      "intentKey": "prioritize_today",
+      "requiredSources": [
+        "/api/founder/overview",
+        "/api/founder/insights?type=critical",
+        "/api/founder/incidents"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations",
+        "actions"
+      ]
+    },
+    {
+      "id": "cmd_pause_invest_cta",
+      "input": "pause any CTA to invest",
+      "intentKey": "request_safe_cta_pause",
+      "requiredSources": [
+        "/api/founder/actions/recommended",
+        "/api/founder/domains",
+        "/api/founder/incidents"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations",
+        "actions"
+      ]
+    },
+    {
+      "id": "cmd_vc_bottleneck",
+      "input": "show vc issuance bottlenecks",
+      "intentKey": "diagnose_vc_bottleneck",
+      "requiredSources": [
+        "/api/founder/vc-summary",
+        "/api/founder/review-queue",
+        "/api/founder/insights"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations",
+        "actions"
+      ]
+    },
+    {
+      "id": "cmd_compare_7d_30d",
+      "input": "compare last 7 days and last 30 days",
+      "intentKey": "compare_windows",
+      "requiredSources": [
+        "/api/autopilot/analyze",
+        "/api/founder/overview"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations"
+      ]
+    },
+    {
+      "id": "cmd_safe_for_autopilot",
+      "input": "which action is safe for autopilot",
+      "intentKey": "list_low_risk_actions",
+      "requiredSources": [
+        "/api/founder/actions/recommended",
+        "/api/founder/actions/history"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations",
+        "actions"
+      ]
+    },
+    {
+      "id": "cmd_missing_next_step",
+      "input": "show me users stuck without next step",
+      "intentKey": "diagnose_missing_next_step",
+      "requiredSources": [
+        "/api/founder/journey-funnel",
+        "/api/founder/overview"
+      ],
+      "responseShape": [
+        "summary",
+        "evidence",
+        "recommendations",
+        "actions"
+      ]
+    }
+  ],
+  "verificationLoop": {
+    "defaultWaitHours": 24,
+    "comparisonStates": [
+      "improved",
+      "neutral",
+      "worse"
+    ],
+    "requiredFields": [
+      "before_metrics",
+      "after_metrics",
+      "window_hours",
+      "evaluation_state"
+    ],
+    "rollbackWhen": [
+      "evaluation_state = worse",
+      "critical_alert_count increases",
+      "error_rate increases materially"
+    ]
+  },
+  "auditEventSeeds": [
+    {
+      "id": "audit_sample_simple_submit_mode",
+      "isSample": true,
+      "actorType": "founder",
+      "actionId": "act_simple_submit_mode",
+      "reason": "Submission drop in mobile",
+      "result": "success",
+      "rollbackAvailable": true
+    },
+    {
+      "id": "audit_sample_review_queue_boost",
+      "isSample": true,
+      "actorType": "pm_ops_lead",
+      "actionId": "act_force_content_review_queue_boost",
+      "reason": "VC review backlog rising",
+      "result": "success",
+      "rollbackAvailable": true
+    }
+  ]
+}

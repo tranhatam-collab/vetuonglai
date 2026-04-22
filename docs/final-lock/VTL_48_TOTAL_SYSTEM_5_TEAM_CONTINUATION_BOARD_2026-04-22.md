@@ -2,7 +2,7 @@
 
 Phiên bản: 1.0
 Ngày: 2026-04-22
-Mốc chốt: 2026-04-22 10:14 ICT
+Mốc chốt: 2026-04-22 10:27 ICT
 Trạng thái: active
 Owner chính: Team 1
 Áp dụng cho: Team 1 · Team 2 · Team 3 · Team 4 · Team 5 · QA · PM · Ops
@@ -20,7 +20,7 @@ Từ thời điểm này, mọi team phải dùng cùng một logic:
 
 ## 1. Snapshot đã được xác minh
 
-Tính đến `2026-04-22 09:15 ICT`:
+Tính đến `2026-04-22 10:27 ICT`:
 
 - founder lane: `100% / 0%`
 - core live redeploy bước đầu: pass
@@ -33,7 +33,9 @@ Tính đến `2026-04-22 09:15 ICT`:
   - `edu.vetuonglai.com`
   - `green.vetuonglai.com`
   - `finance.vetuonglai.com`
-- `life.vetuonglai.com` và `invest.vetuonglai.com` hiện mới ở trạng thái `planned_public`
+- `life.vetuonglai.com` và `invest.vetuonglai.com` hiện ở trạng thái `planned_public`, nhưng Wave C verify đã pass `hardening_ready`
+- `work` / `market` / `community` / `ai` / `business` đã có planned-safe shell local
+- blocker chính của Wave D hiện là `DNS/runtime publish`, không còn là thiếu shell build
 
 ## 2. Cách tính phần trăm của board này
 
@@ -54,13 +56,13 @@ Backlog tổng được chia thành `5` wave khóa:
 
 Theo backlog đã khóa ở board này:
 
-- tổng hoàn thành: `62%`
-- tổng còn lại: `38%`
+- tổng hoàn thành: `66%`
+- tổng còn lại: `34%`
 
 Ghi chú:
 
-- `62%` này đã bao gồm founder lane closure, Wave A, Wave B, và phần local-ready đã khóa cho Wave D
-- phần `38%` còn lại nằm chủ yếu ở signoff/promotion Wave C, runtime publish Wave D, và release/QA/Ops pack cuối của Wave E
+- `66%` này đã bao gồm founder lane closure, Wave A, Wave B, Wave C hardening-ready, và phần local-ready đã khóa cho Wave D
+- phần `34%` còn lại nằm chủ yếu ở signoff/promotion Wave C, DNS/runtime publish Wave D, và release/QA/Ops pack cuối của Wave E
 
 ## 4. Phần trăm theo team
 
@@ -77,8 +79,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `67%`
-- còn lại: `33%`
+- hoàn thành: `72%`
+- còn lại: `28%`
 
 ### Team 2 — Frontend / UX / Mobile / Public Surfaces
 
@@ -93,8 +95,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `42%`
-- còn lại: `58%`
+- hoàn thành: `44%`
+- còn lại: `56%`
 
 ### Team 3 — Governance / Runtime Truth / QA Gate
 
@@ -109,8 +111,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `67%`
-- còn lại: `33%`
+- hoàn thành: `72%`
+- còn lại: `28%`
 
 ### Team 4 — Data / Registry / Forms / Content Contracts
 
@@ -141,8 +143,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `83%`
-- còn lại: `17%`
+- hoàn thành: `87%`
+- còn lại: `13%`
 
 ## 5. Trật tự thực thi bắt buộc từ bây giờ
 
@@ -183,7 +185,7 @@ Exit gate:
 
 ### Wave C — Core subdomains hardening
 
-Trạng thái: `active_now / hardening_ready / no_go_for_promotion`
+Trạng thái: `active_now / hardening_ready / promotion_blocked`
 
 Phạm vi:
 
@@ -203,11 +205,12 @@ Exit gate:
 
 - không còn hard-coded status sai runtime truth
 - không còn public wording kỹ thuật/nội bộ
-- `life` và `invest` có plan rõ để nâng từ `planned_public` lên wave kế tiếp, hoặc giữ planned-safe có chủ đích
+- `life` và `invest` đã pass verify pack ở mức `hardening_ready`
+- quyết định promote hay tiếp tục giữ `planned_public` phải có signoff riêng
 
 ### Wave D — Planned-safe rollout cho các subdomain còn thiếu
 
-Trạng thái: `active_next / local_ready`
+Trạng thái: `active_next / local_ready / dns_blocked`
 
 Cụm domain:
 
@@ -254,7 +257,7 @@ Mục tiêu:
 
 1. giữ core runtime xanh sau redeploy
 2. chốt signoff hardening lane cho `life` và `invest`
-3. chuẩn bị route/runtime publish plan cho `work`, `market`, `community`, `ai`, `business`
+3. khóa DNS/runtime publish plan cho `work`, `market`, `community`, `ai`, `business` cùng Ops
 4. chặn mọi route planned chưa đủ điều kiện bằng runtime truth hiện hành
 
 ### Team 2 — làm ngay
@@ -279,7 +282,7 @@ Mục tiêu:
 ### Team 5 — làm ngay
 
 1. phát hành evidence pack ngắn cho Wave B = done
-2. phát hành evidence pack ngắn cho Wave C = hardening-ready / no promotion
+2. phát hành evidence pack ngắn cho Wave C = hardening-ready / promotion blocked
 3. chuẩn bị total-system release gate report cho Wave E
 
 ## 7. Không được làm trong wave hiện tại
@@ -327,6 +330,7 @@ Team 1 phải báo theo đúng mẫu:
 
 - core live rollup: [VTL_47_CORE_LIVE_DEPLOY_ROLLUP_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_47_CORE_LIVE_DEPLOY_ROLLUP_2026-04-22.md)
 - progress rollup mới nhất sau Wave B + Wave D local-ready: [VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md)
+- snapshot blocker publish mới nhất cho Wave D: [VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md)
 - master board: [39_EXECUTION_BOARD_VETUONGLAI_V1.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/00_master/39_EXECUTION_BOARD_VETUONGLAI_V1.md)
 - founder lane control board: [VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md)
 

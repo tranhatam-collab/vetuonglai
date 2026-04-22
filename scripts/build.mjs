@@ -8185,8 +8185,8 @@ function renderLifePage() {
   const trustStatusSection = renderSection(
     pair("Trust & trạng thái", "Trust & status"),
     pair(
-      "Làm rõ đây là lớp Member Preview có giá trị thật, nhưng chưa được nói như một lớp hỗ trợ đã mở đầy đủ.",
-      "Clarify that this is a meaningful Member Preview without presenting it as a fully open support layer.",
+      "Làm rõ đây là lớp Planned có giá trị thật, nhưng chưa được nói như một lớp hỗ trợ đã mở đầy đủ.",
+      "Clarify that this is a meaningful Planned surface without presenting it as a fully open support layer.",
     ),
     `
       ${readiness}
@@ -8361,8 +8361,8 @@ function renderInvestPage() {
   const trustStatusSection = renderSection(
     pair("Trust & trạng thái", "Trust & status"),
     pair(
-      "Giữ INVEST ở đúng trạng thái Member Preview: đặt rủi ro lên trước, rõ lưu ý cần thiết và không nói quá về kết quả.",
-      "Keep INVEST in the right Member Preview state: put risk first, keep the needed cautions explicit, and do not overclaim outcomes.",
+      "Giữ INVEST ở đúng trạng thái Planned: đặt rủi ro lên trước, rõ lưu ý cần thiết và không nói quá về kết quả.",
+      "Keep INVEST in the right Planned state: put risk first, keep the needed cautions explicit, and do not overclaim outcomes.",
     ),
     `
       ${readiness}
