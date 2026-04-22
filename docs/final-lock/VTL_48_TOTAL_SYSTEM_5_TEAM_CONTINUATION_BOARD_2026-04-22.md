@@ -260,7 +260,7 @@ Mục tiêu:
 ### Team 1 — làm ngay
 
 1. giữ core runtime xanh sau redeploy
-2. chốt signoff hardening lane cho `life` và `invest`
+2. chốt signoff hardening lane cho `life` và `invest` bằng release note + checklist riêng
 3. giữ Pages publish plan + deploy runbook đã khóa cho `work`, `market`, `community`, `ai`, `business` và phối hợp Ops mở DNS
 4. chặn mọi route planned chưa đủ điều kiện bằng runtime truth hiện hành
 
@@ -336,6 +336,8 @@ Team 1 phải báo theo đúng mẫu:
 - progress rollup mới nhất sau Wave B + Wave D local-ready: [VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md)
 - snapshot blocker publish mới nhất cho Wave D: [VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md)
 - runbook deploy/verify của Wave D: [VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md)
+- release note Wave C: [VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md)
+- checklist ký nhận Wave C: [VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md)
 - master board: [39_EXECUTION_BOARD_VETUONGLAI_V1.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/00_master/39_EXECUTION_BOARD_VETUONGLAI_V1.md)
 - founder lane control board: [VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md)
 

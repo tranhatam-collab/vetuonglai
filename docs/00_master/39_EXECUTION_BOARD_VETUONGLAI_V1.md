@@ -56,6 +56,9 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md`
 - runbook deploy/verify mới nhất của Wave D:
   - `docs/final-lock/VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md`
+- release/signoff pack mới nhất của Wave C:
+  - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
+  - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
 - board continuation 5 team cho toàn hệ:
   - `docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md`
 - Team 3 audit/go-no-go active cho wave hiện tại:
