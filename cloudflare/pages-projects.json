@@ -45,6 +45,41 @@
       "projectName": "vetuonglai-invest",
       "distDir": "dist/invest.vetuonglai.com",
       "customDomains": ["invest.vetuonglai.com"]
+    },
+    {
+      "key": "work",
+      "projectName": "vetuonglai-work",
+      "distDir": "dist/work.vetuonglai.com",
+      "customDomains": ["work.vetuonglai.com"],
+      "notes": "Planned-safe publish only. Team 5 reruns live verify after DNS opens."
+    },
+    {
+      "key": "market",
+      "projectName": "vetuonglai-market",
+      "distDir": "dist/market.vetuonglai.com",
+      "customDomains": ["market.vetuonglai.com"],
+      "notes": "Planned-safe publish only. Team 5 reruns live verify after DNS opens."
+    },
+    {
+      "key": "community",
+      "projectName": "vetuonglai-community",
+      "distDir": "dist/community.vetuonglai.com",
+      "customDomains": ["community.vetuonglai.com"],
+      "notes": "Gated-only / planned-safe publish. Public rollout stays blocked until DNS and runtime verify are both green."
+    },
+    {
+      "key": "ai",
+      "projectName": "vetuonglai-ai",
+      "distDir": "dist/ai.vetuonglai.com",
+      "customDomains": ["ai.vetuonglai.com"],
+      "notes": "Gated-only / planned-safe publish. Public rollout stays blocked until DNS and runtime verify are both green."
+    },
+    {
+      "key": "business",
+      "projectName": "vetuonglai-business",
+      "distDir": "dist/business.vetuonglai.com",
+      "customDomains": ["business.vetuonglai.com"],
+      "notes": "Business shell remains planned-safe and cannot be presented as live enterprise onboarding until DNS, Team 4 contract, and Team 5 verify all pass."
     }
   ]
 }

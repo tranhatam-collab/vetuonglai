@@ -2,7 +2,7 @@
 
 Phiên bản: 1.0
 Ngày: 2026-04-22
-Mốc chốt: 2026-04-22 10:27 ICT
+Mốc chốt: 2026-04-22 10:36 ICT
 Trạng thái: active_reference
 Owner chính: Team 1
 Phạm vi: `work` / `market` / `community` / `ai` / `business`, kèm `life` / `invest` làm reference công khai hiện hành
@@ -55,18 +55,18 @@ Tại thời điểm chốt file:
 
 ## 3. Ý nghĩa đúng của verify pack hiện tại
 
-`npm run verify:planned-safe:wave:release` đã pass `17/17`.
+`npm run verify:planned-safe:wave:release` đã pass `32/32`.
 
 Giải nghĩa đúng:
 
-- pass cho `planned-safe shell + runtime-truth reference + local verify pack`
+- pass cho `planned-safe shell + runtime-truth reference + Pages publish config + local verify pack`
 - không có nghĩa là các domain Wave D đã live công khai
 - nếu DNS/runtime publish chưa mở thì vẫn phải giữ `planned-safe / gated / no false-live`
 
 ## 4. Blocker đang mở
 
 1. `work`, `market`, `community`, `ai`, `business` chưa có DNS công khai.
-2. `cloudflare/workers-projects.json` hiện chưa có worker route publish riêng cho cụm Wave D.
+2. `cloudflare/pages-projects.json` hiện đã được khóa cho `work` / `market` / `community` / `ai` / `business`, nhưng chưa thể dùng để publish thật khi DNS chưa mở.
 3. Team 5 chưa thể phát hành live smoke/runtime verify cuối cho Wave D khi hostname chưa reachable công khai.
 
 ## 5. Việc cần làm ngay
@@ -74,8 +74,8 @@ Giải nghĩa đúng:
 ### Team 1
 
 1. khóa contract publish cho Wave D trong runtime truth và board điều phối
-2. chuẩn bị worker/route publish plan sẵn cho từng domain, nhưng chưa claim live
-3. chỉ mở publish sau khi Ops xác nhận DNS
+2. giữ Pages publish plan đã khóa sẵn cho từng domain, nhưng chưa claim live
+3. chỉ chạy `deploy-pages` sau khi Ops xác nhận DNS
 
 ### Ops
 

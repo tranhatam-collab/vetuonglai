@@ -2,7 +2,7 @@
 
 Phiên bản: 1.0
 Ngày: 2026-04-22
-Mốc chốt: 2026-04-22 10:27 ICT
+Mốc chốt: 2026-04-22 10:36 ICT
 Trạng thái: active
 Owner chính: Team 1
 Áp dụng cho: Team 1 · Team 2 · Team 3 · Team 4 · Team 5 · QA · PM · Ops
@@ -35,7 +35,8 @@ Tính đến `2026-04-22 10:27 ICT`:
   - `finance.vetuonglai.com`
 - `life.vetuonglai.com` và `invest.vetuonglai.com` hiện ở trạng thái `planned_public`, nhưng Wave C verify đã pass `hardening_ready`
 - `work` / `market` / `community` / `ai` / `business` đã có planned-safe shell local
-- blocker chính của Wave D hiện là `DNS/runtime publish`, không còn là thiếu shell build
+- `cloudflare/pages-projects.json` đã có publish plan cho toàn cụm Wave D
+- blocker chính của Wave D hiện là `DNS/runtime publish`, không còn là thiếu shell build hay thiếu Pages config
 
 ## 2. Cách tính phần trăm của board này
 
@@ -56,13 +57,13 @@ Backlog tổng được chia thành `5` wave khóa:
 
 Theo backlog đã khóa ở board này:
 
-- tổng hoàn thành: `66%`
-- tổng còn lại: `34%`
+- tổng hoàn thành: `69%`
+- tổng còn lại: `31%`
 
 Ghi chú:
 
-- `66%` này đã bao gồm founder lane closure, Wave A, Wave B, Wave C hardening-ready, và phần local-ready đã khóa cho Wave D
-- phần `34%` còn lại nằm chủ yếu ở signoff/promotion Wave C, DNS/runtime publish Wave D, và release/QA/Ops pack cuối của Wave E
+- `69%` này đã bao gồm founder lane closure, Wave A, Wave B, Wave C hardening-ready, Wave D local-ready, và Pages publish plan đã khóa
+- phần `31%` còn lại nằm chủ yếu ở signoff/promotion Wave C, DNS/runtime publish Wave D, và release/QA/Ops pack cuối của Wave E
 
 ## 4. Phần trăm theo team
 
@@ -79,8 +80,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `72%`
-- còn lại: `28%`
+- hoàn thành: `78%`
+- còn lại: `22%`
 
 ### Team 2 — Frontend / UX / Mobile / Public Surfaces
 
@@ -143,8 +144,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `87%`
-- còn lại: `13%`
+- hoàn thành: `90%`
+- còn lại: `10%`
 
 ## 5. Trật tự thực thi bắt buộc từ bây giờ
 
@@ -222,7 +223,7 @@ Cụm domain:
 
 Rule:
 
-- chỉ mở planned-safe hoặc member-preview-safe
+- chỉ mở planned-safe hoặc gated-only
 - không được dùng copy ám chỉ “đã live đầy đủ”
 - mọi CTA phải dẫn về điểm vào hợp lệ
 
@@ -257,7 +258,7 @@ Mục tiêu:
 
 1. giữ core runtime xanh sau redeploy
 2. chốt signoff hardening lane cho `life` và `invest`
-3. khóa DNS/runtime publish plan cho `work`, `market`, `community`, `ai`, `business` cùng Ops
+3. giữ Pages publish plan đã khóa cho `work`, `market`, `community`, `ai`, `business` và phối hợp Ops mở DNS
 4. chặn mọi route planned chưa đủ điều kiện bằng runtime truth hiện hành
 
 ### Team 2 — làm ngay
@@ -283,7 +284,7 @@ Mục tiêu:
 
 1. phát hành evidence pack ngắn cho Wave B = done
 2. phát hành evidence pack ngắn cho Wave C = hardening-ready / promotion blocked
-3. chuẩn bị total-system release gate report cho Wave E
+3. rerun live verify cho Wave D ngay khi DNS mở, rồi chuẩn bị total-system release gate report cho Wave E
 
 ## 7. Không được làm trong wave hiện tại
 
