@@ -21,7 +21,7 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
 - đưa founder command panel + autopilot vào build lane nội bộ
 - buộc Team 1 lead báo `% còn lại` sau mỗi lượt dev
 
-## Snapshot điều phối mới nhất (2026-04-22 10:36 ICT)
+## Snapshot điều phối mới nhất (2026-04-22 18:02 ICT)
 
 - founder lane execution đã khóa xong:
   - `100% / 0%`
@@ -40,7 +40,7 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - build lock chống va chạm khi verify song song
 - Wave B — Mobile V1 Closure đã chốt verify pass
 - Wave C — Core Subdomains Hardening đang ở trạng thái `hardening_ready / promotion_blocked`
-- Wave D — Planned-safe rollout hiện đã có shell local + Pages publish plan cho toàn cụm, nhưng blocker active vẫn là `DNS/runtime publish`
+- Wave D — Planned-safe rollout hiện đã có shell local + Pages publish plan + deploy/verify runbook cho toàn cụm, nhưng blocker active vẫn là `public DNS`
 - trọng tâm active của tổng kế hoạch hiện tại là:
   - chốt signoff Wave C
   - khóa DNS/runtime publish cho Wave D
@@ -54,6 +54,8 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md`
 - blocker publish mới nhất của Wave D:
   - `docs/final-lock/VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md`
+- runbook deploy/verify mới nhất của Wave D:
+  - `docs/final-lock/VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md`
 - board continuation 5 team cho toàn hệ:
   - `docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md`
 - Team 3 audit/go-no-go active cho wave hiện tại:
