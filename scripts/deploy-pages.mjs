@@ -60,7 +60,10 @@ async function main() {
       wranglerArgs.push("--commit-hash", commitHash);
     }
 
-    runWrangler(wranglerArgs, { CLOUDFLARE_ACCOUNT_ID: accountId });
+    runWrangler(wranglerArgs, {
+      CLOUDFLARE_ACCOUNT_ID: accountId,
+      ...(process.env.CLOUDFLARE_API_TOKEN ? { CLOUDFLARE_API_TOKEN: process.env.CLOUDFLARE_API_TOKEN } : {}),
+    });
   }
 
   console.log("Cloudflare Pages deployment complete.");

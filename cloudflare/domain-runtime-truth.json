@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-07",
+  "lastUpdated": "2026-04-22",
   "domains": [
     {
       "host": "vetuonglai.com",
@@ -9,9 +9,17 @@
       "requiredPublic": true
     },
     {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com",
+      "servingModel": "worker_fronted",
+      "status": "live",
+      "requiredPublic": true,
+      "updatedAt": "2026-04-21"
+    },
+    {
       "host": "vc.vetuonglai.com",
       "url": "https://vc.vetuonglai.com",
-      "servingModel": "pages_direct",
+      "servingModel": "worker_fronted",
       "status": "live",
       "requiredPublic": true
     },
@@ -35,6 +43,41 @@
       "servingModel": "worker_fronted",
       "status": "live",
       "requiredPublic": true
+    },
+    {
+      "host": "work.vetuonglai.com",
+      "url": "https://work.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false
+    },
+    {
+      "host": "market.vetuonglai.com",
+      "url": "https://market.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false
+    },
+    {
+      "host": "community.vetuonglai.com",
+      "url": "https://community.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false
+    },
+    {
+      "host": "ai.vetuonglai.com",
+      "url": "https://ai.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false
+    },
+    {
+      "host": "business.vetuonglai.com",
+      "url": "https://business.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false
     },
     {
       "host": "life.vetuonglai.com",

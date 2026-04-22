@@ -1,0 +1,177 @@
+{
+  "version": "2026-04-22-team2-wave-b-business-planned-safe",
+  "statusVocabulary": {
+    "live": {
+      "vi": "Live",
+      "en": "Live"
+    },
+    "member_preview": {
+      "vi": "Member Preview",
+      "en": "Member Preview"
+    },
+    "planned": {
+      "vi": "Planned",
+      "en": "Planned"
+    },
+    "bridge": {
+      "vi": "Bridge",
+      "en": "Bridge"
+    }
+  },
+  "domains": [
+    {
+      "key": "hub",
+      "labelVi": "Hub",
+      "labelEn": "Hub",
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com",
+      "status": "live",
+      "stageLabel": "LIVE",
+      "primaryNav": true,
+      "mission": "onboarding + ecosystem map"
+    },
+    {
+      "key": "edu",
+      "labelVi": "EDU",
+      "labelEn": "EDU",
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com",
+      "status": "live",
+      "stageLabel": "LIVE",
+      "primaryNav": true,
+      "mission": "learning + output + packet to VC"
+    },
+    {
+      "key": "vc",
+      "labelVi": "VC",
+      "labelEn": "VC",
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com",
+      "status": "live",
+      "stageLabel": "LIVE",
+      "primaryNav": true,
+      "mission": "independent verification registry"
+    },
+    {
+      "key": "life",
+      "labelVi": "LIFE",
+      "labelEn": "LIFE",
+      "host": "life.vetuonglai.com",
+      "url": "https://life.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": true,
+      "mission": "life rhythm + recovery + stability"
+    },
+    {
+      "key": "finance",
+      "labelVi": "FIN",
+      "labelEn": "FIN",
+      "host": "finance.vetuonglai.com",
+      "url": "https://finance.vetuonglai.com",
+      "status": "live",
+      "stageLabel": "LIVE",
+      "primaryNav": true,
+      "mission": "financial resilience + anti-scam"
+    },
+    {
+      "key": "invest",
+      "labelVi": "INVEST",
+      "labelEn": "INVEST",
+      "host": "invest.vetuonglai.com",
+      "url": "https://invest.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": true,
+      "mission": "due diligence + no-FOMO investing"
+    },
+    {
+      "key": "green",
+      "labelVi": "GREEN",
+      "labelEn": "GREEN",
+      "host": "green.vetuonglai.com",
+      "url": "https://green.vetuonglai.com",
+      "status": "live",
+      "stageLabel": "LIVE",
+      "primaryNav": true,
+      "mission": "impact + sustainability evidence"
+    },
+    {
+      "key": "member",
+      "labelVi": "MEMBER",
+      "labelEn": "MEMBER",
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com",
+      "status": "live",
+      "stageLabel": "LIVE",
+      "primaryNav": false,
+      "mission": "identity + access + dashboard"
+    },
+    {
+      "key": "work",
+      "labelVi": "WORK",
+      "labelEn": "WORK",
+      "host": "work.vetuonglai.com",
+      "url": "https://work.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": false,
+      "mission": "proof-first opportunities"
+    },
+    {
+      "key": "market",
+      "labelVi": "MARKET",
+      "labelEn": "MARKET",
+      "host": "market.vetuonglai.com",
+      "url": "https://market.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": false,
+      "mission": "trust-sensitive transactions"
+    },
+    {
+      "key": "community",
+      "labelVi": "COMMUNITY",
+      "labelEn": "COMMUNITY",
+      "host": "community.vetuonglai.com",
+      "url": "https://community.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": false,
+      "mission": "cohort + peer support + practice boundary"
+    },
+    {
+      "key": "ai",
+      "labelVi": "AI",
+      "labelEn": "AI",
+      "host": "ai.vetuonglai.com",
+      "url": "https://ai.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": false,
+      "mission": "guided AI helpers + safe use-case previews"
+    },
+    {
+      "key": "business",
+      "labelVi": "BUSINESS",
+      "labelEn": "BUSINESS",
+      "host": "business.vetuonglai.com",
+      "url": "https://business.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": false,
+      "mission": "enterprise intake + package recommendation"
+    },
+    {
+      "key": "nft",
+      "labelVi": "NFT",
+      "labelEn": "NFT",
+      "host": "nft.iai.one",
+      "url": "https://nft.iai.one",
+      "status": "bridge",
+      "stageLabel": "BRIDGE",
+      "primaryNav": false,
+      "mission": "mirror bridge for digital-asset records"
+    }
+  ]
+}

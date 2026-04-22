@@ -1,5 +1,6 @@
 import { execFileSync } from "node:child_process";
-import { access, readFile } from "node:fs/promises";
+import { access, cp, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import os from "node:os";
 import path from "node:path";
 import { ROOT, parseArgs, resolveAccountId, runWrangler } from "./cloudflare-utils.mjs";
 
@@ -8,11 +9,15 @@ async function loadWorkersConfig() {
   return JSON.parse(raw);
 }
 
-function runCommand(bin, args) {
+function runCommand(bin, args, env = {}) {
   return execFileSync(bin, args, {
     cwd: ROOT,
     stdio: ["ignore", "pipe", "pipe"],
     encoding: "utf8",
+    env: {
+      ...process.env,
+      ...env,
+    },
   }).trim();
 }
 
@@ -28,6 +33,88 @@ async function ensurePath(targetPath) {
   await access(path.join(ROOT, targetPath));
 }
 
+async function prepareWorkerAssetsDir(worker) {
+  const absoluteAssetsDir = path.join(ROOT, worker.assetsDir);
+  const pagesWorkerPath = path.join(absoluteAssetsDir, "_worker.js");
+  const pagesRedirectsPath = path.join(absoluteAssetsDir, "_redirects");
+
+  const ignoredEntries = [];
+
+  try {
+    await access(pagesWorkerPath);
+    ignoredEntries.push("_worker.js");
+  } catch {}
+
+  try {
+    await access(pagesRedirectsPath);
+    ignoredEntries.push("_redirects");
+  } catch {}
+
+  if (ignoredEntries.length === 0) {
+    return {
+      assetsDir: absoluteAssetsDir,
+      cleanup: async () => {},
+    };
+  }
+
+  const tempDir = await mkdtemp(path.join(os.tmpdir(), `${worker.scriptName}-assets-`));
+  await cp(absoluteAssetsDir, tempDir, { recursive: true });
+  await writeFile(path.join(tempDir, ".assetsignore"), `${ignoredEntries.join("\n")}\n`, "utf8");
+  await Promise.all(
+    ignoredEntries.map((entry) => rm(path.join(tempDir, entry), { force: true })),
+  );
+
+  return {
+    assetsDir: tempDir,
+    cleanup: async () => {
+      await rm(tempDir, { recursive: true, force: true });
+    },
+  };
+}
+
+function printAccessRuntimeContract(worker) {
+  if (!worker.accessRuntime) return;
+
+  console.log(`Access runtime contract for ${worker.scriptName}:`);
+  console.log(`  required secrets: ${worker.accessRuntime.requiredSecrets.join(", ")}`);
+  console.log(`  recommended vars: ${worker.accessRuntime.recommendedVars.join(", ")}`);
+  console.log(`  optional bindings: ${worker.accessRuntime.optionalBindings.join(", ")}`);
+}
+
+function listWorkerSecrets(scriptName, accountId) {
+  try {
+    const raw = runCommand(
+      "wrangler",
+      ["secret", "list", "--name", scriptName, "--format", "json"],
+      { CLOUDFLARE_ACCOUNT_ID: accountId },
+    );
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .map((entry) => entry?.name)
+      .filter((name) => typeof name === "string" && name.length > 0);
+  } catch {
+    return [];
+  }
+}
+
+function printSecretReadiness(worker, accountId, { strict } = {}) {
+  if (!worker.accessRuntime?.requiredSecrets?.length) return;
+
+  const existing = listWorkerSecrets(worker.scriptName, accountId);
+  const missing = worker.accessRuntime.requiredSecrets.filter((name) => !existing.includes(name));
+
+  if (missing.length === 0) {
+    console.log(`Access runtime secrets ready for ${worker.scriptName}.`);
+    return;
+  }
+
+  console.warn(`Access runtime secrets missing for ${worker.scriptName}: ${missing.join(", ")}`);
+  if (strict) {
+    throw new Error(`Missing required secrets for ${worker.scriptName}. Add secrets before strict deployment.`);
+  }
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const config = await loadWorkersConfig();
@@ -39,6 +126,7 @@ async function main() {
   if (selected.length === 0) {
     throw new Error("Khong tim thay worker nao khop voi --worker.");
   }
+  const strictSecrets = Boolean(args["strict-secrets"]);
 
   const commitHash = safeGit(() => runCommand("git", ["rev-parse", "HEAD"]));
   const commitMessage = safeGit(() => runCommand("git", ["log", "-1", "--pretty=%s"])) || "Deploy workers";
@@ -46,6 +134,9 @@ async function main() {
   for (const worker of selected) {
     await ensurePath(worker.entry);
     await ensurePath(worker.assetsDir);
+    printAccessRuntimeContract(worker);
+    printSecretReadiness(worker, accountId, { strict: strictSecrets });
+    const preparedAssets = await prepareWorkerAssetsDir(worker);
 
     const wranglerArgs = [
       "deploy",
@@ -53,7 +144,7 @@ async function main() {
       "--name",
       worker.scriptName,
       "--assets",
-      path.join(ROOT, worker.assetsDir),
+      preparedAssets.assetsDir,
       "--compatibility-date",
       config.compatibilityDate,
       "--keep-vars=true",
@@ -67,7 +158,14 @@ async function main() {
     }
 
     console.log(`Deploying worker ${worker.scriptName} with assets ${worker.assetsDir}`);
-    runWrangler(wranglerArgs, { CLOUDFLARE_ACCOUNT_ID: accountId });
+    try {
+      runWrangler(wranglerArgs, {
+        CLOUDFLARE_ACCOUNT_ID: accountId,
+        ...(process.env.CLOUDFLARE_API_TOKEN ? { CLOUDFLARE_API_TOKEN: process.env.CLOUDFLARE_API_TOKEN } : {}),
+      });
+    } finally {
+      await preparedAssets.cleanup();
+    }
   }
 
   console.log("Workers deployment complete.");

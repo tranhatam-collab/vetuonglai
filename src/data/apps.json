@@ -1,66 +1,83 @@
 [
   {
     "key": "vc",
-    "title": "Chứng Chỉ Số & Xác Minh",
-    "titleEn": "Digital Credentials & Verification",
-    "desc": "Registry độc lập để cấp, tra cứu, quét và xác minh chứng chỉ trong vài giây.",
-    "descEn": "An independent registry for issuing, scanning, searching, and verifying credentials in seconds.",
+    "title": "XÁC MINH",
+    "titleEn": "VERIFICATION",
+    "desc": "Lớp xác minh độc lập cho năng lực, sản phẩm, tài sản và dự án bằng dữ liệu thật, hồ sơ thật và kiểm tra được.",
+    "descEn": "An independent verification layer for capabilities, products, assets, and projects through real data, real profiles, and checkable records.",
     "url": "https://vc.vetuonglai.com",
     "status": "live",
     "stageLabel": "LIVE"
   },
   {
     "key": "edu",
-    "title": "Giáo Dục Tương Lai",
-    "titleEn": "Future Education",
-    "desc": "Khóa học, lộ trình năng lực và micro-credential gắn với lớp xác minh VC.",
-    "descEn": "Courses, competency pathways, and micro-credentials connected to the VC verification layer.",
-    "url": "https://vetuonglai-edu.pages.dev",
-    "publicUrl": "https://edu.vetuonglai.com",
-    "status": "beta",
-    "stageLabel": "PREVIEW"
+    "title": "HỌC",
+    "titleEn": "LEARNING",
+    "desc": "Lớp học để làm được việc, tạo đầu ra và nối sang lớp xác minh thay vì dừng ở kiến thức đơn lẻ.",
+    "descEn": "The learning layer for practical output, real work, and evidence that can be reviewed and verified instead of isolated knowledge.",
+    "url": "https://edu.vetuonglai.com",
+    "status": "member_preview",
+    "stageLabel": "MEMBER_PREVIEW"
   },
   {
     "key": "life",
-    "title": "Đời Sống Tương Lai",
-    "titleEn": "Future Life",
-    "desc": "Life operating system cho sức khỏe, nhịp sống, năng lượng và kỷ luật cá nhân.",
-    "descEn": "A life operating system for health, rhythm, energy, and personal discipline.",
-    "url": "https://vetuonglai-life.pages.dev",
-    "publicUrl": "https://life.vetuonglai.com",
+    "title": "NHỊP SỐNG",
+    "titleEn": "RHYTHM",
+    "desc": "Lớp đời sống giúp ổn định nhịp, giữ năng lượng và tạo kỷ luật nền bằng baseline, review tuần và dữ liệu thật.",
+    "descEn": "The life layer that stabilizes rhythm, protects energy, and builds discipline through baselines, weekly review, and real observation.",
+    "url": "https://life.vetuonglai.com",
     "status": "planned",
-    "stageLabel": "PREVIEW"
+    "stageLabel": "PLANNED"
   },
   {
     "key": "green",
-    "title": "Chứng Chỉ Môi Trường",
-    "titleEn": "Environmental Credentials",
-    "desc": "Bằng chứng xanh, đóng góp bền vững và chương trình tác động có thể xác minh.",
-    "descEn": "Green evidence, sustainable contributions, and impact programs that can be independently verified.",
+    "title": "XANH",
+    "titleEn": "GREEN",
+    "desc": "Lớp xanh ghi nhận hành động, tạo hồ sơ tác động và neo bằng chứng sang lớp xác minh để tránh greenwashing.",
+    "descEn": "The green layer records action, builds an impact dossier, and anchors evidence into the verification layer to avoid vague green claims.",
     "url": "https://green.vetuonglai.com",
     "status": "live",
     "stageLabel": "LIVE"
   },
   {
     "key": "finance",
-    "title": "Tài Chính Cơ Bản",
-    "titleEn": "Core Financial Literacy",
-    "desc": "Tư duy tiền bạc, quản trị rủi ro, dấu hiệu lừa đảo và kỷ luật tài chính dài hạn.",
-    "descEn": "Money discipline, risk management, scam awareness, and long-term financial behavior.",
+    "title": "TIỀN",
+    "titleEn": "MONEY",
+    "desc": "Lớp tài chính giúp hiểu tiền, giữ tiền và tránh rủi ro bằng kỷ luật dòng tiền, bộ lọc chống lừa đảo và tư duy dài hạn.",
+    "descEn": "The finance layer helps people understand money, protect it, and reduce risk through discipline, scam filters, and long-term clarity.",
     "url": "https://finance.vetuonglai.com",
     "status": "live",
     "stageLabel": "LIVE"
   },
   {
     "key": "invest",
-    "title": "Đầu Tư Tỉnh Táo",
-    "titleEn": "Sane Investing",
-    "desc": "Khung đầu tư dài hạn với due diligence, khẩu vị rủi ro và nguyên tắc không FOMO.",
-    "descEn": "A long-term investing framework built on due diligence, risk appetite, and a strict no-FOMO rule.",
-    "url": "https://vetuonglai-invest.pages.dev",
-    "publicUrl": "https://invest.vetuonglai.com",
+    "title": "ĐẦU TƯ",
+    "titleEn": "INVESTING",
+    "desc": "Lớp đầu tư tỉnh táo với risk-first thinking, due diligence và kỷ luật phân bổ vốn không FOMO.",
+    "descEn": "The calm-investing layer built on risk-first thinking, due diligence, and allocation discipline without FOMO.",
+    "url": "https://invest.vetuonglai.com",
     "status": "planned",
-    "stageLabel": "PREVIEW"
+    "stageLabel": "PLANNED"
+  },
+  {
+    "key": "community",
+    "title": "CỘNG ĐỒNG",
+    "titleEn": "COMMUNITY",
+    "desc": "Lớp cộng đồng mở preview cho cohort, circle và nguyên tắc tham gia an toàn trước khi mở các vòng thực hành sâu hơn.",
+    "descEn": "The community layer opens previews for cohorts, circles, and safe participation principles before deeper practice loops are opened.",
+    "url": "https://community.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  },
+  {
+    "key": "ai",
+    "title": "AI",
+    "titleEn": "AI",
+    "desc": "Lớp AI công khai cho các use-case mẫu, nguyên tắc dùng AI đúng chỗ và các helper preview an toàn trước khi mở tool runtime.",
+    "descEn": "The AI layer opens public use-case previews, safe AI usage principles, and helper demos before runtime tools are opened.",
+    "url": "https://ai.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
   },
   {
     "key": "nft",
@@ -69,7 +86,7 @@
     "desc": "Cầu nối tới nft.iai.one để mirror các bản ghi tài sản mã hóa sang VC độc lập của Về Tương Lai.",
     "descEn": "A bridge into nft.iai.one that mirrors digital-asset records into Về Tương Lai's independent VC layer.",
     "url": "https://nft.iai.one",
-    "status": "live",
+    "status": "bridge",
     "stageLabel": "BRIDGE"
   }
 ]

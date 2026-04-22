@@ -2,7 +2,7 @@
 
 Phiên bản: 1.0
 Ngày: 2026-04-22
-Mốc chốt: 2026-04-22 09:15 ICT
+Mốc chốt: 2026-04-22 10:14 ICT
 Trạng thái: active
 Owner chính: Team 1
 Áp dụng cho: Team 1 · Team 2 · Team 3 · Team 4 · Team 5 · QA · PM · Ops
@@ -54,13 +54,13 @@ Backlog tổng được chia thành `5` wave khóa:
 
 Theo backlog đã khóa ở board này:
 
-- tổng hoàn thành: `42%`
-- tổng còn lại: `58%`
+- tổng hoàn thành: `62%`
+- tổng còn lại: `38%`
 
 Ghi chú:
 
-- `42%` này đã bao gồm founder lane closure và core live redeploy bước đầu
-- phần `58%` còn lại nằm chủ yếu ở mobile closure, hardening `life/invest`, và rollout planned-safe cho các subdomain chưa mở
+- `62%` này đã bao gồm founder lane closure, Wave A, Wave B, và phần local-ready đã khóa cho Wave D
+- phần `38%` còn lại nằm chủ yếu ở signoff/promotion Wave C, runtime publish Wave D, và release/QA/Ops pack cuối của Wave E
 
 ## 4. Phần trăm theo team
 
@@ -77,8 +77,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `33%`
-- còn lại: `67%`
+- hoàn thành: `67%`
+- còn lại: `33%`
 
 ### Team 2 — Frontend / UX / Mobile / Public Surfaces
 
@@ -93,8 +93,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `28%`
-- còn lại: `72%`
+- hoàn thành: `42%`
+- còn lại: `58%`
 
 ### Team 3 — Governance / Runtime Truth / QA Gate
 
@@ -109,8 +109,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `40%`
-- còn lại: `60%`
+- hoàn thành: `67%`
+- còn lại: `33%`
 
 ### Team 4 — Data / Registry / Forms / Content Contracts
 
@@ -125,8 +125,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `17%`
-- còn lại: `83%`
+- hoàn thành: `83%`
+- còn lại: `17%`
 
 ### Team 5 — Smoke / Strict Contract / Release Verification
 
@@ -141,8 +141,8 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `33%`
-- còn lại: `67%`
+- hoàn thành: `83%`
+- còn lại: `17%`
 
 ## 5. Trật tự thực thi bắt buộc từ bây giờ
 
@@ -160,7 +160,7 @@ Trạng thái: `done`
 
 ### Wave B — Mobile V1 closure
 
-Trạng thái: `active_now`
+Trạng thái: `done`
 
 Mục tiêu:
 
@@ -183,7 +183,7 @@ Exit gate:
 
 ### Wave C — Core subdomains hardening
 
-Trạng thái: `active_next`
+Trạng thái: `active_now / hardening_ready / no_go_for_promotion`
 
 Phạm vi:
 
@@ -207,7 +207,7 @@ Exit gate:
 
 ### Wave D — Planned-safe rollout cho các subdomain còn thiếu
 
-Trạng thái: `next`
+Trạng thái: `active_next / local_ready`
 
 Cụm domain:
 
@@ -253,34 +253,34 @@ Mục tiêu:
 ### Team 1 — làm ngay
 
 1. giữ core runtime xanh sau redeploy
-2. khóa tiếp mobile entitlement/session mapping
-3. chuẩn bị hardening lane cho `life` và `invest`
+2. chốt signoff hardening lane cho `life` và `invest`
+3. chuẩn bị route/runtime publish plan cho `work`, `market`, `community`, `ai`, `business`
 4. chặn mọi route planned chưa đủ điều kiện bằng runtime truth hiện hành
 
 ### Team 2 — làm ngay
 
-1. chốt mobile state parity trên `hub/member/edu/vc`
+1. giữ mobile state parity đã khóa trên `hub/member/edu/vc`
 2. dọn wording công khai còn kỹ thuật ở `member`, `work`, `market`, `life`, `invest`, `green`
 3. khóa render nav/status chỉ bám registry/runtime truth
-4. chuẩn bị planned-safe shell cho `business` sau khi Team 4 chốt form/data contract
+4. polish planned-safe shell cho `community`, `ai`, `business` mà không tạo false-live
 
 ### Team 3 — làm ngay
 
-1. audit lại mobile trust/disclosure wording
+1. refresh note Wave B theo evidence pass mới của Team 5
 2. audit planned-safe wording cho `work`, `market`, `community`, `ai`, `business`
 3. phát hành go/no-go note ngắn cho từng wave, không gom một lần cho toàn hệ
 
 ### Team 4 — làm ngay
 
-1. khóa registry package/form cho member + subdomains
-2. viết contract dữ liệu cho `business.vetuonglai.com`
-3. chuẩn bị comparison/demo/output data cho các gói Foundation / Applied / Professional / Business
+1. giữ registry package/form cho member + subdomains đã đồng bộ
+2. mở tiếp contract dữ liệu cross-domain cho dashboard/journey
+3. duy trì comparison/demo/output data cho các gói Foundation / Applied / Professional / Business
 
 ### Team 5 — làm ngay
 
-1. đóng gói mobile verify pack
-2. chuẩn bị strict verify pack cho `life` và `invest`
-3. viết release verification cho wave planned-safe của `work`, `market`, `community`, `ai`, `business`
+1. phát hành evidence pack ngắn cho Wave B = done
+2. phát hành evidence pack ngắn cho Wave C = hardening-ready / no promotion
+3. chuẩn bị total-system release gate report cho Wave E
 
 ## 7. Không được làm trong wave hiện tại
 
@@ -326,6 +326,7 @@ Team 1 phải báo theo đúng mẫu:
 ## 10. Evidence tham chiếu
 
 - core live rollup: [VTL_47_CORE_LIVE_DEPLOY_ROLLUP_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_47_CORE_LIVE_DEPLOY_ROLLUP_2026-04-22.md)
+- progress rollup mới nhất sau Wave B + Wave D local-ready: [VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md)
 - master board: [39_EXECUTION_BOARD_VETUONGLAI_V1.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/00_master/39_EXECUTION_BOARD_VETUONGLAI_V1.md)
 - founder lane control board: [VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md)
 

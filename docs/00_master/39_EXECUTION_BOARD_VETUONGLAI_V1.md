@@ -21,7 +21,7 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
 - đưa founder command panel + autopilot vào build lane nội bộ
 - buộc Team 1 lead báo `% còn lại` sau mỗi lượt dev
 
-## Snapshot điều phối mới nhất (2026-04-22 09:15 ICT)
+## Snapshot điều phối mới nhất (2026-04-22 10:14 ICT)
 
 - founder lane execution đã khóa xong:
   - `100% / 0%`
@@ -38,17 +38,28 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
 - build pipeline đã được khóa thêm:
   - dọn sạch `dist`
   - build lock chống va chạm khi verify song song
+- Wave B — Mobile V1 Closure đã chốt verify pass
+- Wave C — Core Subdomains Hardening đang ở trạng thái `hardening_ready / no_go_for_promotion`
+- Wave D — Planned-safe rollout hiện đã có shell local cho `community` và `ai`
 - trọng tâm active của tổng kế hoạch hiện tại là:
-  - Wave B — Mobile V1 Closure
-  - Wave C — Core Subdomains Hardening
-  - sau đó mới tới Wave D — Planned-safe rollout cho các subdomain còn thiếu
+  - chốt signoff Wave C
+  - chuẩn bị runtime publish cho Wave D
+  - rồi mới gom Wave E — Release/QA/Ops pack toàn hệ
 
 ## Board điều phối chi tiết đang active
 
 - rollup live + evidence mới nhất:
   - `docs/final-lock/VTL_47_CORE_LIVE_DEPLOY_ROLLUP_2026-04-22.md`
+- rollup tiến độ mới nhất sau Wave B + Wave D local-ready:
+  - `docs/final-lock/VTL_53_WAVE_B_D_RUNTIME_PROGRESS_ROLLUP_2026-04-22.md`
 - board continuation 5 team cho toàn hệ:
   - `docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md`
+- Team 3 audit/go-no-go active cho wave hiện tại:
+  - `docs/final-lock/VTL_49_WAVE_B_MOBILE_CLOSURE_GO_NO_GO_2026-04-22.md`
+  - `docs/final-lock/VTL_50_WAVE_C_LIFE_INVEST_HARDENING_GO_NO_GO_2026-04-22.md`
+  - `docs/final-lock/VTL_51_PLANNED_SAFE_NOTES_WORK_MARKET_COMMUNITY_AI_BUSINESS_2026-04-22.md`
+
+Nếu có tài liệu cũ hơn mâu thuẫn với ba file trên trong phạm vi Wave B / Wave C / Wave D, team phải bám snapshot active ngày `2026-04-22` cho lane hiện tại, không tự suy diễn theo status cũ.
 
 ---
 
