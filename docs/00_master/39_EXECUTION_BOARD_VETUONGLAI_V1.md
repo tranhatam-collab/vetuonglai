@@ -59,6 +59,8 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
 - release/signoff pack mới nhất của Wave C:
   - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
   - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
+- channel mapping + 15 phút dev reminder active:
+  - `docs/final-lock/VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md`
 - board continuation 5 team cho toàn hệ:
   - `docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md`
 - Team 3 audit/go-no-go active cho wave hiện tại:
