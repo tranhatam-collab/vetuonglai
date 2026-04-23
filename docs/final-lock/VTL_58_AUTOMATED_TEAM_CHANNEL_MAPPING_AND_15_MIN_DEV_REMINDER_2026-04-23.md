@@ -228,17 +228,53 @@ Gate kế tiếp:
 - không dùng wording nội bộ trên public surface
 - không tự đổi pricing, legal, policy hoặc entitlement model
 
-## 7. Tài liệu nền bắt buộc
+## 7. Điều kiện duy nhất được tắt nhắc tự động
+
+Automation nhắc việc `15 phút/lần` chỉ được tắt cho một team khi team đó đã xong hoàn chỉnh toàn bộ nhiệm vụ của mình.
+
+Không được tắt vì:
+
+- hết giờ làm
+- team đang mệt
+- đang chờ daily meeting
+- task gần xong nhưng chưa có evidence
+- chỉ mới báo miệng là xong
+
+Một team chỉ được coi là đủ điều kiện tắt nhắc khi có đủ `6` điều kiện:
+
+1. toàn bộ backlog của team trong board active đã hoàn thành
+2. verify tương ứng đã pass
+3. evidence đã được ghi trong repo hoặc report rõ ràng
+4. báo cáo cuối đã có `% hoàn thành / % còn lại = 100% / 0%`
+5. Team 1 xác nhận không còn dependency mở của team đó
+6. QA / PM hoặc owner gate tương ứng không còn giữ `HOLD`
+
+Nếu thiếu bất kỳ điều kiện nào:
+
+- automation vẫn tiếp tục nhắc team đó mỗi `15 phút`
+- team phải tiếp tục dev, verify, hoặc escalate blocker thật
+
+Khi đủ điều kiện tắt, Team 1 phải ghi một dòng kết luận:
+
+```md
+Team <số> đủ điều kiện tắt reminder: 100% / 0%, evidence đã pass, không còn blocker mở.
+```
+
+Chỉ sau dòng kết luận này mới được tắt reminder cho team đó.
+
+## 8. Tài liệu nền bắt buộc
 
 - [VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md)
 - [VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md)
 - [VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md)
 - [VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md)
 
-## 8. Câu chốt
+## 9. Câu chốt
 
 Nhắc việc không phải để làm phiền.
 
 Nhắc việc để hệ không đứng yên.
 
 Mỗi 15 phút, team phải hoặc tiến thêm, hoặc báo đúng blocker thật.
+
+Nhắc việc chỉ được tắt khi team đã thật sự xong `100% / 0%`.
