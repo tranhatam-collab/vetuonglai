@@ -1,0 +1,82 @@
+{
+  "generatedAt": "2026-04-23T11:21:35.173Z",
+  "owner": "team-5-smoke-release-qa",
+  "lane": "wave-e-total-system-release-gate",
+  "decision": {
+    "baseline_ready": true,
+    "system_signoff_ready": false,
+    "wave_e_allowed": false,
+    "publish_ready": false,
+    "blockers": [
+      "wave_d_dns_or_runtime_publish"
+    ],
+    "summary": {
+      "total": 5,
+      "passed": 4,
+      "failed": 1
+    }
+  },
+  "rows": [
+    {
+      "key": "team5_full_pack",
+      "label": "Team 5 full smoke/strict pack",
+      "command": "npm run verify:team5:pack",
+      "ok": true,
+      "code": 0,
+      "timedOut": false,
+      "durationSec": 4.5,
+      "note": "",
+      "outputTail": "    \"failed\": 0,\n    \"skipped\": 0\n  },\n  \"runtime_and_live\": {\n    \"total\": 4,\n    \"passed\": 2,\n    \"failed\": 0,\n    \"skipped\": 2\n  }\n}"
+    },
+    {
+      "key": "planned_safe_wave_release",
+      "label": "Wave D planned-safe release pack",
+      "command": "npm run verify:planned-safe:wave:release",
+      "ok": true,
+      "code": 0,
+      "timedOut": false,
+      "durationSec": 0.5,
+      "note": "",
+      "outputTail": "      }\n    ],\n    \"gate_rules\": [\n      \"Khong false-live claim tren domain planned-safe.\",\n      \"CTA domain planned-safe phai dan ve diem vao hop le (hub/gateway).\",\n      \"Domain gated-only co the chua public runtime, nhung phai co runtime-truth reference ro rang.\"\n    ]\n  }\n}\nPlanned-safe wave release verification passed."
+    },
+    {
+      "key": "wave_d_deploy_plan",
+      "label": "Wave D Pages deploy dry-run",
+      "command": "node scripts/deploy-wave-d-pages.mjs --dry-run",
+      "ok": true,
+      "code": 0,
+      "timedOut": false,
+      "durationSec": 0,
+      "note": "",
+      "outputTail": "  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/ai.vetuonglai.com --project-name vetuonglai-ai --branch main\n\n[wave-d] business\n  project_name: vetuonglai-business\n  dist_dir: dist/business.vetuonglai.com\n  custom_domains: business.vetuonglai.com\n  notes: Business shell remains planned-safe and cannot be presented as live enterprise onboarding until DNS, Team 4 contract, and Team 5 verify all pass.\n  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/business.vetuonglai.com --project-name vetuonglai-business --branch main\n\nWave D Pages deployment plan complete."
+    },
+    {
+      "key": "wave_d_public_publish_self_test",
+      "label": "Wave D live publish verifier self-test",
+      "command": "node scripts/verify-wave-d-public-publish.mjs --self-test",
+      "ok": true,
+      "code": 0,
+      "timedOut": false,
+      "durationSec": 0,
+      "note": "",
+      "outputTail": "Wave D public publish self-test passed."
+    },
+    {
+      "key": "wave_d_public_publish_live",
+      "label": "Wave D public publish live verify",
+      "command": "node scripts/verify-wave-d-public-publish.mjs",
+      "ok": false,
+      "code": 1,
+      "timedOut": false,
+      "durationSec": 0.1,
+      "note": "",
+      "outputTail": "Wave D public publish verification failed."
+    }
+  ],
+  "gateRules": [
+    "Wave E chi duoc ky khi Team 5 full pack xanh.",
+    "Wave D planned-safe pack va deploy dry-run phai xanh.",
+    "Wave D public publish live verify phai xanh truoc khi system_signoff_ready=true.",
+    "Neu Wave D con DNS/runtime publish fail thi publish_ready=false va wave_e_allowed=false."
+  ]
+}

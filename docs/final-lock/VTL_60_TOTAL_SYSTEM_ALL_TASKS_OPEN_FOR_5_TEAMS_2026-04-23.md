@@ -38,14 +38,14 @@ Theo các verify gần nhất:
 
 ## 2. Phần trăm hiện hành
 
-Cập nhật sau báo cáo Team 4 lúc `2026-04-23 17:58 ICT`:
+Cập nhật sau commit test sync lúc `2026-04-23 18:21 ICT`:
 
 - Team 1: `82% / 18%`
 - Team 2: `44% / 56%`
 - Team 3: `72% / 28%`
 - Team 4: `88% / 12%`
-- Team 5: `92% / 8%`
-- Tổng hệ: `72% / 28%`
+- Team 5: `94% / 6%`
+- Tổng hệ: `73% / 27%`
 
 Không được tự tăng phần trăm nếu chưa có verify hoặc evidence mới.
 
@@ -407,3 +407,18 @@ Kết luận:
 - Tổng hệ `%`: `72% / 28%`
 - Blocker thật còn lại: Wave D DNS/public publish/deploy/live verification
 - Không claim Wave D live cho tới khi DNS, deploy, runtime verify, Team 5 release gate, và QA/PM signoff đều pass
+
+## 16. Commit test sync — 2026-04-23 18:21 ICT
+
+File evidence chính thức:
+
+- `/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_62_COMMIT_TEST_AND_CROSS_TEAM_REMAINING_WORK_SYNC_2026-04-23.md`
+
+Kết luận:
+
+- Team 5 full pack: PASS ngoài sandbox
+- total-system release gate: `baseline_ready=true`, `publish_ready=false`
+- blocker còn lại của Vetuonglai release: Wave D DNS/public publish
+- payment Team D: dual-rail assignment/policy ready, production pay gate vẫn `LOCK_RETAINED_WITH_REASON`
+- Team 5 `%`: `94% / 6%`
+- Tổng hệ `%`: `73% / 27%`

@@ -21,7 +21,7 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
 - đưa founder command panel + autopilot vào build lane nội bộ
 - buộc Team 1 lead báo `% còn lại` sau mỗi lượt dev
 
-## Snapshot điều phối mới nhất (2026-04-23 17:58 ICT)
+## Snapshot điều phối mới nhất (2026-04-23 18:21 ICT)
 
 - founder lane execution đã khóa xong:
   - `100% / 0%`
@@ -45,7 +45,10 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - self-test pass
   - smoke + strict pass ngoài sandbox với DNS thật
   - Team 4 cập nhật `88% / 12%`
-- tổng hệ cập nhật `72% / 28%`
+- Team 5 full smoke/strict pack đã pass ngoài sandbox
+- total-system release gate hiện `baseline_ready=true`, `publish_ready=false`, blocker còn lại là Wave D DNS/public publish
+- payment Team D cho cụm `vc/invest/life.vetuonglai.com` đã khóa dual-rail assignment/policy nhưng production pay gate vẫn `LOCK_RETAINED_WITH_REASON`
+- tổng hệ cập nhật `73% / 27%`
 - trọng tâm active của tổng kế hoạch hiện tại là:
   - chốt signoff Wave C
   - khóa DNS/runtime publish cho Wave D
@@ -65,6 +68,8 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md`
 - Team 4 endpoint pack progress ack:
   - `docs/final-lock/VTL_61_TEAM4_ENDPOINT_PACK_PROGRESS_ACK_2026-04-23.md`
+- commit test and cross-team remaining work sync:
+  - `docs/final-lock/VTL_62_COMMIT_TEST_AND_CROSS_TEAM_REMAINING_WORK_SYNC_2026-04-23.md`
 - release/signoff pack mới nhất của Wave C:
   - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
   - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
