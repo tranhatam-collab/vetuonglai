@@ -1,3 +1,11 @@
+import { readFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+import { loadRuntimeTruthByHost } from "./verify-wave-pack-utils.mjs";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const ROOT = path.resolve(__dirname, "..");
 const DEFAULT_TIMEOUT_MS = Number(process.env.VTL_LIFE_INVEST_TIMEOUT_MS || 12000);
 const DEFAULT_LIFE_URL = process.env.VTL_LIFE_BASE_URL || "https://life.vetuonglai.com";
 const DEFAULT_INVEST_URL = process.env.VTL_INVEST_BASE_URL || "https://invest.vetuonglai.com";
@@ -13,6 +21,7 @@ function parseCliArgs(argv) {
     investUrl: normalizeBaseUrl(DEFAULT_INVEST_URL),
     timeoutMs: DEFAULT_TIMEOUT_MS,
     selfTest: false,
+    forceLive: false,
     help: false,
   };
 
@@ -37,6 +46,10 @@ function parseCliArgs(argv) {
       options.selfTest = true;
       continue;
     }
+    if (arg === "--force-live") {
+      options.forceLive = true;
+      continue;
+    }
     if (arg === "--help" || arg === "-h") {
       options.help = true;
     }
@@ -56,6 +69,7 @@ function usageText() {
     "  --invest-url <url>    Base URL invest. Mac dinh: https://invest.vetuonglai.com",
     "  --timeout-ms <ms>     Timeout moi request. Mac dinh: 12000",
     "  --self-test           Chay self-test validator.",
+    "  --force-live          Kiem live URL du runtime truth van dang planned-safe.",
     "  --help                Hien huong dan.",
   ].join("\n");
 }
@@ -103,6 +117,10 @@ async function fetchText(url, timeoutMs) {
   } finally {
     clearTimeout(timer);
   }
+}
+
+async function readLocalDistText(domain, fileName) {
+  return await readFile(path.join(ROOT, "dist", `${domain}.vetuonglai.com`, fileName), "utf8");
 }
 
 function assertContainsAny(text, candidates, label) {
@@ -188,6 +206,109 @@ async function runDomainPack(domain, baseUrl, timeoutMs) {
   return rows;
 }
 
+async function runLocalDomainPack(domain) {
+  const validator = domain === "life" ? validateLifeHtml : validateInvestHtml;
+  const checks = [
+    { name: `${domain} local root`, fileName: "index.html", validator },
+    { name: `${domain} local robots`, fileName: "robots.txt" },
+    { name: `${domain} local sitemap`, fileName: "sitemap.xml" },
+  ];
+
+  const rows = [];
+  for (const check of checks) {
+    let ok = true;
+    let note = "";
+    try {
+      const bodyText = await readLocalDistText(domain, check.fileName);
+      if (check.validator) check.validator(bodyText);
+    } catch (error) {
+      ok = false;
+      note = error instanceof Error ? error.message : String(error);
+    }
+    rows.push({
+      name: check.name,
+      url: `dist/${domain}.vetuonglai.com/${check.fileName}`,
+      status: 0,
+      ok,
+      skipped: false,
+      note,
+    });
+  }
+  return rows;
+}
+
+function validateRuntimeTruthState(domain) {
+  if (!domain || typeof domain !== "object") {
+    throw new Error("Missing runtime truth entry.");
+  }
+
+  if (domain.status === "planned_public" && domain.requiredPublic === false) {
+    return;
+  }
+
+  if (domain.status === "live" && domain.requiredPublic === true) {
+    return;
+  }
+
+  throw new Error(`Unexpected runtime truth state: status=${domain.status}, requiredPublic=${domain.requiredPublic}`);
+}
+
+async function buildRuntimeRows() {
+  const runtimeTruth = await loadRuntimeTruthByHost();
+  const life = runtimeTruth.get("life.vetuonglai.com");
+  const invest = runtimeTruth.get("invest.vetuonglai.com");
+  const rows = [];
+
+  for (const [label, domain] of [
+    ["life runtime truth", life],
+    ["invest runtime truth", invest],
+  ]) {
+    try {
+      validateRuntimeTruthState(domain);
+      rows.push({
+        name: label,
+        url: domain?.url || "",
+        status: 0,
+        required: Boolean(domain?.requiredPublic),
+        ok: true,
+        skipped: false,
+        note: `${domain.status} / requiredPublic=${domain.requiredPublic}`,
+      });
+    } catch (error) {
+      rows.push({
+        name: label,
+        url: domain?.url || "",
+        status: 0,
+        required: Boolean(domain?.requiredPublic),
+        ok: false,
+        skipped: false,
+        note: error instanceof Error ? error.message : String(error),
+      });
+    }
+  }
+
+  return {
+    runtimeTruth,
+    rows,
+  };
+}
+
+function publicLiveRequired(runtimeTruth) {
+  const life = runtimeTruth.get("life.vetuonglai.com");
+  const invest = runtimeTruth.get("invest.vetuonglai.com");
+  return Boolean(life?.requiredPublic || invest?.requiredPublic);
+}
+
+function runtimeTruthGateNote({ liveProbeEnabled, publicRequired }) {
+  if (publicRequired) {
+    return "Live verification required because runtime truth marks a target public.";
+  }
+  if (liveProbeEnabled) {
+    return "Live verification was forced, but release remains held because runtime truth still marks life/invest planned-safe.";
+  }
+  return "Live verification skipped because runtime truth still marks life/invest planned-safe.";
+}
+
 function runSelfTest() {
   validateLifeHtml(`
     <html data-domain="life">
@@ -229,16 +350,25 @@ async function main() {
   console.log(`- verify_window: ${DEFAULT_VERIFY_WINDOW}`);
   console.log("");
 
-  const lifeRows = await runDomainPack("life", options.lifeUrl, options.timeoutMs);
-  const investRows = await runDomainPack("invest", options.investUrl, options.timeoutMs);
-  const rows = [...lifeRows, ...investRows];
+  const { runtimeTruth, rows: runtimeRows } = await buildRuntimeRows();
+  const publicRequired = publicLiveRequired(runtimeTruth);
+  const liveProbeEnabled = options.forceLive || publicRequired;
+  const lifeRows = liveProbeEnabled
+    ? await runDomainPack("life", options.lifeUrl, options.timeoutMs)
+    : await runLocalDomainPack("life");
+  const investRows = liveProbeEnabled
+    ? await runDomainPack("invest", options.investUrl, options.timeoutMs)
+    : await runLocalDomainPack("invest");
+  const rows = [...runtimeRows, ...lifeRows, ...investRows];
 
   console.log("Life/Invest strict rows");
   console.table(rows);
 
   const failed = rows.some((row) => !row.ok);
   const decision = {
-    release_ready: !failed,
+    hardening_ready: !failed,
+    release_ready: publicRequired && !failed,
+    planned_safe_hold: !publicRequired,
     summary: summarizeRows(rows),
     rows,
     handoff: {
@@ -248,6 +378,7 @@ async function main() {
         "Gateway CTA ve hub",
         "Disclosure anti-overclaim cho life/invest",
       ],
+      runtime_truth_gate: runtimeTruthGateNote({ liveProbeEnabled, publicRequired }),
     },
   };
 
