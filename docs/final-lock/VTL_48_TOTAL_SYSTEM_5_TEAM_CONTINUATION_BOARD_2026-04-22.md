@@ -60,13 +60,13 @@ Backlog tổng được chia thành `5` wave khóa:
 
 Theo backlog đã khóa ở board này:
 
-- tổng hoàn thành: `71%`
-- tổng còn lại: `29%`
+- tổng hoàn thành: `72%`
+- tổng còn lại: `28%`
 
 Ghi chú:
 
-- `71%` này đã bao gồm founder lane closure, Wave A, Wave B, Wave C hardening-ready, Wave D local-ready, Pages publish plan đã khóa, và deploy/verify runbook đã sẵn sàng
-- phần `29%` còn lại nằm chủ yếu ở signoff/promotion Wave C, DNS/runtime publish Wave D, và release/QA/Ops pack cuối của Wave E
+- `72%` này đã bao gồm founder lane closure, Wave A, Wave B, Wave C hardening-ready, Wave D local-ready, Pages publish plan đã khóa, deploy/verify runbook đã sẵn sàng, và Team 4 endpoint pack đã được nhận evidence
+- phần `28%` còn lại nằm chủ yếu ở signoff/promotion Wave C, DNS/runtime publish Wave D, Team 5 release gate live sau deploy, và release/QA/Ops pack cuối của Wave E
 
 ## 4. Phần trăm theo team
 
@@ -131,8 +131,14 @@ Backlog khóa:
 
 Trạng thái:
 
-- hoàn thành: `83%`
-- còn lại: `17%`
+- hoàn thành: `88%`
+- còn lại: `12%`
+
+Ghi chú cập nhật `2026-04-23 17:58 ICT`:
+
+- Team 4 endpoint pack đã pass self-test
+- Team 4 endpoint pack đã pass smoke + strict ngoài sandbox với DNS thật
+- phần còn lại phụ thuộc Wave D DNS, deploy live, Team 5 gate, và QA/PM signoff
 
 ### Team 5 — Smoke / Strict Contract / Release Verification
 
@@ -345,6 +351,7 @@ Team 1 phải báo theo đúng mẫu:
 - checklist ký nhận Wave C: [VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md)
 - channel mapping + 15 phút dev reminder: [VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md)
 - Team 5 total-system release gate report: [VTL_59_TEAM5_TOTAL_SYSTEM_RELEASE_GATE_REPORT_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_59_TEAM5_TOTAL_SYSTEM_RELEASE_GATE_REPORT_2026-04-23.md)
+- Team 4 endpoint pack progress ack: [VTL_61_TEAM4_ENDPOINT_PACK_PROGRESS_ACK_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_61_TEAM4_ENDPOINT_PACK_PROGRESS_ACK_2026-04-23.md)
 - board mở toàn bộ nhiệm vụ cho 5 team: [VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md)
 - master board: [39_EXECUTION_BOARD_VETUONGLAI_V1.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/00_master/39_EXECUTION_BOARD_VETUONGLAI_V1.md)
 - founder lane control board: [VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md)

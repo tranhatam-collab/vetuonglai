@@ -38,14 +38,14 @@ Theo các verify gần nhất:
 
 ## 2. Phần trăm hiện hành
 
-Giữ nguyên rollup cho tới khi có evidence mới:
+Cập nhật sau báo cáo Team 4 lúc `2026-04-23 17:58 ICT`:
 
 - Team 1: `82% / 18%`
 - Team 2: `44% / 56%`
 - Team 3: `72% / 28%`
-- Team 4: `83% / 17%`
+- Team 4: `88% / 12%`
 - Team 5: `92% / 8%`
-- Tổng hệ: `71% / 29%`
+- Tổng hệ: `72% / 28%`
 
 Không được tự tăng phần trăm nếu chưa có verify hoặc evidence mới.
 
@@ -67,14 +67,17 @@ Không được tự tăng phần trăm nếu chưa có verify hoặc evidence m
 - Team 5 chưa thể live verify
 - Wave E chưa được release signoff
 
-### Blocker B2 — Team 4 live verifier
+### Blocker B2 — Team 4 final signoff phụ thuộc Wave D
 
-Team 4 local/self-test pass, nhưng live verifier còn phụ thuộc network/DNS resolver của môi trường chạy.
+Team 4 endpoint pack đã pass self-test và pass smoke + strict ngoài sandbox với DNS thật.
+
+Phần còn lại của Team 4 không còn được xem là blocker endpoint/data pack. Team 4 chỉ chưa được chốt `100% / 0%` vì Wave D vẫn thiếu DNS/public publish/deploy/signoff live.
 
 Ảnh hưởng:
 
-- Team 4 chưa được nâng `100% / 0%`
-- Team 5 phải phân biệt lỗi data thật với lỗi môi trường verify
+- Team 4 duy trì `88% / 12%`
+- Team 5 chỉ được ký release sau khi Wave D live verify có evidence
+- Ops và Team 1 là owner chính của blocker publish hiện tại
 
 ### Blocker B3 — Wave C promotion
 
@@ -390,3 +393,17 @@ Tất cả nhiệm vụ đã được mở.
 Không ai được đứng yên.
 
 Chỉ có release/live claim là vẫn phải chờ evidence thật.
+
+## 15. Team 4 progress accepted — 2026-04-23 17:58 ICT
+
+File evidence chính thức:
+
+- `/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_61_TEAM4_ENDPOINT_PACK_PROGRESS_ACK_2026-04-23.md`
+
+Kết luận:
+
+- Team 4 endpoint pack: accepted
+- Team 4 `%`: `88% / 12%`
+- Tổng hệ `%`: `72% / 28%`
+- Blocker thật còn lại: Wave D DNS/public publish/deploy/live verification
+- Không claim Wave D live cho tới khi DNS, deploy, runtime verify, Team 5 release gate, và QA/PM signoff đều pass
