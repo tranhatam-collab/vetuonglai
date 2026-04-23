@@ -67,6 +67,20 @@ Nếu blocker kéo dài hơn `15 phút`:
 - phải ghi action đã thử
 - không được ghi chung chung là “đang chờ”
 
+## 3.1 Lệnh mở toàn bộ nhiệm vụ
+
+Toàn bộ nhiệm vụ còn lại đã được mở trong:
+
+- [VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md)
+
+Mỗi lượt nhắc phải dùng file này làm backlog chính.
+
+Quy tắc:
+
+- team nào còn task không phụ thuộc DNS/signoff thì phải làm tiếp
+- Wave E được mở ở mức chuẩn bị hồ sơ, nhưng release cuối vẫn bị chặn khi Wave D chưa có evidence
+- không ai được đứng yên chỉ vì một team khác đang bị blocker nếu phần việc của mình vẫn còn
+
 ## 4. Nhiệm vụ nhắc theo team
 
 ### Team 1 — `vtl-team1-runtime-release`
@@ -268,6 +282,7 @@ Chỉ sau dòng kết luận này mới được tắt reminder cho team đó.
 - [VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md)
 - [VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md)
 - [VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md)
+- [VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md)
 
 ## 9. Câu chốt
 

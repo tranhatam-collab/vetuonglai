@@ -56,11 +56,15 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md`
 - runbook deploy/verify mới nhất của Wave D:
   - `docs/final-lock/VTL_55_WAVE_D_PAGES_DEPLOY_AND_VERIFY_RUNBOOK_2026-04-22.md`
+- board mở toàn bộ nhiệm vụ cho 5 team:
+  - `docs/final-lock/VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md`
 - release/signoff pack mới nhất của Wave C:
   - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
   - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
 - channel mapping + 15 phút dev reminder active:
   - `docs/final-lock/VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md`
+- Team 5 total-system release gate report mới nhất:
+  - `docs/final-lock/VTL_59_TEAM5_TOTAL_SYSTEM_RELEASE_GATE_REPORT_2026-04-23.md`
 - board continuation 5 team cho toàn hệ:
   - `docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md`
 - Team 3 audit/go-no-go active cho wave hiện tại:

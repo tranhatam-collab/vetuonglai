@@ -3,7 +3,7 @@
 Phiên bản: 1.1
 Ngày: 2026-04-22
 Mốc chốt: 2026-04-22 18:02 ICT
-Trạng thái: active
+Trạng thái: active_all_tasks_open
 Owner chính: Team 1
 Áp dụng cho: Team 1 · Team 2 · Team 3 · Team 4 · Team 5 · QA · PM · Ops
 
@@ -246,7 +246,7 @@ Exit gate:
 
 ### Wave E — Release/QA/Ops pack toàn hệ
 
-Trạng thái: `next`
+Trạng thái: `open_for_preparation / release_blocked`
 
 Mục tiêu:
 
@@ -254,6 +254,11 @@ Mục tiêu:
 - QA/PM signoff pack theo wave
 - deploy checklist + rollback checklist
 - system-level reporting cuối wave
+
+Lưu ý:
+
+- Team 5 được mở chuẩn bị Wave E ngay
+- QA/PM chưa được ký release cuối khi Wave D còn thiếu DNS/deploy/live verify evidence
 
 ## 6. Nhiệm vụ ngay cho từng team
 
@@ -339,6 +344,8 @@ Team 1 phải báo theo đúng mẫu:
 - release note Wave C: [VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md)
 - checklist ký nhận Wave C: [VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md)
 - channel mapping + 15 phút dev reminder: [VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md)
+- Team 5 total-system release gate report: [VTL_59_TEAM5_TOTAL_SYSTEM_RELEASE_GATE_REPORT_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_59_TEAM5_TOTAL_SYSTEM_RELEASE_GATE_REPORT_2026-04-23.md)
+- board mở toàn bộ nhiệm vụ cho 5 team: [VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md)
 - master board: [39_EXECUTION_BOARD_VETUONGLAI_V1.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/00_master/39_EXECUTION_BOARD_VETUONGLAI_V1.md)
 - founder lane control board: [VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_44_5_TEAM_EXECUTION_CONTROL_BOARD_2026-04-21.md)
 
