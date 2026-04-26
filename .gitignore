@@ -4,3 +4,4 @@ node_modules/
 wrangler.toml
 *.log
 .DS_Store
+vetuonglai_*.zip
