@@ -1,0 +1,116 @@
+{
+  "shared": {
+    "brand": {
+      "name": "Vetuonglai",
+      "founder": "Mr. Tran Ha Tam",
+      "subtitle": "Right-sized transparency with independent verification."
+    },
+    "i18n": {
+      "source_locale": "vi-VN",
+      "default_runtime_locale": "vi",
+      "secondary_locale": "en-US",
+      "vietnamese_priority": "highest",
+      "expansion_mode": "manual_review_only"
+    },
+    "positioning": "Vetuonglai is a life system that helps people understand themselves, learn correctly, and produce verifiable value.",
+    "system_lock": "No promised outcomes. Only structure to help people live with more clarity.",
+    "cta": {
+      "start_dialogue": "Start dialogue",
+      "view_entry_point": "View entry point",
+      "continue_at_hub": "Open your full system",
+      "explore_related_layer": "Explore related layer"
+    },
+    "status": {
+      "live": "Live",
+      "member_preview": "Member Preview",
+      "planned": "Planned",
+      "bridge": "Bridge"
+    }
+  },
+  "sites": {
+    "hub": {
+      "seo": {
+        "title": "Vetuonglai | A life system with clear entry points",
+        "description": "A life system that helps people understand themselves, learn correctly, and produce verifiable value across living, learning, and verification layers."
+      },
+      "hero": {
+        "eyebrow": "The Vetuonglai life system",
+        "title": "VETUONGLAI",
+        "subline": "A life system to understand yourself, learn correctly, and produce verifiable value.",
+        "primary_cta": "View entry point"
+      }
+    },
+    "vc": {
+      "seo": {
+        "title": "VC | Independent verification for real value",
+        "description": "VC is the independent verification layer for capabilities, products, assets, and projects through real data, real profiles, and checkable records."
+      },
+      "hero": {
+        "eyebrow": "Verification layer",
+        "title": "VERIFICATION",
+        "subline": "An independent verification layer for real value.",
+        "primary_cta": "View a sample record"
+      }
+    },
+    "edu": {
+      "seo": {
+        "title": "EDU | Learn to do real work",
+        "description": "EDU is the learning layer for practical output, real work, and evidence that can be reviewed and verified instead of isolated knowledge."
+      },
+      "hero": {
+        "eyebrow": "Learning layer",
+        "title": "LEARNING",
+        "subline": "Learn to do real work, not to merely know.",
+        "primary_cta": "View the learning path"
+      }
+    },
+    "life": {
+      "seo": {
+        "title": "LIFE | Stabilize rhythm before optimization",
+        "description": "LIFE helps people stabilize rhythm, protect energy, and build discipline through baselines, weekly review, and real observation."
+      },
+      "hero": {
+        "eyebrow": "Life layer",
+        "title": "RHYTHM",
+        "subline": "Stabilize life before trying to optimize it.",
+        "primary_cta": "Start from the baseline"
+      }
+    },
+    "finance": {
+      "seo": {
+        "title": "FINANCE | Understand money before earning more",
+        "description": "FINANCE helps people understand money, protect it, and reduce risk through discipline, scam filters, and long-term clarity."
+      },
+      "hero": {
+        "eyebrow": "Finance layer",
+        "title": "MONEY",
+        "subline": "Understand money before trying to earn more.",
+        "primary_cta": "View the money checklist"
+      }
+    },
+    "invest": {
+      "seo": {
+        "title": "INVEST | Investing starts with risk awareness",
+        "description": "INVEST is the calm-investing layer built on risk-first thinking, due diligence, and allocation discipline without FOMO."
+      },
+      "hero": {
+        "eyebrow": "Investing layer",
+        "title": "INVESTING",
+        "subline": "Investing starts with understanding risk.",
+        "primary_cta": "View the investing checklist"
+      }
+    },
+    "green": {
+      "seo": {
+        "title": "GREEN | Turn green claims into evidence",
+        "description": "GREEN records action, builds an impact dossier, and anchors evidence into the verification layer to avoid vague green claims."
+      },
+      "hero": {
+        "eyebrow": "Green layer",
+        "title": "GREEN",
+        "subline": "Turn green claims into evidence.",
+        "primary_cta": "View a sample dossier"
+      }
+    }
+  }
+}

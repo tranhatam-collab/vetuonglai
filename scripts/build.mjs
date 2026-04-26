@@ -1691,6 +1691,9 @@ function renderShell({
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" />
   <title data-text-vi="${escapeHtml(titleCopy.vi)}" data-text-en="${escapeHtml(titleCopy.en)}">${escapeHtml(titleCopy.vi)}</title>
   <meta name="description" data-content-vi="${escapeHtml(descriptionCopy.vi)}" data-content-en="${escapeHtml(descriptionCopy.en)}" content="${escapeHtml(descriptionCopy.vi)}" />
   <meta name="robots" content="${escapeHtml(robotsMeta)}" />
@@ -1747,8 +1750,8 @@ function renderHubPage() {
     title: codexPair("sites.hub.hero.title", "VỀ TƯƠNG LAI", "VETUONGLAI"),
     description: codexPair(
       "sites.hub.hero.subline",
-      "Một hệ sống giúp con người hiểu mình, học đúng và tạo ra giá trị có thể kiểm chứng.",
-      "A life system that helps people understand themselves, learn correctly, and produce verifiable value.",
+      "Một hệ sống để hiểu mình, học đúng và tạo ra giá trị kiểm chứng được.",
+      "A life system to understand yourself, learn correctly, and produce verifiable value.",
     ),
     actions: [
       button("#journey-entry", codexPair("sites.hub.hero.primary_cta", "Xem điểm vào", "View entry point")),
@@ -7771,7 +7774,7 @@ function renderEduCoursePlayer(course, lessons) {
         '</div></section>',
 
         '<aside class="edu-ai card"><div class="card-body stack">',
-        '<h3 class="card-title">' + escapeHtml(localized("AI Tutor", "AI Tutor")) + '</h3>',
+        '<h3 class="card-title">' + escapeHtml(localized("Trợ lý học", "Learning assistant")) + '</h3>',
         '<div class="result-shell" id="ai-messages">' +
           (state.aiMessages.length === 0
             ? '<div class="subtle">' + escapeHtml(localized("Chào bạn. Bạn đang muốn thay đổi điều gì nhất lúc này?", "Hi. What is the one thing you most want to change right now?")) + '</div>'
@@ -7781,8 +7784,8 @@ function renderEduCoursePlayer(course, lessons) {
         '<button class="button ghost" data-quick="Giải thích đơn giản hơn">' + escapeHtml(localized("Giải thích đơn giản hơn", "Simplify this")) + '</button>',
         '<button class="button ghost" data-quick="Cho tôi ví dụ thật">' + escapeHtml(localized("Cho tôi ví dụ thật", "Give me a real example")) + '</button>',
         '</div>',
-        '<input id="ai-input" class="search-input" placeholder="' + escapeHtml(localized("Hỏi AI phần bạn chưa rõ...", "Ask AI what is unclear...")) + '" />',
-        '<button class="button primary" data-send-ai="true">' + escapeHtml(localized("Hỏi AI", "Ask AI")) + '</button>',
+        '<input id="ai-input" class="search-input" placeholder="' + escapeHtml(localized("Hỏi trợ lý học phần bạn chưa rõ...", "Ask the learning assistant about anything unclear...")) + '" />',
+        '<button class="button primary" data-send-ai="true">' + escapeHtml(localized("Hỏi trợ lý học", "Ask the learning assistant")) + '</button>',
         '<article class="card"><div class="card-body stack">',
         '<h4 class="card-title">' + escapeHtml(localized("Bước tiếp theo", "Next step")) + '</h4>',
         '<div class="body-copy">' + escapeHtml(nxt ? localized(nxt.title, nxt.titleEn) : localized("Bạn đã hoàn tất lộ trình. Kiểm tra điều kiện VC nhé.", "You completed the path. Check VC eligibility.")) + '</div>',

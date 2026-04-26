@@ -1,0 +1,116 @@
+{
+  "shared": {
+    "brand": {
+      "name": "Về Tương Lai",
+      "founder": "Ông Trần Hà Tâm",
+      "subtitle": "Minh bạch vừa đủ, xác minh được độc lập."
+    },
+    "i18n": {
+      "source_locale": "vi-VN",
+      "default_runtime_locale": "vi",
+      "secondary_locale": "en-US",
+      "vietnamese_priority": "highest",
+      "expansion_mode": "manual_review_only"
+    },
+    "positioning": "Về Tương Lai là một hệ sống giúp con người hiểu mình, học đúng và tạo ra giá trị có thể kiểm chứng.",
+    "system_lock": "Không hứa hẹn kết quả. Chỉ cung cấp cấu trúc để sống rõ hơn.",
+    "cta": {
+      "start_dialogue": "Khởi động đối thoại",
+      "view_entry_point": "Xem điểm vào",
+      "continue_at_hub": "Mở toàn bộ hệ của bạn",
+      "explore_related_layer": "Xem lớp liên quan"
+    },
+    "status": {
+      "live": "Live",
+      "member_preview": "Member Preview",
+      "planned": "Planned",
+      "bridge": "Bridge"
+    }
+  },
+  "sites": {
+    "hub": {
+      "seo": {
+        "title": "Về Tương Lai | Hệ sống và điểm vào rõ ràng",
+        "description": "Một hệ sống giúp con người hiểu mình, học đúng và tạo ra giá trị có thể kiểm chứng qua từng lớp đời sống, học tập và xác minh."
+      },
+      "hero": {
+        "eyebrow": "Hệ sống Về Tương Lai",
+        "title": "VỀ TƯƠNG LAI",
+        "subline": "Một hệ sống để hiểu mình, học đúng và tạo ra giá trị kiểm chứng được.",
+        "primary_cta": "Xem điểm vào"
+      }
+    },
+    "vc": {
+      "seo": {
+        "title": "VC | Lớp xác minh độc lập cho giá trị thật",
+        "description": "VC là lớp xác minh độc lập cho năng lực, sản phẩm, tài sản và dự án bằng dữ liệu thật, hồ sơ thật và kiểm tra được."
+      },
+      "hero": {
+        "eyebrow": "Lớp xác minh",
+        "title": "XÁC MINH",
+        "subline": "Một lớp xác minh độc lập cho giá trị thật.",
+        "primary_cta": "Xem hồ sơ mẫu"
+      }
+    },
+    "edu": {
+      "seo": {
+        "title": "EDU | Học để làm được việc thật",
+        "description": "EDU là lớp học để làm được việc, tạo đầu ra và nối sang lớp xác minh thay vì dừng ở kiến thức đơn lẻ."
+      },
+      "hero": {
+        "eyebrow": "Lớp học",
+        "title": "HỌC",
+        "subline": "Học để làm được việc, không phải để biết.",
+        "primary_cta": "Xem lộ trình học"
+      }
+    },
+    "life": {
+      "seo": {
+        "title": "LIFE | Ổn định nhịp sống trước khi tối ưu",
+        "description": "LIFE giúp ổn định nhịp sống, giữ năng lượng và tạo kỷ luật nền bằng baseline, review tuần và dữ liệu thật."
+      },
+      "hero": {
+        "eyebrow": "Lớp đời sống",
+        "title": "NHỊP SỐNG",
+        "subline": "Ổn định cuộc sống trước khi tối ưu cuộc đời.",
+        "primary_cta": "Bắt đầu từ baseline"
+      }
+    },
+    "finance": {
+      "seo": {
+        "title": "FINANCE | Hiểu tiền trước khi kiếm thêm",
+        "description": "FINANCE giúp hiểu tiền, giữ tiền và tránh rủi ro bằng kỷ luật dòng tiền, bộ lọc chống lừa đảo và tư duy dài hạn."
+      },
+      "hero": {
+        "eyebrow": "Lớp tài chính",
+        "title": "TIỀN",
+        "subline": "Hiểu tiền trước khi cố kiếm thêm tiền.",
+        "primary_cta": "Xem checklist tiền"
+      }
+    },
+    "invest": {
+      "seo": {
+        "title": "INVEST | Đầu tư bắt đầu từ hiểu rủi ro",
+        "description": "INVEST là lớp đầu tư tỉnh táo đặt rủi ro lên trước, yêu cầu tự thẩm định và giữ kỷ luật phân bổ vốn, không chạy theo đám đông."
+      },
+      "hero": {
+        "eyebrow": "Lớp đầu tư",
+        "title": "ĐẦU TƯ",
+        "subline": "Đầu tư bắt đầu từ hiểu rủi ro.",
+        "primary_cta": "Xem checklist đầu tư"
+      }
+    },
+    "green": {
+      "seo": {
+        "title": "GREEN | Biến tuyên bố xanh thành bằng chứng",
+        "description": "GREEN ghi nhận hành động, tạo hồ sơ tác động và neo bằng chứng sang lớp xác minh để tránh những tuyên bố xanh mơ hồ."
+      },
+      "hero": {
+        "eyebrow": "Lớp xanh",
+        "title": "XANH",
+        "subline": "Biến tuyên bố xanh thành bằng chứng.",
+        "primary_cta": "Xem hồ sơ mẫu"
+      }
+    }
+  }
+}
