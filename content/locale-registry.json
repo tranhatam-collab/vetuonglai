@@ -1,0 +1,53 @@
+{
+  "sourceLocale": "vi-VN",
+  "defaultRuntimeLocale": "vi",
+  "secondaryLocale": "en-US",
+  "activePublicLocales": [
+    {
+      "key": "vi",
+      "tag": "vi-VN",
+      "labelVi": "Tiếng Việt",
+      "labelEn": "Vietnamese",
+      "uiEnabled": true,
+      "seoEnabled": true,
+      "status": "active",
+      "editorialRole": "source_of_truth"
+    },
+    {
+      "key": "en",
+      "tag": "en-US",
+      "labelVi": "Tiếng Anh",
+      "labelEn": "English",
+      "uiEnabled": true,
+      "seoEnabled": true,
+      "status": "active",
+      "editorialRole": "verified_translation"
+    }
+  ],
+  "futureLocalePolicy": {
+    "activationMode": "manual_only",
+    "requireVietnameseSourceLocked": true,
+    "requireGlossaryReview": true,
+    "requireSeoReview": true,
+    "requireQaReview": true
+  },
+  "runtimeFallback": {
+    "vi": [
+      "vi"
+    ],
+    "en": [
+      "en",
+      "vi"
+    ],
+    "future_locale_default": [
+      "en",
+      "vi"
+    ]
+  },
+  "translationRules": {
+    "vietnamesePriority": "highest",
+    "englishRole": "technical_and_global_clarity",
+    "allowNewLocaleOnlyAfterReview": true,
+    "forbidMachineLiteralTranslation": true
+  }
+}
