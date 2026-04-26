@@ -15,7 +15,7 @@
 // Output: writes summary to docs/00_master/42_BILINGUAL_AUDIT_REPORT.md
 // and returns process.exitCode = 0 even when issues exist (audit is informational).
 
-import { readFile, readdir, stat, writeFile } from "node:fs/promises";
+import { access, readFile, readdir, stat, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -121,6 +121,118 @@ function hasCanonical(html) {
   return /<link\s+[^>]*rel=["']canonical["']/i.test(html);
 }
 
+function hasViewportMeta(html) {
+  return /<meta\s+[^>]*name=["']viewport["'][^>]*content=["'][^"']*width=device-width[^"']*["']/i.test(html);
+}
+
+function pickJsonLdBlocks(html) {
+  const blocks = [];
+  const re = /<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi;
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    blocks.push(m[1].trim());
+  }
+  return blocks;
+}
+
+function validateJsonLd(blocks) {
+  const errors = [];
+  for (let i = 0; i < blocks.length; i++) {
+    try {
+      const parsed = JSON.parse(blocks[i]);
+      const items = Array.isArray(parsed) ? parsed
+        : parsed["@graph"] ? parsed["@graph"]
+        : [parsed];
+      for (const item of items) {
+        if (!item["@type"]) errors.push(`block ${i + 1}: item missing @type`);
+        if (!item["@context"] && !parsed["@context"]) {
+          // ok if parent had @context
+        }
+      }
+    } catch (error) {
+      errors.push(`block ${i + 1}: parse error — ${error.message}`);
+    }
+  }
+  return errors;
+}
+
+function pickInternalLinks(html, currentHost) {
+  // Match href="..." in anchors only (skip <link rel=...>).
+  const re = /<a\b[^>]*\bhref=["']([^"']+)["']/gi;
+  const out = new Set();
+  let m;
+  while ((m = re.exec(html)) !== null) {
+    const href = m[1];
+    if (!href || href.startsWith("#") || href.startsWith("mailto:") || href.startsWith("tel:") || href.startsWith("javascript:")) continue;
+    if (href.startsWith("/")) {
+      // Same-host absolute path
+      out.add({ url: href, host: currentHost, isLocal: true });
+    } else if (href.startsWith("http")) {
+      try {
+        const u = new URL(href);
+        if (u.hostname === currentHost) {
+          out.add({ url: u.pathname + (u.search || ""), host: currentHost, isLocal: true });
+        } else if (u.hostname.endsWith(".vetuonglai.com") || u.hostname === "vetuonglai.com") {
+          out.add({ url: u.pathname + (u.search || ""), host: u.hostname, isLocal: true });
+        } else {
+          out.add({ url: href, host: u.hostname, isLocal: false });
+        }
+      } catch {
+        // invalid URL — skip
+      }
+    }
+  }
+  return Array.from(out);
+}
+
+function checkLinkExists(distRoot, host, urlPath) {
+  // Strip query / fragment
+  const cleanPath = urlPath.replace(/[?#].*$/, "");
+  // dist/<host>/path
+  const baseHostDir = path.join(distRoot, host);
+  const candidates = [
+    path.join(baseHostDir, cleanPath),
+    path.join(baseHostDir, cleanPath, "index.html"),
+    path.join(baseHostDir, cleanPath.replace(/\/$/, ""), "index.html"),
+    path.join(baseHostDir, cleanPath + ".html"),
+  ];
+  return candidates;
+}
+
+// Parse Cloudflare Pages _redirects file format and return predicate (path => boolean).
+const redirectsCache = new Map();
+async function getRedirectMatcher(host) {
+  if (redirectsCache.has(host)) return redirectsCache.get(host);
+  const redirectsPath = path.join(DIST, host, "_redirects");
+  let rules = [];
+  try {
+    const text = await readFile(redirectsPath, "utf8");
+    rules = text.split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#"))
+      .map((line) => {
+        const parts = line.split(/\s+/);
+        return { from: parts[0], to: parts[1] || "", code: parts[2] || "" };
+      });
+  } catch {
+    rules = [];
+  }
+  const matcher = (urlPath) => {
+    const cleanPath = urlPath.replace(/[?#].*$/, "");
+    for (const rule of rules) {
+      if (!rule.from) continue;
+      if (rule.from === cleanPath) return true;
+      if (rule.from.endsWith("/*")) {
+        const prefix = rule.from.slice(0, -2);
+        if (cleanPath.startsWith(prefix)) return true;
+      }
+    }
+    return false;
+  };
+  redirectsCache.set(host, matcher);
+  return matcher;
+}
+
 function relPath(file) {
   return path.relative(DIST, file).split(path.sep).join("/");
 }
@@ -164,6 +276,14 @@ async function auditFile(file) {
 
   if (!metaPresent(html, "description")) issues.push({ severity: "high", code: "missing-description", detail: "no <meta name=description>" });
   if (!hasCanonical(html)) issues.push({ severity: "medium", code: "missing-canonical", detail: "no canonical link" });
+  if (!hasViewportMeta(html)) issues.push({ severity: "high", code: "missing-viewport", detail: "no viewport meta with width=device-width" });
+
+  // schema.org JSON-LD validation
+  const ldBlocks = pickJsonLdBlocks(html);
+  const ldErrors = validateJsonLd(ldBlocks);
+  for (const err of ldErrors) {
+    issues.push({ severity: "medium", code: "schema-invalid", detail: err });
+  }
 
   // Internal pages marked noindex are exempt from social/hreflang share-meta checks.
   const noindex = isNoindex(html);
@@ -265,6 +385,37 @@ async function auditFile(file) {
     if (hardcodedCount > 0) {
       issues.push({ severity: "medium", code: "hardcoded-text", detail: `${hardcodedCount} block(s) of text without bilingual data-* attributes (samples: ${hardcodedSamples.map((s) => JSON.stringify(s)).join(", ")})` });
     }
+  }
+
+  // Link reachability — only for internal links pointing to other dist files.
+  // Honour _redirects (Cloudflare Pages) so dynamic prefixes like /v/* are
+  // treated as reachable.
+  const links = pickInternalLinks(html, host);
+  const broken = [];
+  for (const link of links) {
+    if (!link.isLocal) continue;
+    const candidates = checkLinkExists(DIST, link.host, link.url);
+    let found = false;
+    for (const candidate of candidates) {
+      try {
+        await access(candidate);
+        found = true;
+        break;
+      } catch {}
+    }
+    if (!found) {
+      const matcher = await getRedirectMatcher(link.host);
+      if (matcher(link.url)) {
+        found = true;
+      }
+    }
+    if (!found) {
+      broken.push(`${link.host}${link.url}`);
+    }
+  }
+  if (broken.length > 0) {
+    const sample = broken.slice(0, 5).map((s) => JSON.stringify(s)).join(", ");
+    issues.push({ severity: "high", code: "broken-internal-link", detail: `${broken.length} broken internal link(s): ${sample}` });
   }
 
   return { file, host, issues, title: pickTitle(html), lang };
