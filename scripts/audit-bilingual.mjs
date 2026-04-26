@@ -60,6 +60,36 @@ const MT_PATTERNS = [
   { needle: /\bdo the job that\b/gi, label: 'awkward MT phrasing' },
 ];
 
+// Starter banned-word lists — anchored on Vietnamese and English language codex.
+// Severity is "medium" by default; override to "high" if the word never has a legit use.
+// Contributors: append patterns here; keep word boundaries (\b ... \b) where possible.
+const BANNED_VI = [
+  // Hype / sales / clickbait
+  { needle: /\bbùng nổ\b/gi, label: '"bùng nổ" — hype', sev: "medium" },
+  { needle: /\b(cực đỉnh|đỉnh cao|đỉnh kíp|đỉnh nóc)\b/gi, label: '"đỉnh ..." — hype superlative', sev: "medium" },
+  { needle: /\bsiêu (rẻ|hot|nóng|hấp dẫn)\b/gi, label: '"siêu rẻ/hot/..." — hype', sev: "medium" },
+  { needle: /\b(không thể bỏ qua|cơ hội cuối cùng|chỉ còn hôm nay)\b/gi, label: 'urgency / FOMO phrasing', sev: "high" },
+  { needle: /\bcam kết \d+%\b/gi, label: '"cam kết X%" — outcome promise', sev: "high" },
+  { needle: /\bđảm bảo \d+%\b/gi, label: '"đảm bảo X%" — outcome promise', sev: "high" },
+  { needle: /\bmiễn phí 100%\b/gi, label: '"miễn phí 100%" — clickbait certification', sev: "medium" },
+  { needle: /\b(độc quyền|duy nhất Việt Nam|chỉ có tại đây)\b/gi, label: 'exclusivity claim', sev: "medium" },
+  { needle: /\bsốc\b/gi, label: '"sốc" — sensational', sev: "medium" },
+  { needle: /\bkhủng\b/gi, label: '"khủng" — hyperbolic', sev: "medium" },
+  // Slang / social-media voice
+  { needle: /\b(haha|hihi|hehe|kkk+|vcl|vl|trời ơi)\b/gi, label: 'social-media slang', sev: "high" },
+  { needle: /\b(quẩy|đu trend|toang|gấu)\b/gi, label: 'casual slang', sev: "high" },
+];
+
+const BANNED_EN = [
+  { needle: /\b(amazing|awesome|incredible|mind-?blowing|life-?changing)\b/gi, label: 'hype superlative', sev: "medium" },
+  { needle: /\b(revolutionary|groundbreaking|game-?changer|game-?changing)\b/gi, label: 'hype claim', sev: "medium" },
+  { needle: /\bbest (ever|in class)\b/gi, label: 'hype claim', sev: "medium" },
+  { needle: /\b(act now|limited time|hurry|don'?t miss out|last chance)\b/gi, label: 'urgency / FOMO phrasing', sev: "high" },
+  { needle: /\b(you won'?t believe|secret hack|killer trick|the (one|only) thing)\b/gi, label: 'clickbait phrasing', sev: "high" },
+  { needle: /\b100% (guaranteed|free|safe)\b/gi, label: '"100% X" — overclaim', sev: "medium" },
+  { needle: /\bguaranteed (results|success|outcome)\b/gi, label: 'outcome promise', sev: "high" },
+];
+
 // Hard-coded text without bilingual data attributes.
 // Heuristic: <h1|h2|h3|p|button|a> with no data-text-vi/data-text-en/data-content-vi/data-content-en/data-vi/data-en
 // AND inner text contains a sentence (>= 12 chars, has space)
@@ -356,6 +386,28 @@ async function auditFile(file) {
     const matches = html.match(needle);
     if (matches && matches.length > 0) {
       issues.push({ severity: "medium", code: "mt-phrasing", detail: `${label} ×${matches.length}` });
+    }
+  }
+
+  // Banned-word scan — strip script/style/links/data-* attributes first so that
+  // class names and code don't poison the visible-text scan.
+  const visibleForBanned = html
+    .replace(/<script[\s\S]*?<\/script>/g, "")
+    .replace(/<style[\s\S]*?<\/style>/g, "")
+    .replace(/<template[\s\S]*?<\/template>/g, "")
+    .replace(/href=["'][^"']*["']/g, "")
+    .replace(/data-[a-z-]+=["'][^"']*["']/g, "")
+    .replace(/class=["'][^"']*["']/g, "")
+    .replace(/id=["'][^"']*["']/g, "");
+  for (const { needle, label, sev } of [...BANNED_VI, ...BANNED_EN]) {
+    needle.lastIndex = 0;
+    const matches = visibleForBanned.match(needle);
+    if (matches && matches.length > 0) {
+      issues.push({
+        severity: sev || "medium",
+        code: "banned-word",
+        detail: `${label} ×${matches.length} (samples: ${[...new Set(matches)].slice(0, 3).map((s) => JSON.stringify(s)).join(", ")})`,
+      });
     }
   }
 
