@@ -3,6 +3,7 @@ import { maybeHandleFounderRuntime } from "./lib/founder-runtime.mjs";
 import businessDomainContract from "../src/data/business-domain-contract.json" with { type: "json" };
 import packageComparisonDemoOutput from "../src/data/package-comparison-demo-output.json" with { type: "json" };
 import packageFormRegistry from "../src/data/package-form-registry.json" with { type: "json" };
+import kidsCurriculum from "../src/data/kids-curriculum.json" with { type: "json" };
 
 const TEAM4_ALLOWED_HOSTS = new Set([
   "vetuonglai.com",
@@ -16,6 +17,22 @@ const TEAM4_ENDPOINT_PAYLOADS = new Map([
   ["/api/team4/business-domain-contract.json", businessDomainContract],
   ["/api/team4/package-comparison-demo-output.json", packageComparisonDemoOutput],
 ]);
+
+const KIDS_ALLOWED_HOSTS = new Set([
+  "kids.vetuonglai.com",
+  "www.kids.vetuonglai.com",
+]);
+
+const KIDS_ENDPOINT_PAYLOADS = new Map([
+  ["/api/kids/curriculum.json", kidsCurriculum],
+]);
+
+const KIDS_SAFETY_HEADERS = {
+  "x-robots-tag": "noindex, nofollow, noarchive",
+  "referrer-policy": "no-referrer",
+  "x-content-type-options": "nosniff",
+  "x-child-safe-zone": "kids.vetuonglai.com",
+};
 
 function jsonResponse(body, init = {}) {
   const headers = new Headers(init.headers || {});
@@ -44,8 +61,32 @@ function maybeHandleTeam4Contracts(request) {
   });
 }
 
+function maybeHandleKidsRuntime(request) {
+  const url = new URL(request.url);
+  if (!KIDS_ALLOWED_HOSTS.has(url.hostname)) {
+    return null;
+  }
+
+  const payload = KIDS_ENDPOINT_PAYLOADS.get(url.pathname);
+  if (!payload) {
+    return null;
+  }
+
+  return jsonResponse(payload, {
+    headers: {
+      "cache-control": "public, max-age=60",
+      ...KIDS_SAFETY_HEADERS,
+    },
+  });
+}
+
 export default {
   async fetch(request, env) {
+    const kidsResponse = maybeHandleKidsRuntime(request);
+    if (kidsResponse) {
+      return kidsResponse;
+    }
+
     const team4Response = maybeHandleTeam4Contracts(request);
     if (team4Response) {
       return team4Response;

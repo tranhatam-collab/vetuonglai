@@ -92,6 +92,19 @@
       "servingModel": "pages_direct",
       "status": "planned_public",
       "requiredPublic": false
+    },
+    {
+      "host": "kids.vetuonglai.com",
+      "url": "https://kids.vetuonglai.com",
+      "servingModel": "worker_fronted",
+      "status": "planned_public",
+      "requiredPublic": false,
+      "audience": "children-6-to-17-and-parents",
+      "childSafety": {
+        "isolated": true,
+        "primaryNav": false,
+        "publicDiscovery": false
+      }
     }
   ]
 }

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Thành tích | Kids · Về Tương Lai</title>
+  <meta name="description" content="Huy hiệu, sản phẩm và mốc tiến bộ của trẻ — chỉ phụ huynh và mentor xem được." />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="canonical" href="https://kids.vetuonglai.com/learn/achievements/" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <link rel="stylesheet" href="/assets/kids.css" />
+</head>
+<body data-page-key="kids-achievements">
+  <a class="kids-skip-link" href="#main">Tới nội dung</a>
+  <div class="kids-safety-banner"><strong data-vi="Vùng riêng tư của trẻ" data-en="Child private zone">Vùng riêng tư của trẻ</strong>
+    <span data-vi=" · Không có bảng xếp hạng. Không công khai. Chỉ phụ huynh xem được." data-en=" · No leaderboards. Not public. Visible only to the parent."></span>
+  </div>
+  <header class="kids-header"><div class="container">
+    <a class="kids-brand" href="/"><span>Về Tương Lai</span><small>Kids</small></a>
+    <nav class="kids-nav">
+      <a href="/learn/dashboard/" data-vi="Trang học" data-en="Learn">Trang học</a>
+      <a href="/learn/lessons/" data-vi="Bài học" data-en="Lessons">Bài học</a>
+      <a href="/learn/ai-helper/" data-vi="AI giúp" data-en="AI helper">AI giúp</a>
+      <a href="/learn/achievements/" aria-current="page" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
+    </nav>
+    <div class="kids-lang"><a href="?lang=vi" data-lang="vi">VI</a> / <a href="?lang=en" data-lang="en">EN</a></div>
+  </div></header>
+
+  <main id="main" class="kids-main">
+    <div id="profileGate" class="section" hidden>
+      <div class="container container-narrow surface stack-md">
+        <h2 data-vi="Chưa có hồ sơ trẻ" data-en="No child profile">Chưa có hồ sơ trẻ</h2>
+        <a class="button button-primary" href="/parent/onboarding/consent/" data-vi="Phụ huynh đồng ý" data-en="Parent consent">Phụ huynh đồng ý</a>
+      </div>
+    </div>
+
+    <div id="achRoot" hidden>
+      <section class="section section-band">
+        <div class="container container-narrow">
+          <h1 data-vi="Hành trình của trẻ" data-en="The child's journey">Hành trình của trẻ</h1>
+          <p class="lede" data-vi="Đây là hồ sơ riêng tư — chỉ phụ huynh xem được. Không có bảng xếp hạng, không công khai." data-en="This is a private record — only the parent can see it. No leaderboards, never public.">Hồ sơ riêng tư.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-vi="Sản phẩm đã tạo" data-en="Outputs created">Sản phẩm đã tạo</p>
+            <h2 data-vi="Bài tập đã lưu" data-en="Saved practice">Bài tập đã lưu</h2>
+          </div>
+          <div id="practiceList" class="stack-sm">
+            <p class="status-line" data-vi="Chưa có bài tập nào." data-en="No saved practice yet.">Chưa có bài tập nào.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-band">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow" data-vi="Mốc tiến bộ" data-en="Progress milestones">Mốc tiến bộ</p>
+            <h2 data-vi="Trẻ tiến đến đâu rồi" data-en="Where the child is now">Trẻ tiến đến đâu rồi</h2>
+          </div>
+          <div id="badgeGrid" class="badge-grid"></div>
+          <p id="emptyBadges" class="status-line" hidden data-vi="Chưa có mốc nào — sẽ xuất hiện khi trẻ làm xong sản phẩm đầu tiên." data-en="No milestone yet — will appear when the child completes their first output.">Chưa có mốc nào.</p>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container-narrow">
+          <div class="surface stack-md">
+            <p class="eyebrow" data-vi="Khi đủ 18 tuổi" data-en="At 18+">Khi đủ 18 tuổi</p>
+            <h2 data-vi="Hồ sơ có thể chuyển sang VC" data-en="Record can move to VC">Hồ sơ có thể chuyển sang VC</h2>
+            <p data-vi="Khi đủ tuổi và phụ huynh đồng ý, trẻ có thể chuyển hồ sơ tiến bộ sang lớp xác minh độc lập VC của Về Tương Lai." data-en="When the child is of age and the parent agrees, the progress record can transition to Về Tương Lai's independent verification layer (VC).">Khi đủ tuổi, hồ sơ có thể chuyển sang VC.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="kids-footer"><div class="container"><a href="https://vetuonglai.com" data-vi="Quay về hệ chính" data-en="Back to main ecosystem">Quay về hệ chính</a></div></footer>
+  <script src="/assets/kids.js" defer></script>
+  <script>
+    (function () {
+      var profileGate = document.getElementById("profileGate");
+      var achRoot = document.getElementById("achRoot");
+      var profile = null;
+      try { profile = JSON.parse(localStorage.getItem("kids.childProfile") || "null"); } catch (_) {}
+      if (!profile || !profile.display_name) { profileGate.hidden = false; return; }
+      achRoot.hidden = false;
+
+      var key = "kids.practice." + (profile.age_group || "0");
+      var arr = [];
+      try { arr = JSON.parse(localStorage.getItem(key) || "[]"); } catch (_) {}
+      var listEl = document.getElementById("practiceList");
+      if (arr.length > 0) {
+        listEl.innerHTML = "";
+        arr.slice(-10).reverse().forEach(function (item) {
+          var d = document.createElement("article");
+          d.className = "surface stack-sm";
+          d.innerHTML =
+            '<p class="status-line">' + window.kids.escHtml((item.at || "").slice(0, 16).replace("T", " ")) + '</p>' +
+            '<p>' + window.kids.escHtml(item.content || "") + '</p>';
+          listEl.appendChild(d);
+        });
+      }
+
+      var badgeGrid = document.getElementById("badgeGrid");
+      var emptyBadges = document.getElementById("emptyBadges");
+      var badges = [];
+      if (arr.length >= 1) badges.push({ icon: "✏️", name_vi: "Bắt đầu viết", name_en: "Started writing" });
+      if (arr.length >= 3) badges.push({ icon: "🎯", name_vi: "Kiên trì 3 lần", name_en: "Persistent x3" });
+      if (arr.length >= 5) badges.push({ icon: "🌱", name_vi: "Mầm sản phẩm", name_en: "Output sprout" });
+      if (badges.length === 0) {
+        emptyBadges.hidden = false;
+      } else {
+        var lang = window.kids.currentLang();
+        badgeGrid.innerHTML = badges.map(function (b) {
+          var name = lang === "en" ? b.name_en : b.name_vi;
+          return '<div class="badge-item"><div class="badge-icon" aria-hidden="true">' + b.icon + '</div><p class="badge-name">' + window.kids.escHtml(name) + '</p></div>';
+        }).join("");
+      }
+    })();
+  </script>
+</body>
+</html>

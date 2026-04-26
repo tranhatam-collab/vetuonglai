@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI giúp | Kids · Về Tương Lai</title>
+  <meta name="description" content="AI gợi ý cách suy nghĩ — không làm bài thay trẻ." />
+  <meta name="robots" content="noindex,nofollow" />
+  <meta name="referrer" content="no-referrer" />
+  <link rel="canonical" href="https://kids.vetuonglai.com/learn/ai-helper/" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <link rel="stylesheet" href="/assets/kids.css" />
+</head>
+<body data-page-key="kids-ai-helper">
+  <a class="kids-skip-link" href="#main">Tới nội dung</a>
+  <div class="kids-safety-banner"><strong data-vi="AI có ranh giới" data-en="Bounded AI">AI có ranh giới</strong>
+    <span data-vi=" · AI giải thích — không làm thay. Phụ huynh xem được toàn bộ hội thoại." data-en=" · AI explains — never replaces the child. Parents can read every message."></span>
+  </div>
+  <header class="kids-header"><div class="container">
+    <a class="kids-brand" href="/"><span>Về Tương Lai</span><small>Kids</small></a>
+    <nav class="kids-nav">
+      <a href="/learn/dashboard/" data-vi="Trang học" data-en="Learn">Trang học</a>
+      <a href="/learn/lessons/" data-vi="Bài học" data-en="Lessons">Bài học</a>
+      <a href="/learn/ai-helper/" aria-current="page" data-vi="AI giúp" data-en="AI helper">AI giúp</a>
+      <a href="/learn/achievements/" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
+    </nav>
+    <div class="kids-lang"><a href="?lang=vi" data-lang="vi">VI</a> / <a href="?lang=en" data-lang="en">EN</a></div>
+  </div></header>
+
+  <main id="main" class="kids-main">
+    <div id="profileGate" class="section" hidden>
+      <div class="container container-narrow surface stack-md">
+        <h2 data-vi="Chưa có hồ sơ trẻ" data-en="No child profile">Chưa có hồ sơ trẻ</h2>
+        <a class="button button-primary" href="/parent/onboarding/consent/" data-vi="Phụ huynh đồng ý" data-en="Parent consent">Phụ huynh đồng ý</a>
+      </div>
+    </div>
+
+    <div id="aiRoot" hidden>
+      <section class="section section-band">
+        <div class="container container-narrow">
+          <h1 data-vi="Hỏi AI cách suy nghĩ" data-en="Ask AI how to think">Hỏi AI cách suy nghĩ</h1>
+          <p class="lede" data-vi="AI có thể: giải thích, gợi ý, sửa lỗi. AI sẽ không: làm bài thay, trả lời hết." data-en="AI can: explain, hint, correct. AI will not: do the work, give full answers.">AI có thể: giải thích, gợi ý, sửa lỗi. AI sẽ không: làm bài thay, trả lời hết.</p>
+          <div class="surface stack-sm">
+            <p class="eyebrow" data-vi="Bài đang làm" data-en="Current lesson">Bài đang làm</p>
+            <p id="lessonContext">—</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container container-narrow">
+          <div id="chatTranscript" class="chat-transcript" aria-live="polite">
+            <div class="chat-msg chat-msg-assistant" data-vi="Chào em. Em đang khó ở chỗ nào trong bài? Hãy nói cho mình điều em đã thử." data-en="Hi. Where are you stuck? Tell me what you've tried first.">Chào em. Em đang khó ở chỗ nào trong bài?</div>
+          </div>
+          <form id="chatForm" class="chat-form">
+            <textarea id="chatInput" rows="2" maxlength="500" required
+              data-vi-placeholder="Viết câu hỏi của em…" data-en-placeholder="Write your question…"></textarea>
+            <button type="submit" class="button button-primary" data-vi="Gửi" data-en="Send">Gửi</button>
+          </form>
+          <p class="status-line" data-vi="Lưu ý: AI ở chế độ Member Preview — phản hồi mang tính minh họa." data-en="Note: AI is in Member Preview — replies are illustrative.">Member Preview — phản hồi minh họa.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="kids-footer"><div class="container"><a href="https://vetuonglai.com" data-vi="Quay về hệ chính" data-en="Back to main ecosystem">Quay về hệ chính</a></div></footer>
+  <script src="/assets/kids.js" defer></script>
+  <script>
+    (function () {
+      var profileGate = document.getElementById("profileGate");
+      var aiRoot = document.getElementById("aiRoot");
+      var profile = null;
+      try { profile = JSON.parse(localStorage.getItem("kids.childProfile") || "null"); } catch (_) {}
+      if (!profile || !profile.display_name) { profileGate.hidden = false; return; }
+      aiRoot.hidden = false;
+
+      (async function () {
+        var data = await window.kids.loadCurriculum();
+        if (!data) return;
+        var stage = (data.stages || []).find(function (s) { return s.ageRange === profile.age_group; }) || data.stages[0];
+        document.getElementById("lessonContext").textContent = stage.ageRange + " · " + stage.labelVi + " — " + ((stage.projects || [])[0] || "");
+      })();
+
+      function append(role, vi, en) {
+        var t = document.getElementById("chatTranscript");
+        var d = document.createElement("div");
+        d.className = "chat-msg chat-msg-" + role;
+        d.setAttribute("data-vi", vi);
+        d.setAttribute("data-en", en || vi);
+        d.textContent = (window.kids.currentLang() === "en" ? (en || vi) : vi);
+        t.appendChild(d);
+        d.scrollIntoView({ behavior: "smooth", block: "end" });
+        return d;
+      }
+
+      function previewReply(question) {
+        var hints = [
+          { vi: "Hãy thử chia bài thành 2 bước nhỏ — bước nào em thấy khó hơn?",
+            en: "Try splitting the task into 2 small steps — which step feels harder?" },
+          { vi: "Em đã thử cách nào rồi? Mình muốn gợi ý đúng chỗ em cần.",
+            en: "What have you tried? I want to hint at exactly where you need it." },
+          { vi: "Mình không làm bài thay em. Em mô tả cái em hiểu được tới đâu nhé.",
+            en: "I won't do the work for you. Tell me how far you understand." }
+        ];
+        var idx = (question.length + Date.now()) % hints.length;
+        return hints[idx];
+      }
+
+      document.getElementById("chatForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var input = document.getElementById("chatInput");
+        var text = input.value.trim();
+        if (!text) return;
+        append("user", text, text);
+        input.value = "";
+        var hint = previewReply(text);
+        setTimeout(function () { append("assistant", hint.vi, hint.en); }, 300);
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -62,7 +62,10 @@ const domains = {
   finance: "finance.vetuonglai.com",
   life: "life.vetuonglai.com",
   invest: "invest.vetuonglai.com",
+  kids: "kids.vetuonglai.com",
 };
+
+const kidsCurriculum = JSON.parse(await readFile(path.join(SRC, "data", "kids-curriculum.json"), "utf8"));
 
 function readNestedValue(source, pathString, fallback = "") {
   const result = String(pathString || "")
@@ -1417,7 +1420,7 @@ function surfaceStatusNarrative(currentKey) {
       );
     case "member_preview":
       return pair(
-        "Surface này đang ở trạng thái xem trước cho thành viên: public value và demo đã mở, nhưng lớp sâu hơn chỉ tiếp tục khi trạng thái truy cập phù hợp.",
+        "Lớp này đang ở trạng thái xem trước cho thành viên: giá trị công khai và demo đã mở, nhưng lớp sâu hơn chỉ tiếp tục khi trạng thái truy cập phù hợp.",
         "This surface is in Member Preview: public value and demos are open, but deeper layers continue only when the access state is appropriate.",
       );
     case "bridge":
@@ -1427,8 +1430,8 @@ function surfaceStatusNarrative(currentKey) {
       );
     default:
       return pair(
-        "Lớp này đang ở trạng thái Planned. Hiện mới mở phần giới thiệu, demo và điểm đi tiếp; nó chưa được trình bày như một domain đã vận hành đầy đủ.",
-        "This layer is currently in Planned status. Only the introduction, demos, and next-step entry are open here; it is not presented as a fully operating domain.",
+        "Lớp này đang ở trạng thái Planned. Hiện mới mở phần giới thiệu, demo và điểm đi tiếp; nó chưa được trình bày như một lớp đã vận hành đầy đủ.",
+        "This layer is currently in Planned status. Only the introduction, demos, and next-step entry are open here; it is not presented as fully operating.",
       );
   }
 }
@@ -1439,29 +1442,29 @@ function surfaceBoundaryItems(currentKey, extraItems = []) {
 
   if (entry.status === "planned") {
     baseItems.push(pair(
-      "Đây là lớp công khai ở trạng thái Planned: có teaser, demo và CTA, nhưng chưa được trình bày như một lớp đã hoạt động đầy đủ.",
-      "This is a public surface in Planned status: it has teaser content, demos, and a CTA, but it is not presented as a fully active layer yet.",
+      "Đây là lớp công khai ở trạng thái Planned: có phần giới thiệu, demo và nút đi tiếp, nhưng chưa được trình bày như một lớp đã hoạt động đầy đủ.",
+      "This is a public layer in Planned status: it has introductory content, demos, and a next-step button, but it is not presented as fully active yet.",
     ));
   } else if (entry.status === "member_preview") {
     baseItems.push(pair(
-      "Lớp public hiện mở đủ để đọc, xem sample và hiểu framework; phần sâu hơn vẫn đi qua member/hub theo trạng thái truy cập.",
-      "The public layer is open enough to read, inspect samples, and understand the framework; deeper layers still continue through member/hub according to access state.",
+      "Lớp công khai hiện mở đủ để đọc, xem mẫu và hiểu khung vận hành; phần sâu hơn vẫn đi qua member/hub theo trạng thái truy cập.",
+      "The public layer is open enough to read, inspect samples, and understand the operating frame; deeper layers still continue through member/hub according to access state.",
     ));
   } else {
     baseItems.push(pair(
-      "Lớp công khai giữ giá trị thật, sample thật và điểm kiểm tra thật trước khi mời user đi tiếp.",
-      "The public layer keeps real value, real samples, and real checking points before inviting the user to go deeper.",
+      "Lớp công khai giữ giá trị thật, mẫu thật và điểm kiểm tra thật trước khi mời người xem đi tiếp.",
+      "The public layer keeps real value, real samples, and real checking points before inviting people to go deeper.",
     ));
   }
 
   baseItems.push(
     pair(
-      "Mọi nút đi sâu hơn đều quay về hub để hệ giữ một điểm vào thống nhất giữa các subdomain.",
-      "Every deeper-entry button returns to the hub so the system keeps one consistent entry point across subdomains.",
+      "Mọi nút đi sâu hơn đều quay về hub để hệ giữ một điểm vào thống nhất giữa các lớp.",
+      "Every deeper-entry button returns to the hub so the system keeps one consistent entry point across layers.",
     ),
     pair(
-      "Không có thanh toán trực tiếp tại app hoặc subdomain này.",
-      "There is no direct payment step on this app or subdomain.",
+      "Không có thanh toán trực tiếp tại trang này.",
+      "There is no direct payment step on this page.",
     ),
   );
 
@@ -1477,8 +1480,11 @@ function renderSurfaceGatewaySection({
 }) {
   const entry = resolveSurfaceEntry(currentKey);
   const stageLabel = appStageLabel(entry);
+  const missionCopy = (entry.missionVi || entry.missionEn)
+    ? pair(entry.missionVi || entry.mission || entry.missionEn, entry.missionEn || entry.mission || entry.missionVi)
+    : null;
   const mission = entry.mission
-    ? pair(`Trọng tâm hiện tại: ${entry.mission}.`, `Current focus: ${entry.mission}.`)
+    ? pair(`Trọng tâm hiện tại: ${missionCopy ? missionCopy.vi : entry.mission}.`, `Current focus: ${missionCopy ? missionCopy.en : entry.mission}.`)
     : pair("Trang này dùng hub làm điểm đi tiếp duy nhất.", "This page uses the hub as the only continuation point.");
 
   const stageCopy = entry.status === "planned"
@@ -1534,23 +1540,23 @@ function renderSurfaceTrustStatusSection({
   const support = renderDisclosureStack(disclosureIds, { className: "is-footer" });
 
   return renderSection(
-    pair("Trust & trạng thái", "Trust & status"),
+    pair("Niềm tin & trạng thái", "Trust & status"),
     pair(
-      "Cho user biết đang mở gì, đang khóa gì, và cách kiểm tra surface này.",
-      "Show users what is open, what remains gated, and how to verify this surface.",
+      "Cho người xem biết đang mở gì, đang khóa gì, và cách kiểm tra lớp này.",
+      "Show people what is open, what remains gated, and how to verify this layer.",
     ),
     renderCards([
       renderCard({
-        title: cardTitle(pair("Trạng thái surface", "Surface status")),
+        title: cardTitle(pair("Trạng thái lớp", "Surface status")),
         badge: statusBadge(badgeTone(entry.status), stageLabel),
         body: cardText(surfaceStatusNarrative(currentKey)),
       }),
       renderCard({
-        title: cardTitle(pair("Boundary công khai", "Public boundary")),
+        title: cardTitle(pair("Ranh giới công khai", "Public boundary")),
         body: renderList(surfaceBoundaryItems(currentKey, extraItems)),
       }),
       renderCard({
-        title: cardTitle(pair("Trust note", "Trust note")),
+        title: cardTitle(pair("Ghi chú tin cậy", "Trust note")),
         body: cardText(pair(
           "Trust ở đây đến từ wording đúng mức, demo có nhãn rõ, disclosure hiện diện và cách kiểm tra quay về đúng nguồn.",
           "Trust here comes from right-sized wording, clearly labeled demos, visible disclosures, and a verification path that returns to the right source.",
@@ -4300,11 +4306,11 @@ function renderMemberHome() {
 function renderMemberJourneyPage() {
   const deepCta = deepContentHubCta("member", "journey", "member-journey");
   const hero = renderHero({
-    eyebrow: pair("Journey map", "Journey map"),
+    eyebrow: pair("Lộ trình thành viên", "Member journey"),
     title: pair("Hành trình cá nhân", "Personal journey"),
     description: pair(
-      "Journey engine kết nối học tập, công việc, proof và thu nhập theo bước.",
-      "The journey engine connects learning, work, proof, and earning step by step.",
+      "Hành trình này nối học tập, công việc, bằng chứng và các bước phát triển thu nhập theo từng chặng.",
+      "This journey connects learning, work, proof, and earning growth step by step.",
     ),
     actions: [
       button(`https://${domains.member}/`, pair("Về Member", "Back to member")),
@@ -4331,8 +4337,8 @@ function renderMemberJourneyPage() {
   return renderShell({
     currentKey: "member",
     pathname: "/journey/",
-    title: pair("Journey engine", "Journey engine"),
-    description: pair("Lộ trình kết nối các tầng của hệ thống thành viên.", "The journey path connecting member system layers."),
+    title: pair("Hành trình thành viên", "Member journey"),
+    description: pair("Lộ trình nối các lớp trong hệ thành viên từ học tới bằng chứng.", "The journey path linking member layers from learning to proof."),
     navItems: ecosystemNav("member"),
     hero,
     sections: [
@@ -4523,8 +4529,8 @@ function renderMemberAppOfflinePage() {
     eyebrow: pair("Offline mode", "Offline mode"),
     title: pair("Bạn đang offline", "You are offline"),
     description: pair(
-      "Ứng dụng vẫn giữ shell và dữ liệu đã cache. Hãy kết nối lại để đồng bộ session và nội dung mới.",
-      "The app shell and cached data remain available. Reconnect to sync session and fresh content.",
+      "Ứng dụng vẫn giữ shell và dữ liệu đã cache. Hãy kết nối lại để đồng bộ trạng thái và nội dung mới.",
+      "The app shell and cached data remain available. Reconnect to sync status and fresh content.",
     ),
     actions: [
       button("/app/", pair("Thử lại", "Retry")),
@@ -4546,7 +4552,7 @@ function renderMemberAppOfflinePage() {
         pair("Dữ liệu khả dụng", "Available data"),
         pair("Các API snapshot vẫn đọc được từ cache.", "Snapshot APIs stay readable from cache."),
       renderList([
-        pair("Session state gần nhất", "Latest session state"),
+        pair("Trạng thái gần nhất", "Latest status"),
         pair("Danh mục EDU snapshot", "EDU catalog snapshot"),
         pair("Ảnh chụp nhanh VC", "VC quick verify snapshot"),
       ]),
@@ -4580,7 +4586,7 @@ function renderMemberAppPage() {
             </div>
             <div class="member-dashboard-status-grid">
               <div>
-                ${localizedText(pair("Trạng thái phiên", "Session status"), "div", { class: "member-dashboard-kicker" })}
+                ${localizedText(pair("Trạng thái tài khoản", "Account status"), "div", { class: "member-dashboard-kicker" })}
                 <strong class="member-dashboard-value" id="mobile-session-status">loading...</strong>
                 <p class="body-copy subtle" id="mobile-state-note" data-text-vi="Đang kiểm tra trạng thái tài khoản..." data-text-en="Checking account state...">Đang kiểm tra trạng thái tài khoản...</p>
               </div>
@@ -4597,7 +4603,7 @@ function renderMemberAppPage() {
           <article class="member-dashboard-surface">
             ${localizedText(pair("Bạn đang ở đây, bước tiếp theo là…", "You are here, and the next step is…"), "div", { class: "member-dashboard-kicker" })}
             <h2 class="member-dashboard-title" id="mobile-next-step-title">Đang đồng bộ quyền truy cập</h2>
-            <p class="body-copy" id="mobile-next-step-note" data-text-vi="Quick actions và CTA chính sẽ đổi theo state thật của bạn." data-text-en="Quick actions and the primary CTA will switch with your real state.">Quick actions và CTA chính sẽ đổi theo state thật của bạn.</p>
+            <p class="body-copy" id="mobile-next-step-note" data-text-vi="Quick actions và CTA chính sẽ đổi theo trạng thái hiện tại của bạn." data-text-en="Quick actions and the primary CTA will adapt to your current status.">Quick actions và CTA chính sẽ đổi theo trạng thái hiện tại của bạn.</p>
             <div class="cluster member-dashboard-primary-actions">
               <a class="button" id="mobile-next-step-primary" href="#mobile-dashboard" data-mobile-action="next-step-primary">Đang đồng bộ...</a>
               <a class="button ghost" id="mobile-renew-link" href="${commerceCta}" data-mobile-action="renew-access" data-mobile-commerce-link="hub">Quản lý quyền truy cập</a>
@@ -4613,7 +4619,7 @@ function renderMemberAppPage() {
               <a class="button ghost" href="/journey/" data-mobile-action="open-journey" data-mobile-requires-auth="true" data-domain-key="journey">${localizedText(pair("Mở journey", "Open journey"))}</a>
               <a class="button ghost" href="#mobile-edu-core" data-mobile-action="open-domain" data-mobile-requires-auth="true" data-domain-key="edu">${localizedText(pair("Mở EDU core", "Open EDU core"))}</a>
               <a class="button ghost" href="#mobile-vc-quick" data-mobile-action="open-domain" data-mobile-requires-auth="true" data-domain-key="vc">${localizedText(pair("Kiểm tra VC nhanh", "Quick VC verify"))}</a>
-              <button class="button ghost" type="button" data-mobile-action="refresh-session">${localizedText(pair("Làm mới session", "Refresh session"))}</button>
+              <button class="button ghost" type="button" data-mobile-action="refresh-session">${localizedText(pair("Làm mới trạng thái", "Refresh status"))}</button>
             </div>
           </article>
 
@@ -4642,12 +4648,12 @@ function renderMemberAppPage() {
     <div class="member-dashboard-public-grid">
       <article class="member-dashboard-surface">
         ${localizedText(pair("Đây là những gì bạn đã mở", "This is what you have unlocked"), "div", { class: "member-dashboard-kicker" })}
-        <p class="body-copy subtle" data-text-vi="Unlock map luôn bám theo session truth và entitlement thật, không giả live." data-text-en="The unlock map always follows the real session truth and entitlement set, never a fake-live layer.">Unlock map luôn bám theo session truth và entitlement thật, không giả live.</p>
+        <p class="body-copy subtle" data-text-vi="Unlock map luôn bám theo trạng thái tài khoản và quyền truy cập hiện có, không giả như đã mở thật." data-text-en="The unlock map always follows your current account status and access rights, and is never presented as already live.">Unlock map luôn bám theo trạng thái tài khoản và quyền truy cập hiện có, không giả như đã mở thật.</p>
         <ul id="mobile-opened-detail" class="member-dashboard-list"></ul>
       </article>
       <article class="member-dashboard-surface">
         ${localizedText(pair("Lộ trình đề xuất", "Recommended tracks"), "div", { class: "member-dashboard-kicker" })}
-        <p class="body-copy subtle" id="mobile-recommendation-note" data-text-vi="Nếu chưa có gợi ý cá nhân, app sẽ giữ 3 lộ trình mặc định theo state thật." data-text-en="If there is no personal recommendation yet, the app keeps 3 default tracks based on your real state.">Nếu chưa có gợi ý cá nhân, app sẽ giữ 3 lộ trình mặc định theo state thật.</p>
+        <p class="body-copy subtle" id="mobile-recommendation-note" data-text-vi="Nếu chưa có gợi ý cá nhân, app sẽ giữ 3 lộ trình mặc định theo trạng thái hiện tại." data-text-en="If there is no personal recommendation yet, the app keeps 3 default tracks based on your current status.">Nếu chưa có gợi ý cá nhân, app sẽ giữ 3 lộ trình mặc định theo trạng thái hiện tại.</p>
         <ul id="mobile-recommendation-list" class="member-dashboard-list"></ul>
       </article>
     </div>
@@ -4682,8 +4688,8 @@ function renderMemberAppPage() {
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "member",
     extraItems: [
-      pair("App shell chỉ hỗ trợ 4 state cốt lõi: visitor, pending_member, annual_active, pack_owner.", "The app shell supports only the four core states: visitor, pending_member, annual_active, and pack_owner."),
-      pair("Offline fallback giữ shell và snapshot, không giả lập session mở quyền khi chưa có trạng thái thật.", "The offline fallback keeps the shell and snapshots without faking an unlocked session when the real state is unavailable."),
+      pair("App shell chỉ hỗ trợ 4 trạng thái cốt lõi: visitor, pending_member, annual_active, pack_owner.", "The app shell supports only four core states: visitor, pending_member, annual_active, and pack_owner."),
+      pair("Khi offline, app giữ shell và snapshot nhưng không tự mở quyền khi chưa có dữ liệu xác nhận.", "When offline, the app keeps the shell and snapshots but never opens extra access without confirmation."),
       pair("Nếu trạng thái chưa mở đủ quyền, app chỉ hiển thị hướng dẫn và CTA về hub thay vì tạo một luồng mua trong app không có thật.", "If the state does not open enough access, the app shows guidance and a CTA back to the hub instead of creating a fake in-app purchase flow."),
     ],
     disclosureIds: ["DPM-016", "DPM-017", "DPM-020", "DPM-021"],
@@ -4796,11 +4802,11 @@ function renderMemberAppPage() {
           return [
             {
               title: copy("Provision đang chờ hoàn tất", "Provision is still pending"),
-              note: copy("App giữ đúng trạng thái đang kích hoạt cho tới khi runtime xác nhận quyền.", "The app stays in the activation-pending state until runtime confirms access."),
+              note: copy("App giữ trạng thái đang kích hoạt cho tới khi hệ thống xác nhận quyền.", "The app stays in the activation-pending state until the system confirms access."),
             },
             {
               title: copy("Retry safe", "Retry-safe flow"),
-              note: copy("Bạn có thể làm mới session mà không mất context hay rơi vào false-live.", "You can refresh the session without losing context or dropping into a fake-live flow."),
+              note: copy("Bạn có thể làm mới trạng thái mà không mất mạch sử dụng hay rơi vào luồng gây hiểu nhầm.", "You can refresh status without losing context or falling into a misleading flow."),
             },
             {
               title: copy("Gateway xử lý access", "Gateway handles access"),
@@ -4834,7 +4840,7 @@ function renderMemberAppPage() {
             },
             {
               title: copy("Gateway cho specialist packs", "Gateway for specialist packs"),
-              note: copy("Pack chuyên sâu vẫn mở từ hub để giữ một purchase truth duy nhất.", "Specialist packs still open from the hub to preserve a single purchase truth."),
+              note: copy("Pack chuyên sâu vẫn mở từ hub để giữ một điểm mua duy nhất.", "Specialist packs still open from the hub to preserve one purchase point."),
             },
           ];
         case "offline":
@@ -4848,8 +4854,8 @@ function renderMemberAppPage() {
               note: copy("Bạn vẫn thấy dữ liệu đã cache thay vì một UI rỗng.", "You still see cached data instead of a blank UI."),
             },
             {
-              title: copy("Không giả lập quyền", "No fake entitlements"),
-              note: copy("App không tự mở member depth khi chưa nhận lại session thật.", "The app never fakes member depth until the real session comes back."),
+              title: copy("Không mở quyền giả", "No fake access"),
+              note: copy("App không tự mở lớp sâu khi chưa nhận lại trạng thái tài khoản.", "The app never opens deeper layers until account status returns."),
             },
           ];
         case "loading":
@@ -4858,11 +4864,11 @@ function renderMemberAppPage() {
           return [
             {
               title: copy("Đang đồng bộ state", "Syncing state"),
-              note: copy("App đang đọc session thật để tránh hiển thị sai quyền truy cập.", "The app is reading the real session to avoid showing the wrong entitlements."),
+              note: copy("App đang đọc trạng thái tài khoản để tránh hiển thị sai quyền truy cập.", "The app is reading account status to avoid showing the wrong access."),
             },
             {
               title: copy("Quick actions chờ state", "Quick actions wait for state"),
-              note: copy("Các action nhạy cảm chỉ bật khi runtime xác nhận quyền.", "Sensitive actions only turn on after runtime confirms access."),
+              note: copy("Các action nhạy cảm chỉ bật khi hệ thống xác nhận quyền.", "Sensitive actions only turn on after the system confirms access."),
             },
             {
               title: copy("Gateway vẫn ổn định", "Gateway remains stable"),
@@ -4902,20 +4908,20 @@ function renderMemberAppPage() {
           return [
             {
               label: copy("Kiểm tra kích hoạt trên hub", "Check activation on the hub"),
-              note: copy("Nếu payment đang chờ xử lý, hub là nơi tiếp tục đúng contract.", "If payment is still pending, the hub is where the contract continues correctly."),
+              note: copy("Nếu thanh toán đang chờ xử lý, hub là nơi tiếp tục đúng lộ trình.", "If payment is still pending, the hub is where the flow continues correctly."),
               href: commercePolicy.redirectToHub,
               action: "renew-access",
               commerceLink: "hub",
             },
             {
-              label: copy("Làm mới session", "Refresh session"),
-              note: copy("Giữ app ở màn đầu và thử đồng bộ lại entitlement.", "Stay on the first screen and retry the entitlement sync."),
+              label: copy("Làm mới trạng thái", "Refresh status"),
+              note: copy("Giữ app ở màn đầu và thử đồng bộ lại quyền truy cập.", "Stay on the first screen and retry the access sync."),
               href: "#mobile-dashboard",
               action: "refresh-session",
             },
             {
               label: copy("Đọc EDU core snapshot", "Read the EDU core snapshot"),
-              note: copy("Bạn có thể xem snapshot trong lúc chờ runtime xác nhận quyền.", "You can review the snapshot while waiting for runtime to confirm access."),
+              note: copy("Bạn có thể xem snapshot trong lúc chờ hệ thống xác nhận quyền.", "You can review the snapshot while waiting for the system to confirm access."),
               href: "#mobile-edu-core",
               action: "open-domain",
               domainKey: "edu",
@@ -4952,7 +4958,7 @@ function renderMemberAppPage() {
           return [
             {
               label: copy("Mở toàn bộ hệ của bạn", "Open your full system"),
-              note: copy("Pack chuyên sâu và các bước mở rộng vẫn đi từ hub để giữ một truth duy nhất.", "Specialist packs and deeper expansion continue from the hub to preserve a single source of truth."),
+              note: copy("Pack chuyên sâu và các bước mở rộng vẫn đi từ hub để giữ một lộ trình mua duy nhất.", "Specialist packs and deeper expansion continue from the hub to preserve one purchase path."),
               href: commercePolicy.redirectToHub,
               action: "open-commerce-hub",
               commerceLink: "hub",
@@ -4978,7 +4984,7 @@ function renderMemberAppPage() {
           return [
             {
               label: copy("Thử đồng bộ lại", "Try syncing again"),
-              note: copy("Khi mạng quay lại, app sẽ đọc lại session thật và cập nhật quyền.", "Once the network returns, the app will reread the real session and refresh the entitlements."),
+              note: copy("Khi mạng quay lại, app sẽ đọc lại trạng thái tài khoản và cập nhật quyền.", "Once the network returns, the app will reread account status and refresh access."),
               href: "#mobile-dashboard",
               action: "refresh-session",
             },
@@ -5003,7 +5009,7 @@ function renderMemberAppPage() {
           return [
             {
               label: copy("Giữ app ở màn đầu", "Stay on the first screen"),
-              note: copy("Quick actions sẽ bật ngay khi runtime trả lại state thật.", "Quick actions will turn on as soon as runtime returns the real state."),
+              note: copy("Quick actions sẽ bật ngay khi hệ thống trả lại trạng thái mới.", "Quick actions will turn on as soon as the system returns an updated status."),
               href: "#mobile-dashboard",
               action: "refresh-session",
             },
@@ -5033,8 +5039,8 @@ function renderMemberAppPage() {
             plan: copy("Future Access Pass", "Future Access Pass"),
             nextTitle: copy("Đăng nhập để mở hành trình của bạn", "Sign in to open your journey"),
             nextNote: copy(
-              "Bạn đang ở lớp app shell công khai. Khi session thật quay lại, app sẽ trả đúng next step theo runtime.",
-              "You are on the public app shell. Once the real session comes back, the app returns the correct next step from runtime.",
+              "Bạn đang ở lớp app shell công khai. Khi trạng thái tài khoản quay lại, app sẽ hiển thị bước tiếp theo phù hợp.",
+              "You are on the public app shell. Once account status returns, the app shows the right next step.",
             ),
             nextPrimary: {
               label: copy("Mở toàn bộ hệ của bạn", "Open your full system"),
@@ -5049,12 +5055,12 @@ function renderMemberAppPage() {
               commerceLink: "hub",
             },
             primaryCtaNote: copy(
-              "Bạn chưa mở member depth trong trạng thái visitor. Nếu cần lớp sâu hơn, hub sẽ là điểm tiếp tục đúng contract.",
-              "Member depth is not yet open in visitor mode. When deeper access is needed, the hub is the correct continuation point.",
+              "Bạn chưa mở lớp member sâu hơn ở trạng thái visitor. Nếu cần đi tiếp, hub là điểm tiếp tục đúng.",
+              "Deeper member access is not open in visitor mode. When you need to continue, the hub is the right point.",
             ),
             secondary: [
               copy("Review EDU core snapshot bên dưới để hiểu lớp học sẽ mở ra sao.", "Review the EDU core snapshot below to understand how the learning layer opens."),
-              copy("VC quick verify vẫn đọc được như một demo giá trị công khai, chưa phải luồng mở quyền.", "VC quick verify remains readable as a public value demo, not an entitlement-unlock flow."),
+              copy("VC quick verify vẫn đọc được như một demo giá trị công khai, chưa phải luồng mở sâu.", "VC quick verify remains readable as a public-value demo, not a deeper-unlock flow."),
             ],
           };
         case "pending_member":
@@ -5063,8 +5069,8 @@ function renderMemberAppPage() {
             plan: copy("Future Access Pass • pending activation", "Future Access Pass • pending activation"),
             nextTitle: copy("Payment đã ghi nhận, hệ đang kích hoạt quyền", "Payment is recorded and the system is activating access"),
             nextNote: copy(
-              "Bạn chưa rơi vào false-live. App sẽ giữ quick actions an toàn, cho retry và đưa bạn về hub khi cần kiểm tra sâu hơn.",
-              "You are not dropped into a false-live state. The app keeps quick actions safe, allows retries, and routes you back to the hub when deeper checks are needed.",
+              "Bạn chưa rơi vào luồng giả như đã mở thật. App giữ quick actions an toàn, cho retry và đưa bạn về hub khi cần kiểm tra sâu hơn.",
+              "You are not dropped into a flow that looks already live. The app keeps quick actions safe, allows retries, and routes you back to the hub when deeper checks are needed.",
             ),
             nextPrimary: {
               label: copy("Kiểm tra kích hoạt trên hub", "Check activation on the hub"),
@@ -5083,7 +5089,7 @@ function renderMemberAppPage() {
               "The app keeps the pending state and never creates a fake checkout. The hub is where the flow continues when access needs verification.",
             ),
             secondary: [
-              copy("Giữ app ở màn đầu và dùng nút làm mới session để đọc lại entitlement.", "Stay on the first screen and use refresh session to reread the entitlement."),
+              copy("Giữ app ở màn đầu và dùng nút làm mới trạng thái để đọc lại quyền truy cập.", "Stay on the first screen and use refresh status to reread access."),
               copy("Nếu trạng thái chưa đổi, mở hub đúng entry point để tiếp tục flow.", "If the state has not changed yet, open the hub through the correct entry point to continue."),
             ],
           };
@@ -5140,8 +5146,8 @@ function renderMemberAppPage() {
               commerceLink: "hub",
             },
             primaryCtaNote: copy(
-              "Pack chuyên sâu và các bước mở rộng vẫn được giữ ở hub để đảm bảo một purchase truth duy nhất.",
-              "Specialist packs and deeper expansion remain on the hub to preserve a single purchase truth.",
+              "Pack chuyên sâu và các bước mở rộng vẫn được giữ ở hub để đảm bảo một điểm mua duy nhất.",
+              "Specialist packs and deeper expansion remain on the hub to preserve one purchase point.",
             ),
             secondary: [
               copy("Journey, EDU core và VC quick verify vẫn là ba nhịp thao tác nhanh nhất trong app shell.", "Journey, EDU core, and VC quick verify remain the three fastest operating beats inside the app shell."),
@@ -5154,8 +5160,8 @@ function renderMemberAppPage() {
             plan: copy("Cached app shell", "Cached app shell"),
             nextTitle: copy("Thiết bị đang offline", "Your device is offline"),
             nextNote: copy(
-              "App giữ shell và snapshot đã cache. Khi có mạng lại, bạn có thể làm mới session để lấy đúng state và next step.",
-              "The app keeps the shell and cached snapshots. Once the network returns, you can refresh the session to get the correct state and next step.",
+              "App giữ shell và snapshot đã cache. Khi có mạng lại, bạn có thể làm mới trạng thái để lấy đúng bước tiếp theo.",
+              "The app keeps the shell and cached snapshots. Once the network returns, you can refresh status to get the correct next step.",
             ),
             nextPrimary: {
               label: copy("Thử đồng bộ lại", "Try syncing again"),
@@ -5169,8 +5175,8 @@ function renderMemberAppPage() {
               commerceLink: "hub",
             },
             primaryCtaNote: copy(
-              "Hub vẫn là điểm tiếp tục chuẩn cho lớp sâu hơn, nhưng chỉ khi kết nối quay lại và session thật được đọc xong.",
-              "The hub remains the correct continuation point for deeper layers, but only once the connection returns and the real session has loaded.",
+              "Hub vẫn là điểm tiếp tục chuẩn cho lớp sâu hơn, nhưng chỉ khi kết nối quay lại và trạng thái đã được cập nhật.",
+              "The hub remains the correct continuation point for deeper layers, but only after connection returns and status is updated.",
             ),
             secondary: [
               copy("Bạn vẫn có thể đọc snapshot EDU và VC đã cache để không mất nhịp.", "You can still read the cached EDU and VC snapshots so you do not lose momentum."),
@@ -5185,8 +5191,8 @@ function renderMemberAppPage() {
             plan: copy("Đang đọc quyền truy cập", "Reading access"),
             nextTitle: copy("Đang đồng bộ quyền truy cập", "Syncing access"),
             nextNote: copy(
-              "First screen giữ skeleton, quick actions an toàn và CTA về hub trong lúc runtime trả lại state thật.",
-              "The first screen keeps the skeleton, safe quick actions, and the hub CTA while runtime returns the real state.",
+              "First screen giữ skeleton, quick actions an toàn và CTA về hub trong lúc hệ thống cập nhật trạng thái.",
+              "The first screen keeps the skeleton, safe quick actions, and the hub CTA while the system updates your status.",
             ),
             nextPrimary: {
               label: copy("Giữ app ở màn đầu", "Stay on the first screen"),
@@ -5200,8 +5206,8 @@ function renderMemberAppPage() {
               commerceLink: "hub",
             },
             primaryCtaNote: copy(
-              "Quick actions sẽ bật ngay khi runtime xác nhận state thật. App không suy diễn quyền truy cập trước khi có dữ liệu.",
-              "Quick actions will turn on as soon as runtime confirms the real state. The app never infers access before data arrives.",
+              "Quick actions sẽ bật ngay khi hệ thống xác nhận trạng thái. App không suy diễn quyền truy cập trước khi có dữ liệu.",
+              "Quick actions will turn on as soon as the system confirms your status. The app never infers access before data arrives.",
             ),
             secondary: [
               copy("Bạn vẫn có thể xem các layer demo bên dưới trong lúc chờ đồng bộ.", "You can still review the demo layers below while the sync runs."),
@@ -5239,13 +5245,13 @@ function renderMemberAppPage() {
         };
         const publicStateNote = {
           visitor: copy("Xem lớp công khai, app mobile và ví dụ EDU/VC trước khi đăng nhập.", "View the public layer, the mobile app, and EDU/VC examples before signing in."),
-          pending_member: copy("Hệ đang kích hoạt quyền. App giữ bước tiếp theo an toàn và cho phép làm mới session.", "The system is activating access. The app keeps the next step safe and lets you refresh the session."),
+          pending_member: copy("Hệ đang kích hoạt quyền. App giữ bước tiếp theo an toàn và cho phép làm mới trạng thái.", "The system is activating access. The app keeps the next step safe and lets you refresh status."),
           annual_active: copy("Mở journey, EDU core và VC quick verify từ cùng một khung mobile.", "Opens journey, EDU core, and quick VC verify from the same mobile frame."),
           pack_owner: copy("Giữ core access trong app và quay về hub khi cần lớp chuyên sâu hơn.", "Keeps core access in the app and returns to the hub when a deeper specialist layer is needed."),
         };
         const li = document.createElement("li");
         const stateLabel = toText(publicStateName[state.key] || copy(state.label, state.label));
-        const stateNote = toText(publicStateNote[state.key] || copy("Giữ đúng quyền truy cập theo runtime.", "Keeps access aligned with runtime."));
+        const stateNote = toText(publicStateNote[state.key] || copy("Giữ đúng quyền truy cập theo trạng thái hiện tại.", "Keeps access aligned with your current status."));
         li.textContent = stateLabel + ": " + stateNote;
         list.appendChild(li);
       });
@@ -5549,7 +5555,7 @@ function renderMemberAppPage() {
 
       if (!Array.isArray(eduSnapshotCache)) {
         const li = document.createElement("li");
-        li.textContent = localizedCopy("EDU snapshot chưa sẵn sàng. Bạn có thể làm mới session hoặc quay về hub.", "The EDU snapshot is not ready yet. You can refresh the session or return to the hub.");
+        li.textContent = localizedCopy("EDU snapshot chưa sẵn sàng. Bạn có thể làm mới trạng thái hoặc quay về hub.", "The EDU snapshot is not ready yet. You can refresh status or return to the hub.");
         list.appendChild(li);
         return;
       }
@@ -5627,7 +5633,7 @@ function renderMemberAppPage() {
 
       if (!Array.isArray(vcSnapshotCache)) {
         const li = document.createElement("li");
-        li.textContent = localizedCopy("VC snapshot chưa sẵn sàng. Bạn có thể làm mới session hoặc quay về hub.", "The VC snapshot is not ready yet. You can refresh the session or return to the hub.");
+        li.textContent = localizedCopy("VC snapshot chưa sẵn sàng. Bạn có thể làm mới trạng thái hoặc quay về hub.", "The VC snapshot is not ready yet. You can refresh status or return to the hub.");
         list.appendChild(li);
         return;
       }
@@ -5879,15 +5885,15 @@ function renderWorkHome() {
 
   const pillars = renderCards([
     renderCard({
-      title: cardTitle(pair("Deliverables", "Deliverables")),
+      title: cardTitle(pair("Đầu ra rõ ràng", "Clear deliverables")),
       body: cardText(pair("Đăng việc yêu cầu output rõ ràng trước khi nộp.", "Roles require clear outputs before applying.")),
     }),
     renderCard({
-      title: cardTitle(pair("Proof first", "Proof first")),
+      title: cardTitle(pair("Bằng chứng trước", "Proof first")),
       body: cardText(pair("VC là điều kiện cho những cơ hội cần độ tin cậy cao.", "VC is required for opportunities that need a higher level of trust.")),
     }),
     renderCard({
-      title: cardTitle(pair("Mission fit", "Mission fit")),
+      title: cardTitle(pair("Phù hợp sứ mệnh", "Mission fit")),
       body: cardText(pair("Không nhận dự án làm sai triết lý hệ.", "No projects that violate ecosystem principles.")),
     }),
   ]);
@@ -5917,7 +5923,7 @@ function renderWorkHome() {
         "Bản demo này giúp người xem hiểu cách một brief được viết, không biến trang thành một job board giả.",
         "This demo helps viewers understand how a brief is written without turning the page into a fake job board.",
       )),
-      actions: button(`https://${domains.vc}/`, pair("Mở VC layer", "Open VC layer"), "ghost"),
+      actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
     }),
   ]);
 
@@ -5925,11 +5931,11 @@ function renderWorkHome() {
     currentKey: "work",
     deepCta,
     notes: [
-      pair("Hub là điểm đi tiếp chung cho các bước sâu hơn liên quan tới WORK, không phải chính subdomain này.", "The hub is the shared continuation point for deeper WORK steps, not this subdomain itself."),
-      pair("Các bước nhạy cảm như ứng tuyển thật hoặc mở pack đều đi qua hub.", "Sensitive steps such as real applications or pack access all go through the hub."),
+      pair("Hub là điểm đi tiếp chung cho các bước sâu hơn liên quan tới WORK, không phải chính trang WORK này.", "The hub is the shared continuation point for deeper WORK steps, not this WORK page itself."),
+      pair("Các bước nhạy cảm như ứng tuyển thật hoặc mở gói chuyên sâu đều đi qua hub.", "Sensitive steps such as real applications or pack access all go through the hub."),
     ],
     disclosureIds: ["DPM-008", "DPM-021"],
-    secondaryActions: `${button(`https://${domains.work}/brief/`, pair("Xem brief mẫu", "Open sample brief"), "ghost")} ${button(`https://${domains.vc}/`, pair("Mở VC", "Open VC"), "ghost")}`,
+    secondaryActions: `${button(`https://${domains.work}/brief/`, pair("Xem brief mẫu", "Open sample brief"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
@@ -5949,7 +5955,7 @@ function renderWorkHome() {
     title: pair("WORK mission", "WORK mission"),
     description: pair(
       "WORK là lớp công khai ở trạng thái Planned để mở brief mẫu, khung bằng chứng và đường đi tiếp về hub.",
-      "WORK is a public surface in Planned status for sample briefs, proof framing, and a clear path back to the hub.",
+      "WORK is a public layer in Planned status for sample briefs, proof framing, and a clear path back to the hub.",
     ),
     navItems: ecosystemNav("work"),
     hero,
@@ -6016,15 +6022,15 @@ function renderMarketHome() {
 
   const rules = renderCards([
     renderCard({
-      title: cardTitle(pair("Trust gate", "Trust gate")),
+      title: cardTitle(pair("Cổng tin cậy", "Trust gate")),
       body: cardText(pair("Yêu cầu VC cho giao dịch nhạy cảm.", "Require VC for trust-sensitive deals.")),
     }),
     renderCard({
-      title: cardTitle(pair("Disclosure", "Disclosure")),
+      title: cardTitle(pair("Công khai phạm vi", "Scope disclosure")),
       body: cardText(pair("Công bố phạm vi công việc và bài toán cần giải.", "Disclose scope and problem statements.")),
     }),
     renderCard({
-      title: cardTitle(pair("No hype", "No hype")),
+      title: cardTitle(pair("Không thổi phồng", "No hype")),
       body: cardText(pair("Không tạo FOMO, không đưa chỉ tiêu thu nhập ảo.", "No FOMO or fake income promises.")),
     }),
   ]);
@@ -6034,8 +6040,8 @@ function renderMarketHome() {
       title: cardTitle(pair("Sample asset 01", "Sample asset 01")),
       badge: statusBadge(surfaceBadgeClass(marketSurface.status), appStageLabel(marketSurface)),
       body: cardText(pair(
-        "Bộ template CV + invoice: public layer chỉ cho xem framing, trust note và creator boundary, chưa mở mua trực tiếp tại subdomain.",
-        "CV + invoice template bundle: the public layer shows framing, trust notes, and creator boundary without opening direct purchase on the subdomain.",
+        "Bộ mẫu CV + hóa đơn: lớp công khai chỉ cho xem cách trình bày, ghi chú tin cậy và ranh giới của người tạo; chưa mở mua trực tiếp tại trang này.",
+        "CV + invoice sample set: the public layer shows framing, trust notes, and creator boundaries without opening direct purchase on this page.",
       )),
       actions: button(`https://${domains.market}/rules/`, pair("Xem rule", "Open rules"), "ghost"),
     }),
@@ -6054,7 +6060,7 @@ function renderMarketHome() {
         "Nếu người dùng muốn đi sâu hơn tới giao dịch, hệ sẽ đưa họ về hub để giữ cùng một điểm vào.",
         "If people want to move into a deeper transaction, the system returns them to the hub to keep one shared entry point.",
       )),
-      actions: button(`https://${domains.work}/`, pair("Mở WORK", "Open WORK"), "ghost"),
+      actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
     }),
   ]);
 
@@ -6062,11 +6068,11 @@ function renderMarketHome() {
     currentKey: "market",
     deepCta,
     notes: [
-      pair("Hub giữ một điểm đi tiếp thống nhất cho pack, annual access và các bước sâu hơn liên quan tới MARKET.", "The hub keeps one consistent continuation point for packs, annual access, and deeper MARKET steps."),
+      pair("Hub giữ một điểm đi tiếp thống nhất cho gói truy cập, quyền năm và các bước sâu hơn liên quan tới MARKET.", "The hub keeps one consistent continuation point for packs, annual access, and deeper MARKET steps."),
       pair("MARKET hiện chỉ mở tài sản mẫu và cách đọc mức độ tin cậy ở lớp public.", "MARKET currently opens only sample assets and a trust-reading layer in public."),
     ],
     disclosureIds: ["DPM-010", "DPM-011", "DPM-021"],
-    secondaryActions: `${button(`https://${domains.market}/rules/`, pair("Xem rules", "Open rules"), "ghost")} ${button(`https://${domains.vc}/`, pair("Mở VC", "Open VC"), "ghost")}`,
+    secondaryActions: `${button(`https://${domains.market}/rules/`, pair("Xem rules", "Open rules"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
@@ -6086,7 +6092,7 @@ function renderMarketHome() {
     title: pair("MARKET pilot", "MARKET pilot"),
     description: pair(
       "MARKET là lớp công khai ở trạng thái Planned cho tài sản mẫu, xem trước gian trưng bày và cách đọc mức độ tin cậy trước khi giao dịch hoạt động.",
-      "MARKET is a public surface in Planned status for sample assets, storefront previews, and trust framing before commerce goes live.",
+      "MARKET is a public layer in Planned status for sample assets, storefront previews, and trust framing before commerce goes live.",
     ),
     navItems: ecosystemNav("market"),
     hero,
@@ -6142,7 +6148,7 @@ function renderCommunityHome() {
     title: pair("COMMUNITY<br><span class=\"accent\">preview cohort trước, mở vòng thực hành sau</span>", "COMMUNITY<br><span class=\"accent\">cohort preview first, deeper practice later</span>"),
     description: pair(
       "COMMUNITY hiện mở lớp planned-safe để giới thiệu cohort, circle và cách tham gia an toàn. Nó chưa được trình bày như một cộng đồng đã vận hành công khai.",
-      "COMMUNITY currently opens a planned-safe layer for cohorts, circles, and safe participation. It is not presented as an already operating public community.",
+      "COMMUNITY currently opens a planned-safe layer for cohorts, circles, and safe participation. It is not presented as an already open public community.",
     ),
     actions: [
       gatewayCtaButton(deepCta, "primary"),
@@ -6153,27 +6159,27 @@ function renderCommunityHome() {
 
   const publicValue = renderCards([
     renderCard({
-      title: cardTitle(pair("Cohort preview", "Cohort preview")),
+      title: cardTitle(pair("Bản xem trước cohort", "Cohort preview")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "Lớp public cho thấy cách cohort được tổ chức, không biến trang này thành social feed đã chạy thật.",
-        "The public layer shows how a cohort is structured without turning the page into a live social feed.",
+        "Lớp công khai cho thấy cách cohort được tổ chức, không biến trang này thành bảng tin cộng đồng đã chạy thật.",
+        "The public layer shows how a cohort is structured without turning the page into a live activity stream.",
       )),
     }),
     renderCard({
       title: cardTitle(pair("Peer support", "Peer support")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "COMMUNITY chỉ mở các nguyên tắc hỗ trợ ngang hàng, boundary rõ và hướng đi tiếp về hub/member.",
-        "COMMUNITY opens only peer-support principles, clear boundaries, and a path back to the hub/member.",
+        "COMMUNITY chỉ mở các nguyên tắc hỗ trợ ngang hàng, ranh giới rõ và hướng đi tiếp về hub.",
+        "COMMUNITY opens only peer-support principles, clear boundaries, and a path back to the hub.",
       )),
     }),
     renderCard({
       title: cardTitle(pair("Không ồn ào", "No noisy feed")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "Không có feed hoạt động, không có thông báo giả live và không có lời mời tham gia như thể community đã mở hoàn toàn.",
-        "There is no active feed, no fake-live alerts, and no invitation copy that pretends the community is fully open.",
+        "Không có feed hoạt động, không có thông báo như thể đã mở thật và không có lời mời tham gia như community đã mở hoàn toàn.",
+        "There is no active feed, no alerts that imply a live launch, and no invitation copy that pretends the community is fully open.",
       )),
     }),
   ]);
@@ -6200,10 +6206,10 @@ function renderCommunityHome() {
       title: cardTitle(pair("Điểm vào tiếp theo", "Next valid entry")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "Nếu cần đi sâu hơn, hệ đưa người dùng về hub hoặc member để giữ đúng entitlement và runtime truth.",
-        "If deeper access is needed, the system routes people back to the hub or member so entitlement and runtime truth stay correct.",
+        "Nếu cần đi sâu hơn, hệ đưa người dùng về hub để giữ đúng điểm vào công khai.",
+        "If deeper access is needed, the system routes people back to the hub so the public entry point stays consistent.",
       )),
-      actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.member}/journey/`, pair("Mở journey", "Open journey"), "ghost")}`,
+      actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.community}/principles/`, pair("Mở nguyên tắc", "Open principles"), "ghost")}`,
     }),
   ]);
 
@@ -6211,19 +6217,19 @@ function renderCommunityHome() {
     currentKey: "community",
     deepCta,
     notes: [
-      pair("COMMUNITY hiện chỉ mở preview an toàn cho cohort, nguyên tắc tham gia và điểm đi tiếp hợp lệ.", "COMMUNITY currently opens only a safe preview for cohorts, participation principles, and valid next-step routes."),
-      pair("Không có đăng ký cohort, không có social feed và không có lời hứa kết quả cộng đồng tại domain này.", "There is no cohort registration, no social feed, and no community outcome promise on this domain."),
+      pair("COMMUNITY hiện chỉ mở bản xem trước an toàn cho cohort, nguyên tắc tham gia và điểm đi tiếp hợp lệ.", "COMMUNITY currently opens only a safe preview for cohorts, participation principles, and valid next-step routes."),
+      pair("Không có đăng ký cohort, không có bảng tin cộng đồng và không có lời hứa kết quả cộng đồng tại trang này.", "There is no cohort registration, no community feed, and no community outcome promise on this page."),
     ],
     disclosureIds: ["DPM-021"],
-    secondaryActions: `${button(`https://${domains.community}/principles/`, pair("Xem nguyên tắc", "Open principles"), "ghost")} ${button(`https://${domains.member}/`, pair("Mở member", "Open member"), "ghost")}`,
+    secondaryActions: `${button(`https://${domains.community}/principles/`, pair("Xem nguyên tắc", "Open principles"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "community",
     extraItems: [
       pair("COMMUNITY đang ở trạng thái Planned. Trang này chưa phải community live và chưa mở tương tác thời gian thực.", "COMMUNITY is currently in Planned status. This page is not a live community and it does not open real-time interaction yet."),
-      pair("Mọi CTA sâu hơn phải quay về hub/member để giữ cùng một điểm vào và không làm sai current state.", "Every deeper CTA must return to hub/member so the system keeps one entry point and does not misstate the current state."),
-      pair("Không dùng testimonial marketing hoặc social pressure để kéo user vào community preview.", "No testimonial marketing or social pressure is used to pull users into the community preview."),
+      pair("Mọi CTA sâu hơn phải quay về hub để giữ một điểm vào nhất quán và rõ ràng.", "Every deeper CTA must return to the hub to keep one clear and consistent entry point."),
+      pair("Không dùng lời chứng thực hoặc áp lực cộng đồng để kéo người xem vào bản xem trước COMMUNITY.", "No testimonial marketing or social pressure is used to pull people into the community preview."),
     ],
     disclosureIds: ["DPM-021"],
     actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.community}/principles/`, pair("Mở nguyên tắc", "Open principles"), "ghost")}`,
@@ -6232,16 +6238,16 @@ function renderCommunityHome() {
   return renderShell({
     currentKey: "community",
     pathname: "/",
-    title: pair("COMMUNITY preview", "COMMUNITY preview"),
+    title: pair("COMMUNITY bản xem trước", "COMMUNITY preview"),
     description: pair(
-      "COMMUNITY là lớp công khai ở trạng thái Planned để mở cohort preview, participation principles và điểm vào hợp lệ.",
-      "COMMUNITY is a public surface in Planned status for cohort previews, participation principles, and valid entry points.",
+      "COMMUNITY là lớp công khai ở trạng thái Planned để mở bản xem trước cohort, nguyên tắc tham gia và điểm vào hợp lệ.",
+      "COMMUNITY is a public layer in Planned status for cohort previews, participation principles, and valid entry points.",
     ),
     navItems: ecosystemNav("community"),
     hero,
     sections: [
       renderSection(pair("Public value", "Public value"), pair("COMMUNITY giúp người xem hiểu logic cohort và peer support trước khi có bất kỳ tương tác live nào.", "COMMUNITY helps people understand cohort and peer-support logic before any live interaction exists."), publicValue, "public-value"),
-      renderSection(pair("Demo", "Demo"), pair("Các preview này cho thấy cấu trúc tham gia mà không giả vờ community đã mở công khai.", "These previews show the participation structure without pretending the community is already publicly open."), demo, "demo"),
+      renderSection(pair("Demo", "Demo"), pair("Các bản xem trước này cho thấy cấu trúc tham gia mà không giả vờ community đã mở công khai.", "These previews show the participation structure without pretending the community is already publicly open."), demo, "demo"),
       gatewaySection,
       trustStatusSection,
     ],
@@ -6265,9 +6271,9 @@ function renderCommunityPrinciplesPage() {
   });
 
   const principles = renderList([
-    pair("Không biến COMMUNITY thành social feed ồn ào.", "Do not turn COMMUNITY into a noisy social feed."),
+    pair("Không biến COMMUNITY thành bảng tin cộng đồng ồn ào.", "Do not turn COMMUNITY into a noisy community feed."),
     pair("Mọi vòng thực hành phải có người điều phối, mục tiêu rõ và review rõ.", "Every practice loop needs a facilitator, a clear goal, and a clear review step."),
-    pair("Không claim network, job hay earning outcome khi chưa có runtime thật.", "Do not claim network, job, or earning outcomes without real runtime support."),
+    pair("Không claim network, job hay earning outcome khi chưa có bằng chứng xác thực.", "Do not claim network, job, or earning outcomes without verified evidence."),
   ]);
 
   return renderShell({
@@ -6288,10 +6294,10 @@ function renderAiHome() {
   const aiSurface = resolveSurfacePublicMeta("ai");
   const hero = renderHero({
     eyebrow: pair("AI công khai", "AI public"),
-    title: pair("AI<br><span class=\"accent\">use-case thật trước, tool runtime sau</span>", "AI<br><span class=\"accent\">real use cases first, runtime tools later</span>"),
+    title: pair("AI<br><span class=\"accent\">use-case thật trước, công cụ sâu hơn sau</span>", "AI<br><span class=\"accent\">real use cases first, deeper tools later</span>"),
     description: pair(
-      "AI hiện mở lớp planned-safe cho các use-case mẫu, guardrail dùng AI đúng chỗ và helper preview an toàn. Nó chưa được trình bày như một bộ công cụ AI đã mở production.",
-      "AI currently opens a planned-safe layer for sample use cases, safe AI guardrails, and helper previews. It is not presented as a production-ready tool suite.",
+      "AI hiện mở lớp planned-safe cho tình huống mẫu, nguyên tắc dùng AI đúng chỗ và bản xem trước an toàn. Nó chưa được trình bày như một bộ công cụ AI đã mở chính thức.",
+      "AI currently opens a planned-safe layer for sample use cases, safe AI boundaries, and guided previews. It is not presented as a production-ready tool suite.",
     ),
     actions: [
       gatewayCtaButton(deepCta, "primary"),
@@ -6310,19 +6316,19 @@ function renderAiHome() {
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Helper preview", "Helper preview")),
+      title: cardTitle(pair("Bản xem trước trợ giúp", "Guided preview")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
         "Trang public chỉ cho xem cách AI helper có thể hỗ trợ học, soát và gợi ý bước tiếp theo mà không giả tool đã live.",
-        "The public page only shows how AI helpers can support learning, review, and next-step guidance without pretending the tools are already live.",
+        "The public page only shows how guided AI support can assist learning, review, and next-step guidance without pretending the tools are already live.",
       )),
     }),
     renderCard({
       title: cardTitle(pair("Không hype", "No hype")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
-        "Không dùng copy kiểu thay thế con người, kiếm tiền ngay hay tự động hóa mọi thứ để kéo user vào AI lane.",
-        "No copy about replacing people, earning instantly, or automating everything is used to pull users into the AI lane.",
+        "Không dùng nội dung kiểu thay thế con người, kiếm tiền ngay hay tự động hóa mọi thứ để kéo người xem vào lớp AI.",
+        "No copy about replacing people, earning instantly, or automating everything is used to pull people into the AI layer.",
       )),
     }),
   ]);
@@ -6340,8 +6346,8 @@ function renderAiHome() {
       title: cardTitle(pair("Review helper sample", "Review helper sample")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
-        "Review helper chỉ được mô tả như demo flow. Nó chưa phải assistant runtime production ở domain này.",
-        "The review helper is described only as a demo flow. It is not yet a production runtime assistant on this domain.",
+        "Trợ giúp rà soát chỉ được mô tả như demo. Nó chưa phải trợ lý đã mở chính thức ở trang này.",
+        "The review helper is described only as a demo flow. It is not an officially open assistant on this domain yet.",
       )),
       actions: button(`https://${domains.ai}/use-cases/`, pair("Mở use-case", "Open use cases"), "ghost"),
     }),
@@ -6349,10 +6355,10 @@ function renderAiHome() {
       title: cardTitle(pair("Điểm vào hợp lệ", "Valid next step")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
-        "Mọi bước đi tiếp vẫn quay về hub hoặc member để hệ giữ đúng quyền truy cập và không tạo fake-live AI tool.",
-        "Every next step still returns to the hub or member so the system keeps the right access model and avoids fake-live AI tools.",
+        "Mọi bước đi tiếp vẫn quay về hub để giữ đúng điểm vào và không tạo cảm giác tool đã mở thật.",
+        "Every next step still returns to the hub to keep the right entry point and avoid implying the tools are fully open.",
       )),
-      actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.member}/`, pair("Mở member", "Open member"), "ghost")}`,
+      actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.ai}/use-cases/`, pair("Mở tình huống mẫu", "Open sample uses"), "ghost")}`,
     }),
   ]);
 
@@ -6360,19 +6366,19 @@ function renderAiHome() {
     currentKey: "ai",
     deepCta,
     notes: [
-      pair("AI hiện chỉ mở use-case preview, helper demo và nguyên tắc dùng AI đúng vai.", "AI currently opens only use-case previews, helper demos, and correct-role usage principles."),
-      pair("Không có assistant production công khai, không có live tool claim và không có payment flow tại domain này.", "There is no public production assistant, no live tool claim, and no payment flow on this domain."),
+      pair("AI hiện chỉ mở bản xem trước tình huống, demo trợ giúp và nguyên tắc dùng AI đúng vai.", "AI currently opens only sample-use previews, guided demos, and correct-role usage principles."),
+      pair("Không có trợ lý mở hoàn chỉnh, không có tuyên bố công cụ đã live và không có bước thanh toán tại trang này.", "There is no fully open assistant, no claim that tools are live, and no payment step on this page."),
     ],
     disclosureIds: ["DPM-021"],
-    secondaryActions: `${button(`https://${domains.ai}/use-cases/`, pair("Xem use-case", "Open use cases"), "ghost")} ${button(`https://${domains.member}/journey/`, pair("Mở journey", "Open journey"), "ghost")}`,
+    secondaryActions: `${button(`https://${domains.ai}/use-cases/`, pair("Xem tình huống mẫu", "Open sample uses"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "ai",
     extraItems: [
-      pair("AI đang ở trạng thái Planned. Domain này chưa được dùng để claim tool runtime production.", "AI is currently in Planned status. This domain is not yet used to claim production runtime tools."),
-      pair("Copy public phải nói rõ đây là helper preview, use-case preview và guardrail preview.", "Public copy must make it clear that this is a helper preview, a use-case preview, and a guardrail preview."),
-      pair("Nếu người dùng cần đi sâu hơn, hệ sẽ trả về hub/member thay vì mở một luồng AI độc lập ngay tại đây.", "If a user needs to go deeper, the system returns them to the hub/member instead of opening an isolated AI flow here."),
+      pair("AI đang ở trạng thái Planned. Trang này chưa dùng để tuyên bố bộ công cụ đã mở chính thức.", "AI is currently in Planned status. This page is not used to claim a fully open tool suite yet."),
+      pair("Nội dung công khai phải nói rõ đây là bản xem trước trợ giúp, bản xem trước tình huống và bản xem trước ranh giới an toàn.", "Public copy must make it clear that this is a guided preview, a sample-use preview, and a safety-boundary preview."),
+      pair("Nếu người xem cần đi sâu hơn, hệ sẽ trả về hub thay vì mở một luồng AI độc lập ngay tại đây.", "If people need to go deeper, the system returns them to the hub instead of opening an isolated AI flow here."),
     ],
     disclosureIds: ["DPM-021"],
     actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.ai}/use-cases/`, pair("Mở use-case", "Open use cases"), "ghost")}`,
@@ -6381,16 +6387,16 @@ function renderAiHome() {
   return renderShell({
     currentKey: "ai",
     pathname: "/",
-    title: pair("AI preview", "AI preview"),
+    title: pair("AI bản xem trước", "AI preview"),
     description: pair(
-      "AI là lớp công khai ở trạng thái Planned cho use-case preview, helper demo và guardrail dùng AI đúng chỗ.",
-      "AI is a public surface in Planned status for use-case previews, helper demos, and safe AI guardrails.",
+      "AI là lớp công khai ở trạng thái Planned cho bản xem trước tình huống, demo trợ giúp và ranh giới dùng AI đúng chỗ.",
+      "AI is a public layer in Planned status for sample-use previews, guided demos, and safe AI boundaries.",
     ),
     navItems: ecosystemNav("ai"),
     hero,
     sections: [
-      renderSection(pair("Public value", "Public value"), pair("AI giải thích vai trò, ranh giới và use-case trước khi có bất kỳ claim production tool nào.", "AI explains role, boundaries, and use cases before any production-tool claim exists."), publicValue, "public-value"),
-      renderSection(pair("Demo", "Demo"), pair("Các preview này cho thấy AI có thể hỗ trợ ở đâu mà không giả vờ tool runtime đã live.", "These previews show where AI can help without pretending the runtime tools are already live."), demo, "demo"),
+      renderSection(pair("Public value", "Public value"), pair("AI giải thích vai trò, ranh giới và tình huống mẫu trước khi có bất kỳ tuyên bố công cụ production nào.", "AI explains role, boundaries, and sample uses before any production-tool claim exists."), publicValue, "public-value"),
+      renderSection(pair("Demo", "Demo"), pair("Các bản xem trước này cho thấy AI có thể hỗ trợ ở đâu mà không giả vờ công cụ đã mở chính thức.", "These previews show where AI can help without pretending the tools are already fully open."), demo, "demo"),
       gatewaySection,
       trustStatusSection,
     ],
@@ -6400,11 +6406,11 @@ function renderAiHome() {
 function renderAiUseCasesPage() {
   const deepCta = deepContentHubCta("ai", "ai-use-cases", "ai-use-cases");
   const hero = renderHero({
-    eyebrow: pair("AI use cases", "AI use cases"),
-    title: pair("Use-case mẫu", "Sample use cases"),
+    eyebrow: pair("Tình huống AI", "AI sample uses"),
+    title: pair("Tình huống mẫu", "Sample uses"),
     description: pair(
-      "Các use-case công khai giúp người dùng hiểu AI được dùng ở đâu, với dữ liệu nào và trong boundary nào.",
-      "Public use cases help people understand where AI is used, with what data, and inside which boundary.",
+      "Các tình huống công khai giúp người xem hiểu AI được dùng ở đâu, với dữ liệu nào và trong ranh giới nào.",
+      "Public sample uses help people understand where AI is used, with what data, and inside which boundary.",
     ),
     actions: [
       button(`https://${domains.ai}/`, pair("Về AI", "Back to AI")),
@@ -6414,7 +6420,7 @@ function renderAiUseCasesPage() {
   });
 
   const useCases = renderList([
-    pair("Giải thích bài học theo context của user.", "Explain a lesson in the user's context."),
+    pair("Giải thích bài học theo bối cảnh của người học.", "Explain a lesson in a learner's context."),
     pair("Soát output mẫu trước khi nộp review.", "Review a sample output before it enters review."),
     pair("Gợi ý bước tiếp theo mà không tự mở quyền truy cập sâu hơn.", "Suggest the next step without unlocking deeper access on its own."),
   ]);
@@ -6422,12 +6428,12 @@ function renderAiUseCasesPage() {
   return renderShell({
     currentKey: "ai",
     pathname: "/use-cases/",
-    title: pair("AI use cases", "AI use cases"),
-    description: pair("Use-case mẫu cho AI planned-safe.", "Sample use cases for AI planned-safe."),
+    title: pair("Tình huống AI", "AI sample uses"),
+    description: pair("Tình huống mẫu cho AI planned-safe.", "Sample uses for AI planned-safe."),
     navItems: ecosystemNav("ai"),
     hero,
     sections: [
-      renderSection(pair("Use cases", "Use cases"), pair("Các use-case công khai đang được phép nói tới ở lane AI.", "The public use cases that are allowed to be described on the AI lane."), useCases),
+      renderSection(pair("Tình huống mẫu", "Sample uses"), pair("Các tình huống công khai đang được phép nói tới ở lớp AI.", "The public sample uses that are allowed to be described on the AI layer."), useCases),
     ],
   });
 }
@@ -6447,8 +6453,8 @@ function renderBusinessPage() {
       <aside class="disclosure-block" data-disclosure-kind="public-note" data-final-status="approved">
         ${localizedText(disclosureNoteLabelCopy, "div", { class: "disclosure-label" })}
         ${localizedText(pair(
-          "BUSINESS shell này chỉ đọc contract, form và demo từ Team 4 runtime tại /api/team4/*. Nếu payload chưa sẵn sàng, trang sẽ giữ waiting state thay vì giả live.",
-          "This BUSINESS shell reads contract, form, and demo data only from Team 4 runtime at /api/team4/*. If payloads are not ready, the page stays in a waiting state instead of pretending to be live.",
+          "BUSINESS hiện chỉ mở phần định hướng, gợi ý gói và demo an toàn. Nếu dữ liệu nền chưa đủ, trang sẽ giữ thông báo chờ thay vì giả như đã mở dịch vụ doanh nghiệp.",
+          "BUSINESS currently opens only orientation, package guidance, and safe demos. If the underlying data is not complete, the page stays in a waiting notice instead of pretending enterprise service is live.",
         ), "div", { class: "disclosure-copy" })}
       </aside>
     </div>
@@ -6459,7 +6465,7 @@ function renderBusinessPage() {
         <div class="metrics">
           <div class="metric">
             <div class="metric-value" id="business-metric-steps">--</div>
-            ${localizedText(pair("bước intake", "intake steps"), "div", { class: "metric-label" })}
+            ${localizedText(pair("bước trao đổi", "discussion steps"), "div", { class: "metric-label" })}
           </div>
           <div class="metric">
             <div class="metric-value" id="business-metric-packages">--</div>
@@ -6467,7 +6473,7 @@ function renderBusinessPage() {
           </div>
           <div class="metric">
             <div class="metric-value" id="business-metric-previews">--</div>
-            ${localizedText(pair("safe preview", "safe previews"), "div", { class: "metric-label" })}
+            ${localizedText(pair("bản xem trước an toàn", "safe previews"), "div", { class: "metric-label" })}
           </div>
           <div class="metric">
             ${localizedText(businessStageLabel, "div", { class: "metric-value", id: "business-metric-status" })}
@@ -6479,53 +6485,53 @@ function renderBusinessPage() {
   `;
   const loadingPublicValue = renderCards([
     renderCard({
-      title: cardTitle(pair("Đang đọc hook intake", "Loading intake hook")),
+      title: cardTitle(pair("Đang chuẩn bị điểm vào doanh nghiệp", "Preparing the enterprise entry point")),
       badge: statusBadge(businessStageTone, businessStageLabel),
       body: cardText(pair(
-        "Đang đọc bước intake doanh nghiệp từ Team 4 contract để chốt hook công khai an toàn.",
-        "Reading the enterprise intake steps from the Team 4 contract to lock the public-safe hook.",
+        "Các bước trao đổi ban đầu được trình bày như bản xem trước an toàn, chưa phải luồng tiếp nhận doanh nghiệp đang mở.",
+        "The first discussion steps are presented as a safe preview, not as an open enterprise intake flow.",
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Đang đọc gợi ý gói", "Loading package guidance")),
+      title: cardTitle(pair("Đang chuẩn bị gợi ý gói", "Preparing package guidance")),
       badge: statusBadge(businessStageTone, businessStageLabel),
       body: cardText(pair(
-        "Đang đọc package family và recommendation rule để BUSINESS shell không tự dựng flow giả live.",
-        "Reading the package family and recommendation rule so the BUSINESS shell does not invent a fake-live flow.",
+        "Trang chỉ gợi ý nhóm gói ở mức tham khảo và giữ mọi bước tiếp theo quay về hub.",
+        "The page only presents package groups as guidance and keeps every next step routed back to the hub.",
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Đang đọc nguồn contract", "Loading contract sources")),
+      title: cardTitle(pair("Đang kiểm tra dữ liệu nền", "Checking supporting data")),
       badge: statusBadge(businessStageTone, businessStageLabel),
       body: cardText(pair(
-        "Đang kiểm tra ba nguồn /api/team4/* trước khi mở public value cho doanh nghiệp.",
-        "Checking the three /api/team4/* sources before opening the enterprise public value block.",
+        "Nếu dữ liệu nền chưa đủ, phần public value sẽ giữ thông báo chờ và không dựng trải nghiệm doanh nghiệp như đã mở thật.",
+        "If supporting data is incomplete, the public value section stays in a waiting notice and does not create an enterprise experience that appears already live.",
       )),
     }),
   ]);
   const loadingDemo = renderCards([
     renderCard({
-      title: cardTitle(pair("Đang đọc bundle so sánh", "Loading comparison bundle")),
+      title: cardTitle(pair("Đang chuẩn bị phần so sánh", "Preparing comparison")),
       badge: statusBadge(businessStageTone, businessStageLabel),
       body: cardText(pair(
-        "Đang đọc comparison bundle BUSINESS để demo chỉ phản ánh đúng package family đã khóa.",
-        "Reading the BUSINESS comparison bundle so the demo reflects only the locked package family.",
+        "Phần so sánh chỉ dùng để minh họa cách đọc nhóm gói, chưa phải tư vấn triển khai trực tiếp.",
+        "The comparison section only illustrates how to read package groups; it is not live implementation consulting.",
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Đang đọc safe preview", "Loading safe previews")),
+      title: cardTitle(pair("Đang chuẩn bị bản xem trước", "Preparing safe previews")),
       badge: statusBadge(businessStageTone, businessStageLabel),
       body: cardText(pair(
-        "Đang đọc preview bundle của Team 4. Nếu bundle chưa có, block này sẽ giữ waiting state.",
-        "Reading the Team 4 preview bundles. If they are not available, this block stays in a waiting state.",
+        "Bản xem trước chỉ xuất hiện khi đủ dữ liệu đã kiểm tra; nếu chưa đủ, trang sẽ giữ thông báo chờ.",
+        "Previews appear only when checked data is available; otherwise the page keeps a waiting notice.",
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Đang đọc output mẫu", "Loading sample outputs")),
+      title: cardTitle(pair("Đang chuẩn bị đầu ra mẫu", "Preparing sample outputs")),
       badge: statusBadge(businessStageTone, businessStageLabel),
       body: cardText(pair(
-        "Đang đọc output bundle để chỉ hiển thị đầu ra planned-safe thay vì dashboard doanh nghiệp giả live.",
-        "Reading the output bundles so only planned-safe outputs are shown instead of a fake-live enterprise dashboard.",
+        "Đầu ra mẫu chỉ dùng để minh họa phạm vi, không phải không gian vận hành doanh nghiệp đang mở công khai.",
+        "Sample outputs illustrate scope only; they are not a public enterprise operating space.",
       )),
     }),
   ]);
@@ -6534,11 +6540,11 @@ function renderBusinessPage() {
     eyebrow: pair("BUSINESS doanh nghiệp", "BUSINESS enterprise"),
     title: pair("BUSINESS<br><span class=\"accent\">định hướng doanh nghiệp trước khi triển khai</span>", "BUSINESS<br><span class=\"accent\">enterprise direction before rollout</span>"),
     description: pair(
-      "BUSINESS đang ở lớp planned-safe. Hook, public value và demo bên dưới chỉ hydrate từ /api/team4/*; nếu payload chưa sẵn sàng, shell sẽ giữ waiting state và mọi bước tiếp theo vẫn quay về hub.",
-      "BUSINESS is in a planned-safe layer. The hook, public value, and demo below hydrate only from /api/team4/*; if payloads are not ready, the shell stays in a waiting state and every next step still returns to the hub.",
+      "BUSINESS đang ở lớp planned-safe. Trang này chỉ mở định hướng, gợi ý gói và demo an toàn; mọi bước tiếp theo vẫn quay về hub.",
+      "BUSINESS is in a planned-safe layer. This page opens only orientation, package guidance, and safe demos; every next step still returns to the hub.",
     ),
     actions: [
-      button(deepCta, pair("Mở intake tại hub", "Open intake at the hub")),
+      button(deepCta, pair("Mở trao đổi tại hub", "Open discussion at the hub")),
       button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
     ].join(""),
     afterActions: businessRuntimeDisclosure,
@@ -6549,20 +6555,20 @@ function renderBusinessPage() {
     currentKey: "business",
     deepCta,
     notes: [
-      pair("BUSINESS hiện chỉ mở hook public, gợi ý package và demo an toàn; chưa mở onboarding, checkout hay dashboard doanh nghiệp.", "BUSINESS currently opens only the public hook, package guidance, and safe demos; there is no live onboarding, checkout, or enterprise dashboard here."),
-      pair("Điểm vào hợp lệ lúc này vẫn là hub contact/intake để giữ một cổng tiếp nhận duy nhất cho lane doanh nghiệp.", "The valid entry point right now is still the hub contact/intake flow so the enterprise lane keeps a single intake gateway."),
+      pair("BUSINESS hiện chỉ mở định hướng công khai, gợi ý gói và demo an toàn; chưa mở tiếp nhận, thanh toán hay không gian vận hành doanh nghiệp.", "BUSINESS currently opens only public orientation, package guidance, and safe demos; there is no live intake, payment step, or enterprise operating space here."),
+      pair("Điểm vào hợp lệ lúc này vẫn là hub liên hệ để giữ một cổng tiếp nhận duy nhất cho lớp doanh nghiệp.", "The valid entry point right now is still the hub contact flow so the enterprise layer keeps a single intake gateway."),
     ],
-    secondaryActions: `${button(deepCta, pair("Mở intake doanh nghiệp", "Open enterprise intake"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
+    secondaryActions: `${button(deepCta, pair("Mở trao đổi doanh nghiệp", "Open enterprise discussion"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "business",
     extraItems: [
-      pair("BUSINESS đang ở trạng thái Planned theo registry và status card này chỉ bám registry/runtime truth.", "BUSINESS is in Planned status in the registry, and this status card follows only registry/runtime truth."),
-      pair("Nếu /api/team4/* lỗi hoặc thiếu schema, block public value và demo sẽ quay về waiting state.", "If /api/team4/* fails or a schema is missing, the public value and demo blocks fall back to a waiting state."),
-      pair("Không có self-serve onboarding, không có checkout và không có dashboard doanh nghiệp giả-live ở route này.", "There is no self-serve onboarding, no checkout, and no fake-live enterprise dashboard on this route."),
+      pair("BUSINESS đang ở trạng thái Planned và thẻ trạng thái chỉ phản ánh phần đang được phép mở công khai.", "BUSINESS is in Planned status, and the status card reflects only what is allowed to be public now."),
+      pair("Nếu dữ liệu nền chưa đủ, phần giá trị công khai và demo sẽ giữ thông báo chờ thay vì dựng trải nghiệm như đã mở thật.", "If supporting data is incomplete, the public-value and demo sections keep a waiting notice instead of creating an experience that appears already live."),
+      pair("Không có tiếp nhận doanh nghiệp tự phục vụ, không có thanh toán và không có không gian vận hành doanh nghiệp được trình bày như đã mở thật ở trang này.", "There is no direct enterprise intake, no payment step, and no enterprise operating space presented as already live on this page."),
     ],
-    actions: `${button(deepCta, pair("Mở intake doanh nghiệp", "Open enterprise intake"), "ghost")} ${button(`https://${domains.hub}/lien-he/`, pair("Liên hệ đội vận hành", "Contact operations"), "ghost")}`,
+    actions: `${button(deepCta, pair("Mở trao đổi doanh nghiệp", "Open enterprise discussion"), "ghost")} ${button(`https://${domains.hub}/lien-he/`, pair("Liên hệ đội vận hành", "Contact operations"), "ghost")}`,
   });
 
   return renderShell({
@@ -6570,8 +6576,8 @@ function renderBusinessPage() {
     pathname: "/",
     title: pair("BUSINESS planned-safe", "BUSINESS planned-safe"),
     description: pair(
-      "Lớp BUSINESS đang ở trạng thái Planned để mở intake doanh nghiệp, so sánh lộ trình và gợi ý bước tiếp theo mà không tạo false-live onboarding.",
-      "The BUSINESS layer is in Planned status for enterprise intake, path comparison, and next-step guidance without creating a false-live onboarding flow.",
+      "Lớp BUSINESS đang ở trạng thái Planned để mở trao đổi doanh nghiệp, so sánh lộ trình và gợi ý bước tiếp theo mà không tạo cảm giác onboarding đã mở thật.",
+      "The BUSINESS layer is in Planned status for enterprise intake, path comparison, and next-step guidance without creating the impression that onboarding is already live.",
     ),
     navItems: ecosystemNav("business"),
     hero,
@@ -6579,8 +6585,8 @@ function renderBusinessPage() {
       renderSection(
         pair("Public value", "Public value"),
         pair(
-          "BUSINESS giúp đội ngũ hiểu đúng hook intake, phạm vi package và nguồn contract đang giữ shell này ở trạng thái planned-safe.",
-          "BUSINESS helps teams understand the intake hook, package scope, and the contract sources that keep this shell in a planned-safe state.",
+          "BUSINESS giúp đội ngũ hiểu đúng điểm vào, phạm vi gói và lý do lớp này vẫn ở trạng thái planned-safe.",
+          "BUSINESS helps teams understand the entry point, package scope, and why this layer remains planned-safe.",
         ),
         `<div id="business-public-value-runtime">${loadingPublicValue}</div>`,
         "public-value",
@@ -6588,8 +6594,8 @@ function renderBusinessPage() {
       renderSection(
         pair("Demo", "Demo"),
         pair(
-          "Các block demo này chỉ đọc bundle so sánh, preview và output từ Team 4; nếu thiếu dữ liệu, trang sẽ giữ waiting state thay vì dựng sample như lane đã live.",
-          "These demo blocks read comparison, preview, and output bundles only from Team 4; if the data is missing, the page stays in a waiting state instead of inventing a live-looking lane.",
+          "Các block demo chỉ dùng để minh họa phạm vi; nếu thiếu dữ liệu đã kiểm tra, trang sẽ giữ thông báo chờ thay vì dựng trải nghiệm như đã live.",
+          "These demo blocks illustrate scope only; if checked data is missing, the page keeps a waiting notice instead of inventing a live-looking experience.",
         ),
         `<div id="business-demo-runtime">${loadingDemo}</div>`,
         "demo",
@@ -6801,44 +6807,44 @@ function renderBusinessPage() {
         function renderPublicValue(data) {
           const steps = Array.isArray(data.businessForm.steps) ? data.businessForm.steps : [];
           const packageLabels = (Array.isArray(data.businessPackages) ? data.businessPackages : []).map((item) => packageLabel(item));
-          const sourceLabels = (Array.isArray(data.sourceOfTruth) ? data.sourceOfTruth : sourceFallback)
-            .map((value) => ({
-              vi: value,
-              en: value,
-            }));
+          const sourceLabels = [
+            pair("Bước trao đổi ban đầu", "Initial discussion steps"),
+            pair("Nhóm gói doanh nghiệp", "Enterprise package groups"),
+            pair("Đầu ra mẫu đã kiểm tra", "Checked sample outputs"),
+          ];
 
           setHtml("business-public-value-runtime", grid([
             card({
-              title: pair("Hook intake doanh nghiệp", "Enterprise intake hook"),
+              title: pair("Điểm vào doanh nghiệp", "Enterprise entry point"),
               badgeHtml: badge(stageLabel),
               body: list(steps.map((step) => ({
-                vi: step.titleVi || step.key || "Bước intake",
+                vi: step.titleVi || step.key || "Bước trao đổi",
                 en: step.titleEn || step.titleVi || step.key || "Intake step",
               }))),
               supportCopy: pair(
-                "Hook này hiện đọc " + steps.length + " bước intake từ Team 4 form registry.",
-                "This hook currently reads " + steps.length + " intake steps from the Team 4 form registry.",
+                "Phần này hiện chỉ minh họa " + steps.length + " bước trao đổi ban đầu.",
+                "This section currently illustrates only " + steps.length + " initial discussion steps.",
               ),
             }),
             card({
               title: pair("Gợi ý 2-3 gói phù hợp", "Recommend 2-3 fitting packages"),
               badgeHtml: badge(pair("gói", "packages")),
               body: text(pair(
-                "BUSINESS shell chỉ gợi ý " + data.minRecommendations + "-" + data.maxRecommendations + " gói phù hợp và giữ toàn bộ bước tiếp theo quay về hub.",
-                "The BUSINESS shell recommends only " + data.minRecommendations + "-" + data.maxRecommendations + " fitting packages and keeps every next step routed back to the hub.",
+                "BUSINESS chỉ gợi ý " + data.minRecommendations + "-" + data.maxRecommendations + " gói phù hợp và giữ toàn bộ bước tiếp theo quay về hub.",
+                "BUSINESS recommends only " + data.minRecommendations + "-" + data.maxRecommendations + " fitting packages and keeps every next step routed back to the hub.",
               )) + list(packageLabels),
               supportCopy: pair(
-                "Đây là package family public-safe, chưa phải flow onboarding doanh nghiệp tự phục vụ.",
-                "This is the public-safe package family, not a self-serve enterprise onboarding flow.",
+                "Đây là nhóm gói tham khảo, chưa phải luồng tiếp nhận doanh nghiệp trực tiếp.",
+                "This is a reference package group, not a direct enterprise intake flow.",
               ),
             }),
             card({
-              title: pair("Nguồn contract đang cấp dữ liệu", "Contract sources feeding this shell"),
-              badgeHtml: badge(pair("runtime", "runtime")),
+              title: pair("Dữ liệu nền đang được kiểm tra", "Supporting data being checked"),
+              badgeHtml: badge(stageLabel),
               body: list(sourceLabels),
               supportCopy: pair(
-                "Nếu một nguồn không phản hồi, block public value sẽ quay về waiting state.",
-                "If one source does not respond, the public value block returns to a waiting state.",
+                "Nếu dữ liệu nền chưa đủ, phần public value sẽ giữ thông báo chờ.",
+                "If supporting data is incomplete, the public value section keeps a waiting notice.",
               ),
             }),
           ]));
@@ -6851,7 +6857,7 @@ function renderBusinessPage() {
             const hasPreview = (data.demoBundles || []).some((bundle) => bundle.packageKey === item.packageKey);
             const label = packageLabel(item);
             return {
-              vi: label.vi + (hasPreview ? " - đã khóa safe preview" : " - đang chờ preview"),
+              vi: label.vi + (hasPreview ? " - đã khóa bản xem trước an toàn" : " - đang chờ bản xem trước"),
               en: label.en + (hasPreview ? " - safe preview locked" : " - preview pending"),
             };
           });
@@ -6865,24 +6871,24 @@ function renderBusinessPage() {
 
           setHtml("business-demo-runtime", grid([
             card({
-              title: pair("Bundle so sánh BUSINESS", "BUSINESS comparison bundle"),
+              title: pair("Phần so sánh BUSINESS", "BUSINESS comparison"),
               badgeHtml: badge(pair("so sánh", "comparison")),
               body: text(pair(
-                "Bundle so sánh hiện có " + rows.length + " gói trong family BUSINESS.",
+                "Phần so sánh hiện có " + rows.length + " gói trong nhóm BUSINESS.",
                 "The comparison bundle currently contains " + rows.length + " packages in the BUSINESS family.",
               )) + list(rows.map((row) => packageLabel(row))),
               supportCopy: pair(
-                "Demo so sánh chỉ đọc package labels đã khóa trong Team 4 runtime.",
-                "The comparison demo reads only package labels locked in the Team 4 runtime.",
+                "Demo so sánh chỉ hiển thị nhãn gói đã được kiểm tra.",
+                "The comparison demo shows only checked package labels.",
               ),
             }),
             card({
-              title: pair("Safe preview theo từng gói", "Safe previews by package"),
+              title: pair("Bản xem trước theo từng gói", "Safe previews by package"),
               badgeHtml: badge(pair("preview", "preview")),
               body: list(previewItems),
               supportCopy: pair(
-                "Hiện có " + (Array.isArray(data.demoBundles) ? data.demoBundles.length : 0) + " preview bundle cho lane BUSINESS.",
-                "There are currently " + (Array.isArray(data.demoBundles) ? data.demoBundles.length : 0) + " preview bundles for the BUSINESS lane.",
+                "Hiện có " + (Array.isArray(data.demoBundles) ? data.demoBundles.length : 0) + " bản xem trước an toàn cho lớp BUSINESS.",
+                "There are currently " + (Array.isArray(data.demoBundles) ? data.demoBundles.length : 0) + " safe previews for the BUSINESS layer.",
               ),
             }),
             card({
@@ -6890,8 +6896,8 @@ function renderBusinessPage() {
               badgeHtml: badge(pair("đầu ra", "outputs")),
               body: list(outputItems),
               supportCopy: pair(
-                "Các đầu ra này là planned-safe sample output, không phải dashboard doanh nghiệp đang mở công khai.",
-                "These outputs are planned-safe sample outputs, not a publicly open enterprise dashboard.",
+                "Các đầu ra này là mẫu planned-safe, không phải không gian vận hành doanh nghiệp đang mở công khai.",
+                "These outputs are planned-safe sample outputs, not a publicly open enterprise operating space.",
               ),
             }),
           ]));
@@ -6905,61 +6911,60 @@ function renderBusinessPage() {
         }
 
         function renderErrorState(message) {
-          const safeMessage = message || "team4_runtime_unavailable";
           renderLoadingState();
           setHtml("business-public-value-runtime", grid([
             card({
-              title: pair("Contract Team 4 chưa sẵn sàng", "Team 4 contract not ready"),
+              title: pair("Dữ liệu nền chưa đủ", "Supporting data is incomplete"),
               badgeHtml: badge(stageLabel),
               body: text(pair(
-                "Hook intake và package family vẫn đang chờ Team 4 runtime. Shell giữ trạng thái Planned và không mở flow doanh nghiệp giả live.",
-                "The intake hook and package family are still waiting for Team 4 runtime. The shell stays Planned and does not open a fake-live enterprise flow.",
+                "Điểm vào và nhóm gói vẫn ở trạng thái Planned. Trang không mở luồng doanh nghiệp giả như đã live.",
+                "The entry point and package groups remain Planned. The page does not open an enterprise flow that looks live.",
               )),
               supportCopy: {
-                vi: safeMessage,
-                en: safeMessage,
+                vi: "Vui lòng tiếp tục từ hub nếu cần trao đổi sâu hơn.",
+                en: "Please continue from the hub for deeper discussion.",
               },
             }),
             card({
-              title: pair("Public value quay về waiting state", "Public value returned to waiting state"),
-              badgeHtml: badge(pair("chờ dữ liệu", "waiting")),
+              title: pair("Public value đang chờ dữ liệu", "Public value is waiting for data"),
+              badgeHtml: badge(stageLabel),
               body: text(pair(
-                "Khi payload Team 4 chưa phản hồi, BUSINESS chỉ giữ wording công khai an toàn và CTA về hub.",
-                "When the Team 4 payloads are not responding, BUSINESS keeps only public-safe wording and the CTA back to the hub.",
+                "Khi dữ liệu nền chưa phản hồi, BUSINESS chỉ giữ wording công khai an toàn và CTA về hub.",
+                "When supporting data is not responding, BUSINESS keeps only public-safe wording and the CTA back to the hub.",
               )),
             }),
             card({
-              title: pair("Demo chưa hydrate", "Demo not hydrated"),
+              title: pair("Demo chưa mở", "Demo not open"),
               badgeHtml: badge(pair("planned-safe", "planned-safe")),
               body: text(pair(
-                "Không có preview hoặc output nào được dựng như lane doanh nghiệp đã live khi contract chưa lên.",
-                "No preview or output is rendered as if the enterprise lane were live while the contract is unavailable.",
+                "Không có preview hoặc output nào được dựng như lớp doanh nghiệp đã live khi dữ liệu chưa đủ.",
+                "No preview or output is rendered as if the enterprise layer were live while data is incomplete.",
               )),
             }),
           ]));
           setHtml("business-demo-runtime", grid([
             card({
-              title: pair("Bundle so sánh đang chờ", "Comparison bundle waiting"),
+              title: pair("Phần so sánh đang chờ", "Comparison waiting"),
               badgeHtml: badge(stageLabel),
               body: text(pair(
-                "Trang chưa đọc được comparison bundle BUSINESS từ /api/team4/package-comparison-demo-output.json.",
-                "The page cannot read the BUSINESS comparison bundle from /api/team4/package-comparison-demo-output.json yet.",
+                "Phần so sánh doanh nghiệp đang chờ dữ liệu đã kiểm tra.",
+                "The enterprise comparison section is waiting for checked data.",
               )),
             }),
             card({
-              title: pair("Safe preview đang chờ", "Safe previews waiting"),
+              title: pair("Bản xem trước đang chờ", "Safe previews waiting"),
               badgeHtml: badge(stageLabel),
               body: text(pair(
-                "Preview bundle chỉ hiện khi Team 4 runtime trả về dữ liệu hợp lệ.",
-                "Preview bundles appear only when Team 4 runtime returns valid data.",
+                "Bản xem trước chỉ hiện khi dữ liệu hợp lệ đã sẵn sàng.",
+                "Previews appear only when valid data is available.",
               )),
             }),
             card({
               title: pair("Output mẫu đang chờ", "Sample outputs waiting"),
               badgeHtml: badge(stageLabel),
               body: text(pair(
-                "Output mẫu sẽ quay lại ngay khi Team 4 contract đồng bộ lại.",
-                "Sample outputs return as soon as the Team 4 contract is synchronized again.",
+                "Đầu ra mẫu sẽ quay lại khi dữ liệu nền đồng bộ lại.",
+                "Sample outputs return when supporting data is synchronized again.",
               )),
             }),
           ]));
@@ -7094,8 +7099,8 @@ function renderEduHome() {
       title: cardTitle(pair("Nối sang VC", "Bridge to VC")),
       badge: statusBadge("live", pair("xác minh", "verification")),
       body: cardText(pair(
-        "Sau khi hoàn thành đầu ra, hồ sơ học sẽ được chuẩn hóa thành packet để xác minh độc lập.",
-        "Once the output is complete, the learning record is normalized into a packet for independent verification.",
+        "Sau khi hoàn thành đầu ra, hồ sơ học sẽ được chuẩn hóa thành bộ hồ sơ để xác minh độc lập.",
+        "Once the output is complete, the learning record is normalized into a dossier for independent verification.",
       )),
     }),
   ]);
@@ -7138,7 +7143,7 @@ function renderEduHome() {
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "edu",
     extraItems: [
-      pair("EDU đang ở trạng thái xem trước cho thành viên: danh sách khóa học, trang chi tiết, lộ trình mẫu và trình học có thể mở để đọc, nhưng lớp sâu hơn vẫn theo trạng thái truy cập.", "EDU is in Member Preview: the course list, detail pages, sample learning paths, and the player can be opened for reading, but deeper layers still follow access state."),
+      pair("EDU đang ở trạng thái Live cho lớp public: danh sách khóa học, trang chi tiết, lộ trình mẫu và trình học có thể mở để đọc; lớp sâu hơn vẫn đi theo trạng thái truy cập.", "EDU is Live on the public layer: the course list, detail pages, sample learning paths, and player can be opened for reading; deeper layers still follow access state."),
       pair("EDU trên mobile cũng bám cùng bốn trạng thái visitor, pending member, annual access và specialist access; snapshot không tự mở sâu hơn.", "EDU on mobile follows the same four states: visitor, pending member, annual access, and specialist access; snapshots never unlock deeper layers on their own."),
       pair("Mỗi course phải giữ public teaser có giá trị, một demo cụ thể và đường neo sang VC khi nói tới proof.", "Each course must keep a valuable public teaser, a concrete demo, and an anchor into VC whenever proof is discussed."),
       pair("Không tách payment khỏi hub ở bất kỳ hành trình học nào.", "Payment is never split away from the hub on any learning path."),
@@ -7180,7 +7185,7 @@ function renderEduHome() {
     navItems: ecosystemNav("edu"),
     hero,
     sections: [
-      renderSection(pair("Public value", "Public value"), pair("EDU tồn tại để biến việc học thành output, packet và bằng chứng.", "EDU exists to turn learning into output, packets, and evidence."), `${architecture}${flow}`, "public-value"),
+      renderSection(pair("Public value", "Public value"), pair("EDU tồn tại để biến việc học thành output, bộ hồ sơ và bằng chứng.", "EDU exists to turn learning into output, dossiers, and evidence."), `${architecture}${flow}`, "public-value"),
       renderSection(pair("Demo", "Demo"), pair("Các lộ trình mở công khai để user thấy từ bài học đi tới đầu ra như thế nào.", "The public learning paths show how a lesson moves toward output."), featuredCards, "demo"),
       gatewaySection,
       trustStatusSection,
@@ -7918,7 +7923,7 @@ function renderGreenPage() {
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "green",
     extraItems: [
-      pair("GREEN là lớp public đang hoạt động, nhưng chỉ công bố impact claim khi có hồ sơ và cách kiểm tra rõ ràng.", "GREEN is a live public layer, but it only publishes impact claims when the dossier and checking method are clear."),
+      pair("GREEN là lớp public đang hoạt động, nhưng chỉ nêu tác động khi có hồ sơ và cách kiểm tra rõ ràng.", "GREEN is a live public layer, but it states impact only when the dossier and checking path are clear."),
       pair("Không dùng khẩu hiệu xanh để thay cho bằng chứng.", "Green slogans are never used as a substitute for evidence."),
       pair("Khi người dùng cần đi sâu hơn, hệ sẽ quay về hub thay vì mở thanh toán tại GREEN.", "When people need to go deeper, the path returns to the hub instead of opening payment on GREEN."),
     ],
@@ -7973,7 +7978,7 @@ function renderFinancePage() {
   const tracks = renderCards([
     renderCard({
       title: cardTitle(pair("Hiểu tiền", "Understand money")),
-      badge: statusBadge("live", pair("sprint", "sprint")),
+      badge: statusBadge("live", pair("nền tảng", "core")),
       body: cardText(pair(
         "FIN giúp hiểu tiền, giữ tiền và nhìn rõ dòng tiền trước khi nghĩ tới bước tiếp theo.",
         "FIN helps people understand money, protect it, and see cash flow clearly before anything else.",
@@ -7990,7 +7995,7 @@ function renderFinancePage() {
     }),
     renderCard({
       title: cardTitle(pair("Điều không làm", "What this layer does not do")),
-      badge: statusBadge("live", pair("tư duy", "mindset")),
+      badge: statusBadge("live", pair("kỷ luật", "discipline")),
       body: cardText(pair(
         "FIN không dạy làm giàu nhanh, không dạy trading và không dùng ngôn ngữ tự do tài chính.",
         "FIN does not teach get-rich-quick ideas, does not teach trading, and does not use financial-freedom language.",
@@ -8027,7 +8032,7 @@ function renderFinancePage() {
     currentKey: "finance",
     deepCta,
     notes: [
-      pair("FIN mở anti-scam framing, money checklist và public track trước; deeper learning hoặc pack vẫn đi qua hub.", "FIN opens anti-scam framing, the money checklist, and public tracks first; deeper learning or packs still go through the hub."),
+      pair("FIN mở khung anti-scam, checklist tiền và lộ trình công khai trước; phần đi sâu hơn hoặc pack vẫn đi qua hub.", "FIN opens the anti-scam frame, the money checklist, and the public path first; deeper learning or packs still go through the hub."),
       pair("Không có purchase flow, không có unlock form và không có hứa hẹn tài chính tại finance subdomain.", "There is no purchase flow, no unlock form, and no financial promise on the FINANCE subdomain."),
     ],
     disclosureIds: ["DPM-013", "DPM-021"],
@@ -8114,7 +8119,7 @@ function renderLifePage() {
         "Không có nhịp sống ổn định thì rất khó học đúng, làm sâu hoặc tạo giá trị bền.",
         "Without a stable rhythm, it is hard to learn well, work deeply, or create lasting value.",
       )),
-      actions: button(`https://${domains.vc}/v/VC-2026-0017`, pair("Xem hồ sơ VC mẫu", "View the sample VC record"), "ghost"),
+      actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
     }),
   ]);
 
@@ -8158,7 +8163,7 @@ function renderLifePage() {
       badge: statusBadge(surfaceBadgeClass(lifeSurface.status), appStageLabel(lifeSurface)),
       body: cardText(pair(
         "Các phần review sâu hơn, bộ tài liệu đi tiếp và xác minh chỉ nên mở khi lớp thành viên đã sẵn sàng hơn.",
-        "Deeper reviews, follow-on working packets, and verification should open only when the member layer is more ready.",
+        "Deeper reviews, follow-on materials, and verification should open only when the member layer is more ready.",
       )),
     }),
     renderCard({
@@ -8176,10 +8181,10 @@ function renderLifePage() {
     deepCta,
     notes: [
       pair("Public LIFE mở baseline, nhịp thực hành và cách tự rà soát; phần dành cho thành viên cần đi sâu hơn vẫn quay về hub để không nói quá vai trò của trang này.", "Public LIFE opens the baseline, daily rhythm, and self-review logic; deeper member-only support still returns to the hub so the page does not overstate its role."),
-      pair("Nếu cần đi sâu hơn vào bộ tài liệu đi tiếp hoặc định hướng cá nhân, người dùng sẽ tiếp tục từ hub.", "If deeper working packets or more personal guidance are needed, people continue from the hub."),
+      pair("Nếu cần đi sâu hơn vào bộ tài liệu đi tiếp hoặc định hướng cá nhân, người dùng sẽ tiếp tục từ hub.", "If deeper materials or more personal guidance are needed, people continue from the hub."),
     ],
     disclosureIds: ["DPM-014", "DPM-021"],
-    secondaryActions: `${button(`#life-baseline`, pair("Xem baseline", "Open baseline"), "ghost")} ${button(`https://${domains.member}/app/`, pair("Mở bản mobile", "Open mobile view"), "ghost")}`,
+    secondaryActions: `${button(`#life-baseline`, pair("Xem baseline", "Open baseline"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSection(
@@ -8211,7 +8216,7 @@ function renderLifePage() {
               "LIFE keeps a calm tone, does not overstate outcomes, and never pushes people to buy before they understand their own baseline.",
             )),
             support: renderDisclosureStack(["DPM-014", "DPM-021"], { className: "is-footer" }),
-            actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.vc}/`, pair("Mở VC", "Open VC"), "ghost")}`,
+            actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`#life-baseline`, pair("Xem baseline", "Open baseline"), "ghost")}`,
           }),
         ])}
       </div>
@@ -8287,7 +8292,7 @@ function renderInvestPage() {
         "Không all-in, không chạy theo đám đông và không dùng niềm tin chưa kiểm tra làm tỷ trọng quá lớn.",
         "No all-in behavior, no crowd chasing, and no turning an untested belief into oversized exposure.",
       )),
-      actions: button(`https://${domains.vc}/v/VC-2026-0024`, pair("Xem hồ sơ VC mẫu", "View the sample VC record"), "ghost"),
+      actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
     }),
   ]);
 
@@ -8335,7 +8340,7 @@ function renderInvestPage() {
         "Khi cần bằng chứng về quá trình thẩm định, INVEST có thể nối sang VC qua bộ hồ sơ phù hợp.",
         "When due-diligence proof is needed, INVEST can connect into VC through a suitable dossier.",
       )),
-      actions: button(`https://${domains.vc}/v/VC-2026-0024`, pair("Mở VC sample", "Open VC sample"), "ghost"),
+      actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
     }),
     renderCard({
       title: cardTitle(pair("Biên độ công khai", "Public boundary")),
@@ -8355,7 +8360,7 @@ function renderInvestPage() {
       pair("Không có phòng tín hiệu, không có kèo mua bán và không có bước thanh toán tại invest subdomain.", "There is no signal room, no trade call, and no payment step on the INVEST subdomain."),
     ],
     disclosureIds: ["DPM-015", "DPM-021"],
-    secondaryActions: `${button(`#invest-checklist`, pair("Xem checklist", "Open checklist"), "ghost")} ${button(`https://${domains.vc}/v/VC-2026-0024`, pair("Mở VC sample", "Open VC sample"), "ghost")}`,
+    secondaryActions: `${button(`#invest-checklist`, pair("Xem checklist", "Open checklist"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSection(
@@ -8387,7 +8392,7 @@ function renderInvestPage() {
               "INVEST does not promise returns, does not give trading signals, and always places the loss scenario before the upside.",
             )),
             support: renderDisclosureStack(["DPM-015", "DPM-021"], { className: "is-footer" }),
-            actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.vc}/`, pair("Mở VC", "Open VC"), "ghost")}`,
+            actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`#invest-checklist`, pair("Xem checklist", "Open checklist"), "ghost")}`,
           }),
         ])}
       </div>
@@ -9170,13 +9175,13 @@ async function build() {
       useCases: [
         {
           id: "AI-PREVIEW-001",
-          title: "Tutor helper preview",
+          title: "Guided tutor sample",
           status: resolveSurfacePublicMeta("ai").status,
           mode: "preview_only",
         },
         {
           id: "AI-PREVIEW-002",
-          title: "Review helper preview",
+          title: "Guided review sample",
           status: resolveSurfacePublicMeta("ai").status,
           mode: "preview_only",
         },
@@ -9282,9 +9287,88 @@ async function build() {
   await writeSiteFile(domains.invest, "robots.txt", renderRobots(domains.invest));
   await writeSiteFile(domains.invest, "sitemap.xml", renderSitemap(domains.invest, simplePaths));
   buildLog("invest done");
+
+  buildLog("rendering kids");
+  await renderKidsDomain();
+  buildLog("kids done");
   } finally {
     await releaseBuildLock();
   }
+}
+
+async function copyStaticTree(srcDir, dstDomain) {
+  let entries;
+  try {
+    entries = await readdir(srcDir, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+  for (const entry of entries) {
+    const srcPath = path.join(srcDir, entry.name);
+    if (entry.isDirectory()) {
+      await copyStaticTree(srcPath, path.join(dstDomain, entry.name));
+    } else if (entry.isFile()) {
+      const content = await readFile(srcPath, "utf8");
+      await writeSiteFile(dstDomain, entry.name, content);
+    }
+  }
+}
+
+async function copyStaticTreeForDomain(domain) {
+  const sourceRoot = path.join(SRC, "static-pages", domain);
+  let topEntries;
+  try {
+    topEntries = await readdir(sourceRoot, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+  for (const entry of topEntries) {
+    const srcPath = path.join(sourceRoot, entry.name);
+    if (entry.isDirectory()) {
+      await copyStaticTree(srcPath, path.join(domain, entry.name));
+    } else if (entry.isFile()) {
+      const content = await readFile(srcPath, "utf8");
+      await writeSiteFile(domain, entry.name, content);
+    }
+  }
+}
+
+async function renderKidsDomain() {
+  const domain = domains.kids;
+  await copyStaticTreeForDomain(domain);
+
+  await writeSiteFile(domain, "robots.txt", "User-agent: *\nDisallow: /\n");
+  await writeSiteFile(domain, "api/health", renderStaticJson({
+    name: "kids",
+    status: "ok",
+    audience: "children-6-to-17-and-parents",
+    childSafety: kidsCurriculum.childSafety || {},
+  }));
+  await writeSiteFile(domain, "api/curriculum.json", renderStaticJson(kidsCurriculum));
+  await writeSiteFile(domain, "api/registry.json", renderStaticJson({
+    name: "kids",
+    host: domain,
+    pages: [
+      "/",
+      "/parent/onboarding/consent/",
+      "/parent/onboarding/child-profile/",
+      "/parent/dashboard/",
+      "/parent/pricing/",
+      "/parent/support/sessions/",
+      "/learn/dashboard/",
+      "/learn/lessons/",
+      "/learn/ai-helper/",
+      "/learn/achievements/",
+    ],
+    endpoints: [
+      "/api/health",
+      "/api/curriculum.json",
+      "/api/registry.json",
+    ],
+    childSafety: kidsCurriculum.childSafety || {},
+  }));
 }
 
 await build();

@@ -116,7 +116,9 @@
       "status": "planned",
       "stageLabel": "PLANNED",
       "primaryNav": false,
-      "mission": "proof-first opportunities"
+      "mission": "proof-first opportunities",
+      "missionVi": "cơ hội dựa trên bằng chứng trước",
+      "missionEn": "proof-first opportunities"
     },
     {
       "key": "market",
@@ -127,7 +129,9 @@
       "status": "planned",
       "stageLabel": "PLANNED",
       "primaryNav": false,
-      "mission": "trust-sensitive transactions"
+      "mission": "trust-sensitive transactions",
+      "missionVi": "giao dịch cần ranh giới tin cậy rõ",
+      "missionEn": "trust-sensitive transactions"
     },
     {
       "key": "community",
@@ -138,7 +142,9 @@
       "status": "planned",
       "stageLabel": "PLANNED",
       "primaryNav": false,
-      "mission": "cohort + peer support + practice boundary"
+      "mission": "cohort + peer support + practice boundary",
+      "missionVi": "cohort, hỗ trợ ngang hàng và ranh giới thực hành",
+      "missionEn": "cohort, peer support, and practice boundaries"
     },
     {
       "key": "ai",
@@ -149,7 +155,9 @@
       "status": "planned",
       "stageLabel": "PLANNED",
       "primaryNav": false,
-      "mission": "guided AI helpers + safe use-case previews"
+      "mission": "guided AI support + safe sample-use previews",
+      "missionVi": "trợ giúp AI có hướng dẫn và bản xem trước an toàn",
+      "missionEn": "guided AI support and safe sample-use previews"
     },
     {
       "key": "business",
@@ -160,7 +168,9 @@
       "status": "planned",
       "stageLabel": "PLANNED",
       "primaryNav": false,
-      "mission": "enterprise intake + package recommendation"
+      "mission": "enterprise intake + package guidance",
+      "missionVi": "trao đổi doanh nghiệp và gợi ý gói phù hợp",
+      "missionEn": "enterprise intake and package guidance"
     },
     {
       "key": "nft",
@@ -172,6 +182,29 @@
       "stageLabel": "BRIDGE",
       "primaryNav": false,
       "mission": "mirror bridge for digital-asset records"
+    },
+    {
+      "key": "kids",
+      "labelVi": "KIDS",
+      "labelEn": "KIDS",
+      "host": "kids.vetuonglai.com",
+      "url": "https://kids.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": false,
+      "publicDiscovery": false,
+      "audience": "children-6-to-17-and-parents",
+      "mission": "child-safe learning curriculum for ages 6-17, parent-mediated",
+      "missionVi": "chương trình học an toàn cho trẻ 6-17 tuổi, có phụ huynh đồng hành",
+      "missionEn": "child-safe learning curriculum for ages 6-17, parent-mediated",
+      "childSafety": {
+        "isolated": true,
+        "noCommerceForMinors": true,
+        "noAffiliateForMinors": true,
+        "noLeaderboards": true,
+        "noPublicProfiles": true,
+        "noEarningProgram": true
+      }
     }
   ]
 }

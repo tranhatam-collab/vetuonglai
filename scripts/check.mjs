@@ -1,10 +1,14 @@
-import { access, readFile } from "node:fs/promises";
+import { access, readFile, rm, stat } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { setTimeout as delay } from "node:timers/promises";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const DIST = path.resolve(process.env.VTL_DIST_ROOT || path.join(ROOT, "dist"));
+const BUILD_LOCK_DIR = path.join(DIST, ".build-lock");
+const BUILD_LOCK_MAX_AGE_MS = 15 * 60 * 1000;
+const CHECK_BUILD_LOCK_WAIT_MS = Number(process.env.VTL_CHECK_BUILD_LOCK_WAIT_MS || 5 * 60 * 1000);
 const domains = {
   member: "member.vetuonglai.com",
   work: "work.vetuonglai.com",
@@ -116,11 +120,54 @@ const requiredFiles = [
   "green.vetuonglai.com/index.html",
   "finance.vetuonglai.com/index.html",
   "life.vetuonglai.com/index.html",
-  "invest.vetuonglai.com/index.html"
+  "invest.vetuonglai.com/index.html",
+  "kids.vetuonglai.com/index.html",
+  "kids.vetuonglai.com/parent/onboarding/consent/index.html",
+  "kids.vetuonglai.com/parent/onboarding/child-profile/index.html",
+  "kids.vetuonglai.com/parent/dashboard/index.html",
+  "kids.vetuonglai.com/parent/pricing/index.html",
+  "kids.vetuonglai.com/parent/support/sessions/index.html",
+  "kids.vetuonglai.com/learn/dashboard/index.html",
+  "kids.vetuonglai.com/learn/lessons/index.html",
+  "kids.vetuonglai.com/learn/ai-helper/index.html",
+  "kids.vetuonglai.com/learn/achievements/index.html",
+  "kids.vetuonglai.com/api/curriculum.json",
+  "kids.vetuonglai.com/api/health",
+  "kids.vetuonglai.com/api/registry.json",
+  "kids.vetuonglai.com/assets/kids.css",
+  "kids.vetuonglai.com/assets/kids.js",
+  "kids.vetuonglai.com/robots.txt"
 ];
 
 async function assertFile(relativePath) {
   await access(path.join(DIST, relativePath));
+}
+
+async function waitForBuildLockRelease() {
+  const startedMs = Date.now();
+
+  while (true) {
+    try {
+      const lockStats = await stat(BUILD_LOCK_DIR);
+      const lockAgeMs = Date.now() - lockStats.mtimeMs;
+      if (lockAgeMs > BUILD_LOCK_MAX_AGE_MS) {
+        await rm(BUILD_LOCK_DIR, { recursive: true, force: true });
+        continue;
+      }
+
+      if (Date.now() - startedMs > CHECK_BUILD_LOCK_WAIT_MS) {
+        throw new Error("check.mjs timed out waiting for build lock release.");
+      }
+
+      await delay(500);
+      continue;
+    } catch (error) {
+      if (error?.code === "ENOENT") {
+        return;
+      }
+      throw error;
+    }
+  }
 }
 
 function countOccurrences(haystack, needle) {
@@ -136,6 +183,8 @@ function assertIncludesAll(html, label, fragments) {
 }
 
 async function main() {
+  await waitForBuildLockRelease();
+
   const localeRegistry = JSON.parse(await readFile(path.join(ROOT, "content", "locale-registry.json"), "utf8"));
   const activePublicLocales = Array.isArray(localeRegistry.activePublicLocales)
     ? localeRegistry.activePublicLocales.filter((entry) => entry?.status === "active")
@@ -641,6 +690,10 @@ async function main() {
     throw new Error("Trang EDU chua dong bo copy moi.");
   }
 
+  if (!eduHtml.includes("EDU đang ở trạng thái Live cho lớp public") || eduHtml.includes("EDU is in Member Preview")) {
+    throw new Error("Trang EDU chua khoa wording runtime truth Live cho trust/status block.");
+  }
+
   if (!investHtml.includes("ĐẦU TƯ") || !investHtml.includes("Đầu tư bắt đầu từ hiểu rủi ro.")) {
     throw new Error("Trang INVEST chua duoc hoan thien noi dung tieng Viet.");
   }
@@ -747,8 +800,8 @@ async function main() {
     throw new Error("Trang BUSINESS chua bind runtime /api/team4/* endpoints.");
   }
 
-  if (!businessHtml.includes("waiting state") || !businessHtml.includes("Không có self-serve onboarding")) {
-    throw new Error("Trang BUSINESS chua khoa waiting-state fallback hoac no-self-serve boundary.");
+  if (!businessHtml.includes("thông báo chờ") || !businessHtml.includes("Không có tiếp nhận doanh nghiệp tự phục vụ")) {
+    throw new Error("Trang BUSINESS chua khoa fallback cho du lieu nen hoac no-self-serve boundary.");
   }
 
   if (!businessHtml.includes('data-disclosure-kind="public-note"')) {

@@ -1,0 +1,195 @@
+{
+  "name": "kids-curriculum",
+  "version": "2026-04-26-v1",
+  "host": "kids.vetuonglai.com",
+  "status": "planned",
+  "audience": "children-6-to-17-and-parents",
+  "childSafety": {
+    "isolatedSubdomain": true,
+    "primaryNav": false,
+    "publicDiscovery": false,
+    "rationale": "kids domain is isolated from the public ecosystem nav to protect children; access surfaces are gated and parent-mediated.",
+    "noCommerceForMinors": true,
+    "noAffiliateForMinors": true,
+    "noLeaderboards": true,
+    "noPublicProfiles": true,
+    "noEarningProgram": true,
+    "aiBoundary": "AI explains, suggests, and corrects only — never completes work for the child."
+  },
+  "philosophy": {
+    "vi": "Trẻ học để hiểu mình, làm được việc, và tạo ra thứ của riêng mình — không học để giỏi hơn người khác.",
+    "en": "Children learn to understand themselves, get things done, and create their own work — not to outperform others."
+  },
+  "goals": {
+    "include": [
+      "phát triển đúng nhịp",
+      "học đúng cách",
+      "làm được thật",
+      "tạo sản phẩm nhỏ",
+      "có hồ sơ tiến bộ"
+    ],
+    "exclude": [
+      "thi cử",
+      "nhồi kiến thức",
+      "kiếm tiền sớm"
+    ]
+  },
+  "stages": [
+    {
+      "key": "explore",
+      "ageRange": "6-8",
+      "labelVi": "Khám phá",
+      "labelEn": "Explore",
+      "objectives": ["tò mò", "quan sát", "đặt câu hỏi", "không sợ sai"],
+      "tracks": [
+        {
+          "key": "awareness",
+          "labelVi": "Nhận thức",
+          "items": ["thế giới là gì", "câu hỏi là gì", "tại sao"]
+        },
+        {
+          "key": "language",
+          "labelVi": "Ngôn ngữ",
+          "items": ["kể chuyện", "viết câu ngắn", "nói rõ"]
+        },
+        {
+          "key": "creativity",
+          "labelVi": "Sáng tạo",
+          "items": ["vẽ", "làm thủ công", "kể chuyện bằng hình"]
+        },
+        {
+          "key": "rhythm",
+          "labelVi": "Nhịp sống",
+          "items": ["ngủ", "ăn", "chơi", "học nhẹ"]
+        }
+      ],
+      "projects": ["vẽ 1 câu chuyện", "kể 1 câu chuyện", "làm 1 sản phẩm đơn giản"],
+      "outputs": ["1 bài vẽ", "1 câu chuyện", "1 sản phẩm nhỏ"]
+    },
+    {
+      "key": "create",
+      "ageRange": "9-12",
+      "labelVi": "Sáng tạo",
+      "labelEn": "Create",
+      "objectives": ["bắt đầu tạo", "diễn đạt ý tưởng", "hiểu quy trình đơn giản"],
+      "tracks": [
+        {
+          "key": "thinking",
+          "labelVi": "Tư duy",
+          "items": ["giải quyết vấn đề", "chia nhỏ vấn đề"]
+        },
+        {
+          "key": "writing",
+          "labelVi": "Viết",
+          "items": ["viết đoạn", "kể chuyện rõ ràng"]
+        },
+        {
+          "key": "tech",
+          "labelVi": "Công nghệ",
+          "items": ["dùng máy tính đúng", "tìm thông tin"]
+        },
+        {
+          "key": "ai-basic",
+          "labelVi": "AI cơ bản",
+          "items": ["hỏi AI", "kiểm tra câu trả lời"]
+        }
+      ],
+      "projects": ["viết 1 bài hoàn chỉnh", "làm 1 poster", "làm 1 video ngắn"],
+      "outputs": ["bài viết", "hình ảnh", "video"]
+    },
+    {
+      "key": "digital-skills",
+      "ageRange": "13-15",
+      "labelVi": "Kỹ năng số",
+      "labelEn": "Digital Skills",
+      "objectives": ["làm được sản phẩm số", "hiểu cách hệ thống hoạt động"],
+      "tracks": [
+        {
+          "key": "writing-advanced",
+          "labelVi": "Viết nâng cao",
+          "items": ["viết bài dài", "viết logic"]
+        },
+        {
+          "key": "design",
+          "labelVi": "Thiết kế",
+          "items": ["Canva / Figma", "bố cục"]
+        },
+        {
+          "key": "web-basic",
+          "labelVi": "Web cơ bản",
+          "items": ["HTML đơn giản", "website đầu tiên"]
+        },
+        {
+          "key": "ai-applied",
+          "labelVi": "AI ứng dụng",
+          "items": ["viết với AI", "chỉnh sửa", "không copy"]
+        }
+      ],
+      "projects": ["làm website đơn giản", "viết blog", "làm portfolio"],
+      "outputs": ["web thật", "bài viết thật", "portfolio"]
+    },
+    {
+      "key": "real-projects",
+      "ageRange": "16-17",
+      "labelVi": "Dự án thực",
+      "labelEn": "Real Projects",
+      "objectives": ["làm việc như người lớn", "có sản phẩm rõ", "có định hướng nghề"],
+      "tracks": [
+        {
+          "key": "project",
+          "labelVi": "Dự án",
+          "items": ["chọn 1 lĩnh vực", "làm project"]
+        },
+        {
+          "key": "process",
+          "labelVi": "Quy trình",
+          "items": ["kế hoạch", "thực hiện", "review"]
+        },
+        {
+          "key": "ai-advanced",
+          "labelVi": "AI nâng cao",
+          "items": ["trợ lý", "workflow"]
+        },
+        {
+          "key": "portfolio",
+          "labelVi": "Hồ sơ",
+          "items": ["portfolio", "trình bày"]
+        }
+      ],
+      "projects": ["website hoàn chỉnh", "sản phẩm số", "kênh nội dung", "tool nhỏ"],
+      "outputs": ["project thật", "portfolio thật", "hồ sơ rõ"]
+    }
+  ],
+  "evaluation": {
+    "noGrades": true,
+    "dimensions": ["tiến bộ", "sản phẩm", "mức độ hoàn thành"],
+    "reviewers": ["self", "parent", "mentor"]
+  },
+  "childRecord": {
+    "fields": ["timeline", "products", "notes", "review"],
+    "visibility": "parent-only"
+  },
+  "parentRole": ["theo dõi", "hỗ trợ", "không ép"],
+  "ai": {
+    "allowed": ["giải thích", "gợi ý", "sửa lỗi"],
+    "forbidden": ["làm thay", "trả lời hết"]
+  },
+  "twelveMonthRoadmap": [
+    { "months": "1-3", "focus": "nền tảng" },
+    { "months": "4-6", "focus": "sáng tạo" },
+    { "months": "7-9", "focus": "kỹ năng" },
+    { "months": "10-12", "focus": "dự án" }
+  ],
+  "ecosystemBridges": {
+    "edu": "học nâng cao khi đủ độ tuổi và kỹ năng",
+    "life": "nhịp sống cho cả gia đình",
+    "vc": "chỉ kết nối khi đã trưởng thành (18+)"
+  },
+  "principles": ["không ép", "không so sánh", "không chạy theo thành tích"],
+  "definitionOfDone": ["trẻ hiểu", "trẻ làm được", "trẻ tạo được", "trẻ tự tin hơn"],
+  "tagline": {
+    "vi": "Trẻ không cần học nhiều hơn. Trẻ cần học đúng cách.",
+    "en": "Children don't need to learn more. They need to learn the right way."
+  },
+  "sourceDoc": "KIDS_CURRICULUM_FULL_6_TO_17.md"
+}
