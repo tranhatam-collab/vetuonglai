@@ -4,6 +4,7 @@ import businessDomainContract from "../src/data/business-domain-contract.json" w
 import packageComparisonDemoOutput from "../src/data/package-comparison-demo-output.json" with { type: "json" };
 import packageFormRegistry from "../src/data/package-form-registry.json" with { type: "json" };
 import kidsCurriculum from "../src/data/kids-curriculum.json" with { type: "json" };
+import kidsApiContract from "../src/data/kids-api-contract.json" with { type: "json" };
 
 const TEAM4_ALLOWED_HOSTS = new Set([
   "vetuonglai.com",
@@ -25,6 +26,7 @@ const KIDS_ALLOWED_HOSTS = new Set([
 
 const KIDS_ENDPOINT_PAYLOADS = new Map([
   ["/api/kids/curriculum.json", kidsCurriculum],
+  ["/api/kids/contract.json", kidsApiContract],
 ]);
 
 const KIDS_SAFETY_HEADERS = {
@@ -33,6 +35,71 @@ const KIDS_SAFETY_HEADERS = {
   "x-content-type-options": "nosniff",
   "x-child-safe-zone": "kids.vetuonglai.com",
 };
+
+function buildKidsRoutePatterns(contract) {
+  const patterns = [];
+  for (const endpoint of contract?.endpoints || []) {
+    if (!endpoint?.path || !endpoint?.method) continue;
+    const segments = String(endpoint.path).split("/").filter(Boolean);
+    const params = [];
+    const regexParts = segments.map((segment) => {
+      if (segment.startsWith(":")) {
+        params.push(segment.slice(1));
+        return "([^/]+)";
+      }
+      return segment.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    });
+    const regex = new RegExp("^/" + regexParts.join("/") + "/?$");
+    patterns.push({ endpoint, regex, params });
+  }
+  return patterns;
+}
+
+const KIDS_API_ROUTES = buildKidsRoutePatterns(kidsApiContract);
+
+function maybeHandleKidsApiStub(request, url) {
+  if (!url.pathname.startsWith("/api/kids/")) return null;
+
+  for (const route of KIDS_API_ROUTES) {
+    const match = url.pathname.match(route.regex);
+    if (!match) continue;
+    if (request.method.toUpperCase() !== String(route.endpoint.method).toUpperCase()) continue;
+
+    const params = {};
+    route.params.forEach((name, index) => {
+      params[name] = match[index + 1];
+    });
+
+    const body = {
+      error: {
+        code: "NOT_IMPLEMENTED",
+        stage: "stub",
+        message: "kids API is in Member Preview. Backend implementation is gated by child-safety review.",
+        contractVersion: kidsApiContract.version,
+        endpoint: {
+          id: route.endpoint.id,
+          method: route.endpoint.method,
+          path: route.endpoint.path,
+          summary: route.endpoint.summary,
+          request: route.endpoint.request,
+          response: route.endpoint.response,
+          childSafety: route.endpoint.childSafety || [],
+        },
+        params,
+      },
+    };
+
+    return jsonResponse(body, {
+      status: 501,
+      headers: {
+        "cache-control": "no-store",
+        ...KIDS_SAFETY_HEADERS,
+      },
+    });
+  }
+
+  return null;
+}
 
 function jsonResponse(body, init = {}) {
   const headers = new Headers(init.headers || {});
@@ -68,16 +135,19 @@ function maybeHandleKidsRuntime(request) {
   }
 
   const payload = KIDS_ENDPOINT_PAYLOADS.get(url.pathname);
-  if (!payload) {
-    return null;
+  if (payload) {
+    return jsonResponse(payload, {
+      headers: {
+        "cache-control": "public, max-age=60",
+        ...KIDS_SAFETY_HEADERS,
+      },
+    });
   }
 
-  return jsonResponse(payload, {
-    headers: {
-      "cache-control": "public, max-age=60",
-      ...KIDS_SAFETY_HEADERS,
-    },
-  });
+  const stub = maybeHandleKidsApiStub(request, url);
+  if (stub) return stub;
+
+  return null;
 }
 
 export default {

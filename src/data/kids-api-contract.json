@@ -1,0 +1,248 @@
+{
+  "name": "kids-api-contract",
+  "version": "2026-04-26-v1",
+  "host": "kids.vetuonglai.com",
+  "status": "member_preview",
+  "stage": "stub",
+  "rationale": "All kids API endpoints are stubbed at 501 Not Implemented while child-safety review is in flight. The contract below is the binding shape — backend will implement against it; frontend may begin migrating from localStorage to fetch() against these paths immediately and will continue receiving structured 501 responses until go-live.",
+  "auth": {
+    "scheme": "session-cookie",
+    "audience": "parent",
+    "childAccessVia": "parent session + child profile id",
+    "childCannotIssueCommerce": true
+  },
+  "errorEnvelope": {
+    "shape": {
+      "error": {
+        "code": "string",
+        "message": "string",
+        "stage": "stub | not_implemented | gated",
+        "contract": "endpoint contract spec (echoed back)"
+      }
+    },
+    "codes": [
+      "NOT_IMPLEMENTED",
+      "CONSENT_REQUIRED",
+      "PROFILE_REQUIRED",
+      "ENTITLEMENT_REQUIRED",
+      "LESSON_LOCKED",
+      "AI_BOUNDARY_BLOCKED",
+      "RATE_LIMITED",
+      "AUTH_REQUIRED"
+    ]
+  },
+  "endpoints": [
+    {
+      "id": "parent.profile.get",
+      "method": "GET",
+      "path": "/api/kids/parent/profile",
+      "summary": "Get parent profile + linked children list (max 3).",
+      "request": { "query": [], "body": null },
+      "response": {
+        "ok": {
+          "parent": { "id": "uuid", "terms_accepted": "0|1", "locale": "vi|en", "consent_version": "string" },
+          "children": [
+            { "id": "uuid", "display_name": "string", "age_group": "6-8|9-12|13-15|16-17", "experience": "none|basic|intermediate", "locale": "vi|en", "privacy_mode": "boolean", "created_at": "iso-8601" }
+          ]
+        }
+      },
+      "childSafety": ["parent-only", "no-real-name-required"]
+    },
+    {
+      "id": "parent.profile.post",
+      "method": "POST",
+      "path": "/api/kids/parent/profile",
+      "summary": "Record 6-checkbox parent consent.",
+      "request": {
+        "body": {
+          "terms_accepted": "boolean",
+          "locale": "vi|en",
+          "consent_data_minimization": "boolean",
+          "consent_no_ads": "boolean",
+          "consent_parent_access": "boolean",
+          "consent_ai_safety": "boolean",
+          "consent_data_rights": "boolean",
+          "consent_age_confirm": "boolean"
+        }
+      },
+      "response": { "ok": { "parent": { "id": "uuid", "terms_accepted": 1 } } },
+      "childSafety": ["parent-only", "consent-required"]
+    },
+    {
+      "id": "child.profile.post",
+      "method": "POST",
+      "path": "/api/kids/child/profile",
+      "summary": "Create child profile (display name, age group, experience).",
+      "request": {
+        "body": {
+          "display_name": "string (1-40 chars, no real-name requirement)",
+          "age_group": "6-8|9-12|13-15|16-17",
+          "experience": "none|basic|intermediate",
+          "locale": "vi|en",
+          "privacy_mode": "boolean"
+        }
+      },
+      "response": { "ok": { "id": "uuid", "suggested_stage_key": "string" } },
+      "childSafety": ["parent-only", "no-real-name-required", "max-3-children-per-parent"]
+    },
+    {
+      "id": "lesson.progress.get",
+      "method": "GET",
+      "path": "/api/kids/lesson/progress",
+      "summary": "Per-child lesson progress and module roadmap.",
+      "request": { "query": ["child_id"], "body": null },
+      "response": {
+        "ok": {
+          "modules": [{ "id": "string", "title_vi": "string", "title_en": "string", "lessons": [{ "id": "string", "slug": "string", "title_vi": "string", "title_en": "string", "has_practice": "boolean", "has_quiz": "boolean", "duration_min": "integer" }] }],
+          "progress": [{ "lesson_id": "string", "status": "locked|in_progress|completed", "best_score": "0-100|null" }]
+        }
+      },
+      "childSafety": ["parent-or-child-via-parent-session"]
+    },
+    {
+      "id": "lesson.detail.get",
+      "method": "GET",
+      "path": "/api/kids/lesson/:slug",
+      "summary": "Full lesson body, practice items, quiz items.",
+      "request": { "query": ["child_id"], "body": null },
+      "response": {
+        "ok": {
+          "id": "string", "slug": "string", "title_vi": "string", "title_en": "string",
+          "module_title_vi": "string", "module_title_en": "string",
+          "duration_min": "integer", "content_vi": "string", "content_en": "string",
+          "has_practice": "boolean", "practices": [{ "id": "string", "instruction_vi": "string", "instruction_en": "string" }],
+          "has_quiz": "boolean", "quizzes": [{ "id": "string", "question_vi": "string", "question_en": "string", "options_json": "string" }],
+          "progress": { "status": "string", "practice_done": "0|1" }
+        },
+        "errors": ["ENTITLEMENT_REQUIRED", "LESSON_LOCKED"]
+      },
+      "childSafety": ["entitlement-checked-server-side"]
+    },
+    {
+      "id": "practice.submit.post",
+      "method": "POST",
+      "path": "/api/kids/practice/:practice_id/submit",
+      "summary": "Submit a practice answer (free-form text).",
+      "request": { "body": { "child_id": "uuid", "content": "string (1-2000 chars)" } },
+      "response": { "ok": { "submitted": true } },
+      "childSafety": ["content-filter-applied", "parent-readable"]
+    },
+    {
+      "id": "quiz.submit.post",
+      "method": "POST",
+      "path": "/api/kids/quiz/submit",
+      "summary": "Submit quiz answers; returns score + feedback bucket.",
+      "request": { "body": { "child_id": "uuid", "lesson_id": "string", "answers": "object<question_id, choice_index>" } },
+      "response": {
+        "ok": {
+          "score": "0-100",
+          "feedback_key": "fail|preview|pass|advanced"
+        }
+      },
+      "childSafety": ["no-leaderboard", "score-private-to-parent"]
+    },
+    {
+      "id": "badges.get",
+      "method": "GET",
+      "path": "/api/kids/badges",
+      "summary": "List badges and which are awarded.",
+      "request": { "query": ["child_id"], "body": null },
+      "response": { "ok": { "badges": [{ "badge_id": "string", "name_vi": "string", "name_en": "string", "icon_emoji": "string", "awarded_at": "iso-8601|null" }] } },
+      "childSafety": ["no-public-display"]
+    },
+    {
+      "id": "certificates.get",
+      "method": "GET",
+      "path": "/api/kids/certificates",
+      "summary": "Issued certificates per child.",
+      "request": { "query": ["child_id"], "body": null },
+      "response": { "ok": { "certificates": [{ "id": "uuid", "course_id": "string", "course_title_vi": "string", "course_title_en": "string", "issued_at": "iso-8601", "verification_code": "string" }] } },
+      "childSafety": ["verification-code-not-public-profile"]
+    },
+    {
+      "id": "ai.chat.post",
+      "method": "POST",
+      "path": "/api/kids/ai/chat",
+      "summary": "Bounded AI helper — explain/hint/correct only. Never completes work.",
+      "request": { "body": { "child_id": "uuid", "lesson_id": "string", "message": "string (1-500 chars)" } },
+      "response": {
+        "ok": { "reply": "string", "blocked": "boolean", "block_reason": "string|null" },
+        "errors": ["RATE_LIMITED", "AI_BOUNDARY_BLOCKED"]
+      },
+      "limits": { "perSession": 30, "perDay": 60, "messageMaxChars": 500 },
+      "childSafety": ["ai-cannot-do-the-work", "content-filter", "parent-readable", "rate-limited"]
+    },
+    {
+      "id": "ai.sessions.get",
+      "method": "GET",
+      "path": "/api/kids/ai/sessions",
+      "summary": "List child's AI conversation sessions for parent review.",
+      "request": { "query": ["child_id"], "body": null },
+      "response": { "ok": { "sessions": [{ "id": "uuid", "lesson_id": "string", "started_at": "iso-8601", "safety_flag": "boolean" }] } },
+      "childSafety": ["parent-readable-only"]
+    },
+    {
+      "id": "ai.session.messages.get",
+      "method": "GET",
+      "path": "/api/kids/ai/sessions/:session_id/messages",
+      "summary": "Read full transcript of one AI session for parent review.",
+      "request": { "query": ["child_id"], "body": null },
+      "response": { "ok": { "messages": [{ "role": "user|assistant", "content": "string", "safety_pass": "0|1", "at": "iso-8601" }] } },
+      "childSafety": ["parent-readable-only", "filtered-content-clearly-marked"]
+    },
+    {
+      "id": "support.sessions.get",
+      "method": "GET",
+      "path": "/api/kids/support/sessions",
+      "summary": "List upcoming online support sessions.",
+      "request": { "query": [], "body": null },
+      "response": { "ok": { "sessions": [{ "id": "uuid", "title": "string", "session_date": "YYYY-MM-DD", "session_time": "HH:MM", "level_group": "string", "instructor_name": "string", "status": "scheduled|live|finished|cancelled" }] } },
+      "childSafety": ["parent-must-attend", "join-window-30min"]
+    },
+    {
+      "id": "support.session.register.post",
+      "method": "POST",
+      "path": "/api/kids/support/sessions/:session_id/register",
+      "summary": "Register a child for a support session.",
+      "request": { "body": { "child_id": "uuid" } },
+      "response": { "ok": { "attendance_id": "uuid", "status": "registered" } },
+      "childSafety": ["parent-mediated"]
+    },
+    {
+      "id": "support.attendance.get",
+      "method": "GET",
+      "path": "/api/kids/support/attendance",
+      "summary": "Past attendance + recording links (consented only).",
+      "request": { "query": ["child_id"], "body": null },
+      "response": { "ok": { "attendance": [{ "id": "uuid", "session_id": "uuid", "session_date": "string", "status": "string", "recording_url": "string|null", "recording_consent": "0|1" }] } },
+      "childSafety": ["recording-consent-explicit-per-session"]
+    },
+    {
+      "id": "recording.consent.post",
+      "method": "POST",
+      "path": "/api/kids/recording-consent",
+      "summary": "Set recording consent for a session.",
+      "request": { "body": { "child_id": "uuid", "session_id": "uuid|null", "consented": "boolean" } },
+      "response": { "ok": { "saved": true } },
+      "childSafety": ["consent-revocable"]
+    },
+    {
+      "id": "data.request.post",
+      "method": "POST",
+      "path": "/api/kids/data-request",
+      "summary": "Parent requests export / restrict / delete child data.",
+      "request": { "body": { "child_id": "uuid", "request_type": "export|restrict|delete", "reason": "string|null" } },
+      "response": { "ok": { "request_id": "uuid", "sla_days": 30 } },
+      "childSafety": ["parent-only", "no-reason-required", "sla-30d"]
+    },
+    {
+      "id": "safety.report.post",
+      "method": "POST",
+      "path": "/api/kids/safety-report",
+      "summary": "Parent reports a safety / privacy / AI-boundary concern.",
+      "request": { "body": { "child_id": "uuid|null", "issue_type": "inappropriate_content|privacy_concern|ai_boundary_violation|other", "description": "string (10-1000 chars)" } },
+      "response": { "ok": { "report_id": "uuid", "sla_hours": 48 } },
+      "childSafety": ["parent-only", "sla-48h", "team-review-required"]
+    }
+  ]
+}

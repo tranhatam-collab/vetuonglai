@@ -66,6 +66,7 @@ const domains = {
 };
 
 const kidsCurriculum = JSON.parse(await readFile(path.join(SRC, "data", "kids-curriculum.json"), "utf8"));
+const kidsApiContract = JSON.parse(await readFile(path.join(SRC, "data", "kids-api-contract.json"), "utf8"));
 
 function readNestedValue(source, pathString, fallback = "") {
   const result = String(pathString || "")
@@ -9356,6 +9357,33 @@ async function renderKidsDomain() {
     childSafety: kidsCurriculum.childSafety || {},
   }));
   await writeSiteFile(domain, "api/curriculum.json", renderStaticJson(kidsCurriculum));
+  await writeSiteFile(domain, "api/contract.json", renderStaticJson(kidsApiContract));
+
+  const stubEndpointPaths = [];
+  for (const endpoint of kidsApiContract.endpoints || []) {
+    if (!endpoint?.path) continue;
+    if (String(endpoint.path).includes(":")) continue;
+    const stubPath = endpoint.path.replace(/^\//, "") + ".stub.json";
+    stubEndpointPaths.push(endpoint.path);
+    await writeSiteFile(domain, stubPath, renderStaticJson({
+      error: {
+        code: "NOT_IMPLEMENTED",
+        stage: "stub",
+        message: "kids API is in Member Preview. Backend implementation is gated by child-safety review.",
+        contractVersion: kidsApiContract.version,
+        endpoint: {
+          id: endpoint.id,
+          method: endpoint.method,
+          path: endpoint.path,
+          summary: endpoint.summary,
+          request: endpoint.request,
+          response: endpoint.response,
+          childSafety: endpoint.childSafety || [],
+        },
+      },
+    }));
+  }
+
   await writeSiteFile(domain, "api/registry.json", renderStaticJson({
     name: "kids",
     host: domain,
@@ -9374,8 +9402,12 @@ async function renderKidsDomain() {
     endpoints: [
       "/api/health",
       "/api/curriculum.json",
+      "/api/contract.json",
       "/api/registry.json",
+      ...stubEndpointPaths,
     ],
+    apiContractVersion: kidsApiContract.version,
+    apiStage: kidsApiContract.stage,
     childSafety: kidsCurriculum.childSafety || {},
   }));
 }
