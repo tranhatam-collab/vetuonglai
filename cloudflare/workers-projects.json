@@ -1,5 +1,5 @@
 {
-  "accountId": "f3f9e76222dcb488d5e303e29e8ba192",
+  "accountId": "62d57eaa548617aeecac766e5a1cb98e",
   "compatibilityDate": "2026-03-23",
   "workers": [
     {
@@ -7,14 +7,53 @@
       "scriptName": "vetuonglai-home",
       "entry": "workers/generic-worker.mjs",
       "assetsDir": "dist/vetuonglai.com",
-      "routes": ["vetuonglai.com/*", "www.vetuonglai.com/*"]
+      "routes": ["vetuonglai.com/*", "www.vetuonglai.com/*"],
+      "accessRuntime": {
+        "requiredSecrets": [
+          "SESSION_COOKIE_SECRET",
+          "MAGIC_LINK_SIGNING_KEY",
+          "PAY_IAI_ONE_API_KEY",
+          "PAY_IAI_ONE_WEBHOOK_SECRET"
+        ],
+        "recommendedVars": [
+          "VTL_ENV",
+          "PAY_IAI_ONE_BASE_URL",
+          "PAY_IAI_ONE_TIMEOUT_MS",
+          "PAYPAL_ENVIRONMENT",
+          "PAYPAL_WEBHOOK_VERIFY_MODE",
+          "STRIPE_WEBHOOK_VERIFY_MODE",
+          "STRIPE_WEBHOOK_TOLERANCE_SECONDS",
+          "PAYPAL_ANNUAL_ACCESS_CHECKOUT_URL",
+          "PAYPAL_PACK_CHECKOUT_URLS_JSON",
+          "STRIPE_ANNUAL_ACCESS_CHECKOUT_URL",
+          "STRIPE_PACK_CHECKOUT_URLS_JSON",
+          "VTL_ALLOWED_RETURN_HOSTS"
+        ],
+        "optionalBindings": [
+          "ACCESS_KV_NAMESPACE"
+        ]
+      }
     },
     {
       "key": "vc",
       "scriptName": "vetuonglai-vc",
       "entry": "workers/vc-worker.mjs",
       "assetsDir": "dist/vc.vetuonglai.com",
-      "routes": ["vc.vetuonglai.com/*", "www.vc.vetuonglai.com/*"]
+      "routes": ["vc.vetuonglai.com/api/vc/*", "www.vc.vetuonglai.com/api/vc/*"],
+      "accessRuntime": {
+        "requiredSecrets": [
+          "SESSION_COOKIE_SECRET",
+          "VC_IDENTITY_ATTESTATION_SECRET",
+          "VC_OWNERSHIP_CHALLENGE_SECRET"
+        ],
+        "recommendedVars": [
+          "VTL_ENV",
+          "VC_OWNERSHIP_RECORD_TTL_SECONDS"
+        ],
+        "optionalBindings": [
+          "ACCESS_KV_NAMESPACE"
+        ]
+      }
     },
     {
       "key": "edu",
@@ -22,6 +61,38 @@
       "entry": "workers/generic-worker.mjs",
       "assetsDir": "dist/edu.vetuonglai.com",
       "routes": ["edu.vetuonglai.com/*", "www.edu.vetuonglai.com/*"]
+    },
+    {
+      "key": "member",
+      "scriptName": "vetuonglai-member",
+      "entry": "workers/generic-worker.mjs",
+      "assetsDir": "dist/member.vetuonglai.com",
+      "routes": ["member.vetuonglai.com/*", "www.member.vetuonglai.com/*"],
+      "accessRuntime": {
+        "requiredSecrets": [
+          "SESSION_COOKIE_SECRET",
+          "MAGIC_LINK_SIGNING_KEY",
+          "PAY_IAI_ONE_API_KEY",
+          "PAY_IAI_ONE_WEBHOOK_SECRET"
+        ],
+        "recommendedVars": [
+          "VTL_ENV",
+          "PAY_IAI_ONE_BASE_URL",
+          "PAY_IAI_ONE_TIMEOUT_MS",
+          "PAYPAL_ENVIRONMENT",
+          "PAYPAL_WEBHOOK_VERIFY_MODE",
+          "STRIPE_WEBHOOK_VERIFY_MODE",
+          "STRIPE_WEBHOOK_TOLERANCE_SECONDS",
+          "PAYPAL_ANNUAL_ACCESS_CHECKOUT_URL",
+          "PAYPAL_PACK_CHECKOUT_URLS_JSON",
+          "STRIPE_ANNUAL_ACCESS_CHECKOUT_URL",
+          "STRIPE_PACK_CHECKOUT_URLS_JSON",
+          "VTL_ALLOWED_RETURN_HOSTS"
+        ],
+        "optionalBindings": [
+          "ACCESS_KV_NAMESPACE"
+        ]
+      }
     },
     {
       "key": "green",
@@ -36,6 +107,23 @@
       "entry": "workers/generic-worker.mjs",
       "assetsDir": "dist/finance.vetuonglai.com",
       "routes": ["finance.vetuonglai.com/*", "www.finance.vetuonglai.com/*"]
+    },
+    {
+      "key": "kids",
+      "scriptName": "vetuonglai-kids",
+      "entry": "workers/generic-worker.mjs",
+      "assetsDir": "dist/kids.vetuonglai.com",
+      "routes": ["kids.vetuonglai.com/*", "www.kids.vetuonglai.com/*"],
+      "audience": "children-6-to-17-and-parents",
+      "childSafety": {
+        "isolated": true,
+        "primaryNav": false,
+        "publicDiscovery": false,
+        "noCommerceForMinors": true,
+        "noAffiliateForMinors": true,
+        "noLeaderboards": true,
+        "noPublicProfiles": true
+      }
     }
   ]
 }

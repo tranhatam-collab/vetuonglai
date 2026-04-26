@@ -523,6 +523,7 @@ const ecosystemDirectory = (systemRegistry.domains || [])
       primaryNav: Boolean(entry.primaryNav),
       mission: String(entry.mission || ""),
       url: String(entry.url || `https://${domains[entry.key]}`),
+      publicDiscovery: entry.publicDiscovery !== false,
     };
   });
 
@@ -530,6 +531,14 @@ const ecosystemDirectoryByKey = new Map(ecosystemDirectory.map((entry) => [entry
 const ecosystemNavKeys = ecosystemDirectory
   .filter((entry) => entry.primaryNav)
   .map((entry) => entry.key);
+
+function isPubliclyDiscoverable(entry) {
+  if (!entry) return false;
+  if (entry.publicDiscovery === false) return false;
+  return entry.publicDiscovery !== false;
+}
+
+const publicEcosystemDirectory = ecosystemDirectory.filter(isPubliclyDiscoverable);
 
 const ecosystemMission = Object.fromEntries(
   ecosystemDirectory.map((entry) => [entry.key, entry.mission || ""]),
@@ -1585,7 +1594,7 @@ function ecosystemNav(currentKey, extra = []) {
 
 function renderEcosystemBacklinks(currentKey) {
   const links = ecosystemDirectory
-    .filter((entry) => entry.key !== currentKey && domains[entry.key])
+    .filter((entry) => entry.key !== currentKey && domains[entry.key] && isPubliclyDiscoverable(entry))
     .map((entry) => {
       const status = appStageLabel(entry);
       const normalizedStatus = normalizeSurfaceStatus(entry.status);
@@ -1725,9 +1734,9 @@ ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
 }
 
 function renderHubPage() {
-  const liveCount = ecosystemDirectory.filter((entry) => entry.status === "live").length;
-  const memberPreviewCount = ecosystemDirectory.filter((entry) => entry.status === "member_preview").length;
-  const plannedCount = ecosystemDirectory.filter((entry) => entry.status === "planned").length;
+  const liveCount = publicEcosystemDirectory.filter((entry) => entry.status === "live").length;
+  const memberPreviewCount = publicEcosystemDirectory.filter((entry) => entry.status === "member_preview").length;
+  const plannedCount = publicEcosystemDirectory.filter((entry) => entry.status === "planned").length;
 
   const hero = renderHero({
     eyebrow: codexPair("sites.hub.hero.eyebrow", `Hệ sống ${system.releaseName}`, `The ${system.releaseNameEn} life system`),
@@ -2326,7 +2335,7 @@ function renderHubSitemapPage() {
   ];
 
   const domainLinks = ecosystemDirectory
-    .filter((entry) => domains[entry.key])
+    .filter((entry) => domains[entry.key] && isPubliclyDiscoverable(entry))
     .map((entry) => [`https://${domains[entry.key]}`, domains[entry.key]]);
 
   const siteMapLinks = `
@@ -8640,7 +8649,7 @@ async function build() {
   await writeSiteFile(domains.hub, "manifest.json", renderStaticJson(system));
   await writeSiteFile(domains.hub, "api/registry.json", renderStaticJson({
     lastUpdated: system.releaseDate || new Date().toISOString().slice(0, 10),
-    domains: ecosystemDirectory
+    domains: publicEcosystemDirectory
       .filter((entry) => domains[entry.key])
       .map((entry) => ({
         key: entry.key,
@@ -8681,7 +8690,7 @@ async function build() {
   await writeSiteFile(domains.hub, "api/system-registry.json", renderStaticJson({
     version: systemRegistry.version || accessModel.version,
     statusVocabulary: systemRegistry.statusVocabulary || {},
-    domains: ecosystemDirectory.map((entry) => ({
+    domains: publicEcosystemDirectory.map((entry) => ({
       key: entry.key,
       label: entry.label,
       status: entry.status,
@@ -8932,7 +8941,7 @@ async function build() {
   await writeSiteFile(domains.member, "api/system-registry.json", renderStaticJson({
     version: systemRegistry.version || accessModel.version,
     statusVocabulary: systemRegistry.statusVocabulary || {},
-    domains: ecosystemDirectory.map((entry) => ({
+    domains: publicEcosystemDirectory.map((entry) => ({
       key: entry.key,
       label: entry.label,
       status: entry.status,
