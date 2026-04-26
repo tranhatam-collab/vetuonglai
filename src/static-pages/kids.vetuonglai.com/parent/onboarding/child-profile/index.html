@@ -15,9 +15,9 @@
   <a class="kids-skip-link" href="#main" data-vi="Tới nội dung" data-en="Skip to content">Tới nội dung</a>
   <div class="kids-safety-banner"><strong data-vi="Vùng bảo vệ trẻ em" data-en="Child-safe zone">Vùng bảo vệ trẻ em</strong></div>
   <header class="kids-header"><div class="container">
-    <a class="kids-brand" href="/"><span>Về Tương Lai</span><small>Kids</small></a>
+    <a class="kids-brand" href="/"><span>Về Tương Lai</span><small>Trẻ em</small></a>
     <nav class="kids-nav"><a href="/parent/dashboard/" data-vi="Phụ huynh" data-en="Parent">Phụ huynh</a></nav>
-    <div class="kids-lang"><a href="?lang=vi" data-lang="vi">VI</a> / <a href="?lang=en" data-lang="en">EN</a></div>
+    <div class="kids-lang"><a href="?lang=vi" data-lang="vi" hreflang="vi">Tiếng Việt</a> <span aria-hidden="true">·</span> <a href="?lang=en" data-lang="en" hreflang="en">English</a></div>
   </div></header>
 
   <main id="main" class="kids-main">
@@ -39,18 +39,18 @@
           <div class="section-heading">
             <p class="eyebrow" data-vi="Bước 2 / 2" data-en="Step 2 / 2">Bước 2 / 2</p>
             <h1 data-vi="Tạo hồ sơ trẻ" data-en="Create child profile">Tạo hồ sơ trẻ</h1>
-            <p class="lede" data-vi="Tên hiển thị do trẻ chọn — không bắt buộc tên thật. Hồ sơ chỉ phụ huynh và mentor được xem." data-en="Display name is chosen by the child — real name is never required. Profile is visible only to parent and mentor.">Tên hiển thị do trẻ chọn — không bắt buộc tên thật.</p>
+            <p class="lede" data-vi="Tên hiển thị do trẻ chọn — không bắt buộc tên thật. Hồ sơ chỉ phụ huynh và mentor được xem." data-en="Display name is chosen by the child — real name is never required. Profile is visible only to parent and mentor.">Tên hiển thị do trẻ chọn — không bắt buộc tên thật. Hồ sơ chỉ phụ huynh và mentor được xem.</p>
           </div>
 
           <div class="preview-banner"><strong data-vi="Member Preview" data-en="Member Preview">Member Preview</strong>
-            <span data-vi=" · Hồ sơ lưu cục bộ trên thiết bị này. Sẽ đồng bộ với tài khoản phụ huynh chính thức sau go-live." data-en=" · Profile is stored locally on this device. It will sync with the official parent account after go-live."></span>
+            <span data-vi=" · Hồ sơ lưu cục bộ trên thiết bị này. Sẽ đồng bộ với tài khoản phụ huynh chính thức sau go-live." data-en=" · Profile is stored locally on this device. It will sync with the official parent account after go-live."> · Hồ sơ lưu cục bộ trên thiết bị này. Sẽ đồng bộ với tài khoản phụ huynh chính thức sau go-live.</span>
           </div>
 
           <form id="childForm" class="surface stack-lg" novalidate>
             <div id="formError" class="error-banner" role="alert" hidden></div>
 
             <div class="form-field">
-              <label for="displayName" data-vi="Tên hiển thị (không phải tên thật)" data-en="Display name (not real name)">Tên hiển thị</label>
+              <label for="displayName" data-vi="Tên hiển thị (không phải tên thật)" data-en="Display name (not real name)">Tên hiển thị (không phải tên thật)</label>
               <input type="text" id="displayName" name="display_name" maxlength="40" required
                      data-vi-placeholder="Ví dụ: Bee, Cu Tý, Mai…" data-en-placeholder="e.g. Bee, Tony, Mia…" autocomplete="off" />
               <p class="field-hint" data-vi="Trẻ tự chọn — biệt danh hoặc tên gọi ở nhà đều được." data-en="The child chooses — a nickname or family pet name is fine.">Trẻ tự chọn — biệt danh hoặc tên gọi ở nhà đều được.</p>
@@ -88,7 +88,7 @@
             <div class="form-field">
               <label class="checkbox-label">
                 <input type="checkbox" name="privacy_mode" id="privacyMode" checked />
-                <span data-vi="Chế độ riêng tư cao — không lưu ảnh đại diện, không sử dụng dữ liệu trẻ để cải thiện AI." data-en="High-privacy mode — no avatar, child data is not used to train or improve AI.">Chế độ riêng tư cao</span>
+                <span data-vi="Chế độ riêng tư cao — không lưu ảnh đại diện, không sử dụng dữ liệu trẻ để cải thiện AI." data-en="High-privacy mode — no avatar, child data is not used to train or improve AI.">Chế độ riêng tư cao — không lưu ảnh đại diện, không sử dụng dữ liệu trẻ để cải thiện AI.</span>
               </label>
             </div>
 
@@ -101,7 +101,7 @@
         <div id="successState" class="surface stack-md" hidden>
           <p class="eyebrow eyebrow-success" data-vi="Hoàn tất" data-en="Complete">Hoàn tất</p>
           <h2 data-vi="Hồ sơ đã được tạo." data-en="Profile created.">Hồ sơ đã được tạo.</h2>
-          <p data-vi="Trẻ có thể bắt đầu giai đoạn phù hợp. Phụ huynh có thể theo dõi mọi lúc qua trang phụ huynh." data-en="The child can begin the matching stage. Parents can monitor any time on the parent page.">Trẻ có thể bắt đầu giai đoạn phù hợp.</p>
+          <p data-vi="Trẻ có thể bắt đầu giai đoạn phù hợp. Phụ huynh có thể theo dõi mọi lúc qua trang phụ huynh." data-en="The child can begin the matching stage. Parents can monitor any time on the parent page.">Trẻ có thể bắt đầu giai đoạn phù hợp. Phụ huynh có thể theo dõi mọi lúc qua trang phụ huynh.</p>
           <div class="cta-row">
             <a class="button button-primary" href="/learn/dashboard/" data-vi="Trẻ vào học" data-en="Child starts learning">Trẻ vào học</a>
             <a class="button" href="/parent/dashboard/" data-vi="Mở trang phụ huynh" data-en="Open parent page">Mở trang phụ huynh</a>
