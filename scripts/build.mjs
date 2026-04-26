@@ -1653,8 +1653,8 @@ function renderTopbar(siteKey, activeKey, items) {
             })).join("")}
           </nav>
           <div class="lang-switch" role="group" aria-label="Language switch" data-aria-label-vi="Chọn ngôn ngữ" data-aria-label-en="Choose language">
-            <button class="lang-button is-active" type="button" data-language-option="vi" aria-pressed="true" data-aria-label-vi="Chuyển sang tiếng Việt" data-aria-label-en="Switch to Vietnamese">VI</button>
-            <button class="lang-button" type="button" data-language-option="en" aria-pressed="false" data-aria-label-vi="Chuyển sang tiếng Anh" data-aria-label-en="Switch to English">EN</button>
+            <button class="lang-button is-active" type="button" data-language-option="vi" aria-pressed="true" data-aria-label-vi="Chuyển sang tiếng Việt" data-aria-label-en="Switch to Vietnamese" lang="vi" hreflang="vi">Tiếng Việt</button>
+            <button class="lang-button" type="button" data-language-option="en" aria-pressed="false" data-aria-label-vi="Chuyển sang tiếng Anh" data-aria-label-en="Switch to English" lang="en" hreflang="en">English</button>
           </div>
         </div>
       </div>
@@ -1702,6 +1702,9 @@ function renderShell({
   <meta property="og:type" content="website" />
   <meta property="og:url" content="${escapeHtml(canonical)}" />
 ${renderOgLocaleMeta()}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-content-vi="${escapeHtml(titleCopy.vi)}" data-content-en="${escapeHtml(titleCopy.en)}" content="${escapeHtml(titleCopy.vi)}" />
+  <meta name="twitter:description" data-content-vi="${escapeHtml(descriptionCopy.vi)}" data-content-en="${escapeHtml(descriptionCopy.en)}" content="${escapeHtml(descriptionCopy.vi)}" />
   <link rel="canonical" href="${escapeHtml(canonical)}" />
 ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
   ${headExtras || ""}
