@@ -21,10 +21,20 @@ This runbook gets the **homepage live publicly** with no email, payment, or regi
 
 ## 1. Pre-deploy checklist
 
+### 1.0 One-shot gate (recommended)
+
+```bash
+npm run verify:kids:predeploy
+```
+
+Runs `build` → `audit:bilingual` → `smoke:kids:worker` in sequence and
+exits non-zero on the first failure. If this command exits 0, you can
+skip §1.1 and §1.2 — they have already run.
+
 ### 1.1 Build is up to date
 
 ```bash
-node scripts/build.mjs
+node scripts/build.mjs       # or: npm run build
 ```
 
 Output should end with `[build] kids done` and `[build] all domains done`.
@@ -32,11 +42,22 @@ Output should end with `[build] kids done` and `[build] all domains done`.
 ### 1.2 Bilingual audit passes
 
 ```bash
-node scripts/audit-bilingual.mjs
+node scripts/audit-bilingual.mjs   # or: npm run audit:bilingual
 ```
 
 Expected: `Audit complete — 0 issues across 52 files.`
 If non-zero: read [`docs/00_master/42_BILINGUAL_AUDIT_REPORT.md`](../00_master/42_BILINGUAL_AUDIT_REPORT.md) and fix before deploy.
+
+### 1.2b Worker smoke harness passes
+
+```bash
+npm run smoke:kids:worker
+```
+
+Expected: `Passed: 30 / Failed: 0`. Imports the worker module locally
+and exercises 30 assertions against the kids handlers (curriculum,
+contract, 18 stub endpoints, cross-host isolation, www mirror, team4
+regression). Catches handler bugs before they reach Cloudflare.
 
 ### 1.3 Hub leak check
 
