@@ -24,6 +24,17 @@ const KIDS_ALLOWED_HOSTS = new Set([
   "www.kids.vetuonglai.com",
 ]);
 
+function isKidsHost(hostname) {
+  if (KIDS_ALLOWED_HOSTS.has(hostname)) return true;
+  // Cloudflare Workers preview URL: <scriptname>.<account>.workers.dev.
+  // The kids worker's scriptName is "vetuonglai-kids", so any host whose
+  // first label is exactly that under workers.dev is a preview address
+  // for this same worker. Allowing it lets the team review dev builds
+  // before DNS / route binding is in place.
+  if (hostname.endsWith(".workers.dev") && hostname.startsWith("vetuonglai-kids.")) return true;
+  return false;
+}
+
 const KIDS_ENDPOINT_PAYLOADS = new Map([
   ["/api/kids/curriculum.json", kidsCurriculum],
   ["/api/kids/contract.json", kidsApiContract],
@@ -59,6 +70,7 @@ const KIDS_API_ROUTES = buildKidsRoutePatterns(kidsApiContract);
 
 function maybeHandleKidsApiStub(request, url) {
   if (!url.pathname.startsWith("/api/kids/")) return null;
+  if (!isKidsHost(url.hostname)) return null;
 
   for (const route of KIDS_API_ROUTES) {
     const match = url.pathname.match(route.regex);
@@ -130,7 +142,7 @@ function maybeHandleTeam4Contracts(request) {
 
 function maybeHandleKidsRuntime(request) {
   const url = new URL(request.url);
-  if (!KIDS_ALLOWED_HOSTS.has(url.hostname)) {
+  if (!isKidsHost(url.hostname)) {
     return null;
   }
 

@@ -168,6 +168,25 @@ Current Version ID: ...
 
 The kids worker uses `ASSETS` binding to serve dist files. The `--assets` flag in §3.2 uploads the dist tree alongside the worker. No separate Pages project is required for kids.
 
+### 3.4 Dev preview URL (no DNS required)
+
+After §3.2 the worker is reachable at:
+
+```
+https://vetuonglai-kids.<account-subdomain>.workers.dev
+```
+
+The exact subdomain is shown by `wrangler deploy` in the line:
+
+```
+Deployed vetuonglai-kids triggers (...)
+  https://vetuonglai-kids.<account-subdomain>.workers.dev
+```
+
+The worker accepts kids handlers on this hostname so the team can review the build before DNS / route binding is in place. Routes for `kids.vetuonglai.com/*` will start serving traffic the moment DNS + Triggers are configured (§2); until then, the workers.dev URL is the only entry point.
+
+Other workers' `*.workers.dev` URLs (for example `vetuonglai-home.<account>.workers.dev`) do **not** serve kids handlers — only the worker named `vetuonglai-kids` is allow-listed.
+
 ---
 
 ## 4. Post-deploy smoke verification

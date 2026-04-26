@@ -165,6 +165,24 @@ async function run() {
     await expectStatus("www.kids curriculum", r, 200);
   }
 
+  // 12. workers.dev preview — vetuonglai-kids.<account>.workers.dev is the
+  //     auto-generated dev URL Cloudflare exposes when the worker is
+  //     deployed. It must also resolve kids endpoints so the team can
+  //     review dev builds before DNS is bound.
+  {
+    const r = await worker.fetch(makeReq("GET", "https://vetuonglai-kids.example-account.workers.dev/api/kids/curriculum.json"), env);
+    await expectStatus("workers.dev preview curriculum", r, 200);
+  }
+  {
+    const r = await worker.fetch(makeReq("GET", "https://vetuonglai-kids.example-account.workers.dev/api/kids/parent/profile"), env);
+    await expectStatus("workers.dev preview stub", r, 501);
+  }
+  // Other workers.dev addresses (different script name) must NOT serve kids.
+  {
+    const r = await worker.fetch(makeReq("GET", "https://vetuonglai-home.example-account.workers.dev/api/kids/curriculum.json"), env);
+    await expectStatus("workers.dev wrong-script gate", r, 404);
+  }
+
   // Summary
   console.log("");
   console.log(`Passed: ${passed}`);
