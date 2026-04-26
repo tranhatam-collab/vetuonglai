@@ -4382,9 +4382,9 @@ function renderKidsParentBridgeBlock() {
           "This area is in Member Preview. It only opens when you confirm you are a parent or legal guardian.",
         ))}
         <div class="cluster">
-          <button type="button" class="button" data-kids-parent-confirm>
-            ${escapeHtml("Tôi xác nhận là phụ huynh — mở vùng Kids")}
-          </button>
+          <button type="button" class="button" data-kids-parent-confirm
+                  data-text-vi="Tôi xác nhận là phụ huynh — mở vùng Kids"
+                  data-text-en="I confirm I am a parent — open the Kids zone">Tôi xác nhận là phụ huynh — mở vùng Kids</button>
         </div>
         <div data-kids-parent-revealed hidden>
           ${cardText(pair(
@@ -4680,7 +4680,7 @@ function renderMemberAppPage() {
 
           <article class="member-dashboard-surface">
             ${localizedText(pair("Bạn đang ở đây, bước tiếp theo là…", "You are here, and the next step is…"), "div", { class: "member-dashboard-kicker" })}
-            <h2 class="member-dashboard-title" id="mobile-next-step-title">Đang đồng bộ quyền truy cập</h2>
+            <h2 class="member-dashboard-title" id="mobile-next-step-title" data-text-vi="Đang đồng bộ quyền truy cập" data-text-en="Syncing access">Đang đồng bộ quyền truy cập</h2>
             <p class="body-copy" id="mobile-next-step-note" data-text-vi="Quick actions và CTA chính sẽ đổi theo trạng thái hiện tại của bạn." data-text-en="Quick actions and the primary CTA will adapt to your current status.">Quick actions và CTA chính sẽ đổi theo trạng thái hiện tại của bạn.</p>
             <div class="cluster member-dashboard-primary-actions">
               <a class="button" id="mobile-next-step-primary" href="#mobile-dashboard" data-mobile-action="next-step-primary">Đang đồng bộ...</a>

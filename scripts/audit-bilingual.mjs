@@ -34,6 +34,50 @@ const KIDS_FORBIDDEN_ABBREVIATIONS = [
   { needle: /\bVC\b(?![-_a-z])/g, label: '"VC" on kids surface (should be "lớp xác minh độc lập" / "independent verification layer")' },
 ];
 
+// Vietnamese diacritics signature — if a string has any of these, it is Vietnamese.
+const VI_DIACRITIC = /[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵđÀÁẢÃẠĂẰẮẲẴẶÂẦẤẨẪẬÈÉẺẼẸÊỀẾỂỄỆÌÍỈĨỊÒÓỎÕỌÔỒỐỔỖỘƠỜỚỞỠỢÙÚỦŨỤƯỪỨỬỮỰỲÝỶỸỴĐ]/;
+
+// Common Vietnamese function words / particles. Presence = Vietnamese-likely text.
+const VI_FUNCTION = /\b(và|hoặc|nhưng|vì|của|với|cho|không|được|đang|đã|sẽ|là|một|những|các|theo|để|khi|nếu|trong|trên|dưới|mà|này|đó|này\b|đây|kia)\b/i;
+// Common English function words. Presence = English-likely text.
+const EN_FUNCTION = /\b(the|and|or|but|of|with|for|not|is|are|was|were|will|would|should|could|this|that|these|those|in|on|at|by|to|from|when|while|because)\b/i;
+
+function isVietnameseSentence(text) {
+  if (!text || text.length < 3) return false;
+  if (VI_DIACRITIC.test(text)) return true;
+  return VI_FUNCTION.test(text);
+}
+function isEnglishSentence(text) {
+  if (!text || text.length < 3) return false;
+  if (VI_DIACRITIC.test(text)) return false;
+  return EN_FUNCTION.test(text);
+}
+
+// Machine-translation red flags in EN content (rough heuristics, not authoritative).
+const MT_PATTERNS = [
+  { needle: /\b(in order to make sure|in order to ensure that)\b/gi, label: 'wordy MT phrasing — prefer "to ensure"' },
+  { needle: /\bthe layer is the layer\b/gi, label: 'redundant translation phrasing' },
+  { needle: /\bdo the job that\b/gi, label: 'awkward MT phrasing' },
+];
+
+// Hard-coded text without bilingual data attributes.
+// Heuristic: <h1|h2|h3|p|button|a> with no data-text-vi/data-text-en/data-content-vi/data-content-en/data-vi/data-en
+// AND inner text contains a sentence (>= 12 chars, has space)
+const TEXT_NODE_RE = /<(h1|h2|h3|h4|p|button|li)\b([^>]*)>([^<]{12,})<\/\1>/g;
+function hasBilingualAttr(attrs) {
+  return /(data-(text|content|html|aria-label)-(vi|en)|data-vi|data-en|data-language-option|aria-hidden="true")/.test(attrs);
+}
+
+// Brand names that legitimately appear identical in both languages.
+const BRAND_NAMES = ["Về Tương Lai", "Vetuonglai", "VTL", "EDU", "VC", "PWA", "OG"];
+function stripBrandNames(text) {
+  let out = text;
+  for (const brand of BRAND_NAMES) {
+    out = out.split(brand).join("");
+  }
+  return out;
+}
+
 async function walk(dir) {
   const out = [];
   let entries;
@@ -147,6 +191,79 @@ async function auditFile(file) {
       .replace(/aria-label[a-z-]*="[^"]*"/g, "");
     for (const hit of findVisible(visible, KIDS_FORBIDDEN_ABBREVIATIONS)) {
       issues.push({ severity: "high", code: "kids-abbreviation", detail: `${hit.label} ×${hit.count}` });
+    }
+  }
+
+  // Mixed VI / EN inside the same data-content / data-text / data-vi-en pair.
+  // Strip brand names before language detection (brand may legitimately appear in both sides).
+  const pairAttrRe = /data-(content|text|html|aria-label)-vi="([^"]+)"\s+data-\1-en="([^"]+)"/g;
+  let mPair;
+  let mixedPairCount = 0;
+  while ((mPair = pairAttrRe.exec(html)) !== null) {
+    const viStripped = stripBrandNames(mPair[2]);
+    const enStripped = stripBrandNames(mPair[3]);
+    if (viStripped && enStripped && isEnglishSentence(viStripped) && !isVietnameseSentence(viStripped)) {
+      mixedPairCount++;
+    }
+    if (viStripped && enStripped && isVietnameseSentence(enStripped)) {
+      mixedPairCount++;
+    }
+  }
+  if (mixedPairCount > 0) {
+    issues.push({ severity: "medium", code: "mixed-language-pair", detail: `${mixedPairCount} bilingual attribute pair(s) appear language-swapped` });
+  }
+
+  // Missing alt text on <img>
+  const imgRe = /<img\b([^>]*)>/g;
+  let imgM;
+  let imgWithoutAlt = 0;
+  let imgWithEmptyAlt = 0;
+  while ((imgM = imgRe.exec(html)) !== null) {
+    const attrs = imgM[1];
+    const altMatch = attrs.match(/\balt=["']([^"']*)["']/);
+    if (!altMatch) imgWithoutAlt++;
+    else if (altMatch[1].trim() === "") imgWithEmptyAlt++;
+  }
+  if (imgWithoutAlt > 0) {
+    issues.push({ severity: "high", code: "image-missing-alt", detail: `${imgWithoutAlt} <img> without alt attribute` });
+  }
+  if (imgWithEmptyAlt > 0) {
+    issues.push({ severity: "low", code: "image-empty-alt", detail: `${imgWithEmptyAlt} <img> with empty alt (decorative? confirm intent)` });
+  }
+
+  // Machine-translation red flags
+  for (const { needle, label } of MT_PATTERNS) {
+    const matches = html.match(needle);
+    if (matches && matches.length > 0) {
+      issues.push({ severity: "medium", code: "mt-phrasing", detail: `${label} ×${matches.length}` });
+    }
+  }
+
+  // Hard-coded text without bilingual attributes (excluding noindex pages and kids static pages
+  // which use data-vi/data-en consistently). Strip <script>, <style>, and <template> blocks first
+  // to avoid matching JS template-literal text or CSS selectors.
+  if (!noindex && !isKidsHost(host)) {
+    const visibleHtml = html
+      .replace(/<script[\s\S]*?<\/script>/g, "")
+      .replace(/<style[\s\S]*?<\/style>/g, "")
+      .replace(/<template[\s\S]*?<\/template>/g, "");
+    let hardcodedCount = 0;
+    const hardcodedSamples = [];
+    let hcM;
+    TEXT_NODE_RE.lastIndex = 0;
+    while ((hcM = TEXT_NODE_RE.exec(visibleHtml)) !== null) {
+      const attrs = hcM[2];
+      const inner = hcM[3];
+      if (hasBilingualAttr(attrs)) continue;
+      if (!/\s/.test(inner.trim())) continue;
+      if (/<[a-z]/i.test(inner)) continue;
+      // Skip JS template literal residues
+      if (/['"]\s*\+\s*escapeHtml/.test(inner)) continue;
+      hardcodedCount++;
+      if (hardcodedSamples.length < 3) hardcodedSamples.push(inner.trim().slice(0, 80));
+    }
+    if (hardcodedCount > 0) {
+      issues.push({ severity: "medium", code: "hardcoded-text", detail: `${hardcodedCount} block(s) of text without bilingual data-* attributes (samples: ${hardcodedSamples.map((s) => JSON.stringify(s)).join(", ")})` });
     }
   }
 
