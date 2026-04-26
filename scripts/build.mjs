@@ -4344,6 +4344,8 @@ function renderMemberJourneyPage() {
     }),
   ]);
 
+  const kidsParentBridge = renderKidsParentBridgeBlock();
+
   return renderShell({
     currentKey: "member",
     pathname: "/journey/",
@@ -4353,8 +4355,71 @@ function renderMemberJourneyPage() {
     hero,
     sections: [
       renderSection(pair("Các giai đoạn", "Stages"), pair("Hành trình từ học đến proof", "From learning to proof"), stages),
+      renderSection(
+        pair("Phụ huynh có trẻ em", "Parents with children"),
+        pair("Hệ Kids cho trẻ em 6–17 nằm ở vùng riêng, có ranh giới bảo vệ trẻ.", "The Kids zone for ages 6–17 lives in an isolated, child-safe space."),
+        kidsParentBridge,
+        "kids-parent-bridge",
+      ),
     ],
   });
+}
+
+function renderKidsParentBridgeBlock() {
+  return `
+    <article class="card" data-kids-parent-bridge>
+      <div class="card-body stack">
+        ${cardTitle(pair("Vùng Kids cho phụ huynh", "Kids zone for parents"))}
+        ${cardText(pair(
+          "Hệ Kids dành cho trẻ em 6–17 nằm ở subdomain riêng kids.vetuonglai.com — tách hẳn khỏi hệ chính, có ranh giới bảo vệ trẻ: phụ huynh đồng hành, không quảng cáo, không bảng xếp hạng, AI chỉ giải thích/gợi ý/sửa lỗi.",
+          "The Kids zone for ages 6–17 lives on its own subdomain kids.vetuonglai.com — fully separated from the main ecosystem with child-safe limits: parent-mediated, ad-free, no leaderboards, AI restricted to explain/hint/correct.",
+        ))}
+        ${cardText(pair(
+          "Khu vực này đang ở trạng thái Member Preview. Chỉ mở khi bạn xác nhận là phụ huynh hoặc người giám hộ.",
+          "This area is in Member Preview. It only opens when you confirm you are a parent or legal guardian.",
+        ))}
+        <div class="cluster">
+          <button type="button" class="button" data-kids-parent-confirm>
+            ${escapeHtml("Tôi xác nhận là phụ huynh — mở vùng Kids")}
+          </button>
+        </div>
+        <div data-kids-parent-revealed hidden>
+          ${cardText(pair(
+            "Bạn có thể bắt đầu từ bước Đồng ý phụ huynh.",
+            "You can start at the Parent consent step.",
+          ))}
+          <div class="cluster">
+            <a class="button" rel="nofollow noopener" target="_blank"
+               href="https://${domains.kids}/parent/onboarding/consent/">
+              ${escapeHtml("Mở Đồng ý phụ huynh")}
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+    <script>
+      (function () {
+        var card = document.querySelector('[data-kids-parent-bridge]');
+        if (!card) return;
+        var btn = card.querySelector('[data-kids-parent-confirm]');
+        var box = card.querySelector('[data-kids-parent-revealed]');
+        if (!btn || !box) return;
+        try {
+          if (localStorage.getItem('vtl.kids.parentSelfAttest') === '1') {
+            box.hidden = false;
+            btn.disabled = true;
+            btn.textContent = 'Đã xác nhận';
+          }
+        } catch (_) {}
+        btn.addEventListener('click', function () {
+          try { localStorage.setItem('vtl.kids.parentSelfAttest', '1'); } catch (_) {}
+          box.hidden = false;
+          btn.disabled = true;
+          btn.textContent = 'Đã xác nhận';
+        });
+      })();
+    </script>
+  `;
 }
 
 function buildMemberMobileConfig() {
