@@ -1,4 +1,8 @@
 const STORAGE_KEY = "vetuonglai.language";
+const TELEMETRY_STORAGE_KEY = "vetuonglai.telemetry.v1";
+const MEMBER_STATE_DATASET_KEY = "memberState";
+
+let memberStateHint = "unknown";
 
 function normalizeLanguage(value) {
   return value === "en" ? "en" : "vi";
@@ -36,16 +40,19 @@ function translatedLabel(node, language, fallback) {
 
 function applyLocalizedLabel(node, fallback) {
   const pair = translatedPair(node, fallback);
-  node.innerHTML = [
-    `<span data-lang="vi">${escapeLabel(pair.vi)}</span>`,
-    `<span data-lang="en" hidden>${escapeLabel(pair.en)}</span>`,
-  ].join("");
-  syncLocalizedNodes(currentLanguage());
+  node.setAttribute("data-text-vi", pair.vi);
+  node.setAttribute("data-text-en", pair.en);
+  node.textContent = pair[currentLanguage()] || pair.vi;
 }
 
 function syncLocalizedNodes(language) {
   document.querySelectorAll("[data-lang]").forEach((node) => {
     node.hidden = node.getAttribute("data-lang") !== language;
+  });
+
+  document.querySelectorAll("[data-html-vi], [data-html-en]").forEach((node) => {
+    const html = node.getAttribute(`data-html-${language}`);
+    if (html !== null) node.innerHTML = html;
   });
 
   document.querySelectorAll("[data-text-vi], [data-text-en]").forEach((node) => {
@@ -160,5 +167,51 @@ window.vetuonglaiSyncLanguage = () => {
   syncLocalizedNodes(language);
   syncLanguageControls(language);
 };
+
+window.vetuonglaiSetMemberState = (value) => {
+  const normalized = String(value || "unknown").trim() || "unknown";
+  memberStateHint = normalized;
+  document.documentElement.dataset[MEMBER_STATE_DATASET_KEY] = normalized;
+  return normalized;
+};
+
+window.vetuonglaiCurrentMemberState = () => {
+  const fromDataset = document.documentElement.dataset[MEMBER_STATE_DATASET_KEY];
+  return String(fromDataset || memberStateHint || "unknown");
+};
+
+window.vetuonglaiTrack = (event, payload = {}) => {
+  const language = currentLanguage();
+  const memberState = window.vetuonglaiCurrentMemberState();
+  const telemetryEvent = {
+    event: String(event || "unknown"),
+    payload: {
+      route: window.location.pathname,
+      screen: String(payload.screen || window.location.pathname),
+      language,
+      member_state: memberState,
+      ...payload,
+    },
+    path: window.location.pathname,
+    at: new Date().toISOString(),
+  };
+
+  try {
+    const current = JSON.parse(window.localStorage.getItem(TELEMETRY_STORAGE_KEY) || "[]");
+    current.push(telemetryEvent);
+    window.localStorage.setItem(TELEMETRY_STORAGE_KEY, JSON.stringify(current.slice(-250)));
+  } catch {
+    // Ignore telemetry storage failures; tracking is best-effort only.
+  }
+
+  return telemetryEvent;
+};
+
+if (window.location.pathname.startsWith("/app/") && window.__VTL_MOBILE_APP_OPEN_TRACKED !== true) {
+  window.__VTL_MOBILE_APP_OPEN_TRACKED = true;
+  window.vetuonglaiTrack("mobile_app_open", {
+    source: "shared_app_bootstrap",
+  });
+}
 
 setLanguage(initialLanguage, { updateUrl: !new URL(window.location.href).searchParams.has("lang") });
