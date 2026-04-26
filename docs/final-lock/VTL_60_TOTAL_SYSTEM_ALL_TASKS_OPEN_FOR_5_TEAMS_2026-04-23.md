@@ -24,6 +24,7 @@ Từ mốc này, toàn bộ nhiệm vụ còn lại của tổng kế hoạch đ
 - không có nghĩa là được deploy Wave D khi DNS chưa mở
 - không có nghĩa là được promote `life` / `invest` khi runtime truth còn `planned_public`
 - không có nghĩa là được tắt reminder 15 phút khi team chưa đạt `100% / 0%`
+- không có nghĩa là được dọn Cloudflare account cũ trước khi account mới đã pass cutover
 
 ## 1. Runtime truth hiện tại
 
@@ -51,6 +52,29 @@ Không được tự tăng phần trăm nếu chưa có verify hoặc evidence m
 
 ## 3. Blocker thật đang mở
 
+### Blocker B0 — Cloudflare account migration
+
+Từ `2026-04-26`, repo này phải dùng account đích:
+
+- `Anhhatam@gmail.com's Account`
+- `62d57eaa548617aeecac766e5a1cb98e`
+
+Trong repo, account ID đã được đổi ở config Pages/Workers. Tuy nhiên các bước sau vẫn là blocker ngoài repo cho tới khi có evidence:
+
+- auth thật vào account mới
+- inventory Pages/Workers của account mới
+- deploy verify pass trên account mới
+- dọn account cũ sau cutover
+
+Ảnh hưởng:
+
+- Team 1 chưa được coi account cutover là hoàn tất chỉ vì config đã đổi
+- Team 5 chưa được ký release trên account mới nếu chưa có deploy/verify evidence
+- Ops không được dọn account cũ trước khi có report pass
+- local auth + Pages inventory sync trên account mới đã có
+- Pages deploy proof trên account mới đã có cho toàn bộ lớp public shell
+- worker code mirror proof trên account mới đã có ở `worker.dev` cho 6 worker lõi
+- blocker còn lại của B0 là `secret migration + custom-domain runtime proof + worker route proof + final verify proof`
 ### Blocker B1 — Wave D DNS
 
 5 host chưa có public DNS:

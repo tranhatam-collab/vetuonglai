@@ -49,6 +49,20 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
 - total-system release gate hiện `baseline_ready=true`, `publish_ready=false`, blocker còn lại là Wave D DNS/public publish
 - payment Team D cho cụm `vc/invest/life.vetuonglai.com` đã khóa dual-rail assignment/policy nhưng production pay gate vẫn `LOCK_RETAINED_WITH_REASON`
 - tổng hệ cập nhật `73% / 27%`
+- từ `2026-04-26`, toàn bộ lane Cloudflare dev của repo này phải coi account đích là:
+  - `Anhhatam@gmail.com's Account`
+  - `62d57eaa548617aeecac766e5a1cb98e`
+- mọi deploy script đọc account ID mới trực tiếp từ:
+  - `cloudflare/pages-projects.json`
+  - `cloudflare/workers-projects.json`
+- local Wrangler auth đã nhìn thấy account mới và Pages inventory sync sang account mới đã pass
+- Pages deploy proof trên account mới đã có cho toàn bộ 12 project public shell
+- worker code mirror ở `script_only` đã có cho 6 worker lõi trên `*.anhhatam.workers.dev`
+- custom-domain runtime cutover, secret migration và worker/route cutover vẫn đang ở trạng thái follow-up, nên chưa được dọn account cũ
+- account cũ không được dọn cho tới khi account mới đã:
+  - nhận đủ Pages/Workers config
+  - deploy verify pass
+  - có evidence runtime đúng scope
 - trọng tâm active của tổng kế hoạch hiện tại là:
   - chốt signoff Wave C
   - khóa DNS/runtime publish cho Wave D
@@ -70,6 +84,8 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_61_TEAM4_ENDPOINT_PACK_PROGRESS_ACK_2026-04-23.md`
 - commit test and cross-team remaining work sync:
   - `docs/final-lock/VTL_62_COMMIT_TEST_AND_CROSS_TEAM_REMAINING_WORK_SYNC_2026-04-23.md`
+- Cloudflare account migration lock:
+  - `docs/final-lock/VTL_63_CLOUDFLARE_ACCOUNT_MIGRATION_LOCK_2026-04-26.md`
 - release/signoff pack mới nhất của Wave C:
   - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
   - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
