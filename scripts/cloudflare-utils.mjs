@@ -17,17 +17,20 @@ export function resolveAccountId(config) {
 }
 
 export async function resolveApiToken() {
+  const wranglerConfig = path.join(os.homedir(), ".wrangler", "config", "default.toml");
+  try {
+    const raw = await readFile(wranglerConfig, "utf8");
+    const match = raw.match(/^oauth_token = "(.*)"$/m);
+    if (match?.[1]) {
+      return match[1];
+    }
+  } catch {}
+
   if (process.env.CLOUDFLARE_API_TOKEN) {
     return process.env.CLOUDFLARE_API_TOKEN;
   }
 
-  const wranglerConfig = path.join(os.homedir(), ".wrangler", "config", "default.toml");
-  const raw = await readFile(wranglerConfig, "utf8");
-  const match = raw.match(/^oauth_token = "(.*)"$/m);
-  if (!match) {
-    throw new Error("Khong tim thay CLOUDFLARE_API_TOKEN va cung khong doc duoc oauth_token tu Wrangler.");
-  }
-  return match[1];
+  throw new Error("Khong tim thay oauth_token tu Wrangler va cung khong co CLOUDFLARE_API_TOKEN.");
 }
 
 export async function cloudflareApi(pathname, { method = "GET", body, accountId, token } = {}) {
