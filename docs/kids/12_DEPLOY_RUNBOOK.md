@@ -129,7 +129,18 @@ npx wrangler login
 
 Use the Cloudflare account that owns `62d57eaa548617aeecac766e5a1cb98e`.
 
-### 3.2 Deploy only the kids worker
+### 3.2 Gate + deploy in one command (recommended)
+
+```bash
+npm run cloudflare:deploy:kids
+```
+
+Chains `verify:kids:predeploy` (build → audit → smoke) and only runs
+the wrangler deploy if every gate exits 0. Designed so it is
+impossible to ship to Cloudflare without first re-running the local
+audit and the worker smoke harness.
+
+### 3.2b Deploy only (skips the gate, not recommended)
 
 ```bash
 node scripts/deploy-workers.mjs --worker=kids

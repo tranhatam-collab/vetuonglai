@@ -26,6 +26,7 @@
     "cloudflare:deploy:preview": "node scripts/deploy-pages.mjs --branch preview",
     "cloudflare:deploy:workers": "node scripts/deploy-workers.mjs",
     "cloudflare:deploy:workers:strict": "node scripts/deploy-workers.mjs --strict-secrets",
+    "cloudflare:deploy:kids": "npm run verify:kids:predeploy && node scripts/deploy-workers.mjs --worker=kids",
     "cloudflare:inspect:member": "node scripts/inspect-member-domain.mjs",
     "cloudflare:verify:runtime": "node scripts/verify-runtime.mjs",
     "cloudflare:promote:member": "node scripts/promote-member-required-public.mjs",
