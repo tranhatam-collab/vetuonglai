@@ -52,6 +52,7 @@ Affiliate must stay:
 - homepage annual access has its own pricing schedule and no default affiliate
 - specialist packs are the commercial depth layer
 - pack affiliate rules live only inside the specialist-pack system
+- checkout can run through PayPal or Stripe, but both still resolve at the homepage purchase hub
 
 ## Safe Sales Language
 

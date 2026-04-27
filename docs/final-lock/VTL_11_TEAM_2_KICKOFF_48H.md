@@ -46,6 +46,19 @@ Do not own:
 - pack preselect UX contract
 - teaser/demo/content-depth map
 
+## Delivery Status (Repo)
+
+Team 2 delivery has been materialized in:
+
+- `docs/final-lock/VTL_11_TEAM_2_OUTPUT_48H.md`
+- `docs/final-lock/VTL_11_TEAM_2_BLOCKERS_FOR_TEAM1_TEAM3.md`
+- `docs/final-lock/VTL_11_TEAM_2_REQUEST_CONTRACT_TEAM1_READY_TO_FILL.md`
+- `docs/final-lock/VTL_11_TEAM_2_REQUEST_CONTRACT_TEAM3_READY_TO_FILL.md`
+- `docs/final-lock/VTL_11_TEAM_2_WAITING_ON_EXTERNALS.md`
+- `scripts/build.mjs`
+- `scripts/check.mjs`
+- generated `dist/vetuonglai.com/api/team2-kickoff-output.json`
+
 ## Copy-Paste Prompt
 
 ```text

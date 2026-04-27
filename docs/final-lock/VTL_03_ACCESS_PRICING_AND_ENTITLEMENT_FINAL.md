@@ -90,27 +90,31 @@ This creates:
 
 ### Annual Access
 
-Preferred technical model:
+Supported technical models:
 
 - `PayPal Subscriptions API`
+- `Stripe Checkout Subscription`
 
 Reason:
 
 - the product is annual and recurring
 - the pricing changes over time by cycle
 - it should not be modeled as a lifetime one-time unlock anymore
+- homepage vẫn là billing center duy nhất, dù gateway là PayPal hay Stripe
 
 ### Specialist Packs
 
-Preferred technical model:
+Supported technical models:
 
 - `PayPal Orders API`
+- `Stripe Checkout Payment`
 
 Reason:
 
 - they are one-time purchases
 - they represent discrete specialist depth
 - they must remain separate from the annual access lifecycle
+- all pack checkout still routes through the homepage purchase hub
 
 ### Identity Rule
 
