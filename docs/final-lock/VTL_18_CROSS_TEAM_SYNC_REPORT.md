@@ -219,6 +219,39 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 1 Log
 
+### 2026-04-28 12:22 ICT — Team 1
+- status: release_ready
+- scope: rà đồng bộ check/prelive/smoke endpoints để loại bỏ drift assumption VC host và xác nhận gate Team 1 + Team 4 vẫn xanh
+- done:
+  - audit `scripts/check.mjs` theo lane Team 1/Team 4:
+    - xác nhận không còn hardcoded live VC endpoint trong logic release gate runtime
+    - required files/contract checks vẫn đúng với dist outputs hiện hành
+  - chạy lại gate liên quan sau pass chỉnh verifier trước đó:
+    - `npm run check` -> pass
+    - `npm run verify:team5:pack` -> pass
+    - `npm run cloudflare:smoke:endpoints` -> pass
+    - `npm run verify:prelive:full` -> `READY_FOR_LIVE`
+  - xác nhận Team 4 endpoint pack vẫn ổn định trong full pack:
+    - smoke `6/6` pass
+    - strict `9/9` pass
+- changed_files:
+  - `docs/final-lock/VTL_18_CROSS_TEAM_SYNC_REPORT.md`
+- evidence:
+  - `npm run verify:team5:pack`
+  - `npm run cloudflare:smoke:endpoints`
+  - `npm run verify:prelive:full`
+- handoff gửi tới:
+  - Founder
+  - Team 5
+  - QA
+  - PM
+- handoff cần từ:
+  - none trong scope Team 1 + Team 4 verify alignment
+- next:
+  - giữ Team 1 + Team 4 ở trạng thái freeze-runtime cho đến khi có thay đổi contract/runtime truth mới
+- blocked:
+  - none
+
 ### 2026-04-28 12:05 ICT — Team 1
 - status: release_ready
 - scope: sửa drift verifier theo runtime contract hiện tại để release-gate không fail giả ở VC host và CTA planned-safe wording
