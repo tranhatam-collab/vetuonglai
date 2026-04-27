@@ -156,7 +156,31 @@
           err.hidden = false;
           return;
         }
-        try { localStorage.setItem("kids.childProfile", JSON.stringify(payload)); } catch (_) {}
+        // Save to kids.children array (max 3)
+        var children = [];
+        try { children = JSON.parse(localStorage.getItem("kids.children") || "[]"); } catch(_){}
+        // Check if editing existing child (same display_name) or adding new
+        var existIdx = -1;
+        for (var i = 0; i < children.length; i++) {
+          if (children[i].display_name === payload.display_name) { existIdx = i; break; }
+        }
+        if (existIdx >= 0) {
+          children[existIdx] = payload;
+        } else if (children.length >= 3) {
+          var err2 = document.getElementById("formError");
+          var lang = (window.kids && window.kids.currentLang) ? window.kids.currentLang() : "vi";
+          err2.textContent = lang === "en" ? "Maximum 3 children per parent." : "Tối đa 3 hồ sơ trẻ cho mỗi phụ huynh.";
+          err2.hidden = false;
+          return;
+        } else {
+          children.push(payload);
+        }
+        try {
+          localStorage.setItem("kids.children", JSON.stringify(children));
+          // Keep single profile in sync (backwards compat for learn pages)
+          localStorage.setItem("kids.childProfile", JSON.stringify(payload));
+          localStorage.setItem("kids.activeChildIdx", String(existIdx >= 0 ? existIdx : children.length - 1));
+        } catch(_){}
         form.hidden = true;
         success.hidden = false;
       });

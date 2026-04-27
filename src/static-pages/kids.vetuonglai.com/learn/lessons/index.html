@@ -15,20 +15,21 @@
   <a class="kids-skip-link" href="#main">Tới nội dung</a>
   <div class="kids-safety-banner"><strong data-vi="Vùng học của trẻ" data-en="Child's learning zone">Vùng học của trẻ</strong></div>
   <header class="kids-header"><div class="container">
-    <a class="kids-brand" href="/"><span>Về Tương Lai</span><small>Trẻ em</small></a>
+    <a class="kids-brand" href="/"><span data-vi="Trẻ Em Về Tương Lai" data-en="Vetuonglai Kids">Trẻ Em Về Tương Lai</span></a>
     <nav class="kids-nav">
       <a href="/learn/dashboard/" data-vi="Trang học" data-en="Learn">Trang học</a>
       <a href="/learn/lessons/" aria-current="page" data-vi="Bài học" data-en="Lessons">Bài học</a>
-      <a href="/learn/ai-helper/" data-vi="Trợ lý học" data-en="Learning assistant">Trợ lý học</a>
+      <a href="/learn/ai-helper/" data-vi="Trợ lý AI" data-en="AI Helper">Trợ lý AI</a>
       <a href="/learn/achievements/" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
     </nav>
-    <div class="kids-lang"><a href="?lang=vi" data-lang="vi" hreflang="vi">Tiếng Việt</a> <span aria-hidden="true">·</span> <a href="?lang=en" data-lang="en" hreflang="en">English</a></div>
+    <div class="kids-lang"><a href="#" data-lang="vi">VI</a> <span aria-hidden="true">·</span> <a href="#" data-lang="en">EN</a></div>
   </div></header>
 
   <main id="main" class="kids-main">
     <div id="profileGate" class="section" hidden>
       <div class="container container-narrow surface stack-md">
         <h2 data-vi="Chưa có hồ sơ trẻ" data-en="No child profile">Chưa có hồ sơ trẻ</h2>
+        <p data-vi="Phụ huynh cần đồng ý và tạo hồ sơ trước." data-en="A parent must provide consent and create a profile first.">Phụ huynh cần đồng ý và tạo hồ sơ trước.</p>
         <a class="button button-primary" href="/parent/onboarding/consent/" data-vi="Phụ huynh đồng ý" data-en="Parent consent">Phụ huynh đồng ý</a>
       </div>
     </div>
@@ -40,101 +41,100 @@
             <li><a href="/learn/dashboard/" data-vi="Trang học" data-en="Learn">Trang học</a></li>
             <li><span data-vi="Bài học" data-en="Lessons">Bài học</span></li>
           </ol></nav>
-          <h1 id="stageTitle">…</h1>
-          <p id="stageObjectives" class="status-line">…</p>
+          <h1 data-vi="Tất cả bài học" data-en="All lessons">Tất cả bài học</h1>
+          <p class="lede" data-vi="Chọn bài học phù hợp với lứa tuổi. Mỗi bài có nội dung, bài tập và kiểm tra." data-en="Pick a lesson for your age group. Each has content, practice and quizzes.">Chọn bài học phù hợp với lứa tuổi. Mỗi bài có nội dung, bài tập và kiểm tra.</p>
         </div>
       </section>
 
       <section class="section">
-        <div class="container container-narrow">
-          <div class="section-heading">
-            <p class="eyebrow" data-vi="Bài hiện tại" data-en="Current lesson">Bài hiện tại</p>
-            <h2 id="currentLessonTitle">…</h2>
+        <div class="container">
+          <div id="modulesContainer" class="stack-lg">
+            <p class="status-line" data-vi="Đang tải bài học…" data-en="Loading lessons…">Đang tải bài học…</p>
           </div>
-          <article class="surface stack-md">
-            <h3 data-vi="Mình sẽ làm gì hôm nay?" data-en="What we'll do today">Mình sẽ làm gì hôm nay?</h3>
-            <ul id="todayItems" class="feature-list"></ul>
-          </article>
-
-          <article class="surface stack-md" style="margin-top:18px;">
-            <p class="eyebrow" data-vi="Bài tập" data-en="Practice">Bài tập</p>
-            <h3 data-vi="Tự làm trước — sau đó nhờ trợ lý học gợi ý nếu cần" data-en="Try yourself first — ask AI for hints if you need">Tự làm trước — sau đó nhờ trợ lý học gợi ý nếu cần</h3>
-            <p id="practicePrompt" class="status-line">…</p>
-            <textarea id="practiceText" rows="6" maxlength="2000"
-              data-vi-placeholder="Viết câu trả lời của em ở đây…"
-              data-en-placeholder="Write your answer here…"></textarea>
-            <div class="form-actions">
-              <button type="button" id="savePracticeBtn" class="button button-primary" data-vi="Lưu bài làm" data-en="Save my work">Lưu bài làm</button>
-              <a class="button" href="/learn/ai-helper/" data-vi="Hỏi trợ lý học gợi ý" data-en="Ask the assistant for hints">Hỏi trợ lý học gợi ý</a>
-            </div>
-            <p id="savedNotice" class="status-line" hidden></p>
-          </article>
-
-          <article class="surface stack-md" style="margin-top:18px;">
-            <p class="eyebrow" data-vi="Đầu ra giai đoạn" data-en="Stage outputs">Đầu ra giai đoạn</p>
-            <h3 data-vi="Khi xong giai đoạn này, trẻ sẽ có" data-en="When this stage is done, the child will have">Khi xong giai đoạn này, trẻ sẽ có</h3>
-            <ul id="stageOutputs" class="feature-list"></ul>
-          </article>
         </div>
       </section>
     </div>
   </main>
 
-  <footer class="kids-footer"><div class="container"><a href="https://vetuonglai.com" data-vi="Quay về hệ chính" data-en="Back to main ecosystem">Quay về hệ chính</a></div></footer>
-  <script src="/assets/kids.js" defer></script>
+  <footer class="kids-footer"><div class="container">
+    <span data-vi="Trẻ Em Về Tương Lai — Học đúng cách" data-en="Vetuonglai Kids — Learn the right way">Trẻ Em Về Tương Lai — Học đúng cách</span>
+    <a href="https://vetuonglai.com/" data-vi="Hệ sinh thái" data-en="Ecosystem">Hệ sinh thái</a>
+  </div></footer>
+
+  <script src="/assets/kids.js"></script>
   <script>
-    (function () {
-      var profileGate = document.getElementById("profileGate");
-      var lessonsRoot = document.getElementById("lessonsRoot");
-      var profile = null;
-      try { profile = JSON.parse(localStorage.getItem("kids.childProfile") || "null"); } catch (_) {}
-      if (!profile || !profile.display_name) { profileGate.hidden = false; return; }
-      lessonsRoot.hidden = false;
+  (function () {
+    var profileGate = document.getElementById("profileGate");
+    var lessonsRoot = document.getElementById("lessonsRoot");
+    var profile = null;
+    try { profile = JSON.parse(localStorage.getItem("kids.childProfile") || "null"); } catch (_) {}
+    if (!profile || !profile.display_name) { profileGate.hidden = false; return; }
+    lessonsRoot.hidden = false;
 
-      (async function () {
-        var data = await window.kids.loadCurriculum();
-        if (!data) return;
-        var stage = (data.stages || []).find(function (s) { return s.ageRange === profile.age_group; }) || data.stages[0];
-        document.getElementById("stageTitle").textContent = stage.ageRange + " · " + stage.labelVi;
-        document.getElementById("stageObjectives").textContent = (stage.objectives || []).join(" · ");
-        document.getElementById("currentLessonTitle").textContent = (stage.projects || [])[0] || "—";
-        var today = document.getElementById("todayItems");
-        today.innerHTML = "";
-        (stage.tracks || []).forEach(function (t) {
-          (t.items || []).forEach(function (it) {
-            var li = document.createElement("li");
-            li.textContent = (t.labelVi || t.key) + " — " + it;
-            today.appendChild(li);
+    var lang = kids.currentLang();
+    var tKey = lang === "en" ? "title_en" : "title_vi";
+
+    fetch("/api/lessons.json", { credentials: "omit" })
+      .then(function(r) { return r.ok ? r.json() : null; })
+      .then(function(data) {
+        if (!data || !data.modules) return;
+        var container = document.getElementById("modulesContainer");
+        var stageLabels = { "explore": "6-8", "create": "9-12", "digital-skills": "13-15", "real-projects": "16-17" };
+
+        // Filter to child's age group if possible, otherwise show all
+        var childStage = profile.age_group || null;
+        var html = "";
+
+        data.modules.forEach(function(mod) {
+          var ageLabel = stageLabels[mod.stage_key] || mod.stage_key;
+          var isMyStage = !childStage || ageLabel === childStage;
+          var mTitle = lang === "en" ? mod.title_en : mod.title_vi;
+
+          html += '<div class="surface stack-md' + (isMyStage ? ' surface-highlight' : '') + '">';
+          html += '<div class="lesson-row"><div>';
+          html += '<p class="eyebrow">' + esc(ageLabel) + (isMyStage ? (lang === "en" ? " · Your stage" : " · Giai đoạn của con") : "") + '</p>';
+          html += '<h2>' + esc(mTitle) + '</h2>';
+          html += '</div></div>';
+          html += '<div class="stack-sm">';
+
+          mod.lessons.forEach(function(les) {
+            var lTitle = lang === "en" ? les.title_en : les.title_vi;
+            var tags = [];
+            if (les.has_practice) tags.push(lang === "en" ? "Practice" : "Bài tập");
+            if (les.has_quiz) tags.push(lang === "en" ? "Quiz" : "Kiểm tra");
+
+            // Check if completed
+            var savedPractice = localStorage.getItem("kids.practice." + (les.practices && les.practices[0] ? les.practices[0].id : ""));
+            var savedQuiz = localStorage.getItem("kids.quiz." + les.slug);
+            var statusTag = "";
+            if (savedPractice || savedQuiz) {
+              statusTag = '<span class="tag" style="background:var(--kids-success);color:#fff;border-color:var(--kids-success)">' + (lang === "en" ? "Started" : "Đã bắt đầu") + '</span>';
+            }
+
+            html += '<a href="/learn/lessons/' + encodeURIComponent(les.slug) + '/" class="surface stack-sm" style="display:block;text-decoration:none;color:inherit">';
+            html += '<div class="lesson-row">';
+            html += '<span class="lesson-name">' + esc(lTitle) + '</span>';
+            html += '<span class="status-line">' + les.duration_min + (lang === "en" ? " min" : " phút") + '</span>';
+            html += '</div>';
+            html += '<div class="tag-row">';
+            tags.forEach(function(t) { html += '<span class="tag">' + esc(t) + '</span>'; });
+            html += statusTag;
+            html += '</div>';
+            html += '</a>';
           });
-        });
-        document.getElementById("practicePrompt").textContent =
-          (profile.locale === "en" ? "Try the first project: " : "Thử dự án đầu tiên: ") +
-          ((stage.projects || [])[0] || "");
-        var outs = document.getElementById("stageOutputs");
-        outs.innerHTML = "";
-        (stage.outputs || []).forEach(function (o) {
-          var li = document.createElement("li");
-          li.textContent = o;
-          outs.appendChild(li);
-        });
-      })();
 
-      var saveBtn = document.getElementById("savePracticeBtn");
-      var savedNotice = document.getElementById("savedNotice");
-      saveBtn.addEventListener("click", function () {
-        var text = (document.getElementById("practiceText").value || "").trim();
-        if (!text) return;
-        var key = "kids.practice." + (profile.age_group || "0");
-        var arr = [];
-        try { arr = JSON.parse(localStorage.getItem(key) || "[]"); } catch (_) {}
-        arr.push({ at: new Date().toISOString(), content: text });
-        try { localStorage.setItem(key, JSON.stringify(arr)); } catch (_) {}
-        savedNotice.textContent = (window.kids.currentLang() === "en")
-          ? "Saved on this device. Visible to parent in the Parent page."
-          : "Đã lưu trên thiết bị này. Phụ huynh xem được ở trang Phụ huynh.";
-        savedNotice.hidden = false;
+          html += '</div></div>';
+        });
+
+        container.innerHTML = html;
+      })
+      .catch(function() {
+        document.getElementById("modulesContainer").innerHTML =
+          '<p class="error-banner">' + (lang === "en" ? "Could not load lessons." : "Không thể tải bài học.") + '</p>';
       });
-    })();
+
+    function esc(s) { return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  })();
   </script>
 </body>
 </html>

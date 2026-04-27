@@ -63,6 +63,9 @@
           </div>
           <div id="badgeGrid" class="badge-grid"></div>
           <p id="emptyBadges" class="status-line" hidden data-vi="Chưa có mốc nào — sẽ xuất hiện khi trẻ làm xong sản phẩm đầu tiên." data-en="No milestone yet — will appear when the child completes their first output.">Chưa có mốc nào — sẽ xuất hiện khi trẻ làm xong sản phẩm đầu tiên.</p>
+          <div style="margin-top:18px">
+            <a class="button" href="/learn/achievements/certificates/" data-vi="Xem chứng nhận" data-en="View certificates">Xem chứng nhận</a>
+          </div>
         </div>
       </section>
 
@@ -111,6 +114,15 @@
       if (arr.length >= 1) badges.push({ icon: "✏️", name_vi: "Bắt đầu viết", name_en: "Started writing" });
       if (arr.length >= 3) badges.push({ icon: "🎯", name_vi: "Kiên trì 3 lần", name_en: "Persistent x3" });
       if (arr.length >= 5) badges.push({ icon: "🌱", name_vi: "Mầm sản phẩm", name_en: "Output sprout" });
+
+      // Quiz badges
+      var quizResults = [];
+      try { quizResults = JSON.parse(localStorage.getItem("kids.quizResults") || "[]"); } catch(_){}
+      var passCount = quizResults.filter(function(q){ return q.score >= 70; }).length;
+      if (passCount >= 1) badges.push({ icon: "📝", name_vi: "Qua kiểm tra đầu tiên", name_en: "First quiz passed" });
+      if (passCount >= 3) badges.push({ icon: "⭐", name_vi: "3 bài kiểm tra", name_en: "3 quizzes passed" });
+      var advCount = quizResults.filter(function(q){ return q.bucket === "advanced"; }).length;
+      if (advCount >= 1) badges.push({ icon: "🏆", name_vi: "Xuất sắc", name_en: "Excellence" });
       if (badges.length === 0) {
         emptyBadges.hidden = false;
       } else {

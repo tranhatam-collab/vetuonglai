@@ -769,6 +769,54 @@ async function testRouteNormalizationAndPolicyBindings() {
   assert(bindings.policyToRuntimeEventMap.some((entry) => entry.policyEventKey === "annual_access_confirmed" && entry.runtimeEventKey === "annual.subscription.activated"));
 }
 
+async function testWaveDEntryNormalization() {
+  // Test all Wave D entries are recognized (not fallback to hub)
+  const waveDEntries = ["work", "market", "community", "ai", "business"];
+
+  for (const entryName of waveDEntries) {
+    const response = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/route/normalize", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        entry: entryName,
+        intent: "specialist-pack",
+        pack: "g1",
+      }),
+    }), {});
+    assert(response, `Route normalize failed for entry: ${entryName}`);
+    assert.equal(response.status, 200, `Expected 200 for entry: ${entryName}`);
+    const data = await readJson(response);
+    assert.equal(data.normalized.entry, entryName, `Entry ${entryName} should not fallback to hub`);
+    assert.equal(data.normalized.intent, "specialist-pack");
+    assert.equal(data.normalized.pack, "g1");
+  }
+
+  // Test Wave D intent aliases
+  const aliasTests = [
+    { entry: "community", intent: "community-depth", expectedIntent: "specialist-pack" },
+    { entry: "ai", intent: "ai-depth", expectedIntent: "specialist-pack" },
+    { entry: "business", intent: "business-depth", expectedIntent: "specialist-pack" },
+    { entry: "business", intent: "business-intake", expectedIntent: "specialist-pack" },
+  ];
+
+  for (const test of aliasTests) {
+    const response = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/route/normalize", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        entry: test.entry,
+        intent: test.intent,
+        pack: "g1",
+      }),
+    }), {});
+    assert(response, `Alias test failed for ${test.intent}`);
+    assert.equal(response.status, 200);
+    const data = await readJson(response);
+    assert.equal(data.normalized.intent, test.expectedIntent, `Alias ${test.intent} should resolve to ${test.expectedIntent}`);
+    assert.equal(data.normalized.aliasApplied, test.intent, `aliasApplied should be ${test.intent}`);
+  }
+}
+
 async function main() {
   await testSessionFlow();
   await testFreeAccountFromHomepage();
@@ -780,6 +828,7 @@ async function main() {
   await testProviderStatus();
   await testKvPersistenceMode();
   await testRouteNormalizationAndPolicyBindings();
+  await testWaveDEntryNormalization();
   console.log("smoke-access-runtime: ok");
 }
 

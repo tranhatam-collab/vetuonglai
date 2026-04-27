@@ -62,6 +62,31 @@ npm run preview:invest
 - Current live traffic for `vetuonglai.com`, `vc.vetuonglai.com`, `edu.vetuonglai.com`, `green.vetuonglai.com`, and `finance.vetuonglai.com` is still fronted by Worker routes, so `npm run cloudflare:deploy:workers` is the decisive live-update step.
 - GitHub Actions workflow lives at `.github/workflows/deploy-pages.yml` and expects `CLOUDFLARE_API_TOKEN`.
 
+## Team 1 Ops Runbook
+
+For Wave D DNS rollout and account-migration runtime checks, use the npm wrappers below (instead of calling scripts directly):
+
+```bash
+# Wave D DNS setup
+npm run ops:wave-d:dns:dry-run
+npm run ops:wave-d:dns
+
+# Zone + runtime readiness check
+npm run ops:zone:verify
+npm run ops:zone:verify:verbose
+
+# Worker secret injection
+npm run ops:secrets:inject:dry-run
+npm run ops:secrets:inject
+```
+
+Recommended order:
+
+1. Run `ops:zone:verify:verbose` to confirm current zone status and blockers.
+2. Run `ops:secrets:inject` to fill missing required worker secrets.
+3. Run `ops:wave-d:dns` when ready to open Wave D DNS records.
+4. Re-run `ops:zone:verify` to confirm readiness before live Wave D publish.
+
 ## Deploy Mapping
 
 - `dist/vetuonglai.com` -> `vetuonglai.com` and `www.vetuonglai.com`

@@ -33,6 +33,14 @@ function createMemoryStore() {
     async delete(prefix, key) {
       memoryState.kv.delete(withPrefix(prefix, key));
     },
+    async countByPrefix(prefix) {
+      let count = 0;
+      const pfx = `${prefix}:`;
+      for (const [key, record] of memoryState.kv) {
+        if (key.startsWith(pfx) && !isExpired(record)) count++;
+      }
+      return count;
+    },
   };
 }
 
@@ -51,6 +59,14 @@ function createKvStore(namespace) {
     },
     async delete(prefix, key) {
       await namespace.delete(withPrefix(prefix, key));
+    },
+    async countByPrefix(prefix) {
+      try {
+        const result = await namespace.list({ prefix: `${prefix}:` });
+        return result?.keys?.length || 0;
+      } catch {
+        return 0;
+      }
     },
   };
 }

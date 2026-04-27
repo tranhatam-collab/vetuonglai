@@ -9417,6 +9417,123 @@ async function copyStaticTreeForDomain(domain) {
   }
 }
 
+function renderKidsLessonPage(mod, lesson, domain) {
+  const lang = "vi";
+  const practicesHtml = (lesson.practices || []).map((p, i) => `
+    <div class="surface stack-sm" style="margin-bottom:14px">
+      <p class="eyebrow" data-vi="Bài tập ${i + 1}" data-en="Practice ${i + 1}">Bài tập ${i + 1}</p>
+      <p data-vi="${escBuildHtml(p.instruction_vi)}" data-en="${escBuildHtml(p.instruction_en)}">${escBuildHtml(p.instruction_vi)}</p>
+      <textarea class="kids-practice-input" rows="4" data-practice-id="${escBuildHtml(p.id)}" data-vi-placeholder="Viết câu trả lời ở đây…" data-en-placeholder="Write your answer here…" placeholder="Viết câu trả lời ở đây…"></textarea>
+      <button class="button button-primary kids-practice-save" data-practice-id="${escBuildHtml(p.id)}" data-vi="Lưu bài tập" data-en="Save practice">Lưu bài tập</button>
+    </div>`).join("");
+
+  const quizLink = (lesson.has_quiz && lesson.quizzes && lesson.quizzes.length)
+    ? `<a class="button" href="/learn/quiz/?lesson=${encodeURIComponent(lesson.slug)}" data-vi="Làm bài kiểm tra" data-en="Take quiz">Làm bài kiểm tra</a>`
+    : "";
+
+  return `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>${escBuildHtml(lesson.title_vi)} — Trẻ Em Về Tương Lai</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <link rel="icon" href="/assets/icon.svg"/>
+  <link rel="stylesheet" href="/assets/kids.css"/>
+</head>
+<body data-page-key="kids-lesson-${escBuildHtml(lesson.slug)}">
+  <a class="kids-skip-link" href="#main">Tới nội dung</a>
+  <div class="kids-safety-banner" role="status"><strong data-vi="Vùng riêng cho trẻ em và phụ huynh" data-en="Dedicated zone for children and parents">Vùng riêng cho trẻ em và phụ huynh</strong></div>
+  <header class="kids-header"><div class="container"><a class="kids-brand" href="/"><span data-vi="Trẻ Em Về Tương Lai" data-en="Vetuonglai Kids">Trẻ Em Về Tương Lai</span></a>
+    <nav class="kids-nav" aria-label="Kids primary">
+      <a href="/learn/dashboard/" data-vi="Học" data-en="Learn">Học</a>
+      <a href="/learn/lessons/" data-vi="Bài học" data-en="Lessons" aria-current="page">Bài học</a>
+      <a href="/learn/ai-helper/" data-vi="Trợ lý AI" data-en="AI Helper">Trợ lý AI</a>
+      <a href="/learn/achievements/" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
+    </nav>
+    <div class="kids-lang"><a href="#" data-lang="vi">VI</a> <a href="#" data-lang="en">EN</a></div>
+  </div></header>
+
+  <main id="main" class="kids-main">
+    <div class="section"><div class="container container-narrow">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol>
+        <li><a href="/learn/dashboard/" data-vi="Học" data-en="Learn">Học</a></li>
+        <li><a href="/learn/lessons/" data-vi="Bài học" data-en="Lessons">Bài học</a></li>
+        <li aria-current="page" data-vi="${escBuildHtml(lesson.title_vi)}" data-en="${escBuildHtml(lesson.title_en)}">${escBuildHtml(lesson.title_vi)}</li>
+      </ol></nav>
+
+      <div class="preview-banner"><strong data-vi="Member Preview" data-en="Member Preview">Member Preview</strong> — <span data-vi="Nội dung đang trong giai đoạn xem trước." data-en="Content is in preview stage.">Nội dung đang trong giai đoạn xem trước.</span></div>
+
+      <p class="eyebrow" data-vi="${escBuildHtml(mod.title_vi)}" data-en="${escBuildHtml(mod.title_en)}">${escBuildHtml(mod.title_vi)}</p>
+      <h1 data-vi="${escBuildHtml(lesson.title_vi)}" data-en="${escBuildHtml(lesson.title_en)}">${escBuildHtml(lesson.title_vi)}</h1>
+      <p class="status-line"><span data-vi="${lesson.duration_min} phút" data-en="${lesson.duration_min} min">${lesson.duration_min} phút</span></p>
+
+      <article class="lesson-prose stack-md" data-vi-html="${escBuildHtml(mdToHtml(lesson.content_vi))}" data-en-html="${escBuildHtml(mdToHtml(lesson.content_en))}">
+        ${mdToHtml(lesson.content_vi)}
+      </article>
+
+      ${practicesHtml ? `<section class="section"><h2 data-vi="Bài tập" data-en="Practice">Bài tập</h2>${practicesHtml}</section>` : ""}
+
+      <div class="cta-row">
+        ${quizLink}
+        <a class="button" href="/learn/lessons/" data-vi="Quay lại danh sách" data-en="Back to lessons">Quay lại danh sách</a>
+      </div>
+    </div></div>
+  </main>
+
+  <footer class="kids-footer"><div class="container">
+    <span data-vi="Trẻ Em Về Tương Lai — Học đúng cách" data-en="Vetuonglai Kids — Learn the right way">Trẻ Em Về Tương Lai — Học đúng cách</span>
+    <a href="https://vetuonglai.com/" data-vi="Hệ sinh thái" data-en="Ecosystem">Hệ sinh thái</a>
+  </div></footer>
+
+  <script src="/assets/kids.js"></script>
+  <script>
+  (function(){
+    document.querySelectorAll(".kids-practice-save").forEach(function(btn){
+      btn.addEventListener("click",function(){
+        var pid=btn.dataset.practiceId;
+        var ta=document.querySelector('textarea[data-practice-id="'+pid+'"]');
+        if(!ta||!ta.value.trim())return;
+        var key="kids.practice."+pid;
+        var arr=JSON.parse(localStorage.getItem("kids.practices")||"[]");
+        arr.push({id:pid,text:ta.value.trim(),at:new Date().toISOString()});
+        localStorage.setItem("kids.practices",JSON.stringify(arr));
+        localStorage.setItem(key,ta.value.trim());
+        btn.textContent=btn.dataset[document.documentElement.lang]==="en"?"Saved!":"Đã lưu!";
+        btn.disabled=true;
+      });
+    });
+  })();
+  </script>
+</body>
+</html>`;
+}
+
+function mdToHtml(md) {
+  if (!md) return "";
+  return String(md)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/`([^`]+)`/g, "<code>$1</code>")
+    .replace(/^### (.+)$/gm, "<h3>$1</h3>")
+    .replace(/^## (.+)$/gm, "<h2>$1</h2>")
+    .replace(/^# (.+)$/gm, "<h1>$1</h1>")
+    .replace(/^- (.+)$/gm, "<li>$1</li>")
+    .replace(/(<li>.*<\/li>\n?)+/g, (m) => "<ul>" + m + "</ul>")
+    .replace(/^(\d+)\. (.+)$/gm, "<li>$2</li>")
+    .replace(/\n{2,}/g, "</p><p>")
+    .replace(/^(?!<)/, "<p>")
+    .replace(/(?!>)$/, "</p>")
+    .replace(/<p><(h[1-3]|ul|ol|li)/g, "<$1")
+    .replace(/<\/(h[1-3]|ul|ol|li)><\/p>/g, "</$1>");
+}
+
+function escBuildHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+}
+
 async function renderKidsDomain() {
   const domain = domains.kids;
   await copyStaticTreeForDomain(domain);
@@ -9464,6 +9581,17 @@ async function renderKidsDomain() {
   }));
   await writeSiteFile(domain, "api/curriculum.json", renderStaticJson(kidsCurriculum));
   await writeSiteFile(domain, "api/contract.json", renderStaticJson(kidsApiContract));
+  await writeSiteFile(domain, "api/lessons.json", renderStaticJson(kidsLessons));
+
+  // Generate per-lesson static pages from kids-lessons.json
+  for (const mod of kidsLessons.modules || []) {
+    for (const lesson of mod.lessons || []) {
+      const slug = lesson.slug;
+      if (!slug) continue;
+      const lessonPage = renderKidsLessonPage(mod, lesson, domain);
+      await writeSiteFile(domain, `learn/lessons/${slug}/index.html`, lessonPage);
+    }
+  }
 
   const stubEndpointPaths = [];
   for (const endpoint of kidsApiContract.endpoints || []) {
@@ -9502,13 +9630,17 @@ async function renderKidsDomain() {
       "/parent/support/sessions/",
       "/learn/dashboard/",
       "/learn/lessons/",
+      "/learn/quiz/",
       "/learn/ai-helper/",
       "/learn/achievements/",
+      "/learn/achievements/certificates/",
+      ...(kidsLessons.modules || []).flatMap(m => (m.lessons || []).map(l => `/learn/lessons/${l.slug}/`)),
     ],
     endpoints: [
       "/api/health",
       "/api/curriculum.json",
       "/api/contract.json",
+      "/api/lessons.json",
       "/api/registry.json",
       ...stubEndpointPaths,
     ],

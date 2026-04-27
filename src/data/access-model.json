@@ -667,7 +667,11 @@
       "life-depth": "specialist-pack",
       "invest-depth": "specialist-pack",
       "member-depth": "specialist-pack",
-      "journey": "specialist-pack"
+      "journey": "specialist-pack",
+      "community-depth": "specialist-pack",
+      "ai-depth": "specialist-pack",
+      "business-depth": "specialist-pack",
+      "business-intake": "specialist-pack"
     },
     "gatewayAliases": {
       "payos": "pay",
@@ -700,7 +704,10 @@
           "invest",
           "member",
           "work",
-          "market"
+          "market",
+          "community",
+          "ai",
+          "business"
         ]
       },
       {

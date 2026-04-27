@@ -45,8 +45,8 @@
             </div>
             <div class="child-selector-wrap">
               <span class="status-line" data-vi="Trẻ đang xem:" data-en="Viewing:">Trẻ đang xem:</span>
-              <strong id="childLabel">—</strong>
-              <a class="button" href="/parent/onboarding/child-profile/" data-vi="Sửa hồ sơ" data-en="Edit profile">Sửa hồ sơ</a>
+              <select id="childSelector" class="select-input"></select>
+              <a class="button" href="/parent/onboarding/child-profile/" data-vi="Thêm / sửa hồ sơ" data-en="Add / edit profile">Thêm / sửa hồ sơ</a>
             </div>
           </div>
           <div class="preview-banner"><strong data-vi="Member Preview" data-en="Member Preview">Member Preview</strong>
@@ -162,14 +162,41 @@
     (function () {
       var noProfile = document.getElementById("noProfileGate");
       var dashMain = document.getElementById("dashMain");
-      var profile = null;
-      try { profile = JSON.parse(localStorage.getItem("kids.childProfile") || "null"); } catch (_) {}
-      if (!profile || !profile.display_name) {
-        noProfile.hidden = false;
-        return;
+
+      // Support multiple children: kids.children = [{...}, {...}]
+      var children = [];
+      try { children = JSON.parse(localStorage.getItem("kids.children") || "[]"); } catch(_){}
+      // Backwards compat: if no kids.children, read single profile
+      if (!children.length) {
+        var single = null;
+        try { single = JSON.parse(localStorage.getItem("kids.childProfile") || "null"); } catch(_){}
+        if (single && single.display_name) children = [single];
       }
+      if (!children.length) { noProfile.hidden = false; return; }
       dashMain.hidden = false;
-      document.getElementById("childLabel").textContent = profile.display_name + " · " + profile.age_group;
+
+      // Build child selector
+      var selector = document.getElementById("childSelector");
+      var activeIdx = 0;
+      try { activeIdx = parseInt(localStorage.getItem("kids.activeChildIdx") || "0") || 0; } catch(_){}
+      if (activeIdx >= children.length) activeIdx = 0;
+
+      children.forEach(function(c, i) {
+        var opt = document.createElement("option");
+        opt.value = i;
+        opt.textContent = c.display_name + " · " + c.age_group;
+        if (i === activeIdx) opt.selected = true;
+        selector.appendChild(opt);
+      });
+
+      selector.addEventListener("change", function() {
+        localStorage.setItem("kids.activeChildIdx", selector.value);
+        window.location.reload();
+      });
+
+      var profile = children[activeIdx];
+      // Also keep kids.childProfile in sync for learn pages
+      localStorage.setItem("kids.childProfile", JSON.stringify(profile));
 
       function attachSubmitNotice(formId, msgId, viMsg, enMsg) {
         var f = document.getElementById(formId);

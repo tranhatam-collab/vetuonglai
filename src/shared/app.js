@@ -243,6 +243,10 @@ const CTA_INTENT_ALIASES = {
   "invest-depth": "specialist-pack",
   "member-depth": "specialist-pack",
   "journey": "specialist-pack",
+  "community-depth": "specialist-pack",
+  "ai-depth": "specialist-pack",
+  "business-depth": "specialist-pack",
+  "business-intake": "specialist-pack",
 };
 
 const CTA_VALID_PACKS = ["g1", "g2", "g3", "g4", "g5", "g6", "g7", "g8", "g9"];

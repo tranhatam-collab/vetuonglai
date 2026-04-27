@@ -60,7 +60,10 @@
     const target = document.querySelector(targetSel);
     if (!target) return;
     const data = await loadCurriculum();
-    if (!data || !Array.isArray(data.stages)) return;
+    if (!data || !Array.isArray(data.stages)) {
+      target.innerHTML = '<p class="error-banner" data-vi="Không thể tải chương trình học." data-en="Could not load curriculum.">Không thể tải chương trình học.</p>';
+      return;
+    }
     const lang = currentLang();
     const labelKey = lang === "en" ? "labelEn" : "labelVi";
     target.innerHTML = data.stages.map((s, i) => {

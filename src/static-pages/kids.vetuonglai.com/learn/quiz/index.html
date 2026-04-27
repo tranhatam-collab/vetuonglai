@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Bài kiểm tra — Trẻ Em Về Tương Lai</title>
+  <meta name="robots" content="noindex,nofollow"/>
+  <link rel="icon" href="/assets/icon.svg"/>
+  <link rel="stylesheet" href="/assets/kids.css"/>
+</head>
+<body data-page-key="kids-quiz">
+  <a class="kids-skip-link" href="#main">Tới nội dung</a>
+  <div class="kids-safety-banner" role="status"><strong data-vi="Vùng riêng cho trẻ em và phụ huynh" data-en="Dedicated zone for children and parents">Vùng riêng cho trẻ em và phụ huynh</strong></div>
+  <header class="kids-header"><div class="container"><a class="kids-brand" href="/"><span data-vi="Trẻ Em Về Tương Lai" data-en="Vetuonglai Kids">Trẻ Em Về Tương Lai</span></a>
+    <nav class="kids-nav" aria-label="Kids primary">
+      <a href="/learn/dashboard/" data-vi="Học" data-en="Learn">Học</a>
+      <a href="/learn/lessons/" data-vi="Bài học" data-en="Lessons">Bài học</a>
+      <a href="/learn/ai-helper/" data-vi="Trợ lý AI" data-en="AI Helper">Trợ lý AI</a>
+      <a href="/learn/achievements/" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
+    </nav>
+    <div class="kids-lang"><a href="#" data-lang="vi">VI</a> <a href="#" data-lang="en">EN</a></div>
+  </div></header>
+
+  <main id="main" class="kids-main">
+    <div class="section"><div class="container container-narrow">
+      <nav class="breadcrumb" aria-label="Breadcrumb"><ol>
+        <li><a href="/learn/dashboard/" data-vi="Học" data-en="Learn">Học</a></li>
+        <li><a href="/learn/lessons/" data-vi="Bài học" data-en="Lessons">Bài học</a></li>
+        <li aria-current="page" data-vi="Bài kiểm tra" data-en="Quiz">Bài kiểm tra</li>
+      </ol></nav>
+
+      <div class="preview-banner"><strong data-vi="Member Preview" data-en="Member Preview">Member Preview</strong> — <span data-vi="Chấm điểm ở chế độ local." data-en="Scoring runs locally.">Chấm điểm ở chế độ local.</span></div>
+
+      <h1 data-vi="Bài kiểm tra" data-en="Quiz">Bài kiểm tra</h1>
+      <p id="quizLessonTitle" class="lede"></p>
+
+      <div id="quizContainer" class="stack-lg" hidden>
+        <!-- quiz questions rendered here by JS -->
+      </div>
+
+      <div id="quizEmpty" class="surface" hidden>
+        <p data-vi="Không tìm thấy bài kiểm tra cho bài học này." data-en="No quiz found for this lesson.">Không tìm thấy bài kiểm tra cho bài học này.</p>
+        <a class="button" href="/learn/lessons/" data-vi="Quay lại bài học" data-en="Back to lessons">Quay lại bài học</a>
+      </div>
+
+      <div id="quizResult" class="surface" hidden>
+        <h2 data-vi="Kết quả" data-en="Result">Kết quả</h2>
+        <p class="metric-value" id="quizScore"></p>
+        <p id="quizFeedback" class="lede"></p>
+        <div class="cta-row">
+          <button class="button" id="quizRetry" data-vi="Làm lại" data-en="Retry">Làm lại</button>
+          <a class="button" href="/learn/lessons/" data-vi="Quay lại bài học" data-en="Back to lessons">Quay lại bài học</a>
+        </div>
+      </div>
+
+      <div class="cta-row" id="quizActions" hidden>
+        <button class="button button-primary" id="quizSubmit" data-vi="Nộp bài" data-en="Submit">Nộp bài</button>
+      </div>
+    </div></div>
+  </main>
+
+  <footer class="kids-footer"><div class="container">
+    <span data-vi="Trẻ Em Về Tương Lai — Học đúng cách" data-en="Vetuonglai Kids — Learn the right way">Trẻ Em Về Tương Lai — Học đúng cách</span>
+    <a href="https://vetuonglai.com/" data-vi="Hệ sinh thái" data-en="Ecosystem">Hệ sinh thái</a>
+  </div></footer>
+
+  <script src="/assets/kids.js"></script>
+  <script>
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var lessonSlug = params.get("lesson");
+    if (!lessonSlug) { document.getElementById("quizEmpty").hidden = false; return; }
+
+    fetch("/api/lessons.json", { credentials: "omit" })
+      .then(function(r){ return r.ok ? r.json() : null; })
+      .then(function(data){
+        if (!data || !data.modules) { document.getElementById("quizEmpty").hidden = false; return; }
+        var lesson = null, mod = null;
+        for (var m = 0; m < data.modules.length; m++) {
+          for (var l = 0; l < data.modules[m].lessons.length; l++) {
+            if (data.modules[m].lessons[l].slug === lessonSlug) {
+              lesson = data.modules[m].lessons[l];
+              mod = data.modules[m];
+              break;
+            }
+          }
+          if (lesson) break;
+        }
+        if (!lesson || !lesson.has_quiz || !lesson.quizzes || !lesson.quizzes.length) {
+          document.getElementById("quizEmpty").hidden = false; return;
+        }
+
+        var lang = kids.currentLang();
+        var titleKey = lang === "en" ? "title_en" : "title_vi";
+        document.getElementById("quizLessonTitle").textContent = lesson[titleKey];
+
+        var container = document.getElementById("quizContainer");
+        var quizzes = lesson.quizzes;
+
+        function renderQuiz() {
+          var html = "";
+          for (var q = 0; q < quizzes.length; q++) {
+            var quiz = quizzes[q];
+            var qKey = lang === "en" ? "question_en" : "question_vi";
+            html += '<div class="surface stack-sm" style="margin-bottom:16px">';
+            html += '<p class="eyebrow">' + (q + 1) + ' / ' + quizzes.length + '</p>';
+            html += '<h3>' + esc(quiz[qKey]) + '</h3>';
+            for (var o = 0; o < quiz.options.length; o++) {
+              var optLabel = lang === "en" ? quiz.options[o].en : quiz.options[o].vi;
+              html += '<label class="checkbox-label"><input type="radio" name="q_' + q + '" value="' + o + '"/> ' + esc(optLabel) + '</label>';
+            }
+            html += '</div>';
+          }
+          container.innerHTML = html;
+          container.hidden = false;
+          document.getElementById("quizActions").hidden = false;
+          document.getElementById("quizResult").hidden = true;
+        }
+
+        renderQuiz();
+
+        document.getElementById("quizSubmit").addEventListener("click", function(){
+          var correct = 0;
+          for (var q = 0; q < quizzes.length; q++) {
+            var selected = container.querySelector('input[name="q_' + q + '"]:checked');
+            if (selected && parseInt(selected.value) === quizzes[q].correct_index) correct++;
+          }
+          var score = Math.round((correct / quizzes.length) * 100);
+          document.getElementById("quizScore").textContent = score + "%";
+          var feedbacks = {
+            vi: { fail: "Chưa đạt — hãy xem lại bài học và thử lại.", preview: "Gần đạt — thử lại lần nữa nhé!", pass: "Tốt lắm! Con đã hiểu bài.", advanced: "Xuất sắc! Con nắm rất vững." },
+            en: { fail: "Not yet — review the lesson and try again.", preview: "Almost there — try once more!", pass: "Well done! You understood the lesson.", advanced: "Excellent! You have strong understanding." }
+          };
+          var bucket = score < 40 ? "fail" : score < 70 ? "preview" : score < 90 ? "pass" : "advanced";
+          document.getElementById("quizFeedback").textContent = feedbacks[lang][bucket];
+          document.getElementById("quizResult").hidden = false;
+          document.getElementById("quizActions").hidden = true;
+
+          var key = "kids.quiz." + lessonSlug;
+          var arr = JSON.parse(localStorage.getItem("kids.quizResults") || "[]");
+          arr.push({ lesson: lessonSlug, score: score, bucket: bucket, at: new Date().toISOString() });
+          localStorage.setItem("kids.quizResults", JSON.stringify(arr));
+          localStorage.setItem(key, JSON.stringify({ score: score, bucket: bucket }));
+        });
+
+        document.getElementById("quizRetry").addEventListener("click", function(){
+          renderQuiz();
+        });
+
+        function esc(s) { return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+      })
+      .catch(function(){ document.getElementById("quizEmpty").hidden = false; });
+  })();
+  </script>
+</body>
+</html>

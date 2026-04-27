@@ -324,12 +324,23 @@ function buildSystemHealth(env, incidents = []) {
   ];
 }
 
-function buildJourneySummary() {
-  const totalUsers = 0;
-  const activatedUsers = 0;
-  const learners = 0;
-  const submissions = 0;
-  const verifiedUsers = 0;
+async function buildJourneySummary(env) {
+  const store = createAccessStore(env);
+  let totalUsers = 0;
+  let activatedUsers = 0;
+  let submissions = 0;
+  let verifiedUsers = 0;
+
+  try {
+    totalUsers = await store.countByPrefix("member");
+    activatedUsers = await store.countByPrefix("session");
+    submissions = await store.countByPrefix("submission");
+    verifiedUsers = await store.countByPrefix("vc_record");
+  } catch {
+    // fallback to 0 if store not available
+  }
+
+  const learners = Math.min(activatedUsers, totalUsers);
   const usersStuck = 0;
   const usersMissingNextStep = 0;
 
@@ -353,32 +364,54 @@ function buildJourneySummary() {
       { key: "prove", total: verifiedUsers, conversion_to_next: 0, delta_vs_previous_7d: 0 },
       { key: "next", total: Math.max(verifiedUsers - usersMissingNextStep, 0), conversion_to_next: 0, delta_vs_previous_7d: 0 },
     ],
-    source: "runtime_seed_pending_analytics",
+    source: store.mode === "kv" ? "runtime_kv_live" : "runtime_memory_live",
   };
 }
 
-function buildLearningSummary() {
+async function buildLearningSummary(env) {
+  const store = createAccessStore(env);
+  let lessonsCompleted = 0;
+  let submissionsToday = 0;
+
+  try {
+    lessonsCompleted = await store.countByPrefix("lesson_complete");
+    submissionsToday = await store.countByPrefix("submission");
+  } catch {
+    // fallback to 0
+  }
+
   return {
     courses_live: Array.isArray(courses) ? courses.length : 0,
-    lessons_completed: 0,
-    submissions_today: 0,
+    lessons_completed: lessonsCompleted,
+    submissions_today: submissionsToday,
     review_backlog: 0,
     submit_to_vc_conversion: 0,
     average_review_time_hours: 0,
     metrics_registry_version: founderMetricsRegistrySource.version || "",
-    source: "runtime_seed_pending_learning_telemetry",
+    source: store.mode === "kv" ? "runtime_kv_live" : "runtime_memory_live",
   };
 }
 
-function buildVcSummary() {
+async function buildVcSummary(env) {
+  const store = createAccessStore(env);
+  let issuedCount = 0;
+  let verificationRequests = 0;
+
+  try {
+    issuedCount = await store.countByPrefix("vc_record");
+    verificationRequests = await store.countByPrefix("vc_request");
+  } catch {
+    // fallback to 0
+  }
+
   return {
-    issued_count: 0,
+    issued_count: issuedCount,
     failure_count: 0,
-    backlog: 0,
+    backlog: Math.max(verificationRequests - issuedCount, 0),
     avg_issuance_time_hours: 0,
-    verification_requests: 0,
+    verification_requests: verificationRequests,
     metrics_registry_version: founderMetricsRegistrySource.version || "",
-    source: "runtime_seed_pending_vc_metrics",
+    source: store.mode === "kv" ? "runtime_kv_live" : "runtime_memory_live",
   };
 }
 
@@ -604,10 +637,10 @@ async function buildOverview(env) {
   const incidents = await resolveIncidents(env);
   const insights = await resolveInsights(env);
   const systemHealth = buildSystemHealth(env, incidents);
-  const journeySummary = buildJourneySummary();
+  const journeySummary = await buildJourneySummary(env);
   const domainSummary = buildDomainSummary(incidents);
-  const learningSummary = buildLearningSummary();
-  const vcSummary = buildVcSummary();
+  const learningSummary = await buildLearningSummary(env);
+  const vcSummary = await buildVcSummary(env);
   const deployments = await resolveDeployments(env);
   const features = await resolveFeatureFlags(env);
   const overview = {
@@ -730,8 +763,8 @@ async function handleFounderSystemHealth(env) {
   });
 }
 
-async function handleFounderJourneyFunnel() {
-  return jsonResponse(buildJourneySummary());
+async function handleFounderJourneyFunnel(env) {
+  return jsonResponse(await buildJourneySummary(env));
 }
 
 async function handleFounderDomains(env) {
@@ -742,12 +775,12 @@ async function handleFounderDomains(env) {
   });
 }
 
-function handleFounderLearningSummary() {
-  return jsonResponse(buildLearningSummary());
+async function handleFounderLearningSummary(env) {
+  return jsonResponse(await buildLearningSummary(env));
 }
 
-function handleFounderVcSummary() {
-  return jsonResponse(buildVcSummary());
+async function handleFounderVcSummary(env) {
+  return jsonResponse(await buildVcSummary(env));
 }
 
 async function handleFounderReviewQueue(env) {
@@ -1174,7 +1207,7 @@ export async function maybeHandleFounderRuntime(request, env = {}) {
   }
 
   if (request.method === "GET" && url.pathname === `${FOUNDER_BASE}/journey-funnel`) {
-    return handleFounderJourneyFunnel();
+    return handleFounderJourneyFunnel(env);
   }
 
   if (request.method === "GET" && url.pathname === `${FOUNDER_BASE}/domains`) {
@@ -1182,11 +1215,11 @@ export async function maybeHandleFounderRuntime(request, env = {}) {
   }
 
   if (request.method === "GET" && url.pathname === `${FOUNDER_BASE}/learning-summary`) {
-    return handleFounderLearningSummary();
+    return handleFounderLearningSummary(env);
   }
 
   if (request.method === "GET" && url.pathname === `${FOUNDER_BASE}/vc-summary`) {
-    return handleFounderVcSummary();
+    return handleFounderVcSummary(env);
   }
 
   if (request.method === "GET" && url.pathname === `${FOUNDER_BASE}/review-queue`) {
