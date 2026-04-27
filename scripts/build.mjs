@@ -1556,7 +1556,7 @@ function renderSurfaceGatewaySection({
           actions,
         })}
         ${renderCard({
-          title: cardTitle(pair("Điều mở ra sau CTA", "What opens after the CTA")),
+          title: cardTitle(pair("Điều mở ra khi tiếp tục", "What opens next")),
           body: renderList(noteItems),
           support,
         })}
@@ -6668,8 +6668,8 @@ function renderCommunityHome() {
     eyebrow: pair("COMMUNITY công khai", "COMMUNITY public"),
     title: pair("COMMUNITY<br><span class=\"accent\">preview cohort trước, mở vòng thực hành sau</span>", "COMMUNITY<br><span class=\"accent\">cohort preview first, deeper practice later</span>"),
     description: pair(
-      "COMMUNITY hiện mở lớp planned-safe để giới thiệu cohort, circle và cách tham gia an toàn. Nó chưa được trình bày như một cộng đồng đã vận hành công khai.",
-      "COMMUNITY currently opens a planned-safe layer for cohorts, circles, and safe participation. It is not presented as an already open public community.",
+      "COMMUNITY hiện mở lớp giới thiệu để cho thấy cohort, circle và cách tham gia an toàn. Nó chưa được trình bày như một cộng đồng đã vận hành công khai.",
+      "COMMUNITY currently opens an introductory layer for cohorts, circles, and safe participation. It is not presented as an already open public community.",
     ),
     actions: [
       gatewayCtaButton(deepCta, "primary"),
@@ -6801,7 +6801,7 @@ function renderCommunityPrinciplesPage() {
     currentKey: "community",
     pathname: "/principles/",
     title: pair("Community principles", "Community principles"),
-    description: pair("Nguyên tắc công khai cho COMMUNITY planned-safe.", "Public principles for COMMUNITY planned-safe."),
+    description: pair("Nguyên tắc công khai cho COMMUNITY đang chuẩn bị.", "Public principles for COMMUNITY in preparation."),
     navItems: ecosystemNav("community"),
     hero,
     sections: [
