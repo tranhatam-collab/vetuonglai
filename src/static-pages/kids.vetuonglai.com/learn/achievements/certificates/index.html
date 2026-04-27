@@ -31,7 +31,7 @@
         <li aria-current="page" data-vi="Chứng nhận" data-en="Certificates">Chứng nhận</li>
       </ol></nav>
 
-      <div class="preview-banner"><strong data-vi="Member Preview" data-en="Member Preview">Member Preview</strong> — <span data-vi="Chứng nhận sẽ được cấp khi hệ thống chính thức hoạt động." data-en="Certificates will be issued when the system is fully live.">Chứng nhận sẽ được cấp khi hệ thống chính thức hoạt động.</span></div>
+      <div class="preview-banner"><strong data-vi="Public Preview" data-en="Public Preview">Public Preview</strong> — <span data-vi="Chứng nhận hiện ở chế độ mô phỏng; quy trình cấp chính thức sẽ mở theo phase sau review an toàn." data-en="Certificates are currently illustrative; the official issuing flow opens by phase after safety review.">Chứng nhận hiện ở chế độ mô phỏng; quy trình cấp chính thức sẽ mở theo phase sau review an toàn.</span></div>
 
       <h1 data-vi="Chứng nhận của con" data-en="Your certificates">Chứng nhận của con</h1>
       <p class="lede" data-vi="Mỗi chứng nhận thể hiện con đã hoàn thành 1 giai đoạn học tập. Không phải bảng điểm — mà là bằng chứng con biết làm." data-en="Each certificate shows you completed a learning stage. Not a report card — but proof you can do it.">Mỗi chứng nhận thể hiện con đã hoàn thành 1 giai đoạn học tập. Không phải bảng điểm — mà là bằng chứng con biết làm.</p>
@@ -83,7 +83,7 @@
   <script>
   (function(){
     var lang = kids.currentLang();
-    // In Member Preview, certificates come from localStorage only (stub mode)
+    // In Public Preview, certificates come from localStorage only (stub mode)
     var certs = [];
     try { certs = JSON.parse(localStorage.getItem("kids.certificates") || "[]"); } catch(_){}
 

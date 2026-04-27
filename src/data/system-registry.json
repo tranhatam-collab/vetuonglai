@@ -201,7 +201,9 @@
       "status": "bridge",
       "stageLabel": "BRIDGE",
       "primaryNav": false,
-      "mission": "mirror bridge for digital-asset records"
+      "mission": "mirror bridge for digital-asset records",
+      "missionVi": "cầu nối mirror bản ghi tài sản số sang hệ xác minh độc lập",
+      "missionEn": "mirror bridge for digital-asset records"
     },
     {
       "key": "kids",
