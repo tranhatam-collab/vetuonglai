@@ -219,6 +219,40 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 1 Log
 
+### 2026-04-28 12:05 ICT — Team 1
+- status: release_ready
+- scope: sửa drift verifier theo runtime contract hiện tại để release-gate không fail giả ở VC host và CTA planned-safe wording
+- done:
+  - sửa `verify-wave-b-mobile-closure` để không còn hardcode check `vc.vetuonglai.com/api/certificates.json`:
+    - chuyển live check sang `member.vetuonglai.com/api/mobile/vc-certificates.json`
+    - giữ assert contract ở `certificates[]`
+  - sửa `verify-wave-c-life-invest-hardening` để bỏ hardcode text CTA cũ:
+    - thay bằng marker stable theo contract hiện tại: `intent=interest`, `Đăng ký quan tâm`, `Register interest`
+  - rerun full gate sau fix:
+    - `npm run verify:team5:pack` -> pass
+    - `npm run verify:total-system:release-gate` -> pass
+    - decision: `baseline_ready=true`, `system_signoff_ready=true`, `wave_e_allowed=true`, `publish_ready=true`
+- changed_files:
+  - `scripts/verify-wave-b-mobile-closure.mjs`
+  - `scripts/verify-wave-c-life-invest-hardening.mjs`
+  - `reports/team5-total-system-release-gate.latest.json`
+  - `docs/final-lock/VTL_18_CROSS_TEAM_SYNC_REPORT.md`
+- evidence:
+  - `npm run verify:team5:pack`
+  - `npm run verify:total-system:release-gate`
+  - `reports/team5-total-system-release-gate.latest.json`
+- handoff gửi tới:
+  - Founder
+  - Team 5
+  - QA
+  - PM
+- handoff cần từ:
+  - none trong scope Team 1 local/runtime verify
+- next:
+  - rà tiếp `verify:prelive` và `cloudflare:smoke:endpoints` để đồng bộ cùng assumption mới (ưu tiên member mobile VC certificates)
+- blocked:
+  - none trong lane Team 1 verifier alignment
+
 ### 2026-04-21 17:09 ICT — Team 1
 - status: release_ready
 - scope: promote `member` sang required-public, sửa drift smoke theo runtime truth mới, và chốt parity cuối cho Team 3

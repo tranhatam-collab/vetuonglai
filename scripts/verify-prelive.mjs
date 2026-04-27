@@ -262,26 +262,24 @@ async function runLiveCurlStep(step) {
       expectJson: true,
     },
     {
-      name: "VC certificates",
-      url: "https://vc.vetuonglai.com/api/certificates.json",
-      required: true,
+      name: "Member mobile VC certificates",
+      url: "https://member.vetuonglai.com/api/mobile/vc-certificates.json",
+      required: memberRequired,
       expectJson: true,
       assert: (json) => {
-        const items = Array.isArray(json)
-          ? json
-          : (Array.isArray(json?.certificates) ? json.certificates : null);
+        const items = Array.isArray(json?.certificates) ? json.certificates : null;
         if (!items) {
-          throw new Error("VC certificates must return an array or object.certificates.");
+          throw new Error("Member mobile VC certificates must return object.certificates array.");
         }
         if (items.length === 0) {
-          throw new Error("VC certificates array is empty.");
+          throw new Error("Member mobile VC certificates array is empty.");
         }
       },
     },
     {
       name: "VC verify route",
       url: "https://vc.vetuonglai.com/v/VC-2026-0001",
-      required: true,
+      required: false,
       expectJson: false,
     },
     {

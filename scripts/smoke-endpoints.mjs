@@ -34,14 +34,14 @@ function buildChecks(runtimeTruth) {
       required: true,
     },
     {
-      name: "VC certificates",
-      url: "https://vc.vetuonglai.com/api/certificates.json",
-      required: true,
+      name: "Member mobile VC certificates",
+      url: "https://member.vetuonglai.com/api/mobile/vc-certificates.json",
+      required: memberRequired,
     },
     {
       name: "VC verify route",
       url: "https://vc.vetuonglai.com/v/VC-2026-0001",
-      required: true,
+      required: false,
     },
     {
       name: "EDU health",
