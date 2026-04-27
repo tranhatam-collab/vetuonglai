@@ -1,22 +1,22 @@
 {
   "summary": {
-    "ok": true,
-    "startedAt": "2026-04-15T15:33:31.890Z",
-    "endedAt": "2026-04-15T15:33:32.952Z",
-    "durationMs": 1062,
-    "mode": "local-only",
-    "totalSteps": 5,
+    "ok": false,
+    "startedAt": "2026-04-27T18:03:40.452Z",
+    "endedAt": "2026-04-27T18:03:49.844Z",
+    "durationMs": 9382,
+    "mode": "full",
+    "totalSteps": 6,
     "passedSteps": 5,
-    "failedStepKey": null
+    "failedStepKey": "smoke_prod_endpoints"
   },
   "steps": [
     {
       "key": "build",
       "label": "Build static system",
       "command": "npm run build",
-      "startedAt": "2026-04-15T15:33:31.892Z",
-      "endedAt": "2026-04-15T15:33:32.251Z",
-      "durationMs": 359,
+      "startedAt": "2026-04-27T18:03:40.464Z",
+      "endedAt": "2026-04-27T18:03:42.122Z",
+      "durationMs": 1658,
       "timeoutMs": 720000,
       "timedOut": false,
       "ok": true,
@@ -28,9 +28,9 @@
       "key": "check",
       "label": "Validate dist outputs",
       "command": "npm run check",
-      "startedAt": "2026-04-15T15:33:32.251Z",
-      "endedAt": "2026-04-15T15:33:32.396Z",
-      "durationMs": 145,
+      "startedAt": "2026-04-27T18:03:42.123Z",
+      "endedAt": "2026-04-27T18:03:43.420Z",
+      "durationMs": 1297,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -42,9 +42,9 @@
       "key": "smoke_access",
       "label": "Smoke access runtime",
       "command": "npm run smoke:access-runtime",
-      "startedAt": "2026-04-15T15:33:32.396Z",
-      "endedAt": "2026-04-15T15:33:32.588Z",
-      "durationMs": 192,
+      "startedAt": "2026-04-27T18:03:43.421Z",
+      "endedAt": "2026-04-27T18:03:44.349Z",
+      "durationMs": 927,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -56,9 +56,9 @@
       "key": "smoke_vc",
       "label": "Smoke VC ownership runtime",
       "command": "npm run smoke:vc-ownership-runtime",
-      "startedAt": "2026-04-15T15:33:32.588Z",
-      "endedAt": "2026-04-15T15:33:32.761Z",
-      "durationMs": 173,
+      "startedAt": "2026-04-27T18:03:44.362Z",
+      "endedAt": "2026-04-27T18:03:45.133Z",
+      "durationMs": 771,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -70,15 +70,101 @@
       "key": "smoke_mobile",
       "label": "Smoke mobile PWA",
       "command": "npm run smoke:mobile-pwa",
-      "startedAt": "2026-04-15T15:33:32.761Z",
-      "endedAt": "2026-04-15T15:33:32.952Z",
-      "durationMs": 191,
+      "startedAt": "2026-04-27T18:03:45.136Z",
+      "endedAt": "2026-04-27T18:03:45.647Z",
+      "durationMs": 511,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
       "code": 0,
       "signal": null,
       "error": ""
+    },
+    {
+      "key": "smoke_prod_endpoints",
+      "label": "Smoke required live endpoints",
+      "command": "curl live endpoint assertions",
+      "startedAt": "2026-04-27T18:03:45.650Z",
+      "endedAt": "2026-04-27T18:03:49.844Z",
+      "durationMs": 4194,
+      "timeoutMs": 240000,
+      "timedOut": false,
+      "ok": false,
+      "code": 1,
+      "signal": null,
+      "error": "One or more required live endpoint checks failed.",
+      "details": [
+        {
+          "name": "Hub health",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "VC certificates",
+          "required": true,
+          "status": 403,
+          "ok": false,
+          "error": ""
+        },
+        {
+          "name": "VC verify route",
+          "required": true,
+          "status": 403,
+          "ok": false,
+          "error": ""
+        },
+        {
+          "name": "EDU health",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "Hub API index",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "Member API index",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "Hub contracts manifest",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "Member contracts manifest",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "Hub Team3 policy",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        },
+        {
+          "name": "Member Team3 policy",
+          "required": true,
+          "status": 200,
+          "ok": true,
+          "error": ""
+        }
+      ]
     }
   ]
 }

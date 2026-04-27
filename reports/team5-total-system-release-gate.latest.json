@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-04-27T10:48:50.871Z",
+  "generatedAt": "2026-04-27T18:02:07.721Z",
   "owner": "team-5-smoke-release-qa",
   "lane": "wave-e-total-system-release-gate",
   "decision": {
-    "baseline_ready": true,
+    "baseline_ready": false,
     "system_signoff_ready": false,
     "wave_e_allowed": false,
-    "publish_ready": false,
+    "publish_ready": true,
     "blockers": [
-      "wave_d_dns_or_runtime_publish"
+      "team5_full_pack"
     ],
     "summary": {
       "total": 5,
@@ -21,12 +21,12 @@
       "key": "team5_full_pack",
       "label": "Team 5 full smoke/strict pack",
       "command": "npm run verify:team5:pack",
-      "ok": true,
-      "code": 0,
+      "ok": false,
+      "code": 1,
       "timedOut": false,
-      "durationSec": 8.4,
+      "durationSec": 5.9,
       "note": "",
-      "outputTail": "    \"failed\": 0,\n    \"skipped\": 0\n  },\n  \"runtime_and_live\": {\n    \"total\": 4,\n    \"passed\": 2,\n    \"failed\": 0,\n    \"skipped\": 2\n  }\n}"
+      "outputTail": "Wave B mobile closure failed at live surface stage."
     },
     {
       "key": "planned_safe_wave_release",
@@ -35,7 +35,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.2,
+      "durationSec": 1.7,
       "note": "",
       "outputTail": "      }\n    ],\n    \"gate_rules\": [\n      \"Khong false-live claim tren domain planned-safe.\",\n      \"CTA domain planned-safe phai dan ve diem vao hop le (hub/gateway).\",\n      \"Domain gated-only co the chua public runtime, nhung phai co runtime-truth reference ro rang.\"\n    ]\n  }\n}\nPlanned-safe wave release verification passed."
     },
@@ -65,12 +65,12 @@
       "key": "wave_d_public_publish_live",
       "label": "Wave D public publish live verify",
       "command": "node scripts/verify-wave-d-public-publish.mjs",
-      "ok": false,
-      "code": 1,
+      "ok": true,
+      "code": 0,
       "timedOut": false,
-      "durationSec": 0.1,
+      "durationSec": 1.6,
       "note": "",
-      "outputTail": "Wave D public publish verification failed."
+      "outputTail": "      \"status\": 200,\n      \"note\": \"\"\n    }\n  ],\n  \"gate_rules\": [\n    \"Tat ca host Wave D phai reachable bang HTTPS.\",\n    \"Tat ca host Wave D phai tra 200 o root surface.\",\n    \"Tat ca host Wave D phai con marker planned-safe/public boundary ro rang.\"\n  ]\n}"
     }
   ],
   "gateRules": [
