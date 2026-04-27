@@ -4339,7 +4339,7 @@ function renderMemberHome() {
         "Hub, member app, xem nhanh EDU và mở nhanh VC cùng bám theo bốn trạng thái chung để bước tiếp theo không bị lệch.",
         "The hub, member app, quick EDU views, and quick VC access follow the same four shared states so the next step does not drift.",
       )),
-      actions: button(`https://${domains.member}/api/mobile/session-states.json`, pair("Xem trạng thái", "Open state map"), "ghost"),
+      actions: button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to home"), "ghost"),
     }),
   ]);
 
@@ -5211,7 +5211,7 @@ function renderMemberAppPage() {
     extraItems: [
       pair("App shell chỉ hỗ trợ 4 trạng thái cốt lõi: visitor, pending_member, annual_active, pack_owner.", "The app shell supports only four core states: visitor, pending_member, annual_active, and pack_owner."),
       pair("Khi offline, app giữ shell và snapshot nhưng không tự mở quyền khi chưa có dữ liệu xác nhận.", "When offline, the app keeps the shell and snapshots but never opens extra access without confirmation."),
-      pair("Nếu trạng thái chưa mở đủ quyền, app chỉ hiển thị hướng dẫn và CTA về hub thay vì tạo một luồng mua trong app không có thật.", "If the state does not open enough access, the app shows guidance and a CTA back to the hub instead of creating a fake in-app purchase flow."),
+      pair("Nếu trạng thái chưa mở đủ quyền, app chỉ hiển thị hướng dẫn và nút quay về hub thay vì tạo một luồng mua trong app không có thật.", "If the state does not open enough access, the app shows guidance and a button back to the hub instead of creating a fake in-app purchase flow."),
     ],
     disclosureIds: ["DPM-016", "DPM-017", "DPM-020", "DPM-021"],
     actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.member}/api/mobile-config.json`, pair("Xem mobile config", "Open mobile config"), "ghost")}`,
@@ -5712,7 +5712,7 @@ function renderMemberAppPage() {
             plan: copy("Đang đọc quyền truy cập", "Reading access"),
             nextTitle: copy("Đang đồng bộ quyền truy cập", "Syncing access"),
             nextNote: copy(
-              "First screen giữ skeleton, quick actions an toàn và CTA về hub trong lúc hệ thống cập nhật trạng thái.",
+              "First screen giữ skeleton, quick actions an toàn và nút quay về hub trong lúc hệ thống cập nhật trạng thái.",
               "The first screen keeps the skeleton, safe quick actions, and the hub CTA while the system updates your status.",
             ),
             nextPrimary: {
@@ -6749,7 +6749,7 @@ function renderCommunityHome() {
     currentKey: "community",
     extraItems: [
       pair("COMMUNITY đang ở trạng thái Planned. Trang này chưa phải community live và chưa mở tương tác thời gian thực.", "COMMUNITY is currently in Planned status. This page is not a live community and it does not open real-time interaction yet."),
-      pair("Mọi CTA sâu hơn phải quay về hub để giữ một điểm vào nhất quán và rõ ràng.", "Every deeper CTA must return to the hub to keep one clear and consistent entry point."),
+      pair("Mọi nút đi sâu hơn phải quay về hub để giữ một điểm vào nhất quán và rõ ràng.", "Every deeper action must return to the hub to keep one clear and consistent entry point."),
       pair("Không dùng lời chứng thực hoặc áp lực cộng đồng để kéo người xem vào bản xem trước COMMUNITY.", "No testimonial marketing or social pressure is used to pull people into the community preview."),
     ],
     disclosureIds: ["DPM-021"],
@@ -6805,7 +6805,7 @@ function renderCommunityPrinciplesPage() {
     navItems: ecosystemNav("community"),
     hero,
     sections: [
-      renderSection(pair("Nguyên tắc", "Principles"), pair("Những điều phải giữ đúng khi mở COMMUNITY planned-safe.", "What must stay true while COMMUNITY remains planned-safe."), principles),
+      renderSection(pair("Nguyên tắc", "Principles"), pair("Những điều phải giữ đúng khi COMMUNITY đang chuẩn bị.", "What must stay true while COMMUNITY is in preparation."), principles),
     ],
   });
 }
@@ -6817,8 +6817,8 @@ function renderAiHome() {
     eyebrow: pair("AI công khai", "AI public"),
     title: pair("AI<br><span class=\"accent\">use-case thật trước, công cụ sâu hơn sau</span>", "AI<br><span class=\"accent\">real use cases first, deeper tools later</span>"),
     description: pair(
-      "AI hiện mở lớp planned-safe cho tình huống mẫu, nguyên tắc dùng AI đúng chỗ và bản xem trước an toàn. Nó chưa được trình bày như một bộ công cụ AI đã mở chính thức.",
-      "AI currently opens a planned-safe layer for sample use cases, safe AI boundaries, and guided previews. It is not presented as a production-ready tool suite.",
+      "AI hiện mở lớp giới thiệu cho tình huống mẫu, nguyên tắc dùng AI đúng chỗ và bản xem trước an toàn. Nó chưa được trình bày như một bộ công cụ AI đã mở chính thức.",
+      "AI currently opens an introductory layer for sample use cases, safe AI boundaries, and guided previews. It is not presented as a production-ready tool suite.",
     ),
     actions: [
       gatewayCtaButton(deepCta, "primary"),
@@ -6950,7 +6950,7 @@ function renderAiUseCasesPage() {
     currentKey: "ai",
     pathname: "/use-cases/",
     title: pair("Tình huống AI", "AI sample uses"),
-    description: pair("Tình huống mẫu cho AI planned-safe.", "Sample uses for AI planned-safe."),
+    description: pair("Tình huống mẫu cho AI đang chuẩn bị.", "Sample uses for AI in preparation."),
     navItems: ecosystemNav("ai"),
     hero,
     sections: [
@@ -7061,8 +7061,8 @@ function renderBusinessPage() {
     eyebrow: pair("BUSINESS doanh nghiệp", "BUSINESS enterprise"),
     title: pair("BUSINESS<br><span class=\"accent\">định hướng doanh nghiệp trước khi triển khai</span>", "BUSINESS<br><span class=\"accent\">enterprise direction before rollout</span>"),
     description: pair(
-      "BUSINESS đang ở lớp planned-safe. Trang này chỉ mở định hướng, gợi ý gói và demo an toàn; mọi bước tiếp theo vẫn quay về hub.",
-      "BUSINESS is in a planned-safe layer. This page opens only orientation, package guidance, and safe demos; every next step still returns to the hub.",
+      "BUSINESS đang ở lớp giới thiệu. Trang này chỉ mở định hướng, gợi ý gói và demo an toàn; mọi bước tiếp theo vẫn quay về hub.",
+      "BUSINESS is in an introductory layer. This page opens only orientation, package guidance, and safe demos; every next step still returns to the hub.",
     ),
     actions: [
       button(deepCta, pair("Mở trao đổi tại hub", "Open discussion at the hub")),
@@ -7095,7 +7095,7 @@ function renderBusinessPage() {
   return renderShell({
     currentKey: "business",
     pathname: "/",
-    title: pair("BUSINESS planned-safe", "BUSINESS planned-safe"),
+    title: pair("BUSINESS — Đang chuẩn bị", "BUSINESS — In Preparation"),
     description: pair(
       "Lớp BUSINESS đang ở trạng thái Planned để mở trao đổi doanh nghiệp, so sánh lộ trình và gợi ý bước tiếp theo mà không tạo cảm giác onboarding đã mở thật.",
       "The BUSINESS layer is in Planned status for enterprise intake, path comparison, and next-step guidance without creating the impression that onboarding is already live.",
@@ -7106,8 +7106,8 @@ function renderBusinessPage() {
       renderSection(
         pair("Public value", "Public value"),
         pair(
-          "BUSINESS giúp đội ngũ hiểu đúng điểm vào, phạm vi gói và lý do lớp này vẫn ở trạng thái planned-safe.",
-          "BUSINESS helps teams understand the entry point, package scope, and why this layer remains planned-safe.",
+          "BUSINESS giúp đội ngũ hiểu đúng điểm vào, phạm vi gói và lý do lớp này vẫn đang chuẩn bị.",
+          "BUSINESS helps teams understand the entry point, package scope, and why this layer is still in preparation.",
         ),
         `<div id="business-public-value-runtime">${loadingPublicValue}</div>`,
         "public-value",
@@ -7417,8 +7417,8 @@ function renderBusinessPage() {
               badgeHtml: badge(pair("đầu ra", "outputs")),
               body: list(outputItems),
               supportCopy: pair(
-                "Các đầu ra này là mẫu planned-safe, không phải không gian vận hành doanh nghiệp đang mở công khai.",
-                "These outputs are planned-safe sample outputs, not a publicly open enterprise operating space.",
+                "Các đầu ra này là mẫu giới thiệu, không phải không gian vận hành doanh nghiệp đang mở công khai.",
+                "These outputs are introductory samples, not a publicly open enterprise operating space.",
               ),
             }),
           ]));
@@ -7450,13 +7450,13 @@ function renderBusinessPage() {
               title: pair("Public value đang chờ dữ liệu", "Public value is waiting for data"),
               badgeHtml: badge(stageLabel),
               body: text(pair(
-                "Khi dữ liệu nền chưa phản hồi, BUSINESS chỉ giữ wording công khai an toàn và CTA về hub.",
-                "When supporting data is not responding, BUSINESS keeps only public-safe wording and the CTA back to the hub.",
+                "Khi dữ liệu nền chưa phản hồi, BUSINESS chỉ giữ nội dung công khai an toàn và nút quay về hub.",
+                "When supporting data is not responding, BUSINESS keeps only public-safe wording and the button back to the hub.",
               )),
             }),
             card({
               title: pair("Demo chưa mở", "Demo not open"),
-              badgeHtml: badge(pair("planned-safe", "planned-safe")),
+              badgeHtml: badge(pair("đang chuẩn bị", "in preparation")),
               body: text(pair(
                 "Không có preview hoặc output nào được dựng như lớp doanh nghiệp đã live khi dữ liệu chưa đủ.",
                 "No preview or output is rendered as if the enterprise layer were live while data is incomplete.",

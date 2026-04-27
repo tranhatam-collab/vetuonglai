@@ -829,8 +829,8 @@ async function main() {
     throw new Error("Trang MARKET chua render du public disclosure notes.");
   }
 
-  if (!businessHtml.includes("BUSINESS") || !businessHtml.includes("planned-safe")) {
-    throw new Error("Trang BUSINESS chua khoa messaging planned-safe.");
+  if (!businessHtml.includes("BUSINESS") || !businessHtml.includes("Đang chuẩn bị")) {
+    throw new Error("Trang BUSINESS chua khoa messaging dang-chuan-bi.");
   }
 
   if (!businessHtml.includes("/api/team4/package-form-registry.json") || !businessHtml.includes("/api/team4/business-domain-contract.json") || !businessHtml.includes("/api/team4/package-comparison-demo-output.json")) {
@@ -1118,6 +1118,39 @@ async function main() {
   for (const record of certificateItems) {
     if (!record.code || !record.domain || !record.anchors?.contentHash) {
       throw new Error(`VC record thieu field bat buoc: ${JSON.stringify(record)}`);
+    }
+  }
+
+  // Gate: no-checkout-for-planned — planned domain HTML must not have specialist-pack checkout links
+  const plannedDomainDirs = ["life.vetuonglai.com", "invest.vetuonglai.com", "work.vetuonglai.com", "market.vetuonglai.com", "community.vetuonglai.com", "ai.vetuonglai.com", "business.vetuonglai.com", "kids.vetuonglai.com"];
+  for (const dir of plannedDomainDirs) {
+    const htmlPath = path.join(DIST, dir, "index.html");
+    try {
+      const html = await readFile(htmlPath, "utf8");
+      if (html.includes("intent=specialist-pack")) {
+        throw new Error(`Planned domain ${dir} still has checkout intent=specialist-pack. Must use intent=interest.`);
+      }
+    } catch (err) {
+      if (err.code !== "ENOENT") throw err;
+    }
+  }
+
+  // Gate: banned-terms-clean — dist HTML must not contain banned internal terms in visible text
+  const bannedTerms = ["planned-safe", "i18n", "route kỹ thuật"];
+  const allDistDirs = await import("node:fs").then((fs) => fs.readdirSync(DIST, { withFileTypes: true }))
+    .then ? await import("node:fs/promises").then((fs) => fs.readdir(DIST, { withFileTypes: true })) : [];
+  for (const entry of allDistDirs) {
+    if (!entry.isDirectory()) continue;
+    const indexPath = path.join(DIST, entry.name, "index.html");
+    try {
+      const html = await readFile(indexPath, "utf8");
+      for (const term of bannedTerms) {
+        if (html.includes(term)) {
+          throw new Error(`Banned term "${term}" found in ${entry.name}/index.html. Remove from public HTML.`);
+        }
+      }
+    } catch (err) {
+      if (err.code !== "ENOENT") throw err;
     }
   }
 

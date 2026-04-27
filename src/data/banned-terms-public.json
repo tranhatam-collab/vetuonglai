@@ -1,0 +1,54 @@
+{
+  "version": "2026-04-28",
+  "lockedBy": "Team 3 — Governance/Trust",
+  "scope": "All dist HTML output visible to public users",
+  "note": "Terms in this list MUST NOT appear as visible text in any public-facing HTML page. URL query params (e.g. intent=interest in href) and HTML attributes (id, class) are excluded from this check. 'webhook' is allowed in enterprise feature descriptions.",
+  "bannedTerms": [
+    {
+      "term": "planned-safe",
+      "replacement": "đang chuẩn bị / in preparation",
+      "reason": "Internal ops vocabulary, not user-facing"
+    },
+    {
+      "term": "CTA",
+      "replacement": "nút / nút đi tiếp / button",
+      "reason": "Marketing jargon, not meaningful to Vietnamese readers"
+    },
+    {
+      "term": "i18n",
+      "replacement": "song ngữ / bilingual",
+      "reason": "Developer abbreviation"
+    },
+    {
+      "term": "route kỹ thuật",
+      "replacement": "đường dẫn / path",
+      "reason": "Internal technical term"
+    },
+    {
+      "term": "runtime",
+      "replacement": "hệ thống / system",
+      "reason": "Internal infrastructure term (allowed in HTML id/class attributes)"
+    },
+    {
+      "term": "deploy",
+      "replacement": "triển khai / phát hành",
+      "reason": "DevOps term"
+    },
+    {
+      "term": "smoke",
+      "replacement": "(remove entirely)",
+      "reason": "QA term with no public meaning"
+    },
+    {
+      "term": "entry point",
+      "replacement": "điểm vào",
+      "reason": "Use Vietnamese equivalent instead (\"điểm vào\" is allowed)"
+    }
+  ],
+  "allowedContexts": [
+    "URL query parameters (href attributes)",
+    "HTML id and class attributes",
+    "JSON API endpoints (not rendered as visible text)",
+    "Enterprise feature descriptions (e.g. 'webhook callback' in pricing)"
+  ]
+}
