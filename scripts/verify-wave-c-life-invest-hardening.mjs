@@ -31,8 +31,9 @@ const TEASER_FRAGMENTS = [
   'id="demo"',
   'id="gateway-cta"',
   'data-disclosure-kind="public-note"',
-  "Mở toàn bộ hệ của bạn",
-  "Open your full system",
+  "intent=interest",
+  "Đăng ký quan tâm",
+  "Register interest",
 ];
 
 async function evaluateLocalHardening() {

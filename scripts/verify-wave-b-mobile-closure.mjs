@@ -299,11 +299,14 @@ function buildLiveChecks(runtimeTruth) {
       },
     },
     {
-      name: "VC certificates",
-      url: "https://vc.vetuonglai.com/api/certificates.json",
-      required: Boolean(vc?.requiredPublic),
+      name: "Member mobile VC certificates",
+      url: "https://member.vetuonglai.com/api/mobile/vc-certificates.json",
+      required: Boolean(member?.requiredPublic),
       assertResult(result) {
-        assertJsonObject("VC certificates live", result.json);
+        assertJsonObject("Member mobile VC certificates live", result.json);
+        if (!Array.isArray(result.json.certificates)) {
+          throw new Error("Live mobile VC certificates phai co truong certificates la array.");
+        }
       },
     },
   ];
