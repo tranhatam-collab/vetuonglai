@@ -1366,6 +1366,45 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 - risks:
   - live Cloudflare target for Stripe binding is still ambiguous and must be mapped before production wiring
 
+## Team 4 Log
+
+### 2026-04-28 11:30 ICT — Team 4
+
+- status: done
+- deliverable_total: 3
+- deliverable_done: 3
+- % hoàn thành: 100%
+- % còn lại: 0%
+- done:
+  - chốt verify pack cho 3 endpoint Team 4 trên cả `hub/member`:
+    - `/api/team4/package-form-registry.json`
+    - `/api/team4/business-domain-contract.json`
+    - `/api/team4/package-comparison-demo-output.json`
+  - chạy `npm run verify:team4:endpoints` với kết quả:
+    - smoke: `6/6` pass
+    - strict: `9/9` pass
+    - `release_ready: true`
+  - xác nhận strict focus pass đầy đủ:
+    - business lane `planned_internal_only`
+    - `allowPublicLaunch=false`
+    - package order `foundation -> applied -> professional -> business`
+    - parity version hub/member cho cả 3 endpoint
+- next:
+  - giữ Team 4 ở trạng thái freeze; chỉ mở lại khi có thay đổi schema/contract mới từ Founder hoặc Team 1
+  - phối hợp Team 5 dùng kết quả verify pack làm evidence trong release gate tổng
+- blocked:
+  - none trong scope Team 4 endpoint contract hiện tại
+- changed files:
+  - `docs/final-lock/VTL_18_CROSS_TEAM_SYNC_REPORT.md`
+- handoff sent to:
+  - Team 1: Team 4 endpoint contract đang stable và parity hub/member đã pass strict
+  - Team 5: có thể dùng `verify:team4:endpoints` làm evidence gate độc lập cho Team 4 lane
+  - Team 3: không phát hiện drift wording/contract mới ở nhóm endpoint Team 4
+- handoff needed from:
+  - none
+- risks:
+  - low: rủi ro chủ yếu là drift do thay đổi runtime truth hoặc schema ngoài planned workflow; hiện chưa thấy dấu hiệu
+
 ## Team 2 Log
 
 ### 2026-04-28 10:58 ICT — Team 2

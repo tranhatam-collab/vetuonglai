@@ -39,6 +39,8 @@ function extractInternalLinks(html) {
     const href = match[1];
     // Skip anchors-only, javascript:, mailto:, tel:, data:, external
     if (href.startsWith("//") || href.startsWith("/#")) continue;
+    // Skip JS template expressions that leak into href regex
+    if (href.includes("'") || href.includes("+") || href.includes("encodeURI") || href.includes("${")) continue;
     links.push(href);
   }
   return links;

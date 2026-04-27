@@ -77,11 +77,11 @@ function checkLanguageSwitcher(content, relPath, isKids) {
       issues.push({ type: "missing-lang-switch", file: relPath, detail: "No kids-lang switcher found" });
     }
   } else {
-    // Build pipeline pages should have lang-switch or data-language-option
-    if (content.includes("data-language-option") || content.includes("lang-switch")) {
-      // OK
-    } else if (content.includes("<html")) {
-      // Only flag main pages, not API or utility pages
+    // Build pipeline pages use lang-switch/data-language-option; read uses read-lang/data-lang
+    const hasSwitch = content.includes("data-language-option")
+      || content.includes("lang-switch")
+      || content.includes("read-lang");
+    if (!hasSwitch && content.includes("<html")) {
       const isMainPage = content.includes("<main") || content.includes('id="main"');
       if (isMainPage) {
         issues.push({ type: "missing-lang-switch", file: relPath, detail: "No language switcher found" });

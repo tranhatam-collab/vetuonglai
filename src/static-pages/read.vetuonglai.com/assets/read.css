@@ -77,6 +77,30 @@ a {
   background: var(--read-surface);
 }
 
+.read-lang {
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.read-lang button {
+  border: 1px solid var(--read-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.7rem;
+  background: transparent;
+  color: var(--read-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.read-lang button.is-active {
+  background: var(--read-accent);
+  color: var(--read-accent-ink);
+  border-color: var(--read-accent);
+}
+
 .section {
   padding: 3rem 0;
 }

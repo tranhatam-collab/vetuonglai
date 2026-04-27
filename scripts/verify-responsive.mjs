@@ -64,8 +64,9 @@ async function main() {
       const has980 = /max-width:\s*980px/.test(content) || /max-width:\s*840px/.test(content) || /max-width:\s*61\.?/i.test(content);
 
       if (!has720 && !has980) {
-        // Only flag main stylesheets (not tiny utility CSS)
-        if (content.length > 500) {
+        // Only flag main stylesheets (not tiny utility CSS or token-only files)
+        const isTokenOnly = /design-tokens/.test(relPath);
+        if (content.length > 500 && !isTokenOnly) {
           issues.push({ type: "no-breakpoints", file: relPath });
         }
       }
