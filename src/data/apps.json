@@ -123,11 +123,11 @@
     "key": "kids",
     "title": "TRẺ EM",
     "titleEn": "KIDS",
-    "desc": "Lớp học dành cho trẻ em với bài học tương tác, bài tập thực hành và trợ lý học tập an toàn.",
-    "descEn": "A learning layer for children with interactive lessons, practice exercises, and a safe learning assistant.",
+    "desc": "Lớp học dành cho trẻ em đang mở public preview để giải thích khung học an toàn; các lớp tài khoản, lịch hỗ trợ và chứng nhận vẫn mở theo phase.",
+    "descEn": "A children learning layer currently in public preview to explain the safety-first learning model; account integration, support scheduling, and certificates remain phase-gated.",
     "url": "https://kids.vetuonglai.com",
-    "status": "member_preview",
-    "stageLabel": "MEMBER_PREVIEW"
+    "status": "planned",
+    "stageLabel": "PLANNED"
   },
   {
     "key": "read",
