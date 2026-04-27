@@ -1,15 +1,15 @@
 # 42 — Bilingual Audit Report
 
-Generated: 2026-04-26 (informational; not a build gate)
+Generated: 2026-04-27 (informational; not a build gate)
 
-Scope: `dist/` (52 HTML files across 14 hosts)
+Scope: `dist/` (62 HTML files across 14 hosts)
 
 Reference: [`41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md`](41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md)
 
 ## Summary
 
 - Total issues: 0
-- Files scanned: 52
+- Files scanned: 62
 
 ### Issues by code
 
@@ -27,7 +27,7 @@ Reference: [`41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md`](41_UNIVERSAL_B
 | `finance.vetuonglai.com` | 1 | 0 |
 | `green.vetuonglai.com` | 1 | 0 |
 | `invest.vetuonglai.com` | 1 | 0 |
-| `kids.vetuonglai.com` | 11 | 0 |
+| `kids.vetuonglai.com` | 21 | 0 |
 | `life.vetuonglai.com` | 1 | 0 |
 | `market.vetuonglai.com` | 2 | 0 |
 | `member.vetuonglai.com` | 4 | 0 |

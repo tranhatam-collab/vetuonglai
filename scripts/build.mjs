@@ -9437,7 +9437,9 @@ function renderKidsLessonPage(mod, lesson, domain) {
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>${escBuildHtml(lesson.title_vi)} — Trẻ Em Về Tương Lai</title>
+  <meta name="description" content="${escBuildHtml(lesson.description_vi || lesson.title_vi)}"/>
   <meta name="robots" content="noindex,nofollow"/>
+  <link rel="canonical" href="https://kids.vetuonglai.com/learn/lessons/${escBuildHtml(lesson.slug)}/"/>
   <link rel="icon" href="/assets/icon.svg"/>
   <link rel="stylesheet" href="/assets/kids.css"/>
 </head>
@@ -9448,10 +9450,10 @@ function renderKidsLessonPage(mod, lesson, domain) {
     <nav class="kids-nav" aria-label="Kids primary">
       <a href="/learn/dashboard/" data-vi="Học" data-en="Learn">Học</a>
       <a href="/learn/lessons/" data-vi="Bài học" data-en="Lessons" aria-current="page">Bài học</a>
-      <a href="/learn/ai-helper/" data-vi="Trợ lý AI" data-en="AI Helper">Trợ lý AI</a>
+      <a href="/learn/ai-helper/" data-vi="Trợ lý học" data-en="Learning assistant">Trợ lý học</a>
       <a href="/learn/achievements/" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
     </nav>
-    <div class="kids-lang"><a href="#" data-lang="vi">VI</a> <a href="#" data-lang="en">EN</a></div>
+    <div class="kids-lang"><a href="#" data-lang="vi">Tiếng Việt</a> <span aria-hidden="true">·</span> <a href="#" data-lang="en">English</a></div>
   </div></header>
 
   <main id="main" class="kids-main">
