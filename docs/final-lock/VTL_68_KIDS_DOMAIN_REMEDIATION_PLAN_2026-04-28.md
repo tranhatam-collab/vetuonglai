@@ -14,17 +14,18 @@
 Kids domain phải đạt các gate sau (theo Universal Standard):
 
 - Section 12 (Image): ✅ OG image SVG đã có (kids star metaphor, 3.8KB)
-- Section 13 (Motion): ⚠️ PENDING — chưa có prefers-reduced-motion trong kids.css/kids.js
+- Section 13 (Motion): ✅ DONE — prefers-reduced-motion added to kids.css + kids.js guard
 - Section 14 (SEO): ✅ title, canonical, hreflang, H1 đã có. JSON-LD đã có (1 block)
-- Section 15 (Accessibility): ⚠️ PENDING — chưa có :focus-visible trong kids.css
+- Section 15 (Accessibility): ✅ DONE — :focus-visible added to kids.css
 - Section 8 (Content Source): ✅ content/vi.json + content/en.json đã có sites.kids
 - Section 7 (Bilingual Switch): ✅ đã có hreflang (4 tags)
 
-Remediation tasks cần hoàn thành:
-1. Thêm `@media (prefers-reduced-motion: reduce)` vào kids.css
-2. Thêm prefers-reduced-motion guard vào kids.js animation functions
-3. Thêm `:focus-visible` styles vào kids.css
-4. Hero illustration SVG đã được generate (kids star, 1.8KB)
+Remediation tasks — ALL COMPLETE:
+1. ✅ Thêm `@media (prefers-reduced-motion: reduce)` vào kids.css
+2. ✅ Thêm prefers-reduced-motion guard vào kids.js initScrollAnimations()
+3. ✅ Thêm `:focus-visible` styles vào kids.css (7 selectors)
+4. ✅ Hero illustration SVG đã được generate (kids star, 1.8KB)
+5. ✅ OG image SVG đã có (kids star metaphor, 3.8KB)
 
 ---
 
