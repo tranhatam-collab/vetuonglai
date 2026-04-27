@@ -1,4 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48">
-  <rect width="48" height="48" rx="12" fill="#ff8c42"/>
+  <defs>
+    <style>
+      .pulse { animation: pulse 2s infinite; }
+      @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+        100% { transform: scale(1); }
+      }
+    </style>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="#ff8c42" class="pulse"/>
   <text x="24" y="34" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="28" font-weight="800" fill="#fff">V</text>
 </svg>

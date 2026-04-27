@@ -377,10 +377,40 @@ function detectEntryFromHostname() {
   return "hub";
 }
 
+function initScrollAnimations() {
+  if (typeof window.IntersectionObserver === 'undefined') return;
+
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-in');
+      }
+    });
+  }, observerOptions);
+
+  // Observe sections, cards, and other elements
+  document.querySelectorAll('section, .card, .surface').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Add stagger to lists
+  document.querySelectorAll('ul, ol').forEach(list => {
+    if (list.children.length > 1) {
+      list.classList.add('animate-stagger');
+    }
+  });
+}
+
 document.addEventListener("click", handleCtaClick);
 
 // Expose cho các surface khác dùng programmatically
 window.vetuonglaiBuildPurchaseHubUrl = buildPurchaseHubUrl;
 window.vetuonglaiDetectEntry = detectEntryFromHostname;
 
+initScrollAnimations();
 setLanguage(initialLanguage, { updateUrl: !new URL(window.location.href).searchParams.has("lang") });

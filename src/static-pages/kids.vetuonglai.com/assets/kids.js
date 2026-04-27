@@ -88,15 +88,40 @@
     setLang(currentLang());
   }
 
-  function escHtml(s) {
-    return String(s == null ? "" : s)
-      .replace(/&/g, "&amp;").replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  function initScrollAnimations() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+        }
+      });
+    }, observerOptions);
+
+    // Observe sections
+    document.querySelectorAll('.section').forEach(section => {
+      observer.observe(section);
+    });
+
+    // Observe surfaces
+    document.querySelectorAll('.surface').forEach(surface => {
+      observer.observe(surface);
+    });
+
+    // Observe feature lists with stagger
+    document.querySelectorAll('.feature-list').forEach(list => {
+      list.classList.add('animate-stagger');
+    });
   }
 
   function init() {
     setLang(currentLang());
     wireLang();
+    initScrollAnimations();
     if (document.body.dataset.kidsRender === "stages") {
       renderStages("#kidsStages");
     }
