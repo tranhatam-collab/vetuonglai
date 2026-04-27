@@ -1,0 +1,27 @@
+{
+  "site": "kids",
+  "locale": "vi-VN",
+  "status": "planned",
+  "seo": {
+    "title": "KIDS | Trẻ Em Về Tương Lai — Học đúng cách",
+    "description": "Lớp học dành cho trẻ em trong hệ Về Tương Lai. Mở public preview để giải thích cách học, vai trò phụ huynh và cấu trúc trải nghiệm an toàn."
+  },
+  "hero": {
+    "eyebrow": "Lớp Kids trong hệ Về Tương Lai",
+    "title": "TRẺ EM VỀ TƯƠNG LAI",
+    "subline": "Một môi trường giúp trẻ hiểu mình, học đúng cách và tạo ra sản phẩm nhỏ có thể kiểm chứng.",
+    "status_note": "Public preview cho trẻ em và phụ huynh. Một số phần trải nghiệm vẫn đang được hoàn thiện theo từng giai đoạn."
+  },
+  "audience": {
+    "primary": "Trẻ em cần một môi trường học và làm rõ ràng, an toàn, không tạo áp lực.",
+    "guardian": "Phụ huynh hoặc người giám hộ là người đồng hành, theo dõi tiến trình và hỗ trợ khi cần."
+  },
+  "trust": {
+    "what_it_is": "Một lớp học và làm trong hệ Về Tương Lai, không thay thế trường học hay luyện thi.",
+    "what_it_is_not": "Không hứa kết quả, không tạo xếp hạng, không dùng ngôn ngữ gây áp lực cho trẻ.",
+    "status": "Trang hiện là public preview để giải thích cấu trúc học tập, ví dụ đầu ra và vai trò phụ huynh."
+  },
+  "curriculum": {
+    "summary": "Trẻ bắt đầu từ bài học ngắn, làm một việc cụ thể, nộp sản phẩm nhỏ, nhận phản hồi và đi tiếp từng bước."
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "site": "kids",
+  "locale": "en-US",
+  "status": "planned",
+  "seo": {
+    "title": "KIDS | Vetuonglai Kids — Learn the right way",
+    "description": "A learning layer for children in the Vetuonglai system. This public preview explains the learning structure, the guardian role, and a safe experience baseline."
+  },
+  "hero": {
+    "eyebrow": "The Kids layer in the Vetuonglai system",
+    "title": "VETUONGLAI KIDS",
+    "subline": "A learning environment where children understand themselves, learn correctly, and create small verifiable outcomes.",
+    "status_note": "Public preview for children and guardians. Some experience layers are still being completed phase by phase."
+  },
+  "audience": {
+    "primary": "Children who need a clear, safe, low-pressure environment for learning and making.",
+    "guardian": "Parents or guardians stay alongside the child, follow progress, and help when needed."
+  },
+  "trust": {
+    "what_it_is": "A learn-and-make layer inside the Vetuonglai system. It does not replace school or exam preparation.",
+    "what_it_is_not": "It does not promise outcomes, create rankings, or use pressure-based language for children.",
+    "status": "This page is currently a public preview that explains the learning structure, sample outputs, and guardian role."
+  },
+  "curriculum": {
+    "summary": "Children start from a short lesson, do one concrete task, submit a small output, receive feedback, and continue step by step."
+  }
+}
