@@ -67,6 +67,7 @@ const domains = {
 
 const kidsCurriculum = JSON.parse(await readFile(path.join(SRC, "data", "kids-curriculum.json"), "utf8"));
 const kidsApiContract = JSON.parse(await readFile(path.join(SRC, "data", "kids-api-contract.json"), "utf8"));
+const kidsLessons = JSON.parse(await readFile(path.join(SRC, "data", "kids-lessons.json"), "utf8"));
 
 function readNestedValue(source, pathString, fallback = "") {
   const result = String(pathString || "")

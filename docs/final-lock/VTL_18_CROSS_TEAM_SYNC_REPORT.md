@@ -1368,6 +1368,43 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 2 Log
 
+### 2026-04-27 16:18 ICT — Team 2
+
+- status: in_progress
+- deliverable_total: 8
+- deliverable_done: 4
+- % hoàn thành: 50%
+- % còn lại: 50%
+- done:
+  - rerun bộ lệnh bắt buộc Team 2 theo board `VTL_60` và đều xanh khi chạy chuỗi đầy đủ:
+    - `npm run build`
+    - `npm run check`
+    - `npm run verify:planned-safe:wave:release`
+    - `npm run verify:team3:parity`
+  - xác nhận planned-safe wave gate: `32/32` pass, `release_ready: true`
+  - xác nhận Team 3 parity gate: `recommendation: go`, `6/6` pass, `stopLineOpen: false`
+  - giữ CTA planned-safe về hub entry hợp lệ trong app shell (`src/shared/app.js`) theo non-payment scope
+- next:
+  - tiếp tục dọn wording công khai còn kỹ thuật trên `member/work/market/life/invest/green/community/ai/business`
+  - rà nav/status render để bảo đảm không false-live khi Wave D còn `dns_blocked`
+  - chuẩn bị copy fallback cho tình huống DNS Wave D mở từng phần
+- blocked:
+  - Wave D public live verify vẫn phụ thuộc Ops + Team 1 (`B1` DNS 5 host còn `ENOTFOUND`)
+  - account migration runtime cutover vẫn phụ thuộc Team 1 + Ops (`B0` secret source + zone activation)
+- changed files:
+  - `src/shared/app.js`
+  - `docs/final-lock/VTL_18_CROSS_TEAM_SYNC_REPORT.md`
+- handoff sent to:
+  - Team 1: Team 2 gate xanh ở planned-safe/parity, có thể phối hợp ngay khi DNS mở để chạy live batch
+  - Team 3: parity hiện `go`, mời tiếp tục audit wording wave D sau mỗi đợt Team 2 cleanup copy
+  - Team 5: giữ release gate `baseline_ready=true/publish_ready=false` cho tới khi B1 được gỡ
+  - Ops: ưu tiên mở DNS 5 host Wave D để Team 1+5 mở live verify
+- handoff needed from:
+  - Team 1/Ops: signal gỡ `B0/B1` có evidence để Team 2 đóng phần false-live guard cuối
+  - Team 3: phản hồi nhanh nếu có stop-line wording mới sau batch cleanup tiếp theo
+- risks:
+  - medium: nếu DNS mở nhỏ giọt theo từng host mà không có fallback copy đồng bộ, UI status có thể drift giữa host đã mở và host chưa mở
+
 ### 2026-04-21 17:12 ICT — Team 2
 
 - status: done

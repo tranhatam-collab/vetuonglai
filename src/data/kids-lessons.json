@@ -1,0 +1,309 @@
+{
+  "name": "kids-lessons",
+  "version": "2026-04-27-v1",
+  "host": "kids.vetuonglai.com",
+  "status": "member_preview",
+  "modules": [
+    {
+      "id": "mod-explore-01",
+      "stage_key": "explore",
+      "title_vi": "Khám phá thế giới quanh em",
+      "title_en": "Discovering the world around you",
+      "order": 1,
+      "lessons": [
+        {
+          "id": "les-explore-01-01",
+          "slug": "the-gioi-la-gi",
+          "title_vi": "Thế giới là gì?",
+          "title_en": "What is the world?",
+          "duration_min": 15,
+          "content_vi": "Thế giới không chỉ là nơi con sống. Thế giới gồm rất nhiều thứ — cây cối, bầu trời, nước, ánh sáng, con người, và cả những thứ con chưa nhìn thấy.\n\nHãy thử nhìn ra ngoài cửa sổ. Con thấy gì? Một cái cây? Bầu trời? Một con chim? Tất cả đều là một phần của thế giới.\n\nBài học hôm nay rất đơn giản: hãy tập **quan sát** — nhìn kỹ hơn, chậm hơn, và ghi lại điều con thấy.",
+          "content_en": "The world is not just where you live. The world includes many things — trees, sky, water, light, people, and even things you haven't seen yet.\n\nTry looking out the window. What do you see? A tree? The sky? A bird? They are all part of the world.\n\nToday's lesson is simple: practice **observing** — look more carefully, more slowly, and write down what you see.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-explore-01-01-a",
+              "instruction_vi": "Nhìn ra ngoài cửa sổ trong 2 phút. Viết ra 5 thứ con nhìn thấy.",
+              "instruction_en": "Look out the window for 2 minutes. Write down 5 things you see."
+            },
+            {
+              "id": "prac-explore-01-01-b",
+              "instruction_vi": "Vẽ 1 thứ con thấy thú vị nhất. Viết 1 câu giải thích tại sao.",
+              "instruction_en": "Draw the most interesting thing you saw. Write 1 sentence explaining why."
+            }
+          ],
+          "has_quiz": true,
+          "quizzes": [
+            {
+              "id": "quiz-explore-01-01-a",
+              "question_vi": "Quan sát nghĩa là gì?",
+              "question_en": "What does observing mean?",
+              "options": [
+                { "vi": "Nhìn nhanh rồi quay đi", "en": "Glance quickly and look away" },
+                { "vi": "Nhìn kỹ, chậm, và chú ý", "en": "Look carefully, slowly, and pay attention" },
+                { "vi": "Đọc sách", "en": "Read a book" }
+              ],
+              "correct_index": 1
+            },
+            {
+              "id": "quiz-explore-01-01-b",
+              "question_vi": "Thế giới bao gồm những gì?",
+              "question_en": "What does the world include?",
+              "options": [
+                { "vi": "Chỉ nhà con thôi", "en": "Only your house" },
+                { "vi": "Cây, nước, ánh sáng, con người, và nhiều thứ khác", "en": "Trees, water, light, people, and many other things" },
+                { "vi": "Chỉ trường học", "en": "Only school" }
+              ],
+              "correct_index": 1
+            }
+          ]
+        },
+        {
+          "id": "les-explore-01-02",
+          "slug": "cau-hoi-la-gi",
+          "title_vi": "Câu hỏi là gì?",
+          "title_en": "What is a question?",
+          "duration_min": 15,
+          "content_vi": "Câu hỏi là cách con tìm hiểu thế giới. Mỗi khi con hỏi \"Tại sao?\", con đang bắt đầu học.\n\nNhững người giỏi nhất thế giới không phải người biết nhiều nhất. Họ là những người **biết hỏi**.\n\nCon không cần biết câu trả lời ngay. Chỉ cần hỏi — và viết câu hỏi ra giấy.",
+          "content_en": "A question is how you explore the world. Every time you ask \"Why?\", you are beginning to learn.\n\nThe smartest people in the world are not those who know the most. They are the ones who **know how to ask**.\n\nYou don't need to know the answer right away. Just ask — and write your questions down.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-explore-01-02-a",
+              "instruction_vi": "Viết ra 3 câu hỏi về bất cứ thứ gì con thắc mắc. Ví dụ: Tại sao trời xanh? Tại sao mèo rửa mặt?",
+              "instruction_en": "Write 3 questions about anything you wonder. Example: Why is the sky blue? Why do cats wash their face?"
+            }
+          ],
+          "has_quiz": true,
+          "quizzes": [
+            {
+              "id": "quiz-explore-01-02-a",
+              "question_vi": "Ai là người giỏi nhất?",
+              "question_en": "Who is the smartest person?",
+              "options": [
+                { "vi": "Người biết nhiều nhất", "en": "The one who knows the most" },
+                { "vi": "Người biết hỏi", "en": "The one who knows how to ask" },
+                { "vi": "Người lớn tuổi nhất", "en": "The oldest person" }
+              ],
+              "correct_index": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mod-create-01",
+      "stage_key": "create",
+      "title_vi": "Bắt đầu viết — từ ý tưởng đến bài hoàn chỉnh",
+      "title_en": "Start writing — from idea to finished piece",
+      "order": 1,
+      "lessons": [
+        {
+          "id": "les-create-01-01",
+          "slug": "y-tuong-la-gi",
+          "title_vi": "Ý tưởng là gì?",
+          "title_en": "What is an idea?",
+          "duration_min": 20,
+          "content_vi": "Ý tưởng không phải thứ to lớn. Ý tưởng bắt đầu từ một câu ngắn: \"Mình muốn…\"\n\n\"Mình muốn kể về con chó nhà mình.\" — đó là ý tưởng.\n\"Mình muốn làm poster về động vật.\" — đó cũng là ý tưởng.\n\nBước đầu tiên không phải làm, mà là **nói được mình muốn gì**. Viết ra 1 câu. Thế là đủ.",
+          "content_en": "An idea doesn't have to be big. An idea starts with a short sentence: \"I want to…\"\n\n\"I want to tell a story about my dog.\" — that's an idea.\n\"I want to make a poster about animals.\" — that's also an idea.\n\nThe first step is not doing — it's **saying what you want**. Write 1 sentence. That's enough.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-create-01-01-a",
+              "instruction_vi": "Viết ra 3 ý tưởng. Mỗi ý tưởng bắt đầu bằng \"Mình muốn…\"",
+              "instruction_en": "Write 3 ideas. Each idea starts with \"I want to…\""
+            },
+            {
+              "id": "prac-create-01-01-b",
+              "instruction_vi": "Chọn 1 ý tưởng yêu thích nhất. Viết thêm 2-3 câu mô tả ý tưởng đó.",
+              "instruction_en": "Pick your favorite idea. Write 2-3 more sentences describing it."
+            }
+          ],
+          "has_quiz": true,
+          "quizzes": [
+            {
+              "id": "quiz-create-01-01-a",
+              "question_vi": "Bước đầu tiên để sáng tạo là gì?",
+              "question_en": "What is the first step to creating?",
+              "options": [
+                { "vi": "Làm ngay", "en": "Do it right away" },
+                { "vi": "Nói được mình muốn gì", "en": "Say what you want" },
+                { "vi": "Hỏi người lớn làm giúp", "en": "Ask an adult to do it" }
+              ],
+              "correct_index": 1
+            }
+          ]
+        },
+        {
+          "id": "les-create-01-02",
+          "slug": "viet-doan-van-dau-tien",
+          "title_vi": "Viết đoạn văn đầu tiên",
+          "title_en": "Write your first paragraph",
+          "duration_min": 25,
+          "content_vi": "Một đoạn văn là một nhóm câu nói về **cùng một ý**.\n\nCách viết:\n1. **Câu mở** — nói ý chính: \"Con mèo nhà mình rất lạ.\"\n2. **Câu giải thích** — kể thêm chi tiết: \"Nó thích ngủ trên tủ lạnh.\"\n3. **Câu kết** — nói cảm nhận: \"Mình nghĩ nó hài hước.\"\n\nKhông cần dài. 3-5 câu là một đoạn văn hoàn chỉnh.",
+          "content_en": "A paragraph is a group of sentences about **the same idea**.\n\nHow to write one:\n1. **Opening sentence** — state the main idea: \"My cat is very strange.\"\n2. **Explaining sentence** — add details: \"It likes to sleep on the fridge.\"\n3. **Closing sentence** — share a feeling: \"I think it's funny.\"\n\nYou don't need to write a lot. 3-5 sentences make a complete paragraph.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-create-01-02-a",
+              "instruction_vi": "Viết 1 đoạn văn (3-5 câu) về 1 thứ con thích. Theo đúng 3 bước: mở — giải thích — kết.",
+              "instruction_en": "Write 1 paragraph (3-5 sentences) about something you like. Follow the 3 steps: open — explain — close."
+            }
+          ],
+          "has_quiz": false,
+          "quizzes": []
+        }
+      ]
+    },
+    {
+      "id": "mod-digital-01",
+      "stage_key": "digital-skills",
+      "title_vi": "Website đầu tiên của em",
+      "title_en": "Your first website",
+      "order": 1,
+      "lessons": [
+        {
+          "id": "les-digital-01-01",
+          "slug": "html-la-gi",
+          "title_vi": "HTML là gì?",
+          "title_en": "What is HTML?",
+          "duration_min": 25,
+          "content_vi": "HTML là ngôn ngữ mà trình duyệt đọc để hiển thị trang web. HTML không phải lập trình — nó chỉ là cách **đánh dấu** nội dung.\n\nVí dụ:\n- `<h1>` nghĩa là tiêu đề lớn\n- `<p>` nghĩa là đoạn văn\n- `<img>` nghĩa là hình ảnh\n\nMỗi trang web trên thế giới đều dùng HTML. Khi con học HTML, con hiểu được cách internet hoạt động.",
+          "content_en": "HTML is the language browsers read to display web pages. HTML is not programming — it's just a way to **mark up** content.\n\nExamples:\n- `<h1>` means a big heading\n- `<p>` means a paragraph\n- `<img>` means an image\n\nEvery website in the world uses HTML. When you learn HTML, you understand how the internet works.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-digital-01-01-a",
+              "instruction_vi": "Viết 1 đoạn HTML đơn giản gồm: 1 tiêu đề <h1> và 1 đoạn văn <p> giới thiệu về bản thân con.",
+              "instruction_en": "Write a simple HTML snippet with: 1 heading <h1> and 1 paragraph <p> introducing yourself."
+            }
+          ],
+          "has_quiz": true,
+          "quizzes": [
+            {
+              "id": "quiz-digital-01-01-a",
+              "question_vi": "HTML dùng để làm gì?",
+              "question_en": "What is HTML used for?",
+              "options": [
+                { "vi": "Lập trình trò chơi", "en": "Programming games" },
+                { "vi": "Đánh dấu nội dung để trình duyệt hiển thị", "en": "Marking up content for browsers to display" },
+                { "vi": "Gửi email", "en": "Sending emails" }
+              ],
+              "correct_index": 1
+            },
+            {
+              "id": "quiz-digital-01-01-b",
+              "question_vi": "<p> nghĩa là gì trong HTML?",
+              "question_en": "What does <p> mean in HTML?",
+              "options": [
+                { "vi": "Hình ảnh", "en": "Image" },
+                { "vi": "Đoạn văn", "en": "Paragraph" },
+                { "vi": "Tiêu đề", "en": "Heading" }
+              ],
+              "correct_index": 1
+            }
+          ]
+        },
+        {
+          "id": "les-digital-01-02",
+          "slug": "trang-web-dau-tien",
+          "title_vi": "Làm trang web đầu tiên",
+          "title_en": "Build your first web page",
+          "duration_min": 30,
+          "content_vi": "Hôm nay con sẽ tạo 1 trang web thật. Không cần phần mềm phức tạp — chỉ cần 1 file văn bản.\n\nBước 1: Mở Notepad (hoặc TextEdit trên Mac)\nBước 2: Viết:\n```\n<!DOCTYPE html>\n<html>\n<head><title>Trang của mình</title></head>\n<body>\n  <h1>Xin chào!</h1>\n  <p>Đây là trang web đầu tiên của mình.</p>\n</body>\n</html>\n```\nBước 3: Lưu file tên `index.html`\nBước 4: Mở file bằng trình duyệt\n\nXong! Con vừa tạo 1 trang web.",
+          "content_en": "Today you will create a real web page. No complex software needed — just a text file.\n\nStep 1: Open Notepad (or TextEdit on Mac)\nStep 2: Type:\n```\n<!DOCTYPE html>\n<html>\n<head><title>My page</title></head>\n<body>\n  <h1>Hello!</h1>\n  <p>This is my first web page.</p>\n</body>\n</html>\n```\nStep 3: Save the file as `index.html`\nStep 4: Open it in a browser\n\nDone! You just made a web page.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-digital-01-02-a",
+              "instruction_vi": "Tạo file index.html theo hướng dẫn. Thêm ít nhất 2 đoạn <p> về bản thân con. Chụp ảnh màn hình khi mở trong trình duyệt.",
+              "instruction_en": "Create index.html as instructed. Add at least 2 <p> paragraphs about yourself. Screenshot the result in the browser."
+            }
+          ],
+          "has_quiz": false,
+          "quizzes": []
+        }
+      ]
+    },
+    {
+      "id": "mod-realproject-01",
+      "stage_key": "real-projects",
+      "title_vi": "Dự án thực: lên kế hoạch và triển khai",
+      "title_en": "Real project: plan and execute",
+      "order": 1,
+      "lessons": [
+        {
+          "id": "les-realproject-01-01",
+          "slug": "chon-du-an",
+          "title_vi": "Chọn dự án — từ ý tưởng đến kế hoạch",
+          "title_en": "Pick a project — from idea to plan",
+          "duration_min": 30,
+          "content_vi": "Người lớn không \"học xong rồi làm\". Người lớn **vừa làm vừa học**. Dự án thực là cách con học như người lớn.\n\nBước 1: Chọn 1 thứ con muốn tạo ra. Ví dụ:\n- Website portfolio giới thiệu bản thân\n- Blog cá nhân\n- Tool tính toán nhỏ\n- Kênh nội dung\n\nBước 2: Viết kế hoạch:\n- Mục tiêu: Con muốn tạo gì?\n- Thời gian: Bao lâu?\n- Bước 1-3: Làm gì trước?\n- Kết quả: Sản phẩm cuối cùng trông như thế nào?\n\nBước 3: Bắt đầu từ bước nhỏ nhất.",
+          "content_en": "Adults don't \"finish learning, then work\". Adults **learn by doing**. A real project is how you learn like an adult.\n\nStep 1: Pick something you want to create. Examples:\n- A portfolio website about yourself\n- A personal blog\n- A small calculation tool\n- A content channel\n\nStep 2: Write a plan:\n- Goal: What do you want to create?\n- Timeline: How long?\n- Steps 1-3: What comes first?\n- Result: What does the final product look like?\n\nStep 3: Start with the smallest step.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-realproject-01-01-a",
+              "instruction_vi": "Viết kế hoạch dự án gồm: tên dự án, mục tiêu, 3 bước đầu tiên, và thời gian dự kiến.",
+              "instruction_en": "Write a project plan including: project name, goal, first 3 steps, and estimated timeline."
+            },
+            {
+              "id": "prac-realproject-01-01-b",
+              "instruction_vi": "Thực hiện bước 1 trong kế hoạch. Ghi lại con đã làm gì và kết quả như thế nào.",
+              "instruction_en": "Execute step 1 of your plan. Write what you did and what the result was."
+            }
+          ],
+          "has_quiz": true,
+          "quizzes": [
+            {
+              "id": "quiz-realproject-01-01-a",
+              "question_vi": "Người lớn học như thế nào?",
+              "question_en": "How do adults learn?",
+              "options": [
+                { "vi": "Học xong rồi mới làm", "en": "Finish learning, then do" },
+                { "vi": "Vừa làm vừa học", "en": "Learn by doing" },
+                { "vi": "Không cần học", "en": "Don't need to learn" }
+              ],
+              "correct_index": 1
+            },
+            {
+              "id": "quiz-realproject-01-01-b",
+              "question_vi": "Kế hoạch dự án cần gì?",
+              "question_en": "What does a project plan need?",
+              "options": [
+                { "vi": "Chỉ cần ý tưởng", "en": "Just an idea" },
+                { "vi": "Mục tiêu, thời gian, các bước, kết quả dự kiến", "en": "Goal, timeline, steps, expected result" },
+                { "vi": "Người lớn làm giúp", "en": "An adult to help" }
+              ],
+              "correct_index": 1
+            }
+          ]
+        },
+        {
+          "id": "les-realproject-01-02",
+          "slug": "portfolio-cua-em",
+          "title_vi": "Tạo portfolio — hồ sơ năng lực của em",
+          "title_en": "Create your portfolio — your capability record",
+          "duration_min": 35,
+          "content_vi": "Portfolio là tập hợp những gì con đã làm được. Nó không phải bảng điểm — nó là **bằng chứng** con biết làm gì.\n\nMột portfolio tốt gồm:\n1. **Giới thiệu** — Con là ai, con quan tâm gì\n2. **Sản phẩm** — 3-5 thứ con đã làm (bài viết, website, video, thiết kế…)\n3. **Quá trình** — Con đã học cách nào để làm được\n4. **Liên hệ** — Cách người khác có thể tìm con\n\nPortfolio không cần hoàn hảo. Nó cần **thật** — thể hiện đúng con là ai và con làm được gì.",
+          "content_en": "A portfolio is a collection of what you've done. It's not a report card — it's **proof** of what you can do.\n\nA good portfolio includes:\n1. **Introduction** — Who you are, what you care about\n2. **Work** — 3-5 things you've made (writing, website, video, design…)\n3. **Process** — How you learned to do it\n4. **Contact** — How others can find you\n\nA portfolio doesn't need to be perfect. It needs to be **real** — showing who you truly are and what you can do.",
+          "has_practice": true,
+          "practices": [
+            {
+              "id": "prac-realproject-01-02-a",
+              "instruction_vi": "Viết phần giới thiệu cho portfolio của con (3-5 câu): con là ai, con thích làm gì, và con đang học gì.",
+              "instruction_en": "Write the introduction for your portfolio (3-5 sentences): who you are, what you like doing, and what you're learning."
+            },
+            {
+              "id": "prac-realproject-01-02-b",
+              "instruction_vi": "Liệt kê 3 thứ con đã làm được (từ các bài học trước hoặc ngoài đời). Mỗi thứ viết 1-2 câu mô tả.",
+              "instruction_en": "List 3 things you've made (from lessons or real life). Write 1-2 sentences describing each."
+            }
+          ],
+          "has_quiz": false,
+          "quizzes": []
+        }
+      ]
+    }
+  ]
+}
