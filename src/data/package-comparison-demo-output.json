@@ -1,0 +1,1256 @@
+{
+  "version": "2026-04-22-team4-package-comparison-demo-output-v2",
+  "owner": "team-4-data-registry-forms",
+  "sourceDocs": [
+    "docs/00_master/28_PACKAGING_AND_FORMS_SYSTEM_FULL.md",
+    "docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md",
+    "docs/final-lock/VTL_49_TEAM4_PACKAGE_FORM_DATA_CONTRACT_2026-04-22.md"
+  ],
+  "comparisonColumns": [
+    {
+      "key": "who_for",
+      "labelVi": "Gói này dành cho ai",
+      "labelEn": "Who this package is for"
+    },
+    {
+      "key": "problem_solved",
+      "labelVi": "Vấn đề chính giải quyết",
+      "labelEn": "Primary problem solved"
+    },
+    {
+      "key": "what_you_get",
+      "labelVi": "Bạn nhận được gì",
+      "labelEn": "What you get"
+    },
+    {
+      "key": "expected_output",
+      "labelVi": "Đầu ra / bằng chứng là gì",
+      "labelEn": "Expected output / evidence"
+    },
+    {
+      "key": "ai_review_proof",
+      "labelVi": "Có AI / review / proof không",
+      "labelEn": "AI / review / proof"
+    },
+    {
+      "key": "next_step",
+      "labelVi": "Bước tiếp theo sau gói này là gì",
+      "labelEn": "What comes next"
+    }
+  ],
+  "packageOrder": [
+    "foundation",
+    "applied",
+    "professional",
+    "business"
+  ],
+  "comparisonBundles": [
+    {
+      "bundleId": "member_access_layers_v1",
+      "surfaceKey": "member",
+      "titleVi": "Lớp vào hệ chung",
+      "titleEn": "Shared entry layers",
+      "rows": [
+        {
+          "packageKey": "free_member",
+          "labelVi": "Thành viên miễn phí",
+          "labelEn": "Free Member",
+          "whoFor": "Người mới cần bước vào hệ mà chưa mua gì.",
+          "problemSolved": "Giúp nhìn được hệ, hiểu điểm vào, và thử lớp public trước khi đi sâu.",
+          "whatYouGet": [
+            "Hồ sơ cơ bản",
+            "Teaser của toàn bộ subdomain",
+            "Bài viết mở và công cụ cơ bản",
+            "Demo khóa học, packet, dashboard"
+          ],
+          "expectedOutput": [
+            "Hồ sơ thành viên cơ bản",
+            "Điểm vào phù hợp đầu tiên"
+          ],
+          "aiReviewProof": {
+            "ai": "none",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Nếu đã hiểu vấn đề của mình, đi tiếp sang Future Access Pass."
+        },
+        {
+          "packageKey": "future_access_pass",
+          "labelVi": "Future Access Pass",
+          "labelEn": "Future Access Pass",
+          "whoFor": "Người muốn mở lớp member cơ bản và xem sâu hơn toàn hệ.",
+          "problemSolved": "Giúp người dùng hiểu mình đang ở đâu và con đường nào phù hợp trước khi vào gói chuyên sâu.",
+          "whatYouGet": [
+            "Dashboard hành trình cá nhân",
+            "AI định hướng cơ bản",
+            "Guide, checklist, packet mở rộng",
+            "Thư viện nội dung thành viên"
+          ],
+          "expectedOutput": [
+            "Bản đồ hành trình sơ bộ",
+            "Đề xuất gói chuyên đề phù hợp"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Chọn một gói Foundation phù hợp với domain bạn đang cần nhất."
+        }
+      ]
+    },
+    {
+      "bundleId": "starter_cross_domain_packages_v1",
+      "surfaceKey": "member",
+      "titleVi": "Gợi ý gói khởi đầu liên thông",
+      "titleEn": "Starter cross-domain packages",
+      "rows": [
+        {
+          "packageKey": "edu_foundation",
+          "labelVi": "EDU Foundation",
+          "labelEn": "EDU Foundation",
+          "whoFor": "Người cần học để làm được.",
+          "problemSolved": "Biến việc học rời rạc thành lộ trình có đầu ra.",
+          "whatYouGet": [
+            "3-7 module nền",
+            "Bài thực hành đơn giản",
+            "Demo output"
+          ],
+          "expectedOutput": [
+            "Bài nộp nền tảng đầu tiên",
+            "Lộ trình học rõ ràng"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "light_feedback",
+            "proof": "proof_path_later"
+          },
+          "nextStep": "Sang EDU Applied khi đã có mục tiêu đầu ra rõ."
+        },
+        {
+          "packageKey": "life_baseline_7d",
+          "labelVi": "Baseline 7 ngày",
+          "labelEn": "Baseline 7 days",
+          "whoFor": "Người cần ổn định lại nhịp sống trước khi tối ưu.",
+          "problemSolved": "Cho thấy nhịp thật hiện tại thay vì đoán cảm giác.",
+          "whatYouGet": [
+            "Baseline 7 ngày",
+            "Checklist nhịp sống",
+            "Review tuần đầu"
+          ],
+          "expectedOutput": [
+            "Baseline snapshot",
+            "Điểm nghẽn nhịp sống chính"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Sang Rhythm 30 ngày khi đã có baseline."
+        },
+        {
+          "packageKey": "finance_money_basics",
+          "labelVi": "Money Basics",
+          "labelEn": "Money Basics",
+          "whoFor": "Người đang mơ hồ về tiền, quỹ dự phòng và rủi ro.",
+          "problemSolved": "Giúp hiểu tiền trước khi cố kiếm thêm tiền.",
+          "whatYouGet": [
+            "Checklist tiền cơ bản",
+            "Bộ lọc chống lừa đảo",
+            "Khung buffer và cashflow"
+          ],
+          "expectedOutput": [
+            "Money checklist đầu tiên",
+            "Bản đồ dòng tiền sạch"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Sang Money Discipline nếu cần đưa kỷ luật vào vận hành hằng tháng."
+        }
+      ]
+    },
+    {
+      "bundleId": "edu_packages_v1",
+      "surfaceKey": "edu",
+      "titleVi": "Gói EDU",
+      "titleEn": "EDU packages",
+      "rows": [
+        {
+          "packageKey": "edu_foundation",
+          "labelVi": "EDU Foundation",
+          "labelEn": "EDU Foundation",
+          "whoFor": "Người mới học, chưa có lộ trình rõ.",
+          "problemSolved": "Giúp học đúng để làm được thay vì chỉ biết.",
+          "whatYouGet": [
+            "Module nền tảng",
+            "Checklist học",
+            "Demo output"
+          ],
+          "expectedOutput": [
+            "Bài nộp cơ bản",
+            "Roadmap học tập"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "light_feedback",
+            "proof": "proof_path_later"
+          },
+          "nextStep": "EDU Applied"
+        },
+        {
+          "packageKey": "edu_applied",
+          "labelVi": "EDU Applied",
+          "labelEn": "EDU Applied",
+          "whoFor": "Người muốn làm project thật.",
+          "problemSolved": "Biến học thành project có thể review.",
+          "whatYouGet": [
+            "Deliverable thật",
+            "Feedback / review",
+            "Case study"
+          ],
+          "expectedOutput": [
+            "Project output",
+            "Review log"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "structured_feedback",
+            "proof": "proof_path_if_output_valid"
+          },
+          "nextStep": "EDU Professional"
+        },
+        {
+          "packageKey": "edu_professional",
+          "labelVi": "EDU Professional",
+          "labelEn": "EDU Professional",
+          "whoFor": "Người cần đầu ra dùng được cho portfolio hoặc proof.",
+          "problemSolved": "Đưa đầu ra về mức proof-ready.",
+          "whatYouGet": [
+            "Workflow đầy đủ",
+            "Template sâu",
+            "Portfolio / proof path"
+          ],
+          "expectedOutput": [
+            "Proof-ready dossier",
+            "Portfolio asset"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "vc_ready_if_eligible"
+          },
+          "nextStep": "Nộp review để đi vào VC path nếu đủ điều kiện."
+        }
+      ]
+    },
+    {
+      "bundleId": "life_packages_v1",
+      "surfaceKey": "life",
+      "titleVi": "Gói LIFE",
+      "titleEn": "LIFE packages",
+      "rows": [
+        {
+          "packageKey": "life_baseline_7d",
+          "labelVi": "Baseline 7 ngày",
+          "labelEn": "Baseline 7 days",
+          "whoFor": "Người đang mất nhịp và chưa biết mình lệch ở đâu.",
+          "problemSolved": "Tạo ảnh chụp ban đầu của giấc ngủ, năng lượng, ổn định.",
+          "whatYouGet": [
+            "Baseline 7 ngày",
+            "Nhật ký nhịp sống",
+            "Review tuần đầu"
+          ],
+          "expectedOutput": [
+            "Baseline snapshot",
+            "Điểm nghẽn chính"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Rhythm 30 ngày"
+        },
+        {
+          "packageKey": "life_rhythm_30d",
+          "labelVi": "Rhythm 30 ngày",
+          "labelEn": "Rhythm 30 days",
+          "whoFor": "Người đã có baseline và muốn tạo nhịp ổn định.",
+          "problemSolved": "Biến nhịp sống mong muốn thành chu kỳ có thể duy trì.",
+          "whatYouGet": [
+            "Pilot blocks",
+            "Review tuần",
+            "Checklist giữ năng lượng"
+          ],
+          "expectedOutput": [
+            "Nhịp 30 ngày",
+            "Weekly review log"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "light_feedback",
+            "proof": "none"
+          },
+          "nextStep": "Life System 90 ngày"
+        },
+        {
+          "packageKey": "life_system_90d",
+          "labelVi": "Life System 90 ngày",
+          "labelEn": "Life System 90 days",
+          "whoFor": "Người muốn giữ hệ sống ổn định dài hơn.",
+          "problemSolved": "Đưa nhịp sống từ ổn định ngắn hạn sang vận hành dài hạn.",
+          "whatYouGet": [
+            "System review",
+            "Template kỷ luật",
+            "Scenario xử lý lệch nhịp"
+          ],
+          "expectedOutput": [
+            "Life system dashboard",
+            "90-day operating rhythm"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "none"
+          },
+          "nextStep": "Quay lại hub để chọn lớp tiếp theo phù hợp với trạng thái mới."
+        }
+      ]
+    },
+    {
+      "bundleId": "finance_packages_v1",
+      "surfaceKey": "finance",
+      "titleVi": "Gói FINANCE",
+      "titleEn": "FINANCE packages",
+      "rows": [
+        {
+          "packageKey": "finance_money_basics",
+          "labelVi": "Money Basics",
+          "labelEn": "Money Basics",
+          "whoFor": "Người chưa có khung hiểu tiền và dễ bị rối.",
+          "problemSolved": "Tạo ngôn ngữ tiền cơ bản và anti-scam filter đầu tiên.",
+          "whatYouGet": [
+            "Bộ khái niệm tiền cơ bản",
+            "Checklist chống lừa đảo",
+            "Khung buffer sơ bộ"
+          ],
+          "expectedOutput": [
+            "Money checklist",
+            "Rủi ro cần tránh ngay"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Money Discipline"
+        },
+        {
+          "packageKey": "finance_money_discipline",
+          "labelVi": "Money Discipline",
+          "labelEn": "Money Discipline",
+          "whoFor": "Người cần kỷ luật tiền và cashflow sạch.",
+          "problemSolved": "Đưa hiểu biết tiền vào hành vi hằng tháng.",
+          "whatYouGet": [
+            "Cashflow template",
+            "Buffer rules",
+            "Review nhịp tiền"
+          ],
+          "expectedOutput": [
+            "Monthly cashflow sheet",
+            "Buffer build plan"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "light_feedback",
+            "proof": "none"
+          },
+          "nextStep": "Personal Finance System"
+        },
+        {
+          "packageKey": "finance_personal_finance_system",
+          "labelVi": "Personal Finance System",
+          "labelEn": "Personal Finance System",
+          "whoFor": "Người muốn biến tiền thành hệ vận hành cá nhân.",
+          "problemSolved": "Ghép budgeting, buffer, risk filter thành một hệ thống sống.",
+          "whatYouGet": [
+            "Workflow tiền cá nhân",
+            "Checklist kiểm soát",
+            "Scenario rủi ro"
+          ],
+          "expectedOutput": [
+            "Operating finance dashboard",
+            "Long-term discipline map"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "none"
+          },
+          "nextStep": "Nếu cần đầu tư, chuyển sang INVEST khi đã hiểu downside."
+        }
+      ]
+    },
+    {
+      "bundleId": "invest_packages_v1",
+      "surfaceKey": "invest",
+      "titleVi": "Gói INVEST",
+      "titleEn": "INVEST packages",
+      "rows": [
+        {
+          "packageKey": "invest_risk_basics",
+          "labelVi": "Risk Basics",
+          "labelEn": "Risk Basics",
+          "whoFor": "Người mới đầu tư hoặc từng vào bằng kỳ vọng.",
+          "problemSolved": "Đặt rủi ro trước upside.",
+          "whatYouGet": [
+            "Risk checklist",
+            "Downside framing",
+            "No-FOMO rules"
+          ],
+          "expectedOutput": [
+            "Risk baseline",
+            "Personal guardrail list"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Due Diligence Applied"
+        },
+        {
+          "packageKey": "invest_due_diligence_applied",
+          "labelVi": "Due Diligence Applied",
+          "labelEn": "Due Diligence Applied",
+          "whoFor": "Người đã có khung rủi ro và muốn kiểm tra một case thật.",
+          "problemSolved": "Biến nguyên tắc risk-first thành kiểm tra có cấu trúc.",
+          "whatYouGet": [
+            "Checklist due diligence",
+            "Scenario review",
+            "Allocation discipline sheet"
+          ],
+          "expectedOutput": [
+            "Case review packet",
+            "Allocation note"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "light_feedback",
+            "proof": "none"
+          },
+          "nextStep": "Calm Investing System"
+        },
+        {
+          "packageKey": "invest_calm_investing_system",
+          "labelVi": "Calm Investing System",
+          "labelEn": "Calm Investing System",
+          "whoFor": "Người cần hệ đầu tư tỉnh táo, không all-in, không FOMO.",
+          "problemSolved": "Ghép due diligence, phân bổ vốn và kill-switch logic.",
+          "whatYouGet": [
+            "Operating workflow",
+            "Kill-switch logic",
+            "Review template"
+          ],
+          "expectedOutput": [
+            "Calm investing playbook",
+            "Allocation operating sheet"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "none"
+          },
+          "nextStep": "Chỉ sang layer proof nếu có output thật cần xác minh."
+        }
+      ]
+    },
+    {
+      "bundleId": "green_packages_v1",
+      "surfaceKey": "green",
+      "titleVi": "Gói GREEN",
+      "titleEn": "GREEN packages",
+      "rows": [
+        {
+          "packageKey": "green_basics",
+          "labelVi": "Green Basics",
+          "labelEn": "Green Basics",
+          "whoFor": "Cá nhân hoặc tổ chức mới bắt đầu ghi nhận hành động xanh.",
+          "problemSolved": "Loại bỏ tuyên bố mơ hồ và xác định hành động nào cần ghi nhận.",
+          "whatYouGet": [
+            "Impact framing",
+            "Danh mục bằng chứng cơ bản",
+            "Checklist transparency"
+          ],
+          "expectedOutput": [
+            "Green baseline note",
+            "Danh mục evidence cần thu"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Impact Tracking"
+        },
+        {
+          "packageKey": "green_impact_tracking",
+          "labelVi": "Impact Tracking",
+          "labelEn": "Impact Tracking",
+          "whoFor": "Người đã có hành động xanh và cần đo lường / theo dõi.",
+          "problemSolved": "Biến hành động rời rạc thành hồ sơ tác động có thể theo dõi.",
+          "whatYouGet": [
+            "Tracking template",
+            "Packet checklist",
+            "Review mốc bằng chứng"
+          ],
+          "expectedOutput": [
+            "Impact dossier draft",
+            "Evidence log"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "light_feedback",
+            "proof": "proof_path_later"
+          },
+          "nextStep": "Green Proof System"
+        },
+        {
+          "packageKey": "green_proof_system",
+          "labelVi": "Green Proof System",
+          "labelEn": "Green Proof System",
+          "whoFor": "Người cần đóng gói hồ sơ tác động sang lớp xác minh.",
+          "problemSolved": "Đưa impact dossier về mức đủ neo vào VC.",
+          "whatYouGet": [
+            "Packet hoàn chỉnh",
+            "Disclosure model",
+            "VC anchoring path"
+          ],
+          "expectedOutput": [
+            "VC-ready impact packet",
+            "Cross-domain evidence bundle"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "vc_ready_if_eligible"
+          },
+          "nextStep": "Nộp hồ sơ sang VC nếu đủ dữ liệu thật."
+        }
+      ]
+    },
+    {
+      "bundleId": "vc_packages_v1",
+      "surfaceKey": "vc",
+      "titleVi": "Gói VC",
+      "titleEn": "VC packages",
+      "rows": [
+        {
+          "packageKey": "vc_proof_basics",
+          "labelVi": "Proof Basics",
+          "labelEn": "Proof Basics",
+          "whoFor": "Người chưa hiểu proof khác chứng chỉ ở đâu.",
+          "problemSolved": "Làm rõ proof là dữ liệu kiểm tra được, không phải profile đẹp.",
+          "whatYouGet": [
+            "Proof map",
+            "Disclosure basics",
+            "Data-readiness checklist"
+          ],
+          "expectedOutput": [
+            "Proof readiness note",
+            "Danh mục dữ liệu cần có"
+          ],
+          "aiReviewProof": {
+            "ai": "basic_guidance",
+            "review": "none",
+            "proof": "none"
+          },
+          "nextStep": "Proof Packaging"
+        },
+        {
+          "packageKey": "vc_proof_packaging",
+          "labelVi": "Proof Packaging",
+          "labelEn": "Proof Packaging",
+          "whoFor": "Người đã có hồ sơ rời rạc và cần đóng gói.",
+          "problemSolved": "Biến dữ liệu rời rạc thành packet có thể đối chiếu.",
+          "whatYouGet": [
+            "Packet structure",
+            "Minimal disclosure framing",
+            "Cross-check checklist"
+          ],
+          "expectedOutput": [
+            "Proof packet draft",
+            "Disclosure note"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "light_feedback",
+            "proof": "proof_path_later"
+          },
+          "nextStep": "Verification Readiness"
+        },
+        {
+          "packageKey": "vc_verification_readiness",
+          "labelVi": "Verification Readiness",
+          "labelEn": "Verification Readiness",
+          "whoFor": "Người muốn đưa packet tới ngưỡng xác minh độc lập.",
+          "problemSolved": "Chốt dữ liệu, disclosure và hồ sơ về mức review-ready.",
+          "whatYouGet": [
+            "Verification checklist",
+            "Review lane",
+            "Registry readiness map"
+          ],
+          "expectedOutput": [
+            "Verification-ready dossier",
+            "Registry submission path"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "vc_ready_if_eligible"
+          },
+          "nextStep": "Nộp review ở VC lane nếu đủ hồ sơ thật."
+        }
+      ]
+    },
+    {
+      "bundleId": "work_planned_safe_prerequisites_v1",
+      "surfaceKey": "work",
+      "titleVi": "Điều kiện trước khi vào WORK",
+      "titleEn": "Prerequisites before WORK",
+      "rows": [
+        {
+          "packageKey": "applied_prerequisite",
+          "labelVi": "Applied trước",
+          "labelEn": "Applied first",
+          "whoFor": "Người muốn đi vào work khi chưa có case thật.",
+          "problemSolved": "Tránh mở work trước khi chưa có output và review nền.",
+          "whatYouGet": [
+            "Gợi ý lớp Applied phù hợp",
+            "Checklist readiness"
+          ],
+          "expectedOutput": [
+            "Output nền",
+            "Review trail đầu tiên"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "light_feedback",
+            "proof": "proof_path_later"
+          },
+          "nextStep": "Chỉ quay lại WORK sau khi có output được review."
+        },
+        {
+          "packageKey": "professional_prerequisite",
+          "labelVi": "Professional trước",
+          "labelEn": "Professional first",
+          "whoFor": "Người muốn dùng output cho cơ hội làm việc có trust.",
+          "problemSolved": "Đưa output lên ngưỡng proof-ready trước khi mở layer cơ hội.",
+          "whatYouGet": [
+            "Proof path",
+            "VC readiness note"
+          ],
+          "expectedOutput": [
+            "Proof-ready delivery",
+            "VC candidate packet"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "vc_ready_if_eligible"
+          },
+          "nextStep": "Sau khi có proof đủ rõ, mới quay lại WORK."
+        }
+      ]
+    },
+    {
+      "bundleId": "market_planned_safe_prerequisites_v1",
+      "surfaceKey": "market",
+      "titleVi": "Điều kiện trước khi vào MARKET",
+      "titleEn": "Prerequisites before MARKET",
+      "rows": [
+        {
+          "packageKey": "applied_prerequisite_market",
+          "labelVi": "Applied trước",
+          "labelEn": "Applied first",
+          "whoFor": "Người chưa có asset / output đủ rõ để đưa ra market.",
+          "problemSolved": "Tránh listing thứ chưa có output thật và chưa có review.",
+          "whatYouGet": [
+            "Gợi ý lớp Applied",
+            "Checklist asset readiness"
+          ],
+          "expectedOutput": [
+            "Asset draft",
+            "Review note"
+          ],
+          "aiReviewProof": {
+            "ai": "guided_execution",
+            "review": "light_feedback",
+            "proof": "proof_path_later"
+          },
+          "nextStep": "Professional / proof path trước khi quay lại MARKET."
+        },
+        {
+          "packageKey": "professional_prerequisite_market",
+          "labelVi": "Professional trước",
+          "labelEn": "Professional first",
+          "whoFor": "Người muốn giao dịch asset gắn trust.",
+          "problemSolved": "Đưa asset tới mức proof-aware trước khi mở giao dịch public.",
+          "whatYouGet": [
+            "Packet cấu trúc",
+            "VC readiness path"
+          ],
+          "expectedOutput": [
+            "Proof-aware asset bundle",
+            "Disclosure packet"
+          ],
+          "aiReviewProof": {
+            "ai": "deep_review_support",
+            "review": "structured_review",
+            "proof": "vc_ready_if_eligible"
+          },
+          "nextStep": "Chỉ quay lại MARKET khi trust layer đã đủ."
+        }
+      ]
+    },
+    {
+      "bundleId": "business_packages_v1",
+      "surfaceKey": "business",
+      "titleVi": "Gói BUSINESS",
+      "titleEn": "BUSINESS packages",
+      "rows": [
+        {
+          "packageKey": "business_entry",
+          "labelVi": "B1 - Entry",
+          "labelEn": "B1 - Entry",
+          "whoFor": "Doanh nghiệp nhỏ hoặc đội ngũ mới bắt đầu đánh giá tổng thể.",
+          "problemSolved": "Cho doanh nghiệp nhìn thấy mình đang ở đâu trước khi chọn giải pháp sâu hơn.",
+          "whatYouGet": [
+            "Business future map",
+            "Self-assessment",
+            "Scorecard cơ bản",
+            "3 hướng ưu tiên"
+          ],
+          "expectedOutput": [
+            "Business scorecard",
+            "Priority map"
+          ],
+          "aiReviewProof": {
+            "ai": "internal_guidance_only",
+            "review": "readiness_review",
+            "proof": "none"
+          },
+          "nextStep": "Business Foundation"
+        },
+        {
+          "packageKey": "business_foundation",
+          "labelVi": "B2 - Foundation",
+          "labelEn": "B2 - Foundation",
+          "whoFor": "Doanh nghiệp cần nền tảng vận hành tương lai.",
+          "problemSolved": "Thiết lập cấu trúc nền cho con người, quy trình, tài chính, dữ liệu và trust.",
+          "whatYouGet": [
+            "Business dashboard cơ bản",
+            "Checklist vận hành",
+            "Module nền theo domain"
+          ],
+          "expectedOutput": [
+            "Operating structure map",
+            "Owner responsibility matrix"
+          ],
+          "aiReviewProof": {
+            "ai": "internal_guidance_only",
+            "review": "readiness_review",
+            "proof": "none"
+          },
+          "nextStep": "Business Applied"
+        },
+        {
+          "packageKey": "business_applied",
+          "labelVi": "B3 - Applied",
+          "labelEn": "B3 - Applied",
+          "whoFor": "Doanh nghiệp đã rõ ưu tiên và muốn triển khai thật.",
+          "problemSolved": "Biến hướng đi thành packet theo phòng ban, SOP và use case thật.",
+          "whatYouGet": [
+            "Packet theo phòng ban",
+            "SOP / playbook",
+            "Readiness review",
+            "AI hỗ trợ nội bộ ở mức planning"
+          ],
+          "expectedOutput": [
+            "SOP bundle",
+            "Execution timeline",
+            "Governance review log"
+          ],
+          "aiReviewProof": {
+            "ai": "internal_guidance_only",
+            "review": "readiness_review",
+            "proof": "none"
+          },
+          "nextStep": "Business Strategic"
+        },
+        {
+          "packageKey": "business_strategic",
+          "labelVi": "B4 - Strategic",
+          "labelEn": "B4 - Strategic",
+          "whoFor": "Doanh nghiệp dùng hệ ở cấp chiến lược và cân nhắc partner / co-build.",
+          "problemSolved": "Đánh giá độ sẵn sàng trust, đội ngũ và năng lực vận hành ở cấp cao hơn.",
+          "whatYouGet": [
+            "Trust / proof framework",
+            "Team readiness assessment",
+            "Partner path if eligible"
+          ],
+          "expectedOutput": [
+            "Trust layer blueprint",
+            "Partner readiness note"
+          ],
+          "aiReviewProof": {
+            "ai": "internal_guidance_only",
+            "review": "readiness_review",
+            "proof": "partner_readiness_only"
+          },
+          "nextStep": "Chỉ vào partner / co-build nếu founder gate và runtime truth cho phép."
+        }
+      ]
+    }
+  ],
+  "demoBundles": [
+    {
+      "bundleId": "demo_member_free_v1",
+      "packageKey": "free_member",
+      "surfaceKey": "member",
+      "demoUi": "trang demo roadmap công khai",
+      "demoDashboard": "dashboard mẫu ở mức teaser",
+      "demoOutput": "mẫu gợi ý điểm vào",
+      "demoCase": "case người mới vào hệ"
+    },
+    {
+      "bundleId": "demo_future_access_pass_v1",
+      "packageKey": "future_access_pass",
+      "surfaceKey": "member",
+      "demoUi": "gateway + member dashboard cơ bản",
+      "demoDashboard": "journey overview mẫu",
+      "demoOutput": "bản đồ hành trình sơ bộ",
+      "demoCase": "case mở lớp member cơ bản"
+    },
+    {
+      "bundleId": "demo_edu_foundation_v1",
+      "packageKey": "edu_foundation",
+      "surfaceKey": "edu",
+      "demoUi": "course roadmap mẫu",
+      "demoDashboard": "learning progress mẫu",
+      "demoOutput": "output bài nộp nền",
+      "demoCase": "case học để làm được"
+    },
+    {
+      "bundleId": "demo_edu_applied_v1",
+      "packageKey": "edu_applied",
+      "surfaceKey": "edu",
+      "demoUi": "project board mẫu",
+      "demoDashboard": "review progress mẫu",
+      "demoOutput": "deliverable + feedback mẫu",
+      "demoCase": "case project có review"
+    },
+    {
+      "bundleId": "demo_edu_professional_v1",
+      "packageKey": "edu_professional",
+      "surfaceKey": "edu",
+      "demoUi": "portfolio / proof path mẫu",
+      "demoDashboard": "proof readiness mẫu",
+      "demoOutput": "proof-ready dossier mẫu",
+      "demoCase": "case output đủ điều kiện VC path"
+    },
+    {
+      "bundleId": "demo_life_baseline_7d_v1",
+      "packageKey": "life_baseline_7d",
+      "surfaceKey": "life",
+      "demoUi": "baseline form mẫu",
+      "demoDashboard": "sleep / energy snapshot",
+      "demoOutput": "baseline note mẫu",
+      "demoCase": "case ổn định lại 7 ngày đầu"
+    },
+    {
+      "bundleId": "demo_life_rhythm_30d_v1",
+      "packageKey": "life_rhythm_30d",
+      "surfaceKey": "life",
+      "demoUi": "rhythm board mẫu",
+      "demoDashboard": "weekly review mẫu",
+      "demoOutput": "30-day rhythm plan",
+      "demoCase": "case xây nhịp 30 ngày"
+    },
+    {
+      "bundleId": "demo_life_system_90d_v1",
+      "packageKey": "life_system_90d",
+      "surfaceKey": "life",
+      "demoUi": "life system dashboard mẫu",
+      "demoDashboard": "discipline cadence mẫu",
+      "demoOutput": "90-day system review",
+      "demoCase": "case vận hành ổn định hơn"
+    },
+    {
+      "bundleId": "demo_finance_money_basics_v1",
+      "packageKey": "finance_money_basics",
+      "surfaceKey": "finance",
+      "demoUi": "money basics checklist mẫu",
+      "demoDashboard": "cashflow baseline mẫu",
+      "demoOutput": "anti-scam filter sheet",
+      "demoCase": "case dọn lại nền tài chính"
+    },
+    {
+      "bundleId": "demo_finance_money_discipline_v1",
+      "packageKey": "finance_money_discipline",
+      "surfaceKey": "finance",
+      "demoUi": "money discipline board mẫu",
+      "demoDashboard": "monthly review mẫu",
+      "demoOutput": "buffer build plan",
+      "demoCase": "case kiểm soát dòng tiền"
+    },
+    {
+      "bundleId": "demo_finance_personal_finance_system_v1",
+      "packageKey": "finance_personal_finance_system",
+      "surfaceKey": "finance",
+      "demoUi": "finance system dashboard mẫu",
+      "demoDashboard": "risk guardrail mẫu",
+      "demoOutput": "operating finance map",
+      "demoCase": "case duy trì kỷ luật tiền"
+    },
+    {
+      "bundleId": "demo_invest_risk_basics_v1",
+      "packageKey": "invest_risk_basics",
+      "surfaceKey": "invest",
+      "demoUi": "risk checklist mẫu",
+      "demoDashboard": "downside framing mẫu",
+      "demoOutput": "guardrail list",
+      "demoCase": "case thoát tư duy upside-first"
+    },
+    {
+      "bundleId": "demo_invest_due_diligence_applied_v1",
+      "packageKey": "invest_due_diligence_applied",
+      "surfaceKey": "invest",
+      "demoUi": "due diligence review mẫu",
+      "demoDashboard": "allocation review mẫu",
+      "demoOutput": "case review packet",
+      "demoCase": "case đọc rủi ro một dự án"
+    },
+    {
+      "bundleId": "demo_invest_calm_investing_system_v1",
+      "packageKey": "invest_calm_investing_system",
+      "surfaceKey": "invest",
+      "demoUi": "calm investing dashboard mẫu",
+      "demoDashboard": "kill-switch logic mẫu",
+      "demoOutput": "allocation playbook",
+      "demoCase": "case vận hành không FOMO"
+    },
+    {
+      "bundleId": "demo_green_basics_v1",
+      "packageKey": "green_basics",
+      "surfaceKey": "green",
+      "demoUi": "impact framing mẫu",
+      "demoDashboard": "evidence checklist mẫu",
+      "demoOutput": "green baseline note",
+      "demoCase": "case chuyển từ claim sang evidence"
+    },
+    {
+      "bundleId": "demo_green_impact_tracking_v1",
+      "packageKey": "green_impact_tracking",
+      "surfaceKey": "green",
+      "demoUi": "impact tracking board mẫu",
+      "demoDashboard": "evidence log mẫu",
+      "demoOutput": "impact dossier draft",
+      "demoCase": "case đo lường hành động xanh"
+    },
+    {
+      "bundleId": "demo_green_proof_system_v1",
+      "packageKey": "green_proof_system",
+      "surfaceKey": "green",
+      "demoUi": "green proof packet mẫu",
+      "demoDashboard": "VC anchoring readiness mẫu",
+      "demoOutput": "VC-ready impact packet",
+      "demoCase": "case neo evidence sang VC"
+    },
+    {
+      "bundleId": "demo_vc_proof_basics_v1",
+      "packageKey": "vc_proof_basics",
+      "surfaceKey": "vc",
+      "demoUi": "proof map mẫu",
+      "demoDashboard": "data-readiness snapshot",
+      "demoOutput": "proof readiness note",
+      "demoCase": "case phân biệt proof và chứng chỉ"
+    },
+    {
+      "bundleId": "demo_vc_proof_packaging_v1",
+      "packageKey": "vc_proof_packaging",
+      "surfaceKey": "vc",
+      "demoUi": "proof packet mẫu",
+      "demoDashboard": "disclosure view mẫu",
+      "demoOutput": "proof packet draft",
+      "demoCase": "case đóng gói hồ sơ thật"
+    },
+    {
+      "bundleId": "demo_vc_verification_readiness_v1",
+      "packageKey": "vc_verification_readiness",
+      "surfaceKey": "vc",
+      "demoUi": "verification lane mẫu",
+      "demoDashboard": "registry readiness snapshot",
+      "demoOutput": "verification-ready dossier",
+      "demoCase": "case sẵn sàng vào review"
+    },
+    {
+      "bundleId": "demo_business_entry_v1",
+      "packageKey": "business_entry",
+      "surfaceKey": "business",
+      "demoUi": "business future map mẫu",
+      "demoDashboard": "scorecard sơ bộ",
+      "demoOutput": "priority map doanh nghiệp",
+      "demoCase": "case đánh giá nhanh doanh nghiệp nhỏ"
+    },
+    {
+      "bundleId": "demo_business_foundation_v1",
+      "packageKey": "business_foundation",
+      "surfaceKey": "business",
+      "demoUi": "business dashboard cơ bản mẫu",
+      "demoDashboard": "owner matrix mẫu",
+      "demoOutput": "operating structure map",
+      "demoCase": "case dựng nền vận hành"
+    },
+    {
+      "bundleId": "demo_business_applied_v1",
+      "packageKey": "business_applied",
+      "surfaceKey": "business",
+      "demoUi": "SOP / playbook preview",
+      "demoDashboard": "execution timeline mẫu",
+      "demoOutput": "department packet bundle",
+      "demoCase": "case triển khai vào doanh nghiệp thật"
+    },
+    {
+      "bundleId": "demo_business_strategic_v1",
+      "packageKey": "business_strategic",
+      "surfaceKey": "business",
+      "demoUi": "trust / readiness panel mẫu",
+      "demoDashboard": "partner readiness mẫu",
+      "demoOutput": "trust layer blueprint",
+      "demoCase": "case đánh giá strategic readiness"
+    }
+  ],
+  "outputBundles": [
+    {
+      "outputBundleId": "output_member_free_v1",
+      "packageKey": "free_member",
+      "outputs": [
+        "basic_profile",
+        "entry_point_recommendation"
+      ]
+    },
+    {
+      "outputBundleId": "output_future_access_pass_v1",
+      "packageKey": "future_access_pass",
+      "outputs": [
+        "journey_overview",
+        "package_recommendation_bundle"
+      ]
+    },
+    {
+      "outputBundleId": "output_edu_foundation_v1",
+      "packageKey": "edu_foundation",
+      "outputs": [
+        "first_submission",
+        "learning_roadmap"
+      ]
+    },
+    {
+      "outputBundleId": "output_edu_applied_v1",
+      "packageKey": "edu_applied",
+      "outputs": [
+        "project_output",
+        "review_log"
+      ]
+    },
+    {
+      "outputBundleId": "output_edu_professional_v1",
+      "packageKey": "edu_professional",
+      "outputs": [
+        "proof_ready_dossier",
+        "portfolio_asset"
+      ]
+    },
+    {
+      "outputBundleId": "output_life_baseline_7d_v1",
+      "packageKey": "life_baseline_7d",
+      "outputs": [
+        "baseline_snapshot",
+        "main_constraint_note"
+      ]
+    },
+    {
+      "outputBundleId": "output_life_rhythm_30d_v1",
+      "packageKey": "life_rhythm_30d",
+      "outputs": [
+        "30_day_plan",
+        "weekly_review_log"
+      ]
+    },
+    {
+      "outputBundleId": "output_life_system_90d_v1",
+      "packageKey": "life_system_90d",
+      "outputs": [
+        "life_system_dashboard",
+        "90_day_operating_rhythm"
+      ]
+    },
+    {
+      "outputBundleId": "output_finance_money_basics_v1",
+      "packageKey": "finance_money_basics",
+      "outputs": [
+        "money_checklist",
+        "anti_scam_filter_sheet"
+      ]
+    },
+    {
+      "outputBundleId": "output_finance_money_discipline_v1",
+      "packageKey": "finance_money_discipline",
+      "outputs": [
+        "cashflow_sheet",
+        "buffer_plan"
+      ]
+    },
+    {
+      "outputBundleId": "output_finance_personal_finance_system_v1",
+      "packageKey": "finance_personal_finance_system",
+      "outputs": [
+        "finance_dashboard",
+        "discipline_map"
+      ]
+    },
+    {
+      "outputBundleId": "output_invest_risk_basics_v1",
+      "packageKey": "invest_risk_basics",
+      "outputs": [
+        "risk_baseline",
+        "guardrail_list"
+      ]
+    },
+    {
+      "outputBundleId": "output_invest_due_diligence_applied_v1",
+      "packageKey": "invest_due_diligence_applied",
+      "outputs": [
+        "case_review_packet",
+        "allocation_note"
+      ]
+    },
+    {
+      "outputBundleId": "output_invest_calm_investing_system_v1",
+      "packageKey": "invest_calm_investing_system",
+      "outputs": [
+        "calm_investing_playbook",
+        "allocation_operating_sheet"
+      ]
+    },
+    {
+      "outputBundleId": "output_green_basics_v1",
+      "packageKey": "green_basics",
+      "outputs": [
+        "green_baseline_note",
+        "evidence_collection_list"
+      ]
+    },
+    {
+      "outputBundleId": "output_green_impact_tracking_v1",
+      "packageKey": "green_impact_tracking",
+      "outputs": [
+        "impact_dossier_draft",
+        "evidence_log"
+      ]
+    },
+    {
+      "outputBundleId": "output_green_proof_system_v1",
+      "packageKey": "green_proof_system",
+      "outputs": [
+        "vc_ready_impact_packet",
+        "cross_domain_evidence_bundle"
+      ]
+    },
+    {
+      "outputBundleId": "output_vc_proof_basics_v1",
+      "packageKey": "vc_proof_basics",
+      "outputs": [
+        "proof_readiness_note",
+        "data_checklist"
+      ]
+    },
+    {
+      "outputBundleId": "output_vc_proof_packaging_v1",
+      "packageKey": "vc_proof_packaging",
+      "outputs": [
+        "proof_packet_draft",
+        "disclosure_note"
+      ]
+    },
+    {
+      "outputBundleId": "output_vc_verification_readiness_v1",
+      "packageKey": "vc_verification_readiness",
+      "outputs": [
+        "verification_ready_dossier",
+        "registry_submission_path"
+      ]
+    },
+    {
+      "outputBundleId": "output_business_entry_v1",
+      "packageKey": "business_entry",
+      "outputs": [
+        "business_scorecard",
+        "priority_map"
+      ]
+    },
+    {
+      "outputBundleId": "output_business_foundation_v1",
+      "packageKey": "business_foundation",
+      "outputs": [
+        "operating_structure_map",
+        "owner_responsibility_matrix"
+      ]
+    },
+    {
+      "outputBundleId": "output_business_applied_v1",
+      "packageKey": "business_applied",
+      "outputs": [
+        "sop_bundle",
+        "execution_timeline",
+        "governance_review_log"
+      ]
+    },
+    {
+      "outputBundleId": "output_business_strategic_v1",
+      "packageKey": "business_strategic",
+      "outputs": [
+        "trust_layer_blueprint",
+        "team_readiness_assessment",
+        "partner_readiness_note"
+      ]
+    }
+  ],
+  "renderingRules": {
+    "requiredCardFields": [
+      "who_for",
+      "problem_solved",
+      "what_you_get",
+      "expected_output",
+      "ai_review_proof",
+      "next_step"
+    ],
+    "requiredDemoFields": [
+      "demo_ui",
+      "demo_dashboard",
+      "demo_output",
+      "demo_case"
+    ],
+    "doNotRender": [
+      "lesson_count",
+      "hour_count",
+      "technical_spec_dump"
+    ],
+    "publicCopyGuardrail": "no_overclaim_no_live_business_claim"
+  }
+}

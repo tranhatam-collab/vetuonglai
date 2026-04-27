@@ -1,0 +1,646 @@
+{
+  "version": "2026-04-21-team4-founder-metrics-v1",
+  "owner": "team-4-founder-panel-data",
+  "defaultWindows": [
+    "24h",
+    "7d",
+    "30d"
+  ],
+  "metricRegistry": [
+    {
+      "key": "critical_alert_count",
+      "blockKey": "overview",
+      "labelVi": "Cảnh báo nghiêm trọng",
+      "labelEn": "Critical Alert Count",
+      "format": "count",
+      "formula": "count(incidents where severity = P0 or risk_level = R1 and status != resolved)",
+      "sourceHints": [
+        "system_incidents",
+        "founder_insights"
+      ],
+      "nullStateVi": "Chờ dữ liệu cảnh báo",
+      "nullStateEn": "Awaiting alert data"
+    },
+    {
+      "key": "active_incident_count",
+      "blockKey": "overview",
+      "labelVi": "Incident đang mở",
+      "labelEn": "Active Incident Count",
+      "format": "count",
+      "formula": "count(system_incidents where status in [open, investigating])",
+      "sourceHints": [
+        "system_incidents"
+      ],
+      "nullStateVi": "Chờ dữ liệu incident",
+      "nullStateEn": "Awaiting incident data"
+    },
+    {
+      "key": "service_status",
+      "blockKey": "system_health",
+      "labelVi": "Trạng thái dịch vụ",
+      "labelEn": "Service Status",
+      "format": "status",
+      "formula": "derived from health checks and incident severity",
+      "sourceHints": [
+        "system_health_snapshots",
+        "logs"
+      ],
+      "thresholds": {
+        "good": "OK",
+        "warning": "Warning",
+        "critical": "Critical"
+      },
+      "nullStateVi": "Chưa có health check",
+      "nullStateEn": "No health check yet"
+    },
+    {
+      "key": "latency_p95_ms",
+      "blockKey": "system_health",
+      "labelVi": "Độ trễ P95",
+      "labelEn": "P95 Latency",
+      "format": "milliseconds",
+      "formula": "p95(response_time_ms)",
+      "sourceHints": [
+        "logs",
+        "api_metrics"
+      ],
+      "thresholds": {
+        "good": {
+          "lte": 500
+        },
+        "warning": {
+          "lte": 1200
+        },
+        "critical": {
+          "gt": 1200
+        }
+      },
+      "nullStateVi": "Chờ dữ liệu latency",
+      "nullStateEn": "Awaiting latency data"
+    },
+    {
+      "key": "errors_last_1h",
+      "blockKey": "system_health",
+      "labelVi": "Lỗi 1 giờ gần nhất",
+      "labelEn": "Errors Last 1 Hour",
+      "format": "count",
+      "formula": "count(errors in last 1 hour)",
+      "sourceHints": [
+        "logs",
+        "sentry"
+      ],
+      "thresholds": {
+        "good": {
+          "lte": 3
+        },
+        "warning": {
+          "lte": 10
+        },
+        "critical": {
+          "gt": 10
+        }
+      },
+      "nullStateVi": "Chờ dữ liệu lỗi",
+      "nullStateEn": "Awaiting error data"
+    },
+    {
+      "key": "total_users",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Tổng người dùng",
+      "labelEn": "Total Users",
+      "format": "count",
+      "formula": "count(distinct users.id)",
+      "sourceHints": [
+        "users"
+      ],
+      "nullStateVi": "Chưa có dữ liệu người dùng",
+      "nullStateEn": "No user data yet"
+    },
+    {
+      "key": "activated_users",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Người dùng đã kích hoạt",
+      "labelEn": "Activated Users",
+      "format": "count",
+      "formula": "count(users with activation event or first meaningful action)",
+      "sourceHints": [
+        "events",
+        "member"
+      ],
+      "nullStateVi": "Chờ dữ liệu kích hoạt",
+      "nullStateEn": "Awaiting activation data"
+    },
+    {
+      "key": "activation_rate",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Tỉ lệ kích hoạt",
+      "labelEn": "Activation Rate",
+      "format": "percentage",
+      "formula": "activated_users / total_users",
+      "sourceHints": [
+        "users",
+        "events"
+      ],
+      "thresholds": {
+        "good": {
+          "gte": 0.4
+        },
+        "warning": {
+          "gte": 0.25
+        },
+        "critical": {
+          "lt": 0.25
+        }
+      },
+      "nullStateVi": "Chờ tính tỉ lệ kích hoạt",
+      "nullStateEn": "Awaiting activation-rate calculation"
+    },
+    {
+      "key": "learners",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Người dùng đang học",
+      "labelEn": "Learners",
+      "format": "count",
+      "formula": "count(users with lesson started or progress active)",
+      "sourceHints": [
+        "progress",
+        "courses"
+      ],
+      "nullStateVi": "Chờ dữ liệu học tập",
+      "nullStateEn": "Awaiting learning data"
+    },
+    {
+      "key": "users_with_submissions",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Người dùng đã nộp bài",
+      "labelEn": "Users With Submissions",
+      "format": "count",
+      "formula": "count(distinct submissions.user_id)",
+      "sourceHints": [
+        "submissions"
+      ],
+      "nullStateVi": "Chờ dữ liệu nộp bài",
+      "nullStateEn": "Awaiting submission data"
+    },
+    {
+      "key": "users_with_vc",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Người dùng có VC",
+      "labelEn": "Users With VC",
+      "format": "count",
+      "formula": "count(distinct vc_badges.user_id where status = issued)",
+      "sourceHints": [
+        "vc_badges"
+      ],
+      "nullStateVi": "Chờ dữ liệu VC",
+      "nullStateEn": "Awaiting VC data"
+    },
+    {
+      "key": "users_stuck",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Người dùng đang mắc kẹt",
+      "labelEn": "Users Stuck",
+      "format": "count",
+      "formula": "count(users with no progression for threshold window)",
+      "sourceHints": [
+        "journey",
+        "events"
+      ],
+      "nullStateVi": "Chờ dữ liệu tắc nghẽn",
+      "nullStateEn": "Awaiting stuck-user data"
+    },
+    {
+      "key": "users_missing_next_step",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Thiếu bước tiếp theo",
+      "labelEn": "Users Missing Next Step",
+      "format": "count",
+      "formula": "count(users where next_step is null)",
+      "sourceHints": [
+        "journey"
+      ],
+      "nullStateVi": "Chờ dữ liệu next step",
+      "nullStateEn": "Awaiting next-step data"
+    },
+    {
+      "key": "discover_to_join_rate",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Discover → Join",
+      "labelEn": "Discover to Join",
+      "format": "percentage",
+      "formula": "join_stage_users / discover_stage_users",
+      "sourceHints": [
+        "events",
+        "journey"
+      ],
+      "nullStateVi": "Chờ dữ liệu funnel",
+      "nullStateEn": "Awaiting funnel data"
+    },
+    {
+      "key": "join_to_learn_rate",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Join → Learn",
+      "labelEn": "Join to Learn",
+      "format": "percentage",
+      "formula": "learn_stage_users / join_stage_users",
+      "sourceHints": [
+        "events",
+        "journey",
+        "progress"
+      ],
+      "nullStateVi": "Chờ dữ liệu funnel",
+      "nullStateEn": "Awaiting funnel data"
+    },
+    {
+      "key": "learn_to_submit_rate",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Learn → Submit",
+      "labelEn": "Learn to Submit",
+      "format": "percentage",
+      "formula": "users_with_submissions / learners",
+      "sourceHints": [
+        "progress",
+        "submissions"
+      ],
+      "thresholds": {
+        "good": {
+          "gte": 0.3
+        },
+        "warning": {
+          "gte": 0.18
+        },
+        "critical": {
+          "lt": 0.18
+        }
+      },
+      "nullStateVi": "Chờ tỉ lệ nộp bài",
+      "nullStateEn": "Awaiting learn-to-submit data"
+    },
+    {
+      "key": "submit_to_prove_rate",
+      "blockKey": "user_journey_truth",
+      "labelVi": "Submit → Prove",
+      "labelEn": "Submit to Prove",
+      "format": "percentage",
+      "formula": "users_with_vc / users_with_submissions",
+      "sourceHints": [
+        "submissions",
+        "vc_badges"
+      ],
+      "thresholds": {
+        "good": {
+          "gte": 0.5
+        },
+        "warning": {
+          "gte": 0.35
+        },
+        "critical": {
+          "lt": 0.35
+        }
+      },
+      "nullStateVi": "Chờ tỉ lệ cấp VC",
+      "nullStateEn": "Awaiting submit-to-prove data"
+    },
+    {
+      "key": "courses_live",
+      "blockKey": "learning_and_proof",
+      "labelVi": "Khóa học đang mở",
+      "labelEn": "Courses Live",
+      "format": "count",
+      "formula": "count(courses where status = live)",
+      "sourceHints": [
+        "courses"
+      ],
+      "nullStateVi": "Chờ dữ liệu khóa học",
+      "nullStateEn": "Awaiting course data"
+    },
+    {
+      "key": "lessons_completed",
+      "blockKey": "learning_and_proof",
+      "labelVi": "Bài học đã hoàn thành",
+      "labelEn": "Lessons Completed",
+      "format": "count",
+      "formula": "count(progress where status = completed)",
+      "sourceHints": [
+        "progress"
+      ],
+      "nullStateVi": "Chờ dữ liệu hoàn thành",
+      "nullStateEn": "Awaiting completion data"
+    },
+    {
+      "key": "submissions_today",
+      "blockKey": "learning_and_proof",
+      "labelVi": "Nộp bài hôm nay",
+      "labelEn": "Submissions Today",
+      "format": "count",
+      "formula": "count(submissions created today)",
+      "sourceHints": [
+        "submissions"
+      ],
+      "nullStateVi": "Chờ dữ liệu nộp bài hôm nay",
+      "nullStateEn": "Awaiting today's submission data"
+    },
+    {
+      "key": "review_backlog",
+      "blockKey": "learning_and_proof",
+      "labelVi": "Backlog review",
+      "labelEn": "Review Backlog",
+      "format": "count",
+      "formula": "count(submissions where status in [submitted, review])",
+      "sourceHints": [
+        "submissions",
+        "review_queue"
+      ],
+      "thresholds": {
+        "good": {
+          "lte": 20
+        },
+        "warning": {
+          "lte": 50
+        },
+        "critical": {
+          "gt": 50
+        }
+      },
+      "nullStateVi": "Chờ dữ liệu hàng đợi review",
+      "nullStateEn": "Awaiting review backlog data"
+    },
+    {
+      "key": "vc_issued_today",
+      "blockKey": "learning_and_proof",
+      "labelVi": "VC cấp hôm nay",
+      "labelEn": "VC Issued Today",
+      "format": "count",
+      "formula": "count(vc_badges issued today)",
+      "sourceHints": [
+        "vc_badges"
+      ],
+      "nullStateVi": "Chờ dữ liệu VC hôm nay",
+      "nullStateEn": "Awaiting today's VC data"
+    },
+    {
+      "key": "submit_to_vc_rate",
+      "blockKey": "learning_and_proof",
+      "labelVi": "Tỉ lệ nộp → VC",
+      "labelEn": "Submit to VC Rate",
+      "format": "percentage",
+      "formula": "approved_submissions_that_issue_vc / all_reviewed_submissions",
+      "sourceHints": [
+        "submissions",
+        "vc_badges"
+      ],
+      "thresholds": {
+        "good": {
+          "gte": 0.5
+        },
+        "warning": {
+          "gte": 0.35
+        },
+        "critical": {
+          "lt": 0.35
+        }
+      },
+      "nullStateVi": "Chờ tỉ lệ nộp → VC",
+      "nullStateEn": "Awaiting submit-to-VC data"
+    },
+    {
+      "key": "average_review_time_hours",
+      "blockKey": "learning_and_proof",
+      "labelVi": "Thời gian review trung bình",
+      "labelEn": "Average Review Time",
+      "format": "hours",
+      "formula": "avg(review_completed_at - submitted_at)",
+      "sourceHints": [
+        "submissions",
+        "review_queue"
+      ],
+      "thresholds": {
+        "good": {
+          "lte": 24
+        },
+        "warning": {
+          "lte": 72
+        },
+        "critical": {
+          "gt": 72
+        }
+      },
+      "nullStateVi": "Chờ dữ liệu review",
+      "nullStateEn": "Awaiting review-time data"
+    },
+    {
+      "key": "traffic_7d",
+      "blockKey": "domain_performance",
+      "labelVi": "Traffic 7 ngày",
+      "labelEn": "7-Day Traffic",
+      "format": "count",
+      "formula": "count(page_views over 7 days)",
+      "sourceHints": [
+        "analytics"
+      ],
+      "nullStateVi": "Chờ dữ liệu traffic",
+      "nullStateEn": "Awaiting traffic data"
+    },
+    {
+      "key": "cta_ctr",
+      "blockKey": "domain_performance",
+      "labelVi": "Tỉ lệ click CTA",
+      "labelEn": "CTA CTR",
+      "format": "percentage",
+      "formula": "cta_clicks / page_views",
+      "sourceHints": [
+        "analytics",
+        "events"
+      ],
+      "nullStateVi": "Chờ dữ liệu CTA",
+      "nullStateEn": "Awaiting CTA data"
+    },
+    {
+      "key": "teaser_engagement_rate",
+      "blockKey": "domain_performance",
+      "labelVi": "Tương tác teaser",
+      "labelEn": "Teaser Engagement Rate",
+      "format": "percentage",
+      "formula": "teaser_interactions / teaser_impressions",
+      "sourceHints": [
+        "analytics",
+        "events"
+      ],
+      "nullStateVi": "Chờ dữ liệu teaser",
+      "nullStateEn": "Awaiting teaser data"
+    },
+    {
+      "key": "onward_conversion_rate",
+      "blockKey": "domain_performance",
+      "labelVi": "Tỉ lệ đi tiếp",
+      "labelEn": "Onward Conversion Rate",
+      "format": "percentage",
+      "formula": "next_step_clicks / domain_sessions",
+      "sourceHints": [
+        "journey",
+        "events"
+      ],
+      "nullStateVi": "Chờ dữ liệu next step",
+      "nullStateEn": "Awaiting onward-conversion data"
+    },
+    {
+      "key": "drop_rate",
+      "blockKey": "domain_performance",
+      "labelVi": "Tỉ lệ rơi",
+      "labelEn": "Drop Rate",
+      "format": "percentage",
+      "formula": "sessions_without_next_action / domain_sessions",
+      "sourceHints": [
+        "analytics",
+        "journey"
+      ],
+      "nullStateVi": "Chờ dữ liệu rơi",
+      "nullStateEn": "Awaiting drop-rate data"
+    },
+    {
+      "key": "error_rate",
+      "blockKey": "reliability",
+      "labelVi": "Tỉ lệ lỗi",
+      "labelEn": "Error Rate",
+      "format": "percentage",
+      "formula": "errors / requests",
+      "sourceHints": [
+        "logs",
+        "api_metrics"
+      ],
+      "thresholds": {
+        "good": {
+          "lt": 0.01
+        },
+        "warning": {
+          "lt": 0.03
+        },
+        "critical": {
+          "gte": 0.03
+        }
+      },
+      "nullStateVi": "Chờ dữ liệu reliability",
+      "nullStateEn": "Awaiting reliability data"
+    },
+    {
+      "key": "p0_incidents",
+      "blockKey": "reliability",
+      "labelVi": "Incident P0",
+      "labelEn": "P0 Incidents",
+      "format": "count",
+      "formula": "count(system_incidents where severity = P0 and status != resolved)",
+      "sourceHints": [
+        "system_incidents"
+      ],
+      "nullStateVi": "Chờ dữ liệu P0",
+      "nullStateEn": "Awaiting P0 data"
+    },
+    {
+      "key": "deploy_failures_7d",
+      "blockKey": "reliability",
+      "labelVi": "Deploy lỗi 7 ngày",
+      "labelEn": "Deploy Failures 7 Days",
+      "format": "count",
+      "formula": "count(deployments where status = failed over 7 days)",
+      "sourceHints": [
+        "deployments"
+      ],
+      "nullStateVi": "Chờ dữ liệu deploy",
+      "nullStateEn": "Awaiting deployment data"
+    },
+    {
+      "key": "active_members",
+      "blockKey": "entitlement",
+      "labelVi": "Member đang hoạt động",
+      "labelEn": "Active Members",
+      "format": "count",
+      "formula": "count(entitlements where state = active)",
+      "sourceHints": [
+        "entitlements",
+        "member"
+      ],
+      "nullStateVi": "Chờ dữ liệu member",
+      "nullStateEn": "Awaiting member data"
+    },
+    {
+      "key": "expired_members",
+      "blockKey": "entitlement",
+      "labelVi": "Member hết hạn",
+      "labelEn": "Expired Members",
+      "format": "count",
+      "formula": "count(entitlements where state = expired)",
+      "sourceHints": [
+        "entitlements"
+      ],
+      "nullStateVi": "Chờ dữ liệu hết hạn",
+      "nullStateEn": "Awaiting expired-member data"
+    },
+    {
+      "key": "access_errors",
+      "blockKey": "entitlement",
+      "labelVi": "Lỗi quyền truy cập",
+      "labelEn": "Access Errors",
+      "format": "count",
+      "formula": "count(access denials classified as errors)",
+      "sourceHints": [
+        "member",
+        "logs"
+      ],
+      "nullStateVi": "Chờ dữ liệu quyền truy cập",
+      "nullStateEn": "Awaiting access-error data"
+    }
+  ],
+  "blockMetricMap": {
+    "overview": [
+      "critical_alert_count",
+      "active_incident_count"
+    ],
+    "system_health": [
+      "service_status",
+      "latency_p95_ms",
+      "errors_last_1h"
+    ],
+    "user_journey_truth": [
+      "total_users",
+      "activated_users",
+      "activation_rate",
+      "learners",
+      "users_with_submissions",
+      "users_with_vc",
+      "users_stuck",
+      "users_missing_next_step",
+      "discover_to_join_rate",
+      "join_to_learn_rate",
+      "learn_to_submit_rate",
+      "submit_to_prove_rate"
+    ],
+    "learning_and_proof": [
+      "courses_live",
+      "lessons_completed",
+      "submissions_today",
+      "review_backlog",
+      "vc_issued_today",
+      "submit_to_vc_rate",
+      "average_review_time_hours"
+    ],
+    "domain_performance": [
+      "traffic_7d",
+      "cta_ctr",
+      "teaser_engagement_rate",
+      "onward_conversion_rate",
+      "drop_rate",
+      "active_incident_count"
+    ],
+    "reliability": [
+      "error_rate",
+      "p0_incidents",
+      "deploy_failures_7d",
+      "latency_p95_ms"
+    ],
+    "entitlement": [
+      "active_members",
+      "expired_members",
+      "access_errors"
+    ]
+  }
+}

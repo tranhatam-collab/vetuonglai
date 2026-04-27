@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-23T11:21:35.173Z",
+  "generatedAt": "2026-04-27T09:04:01.957Z",
   "owner": "team-5-smoke-release-qa",
   "lane": "wave-e-total-system-release-gate",
   "decision": {
@@ -11,23 +11,12 @@
       "wave_d_dns_or_runtime_publish"
     ],
     "summary": {
-      "total": 5,
-      "passed": 4,
+      "total": 4,
+      "passed": 3,
       "failed": 1
     }
   },
   "rows": [
-    {
-      "key": "team5_full_pack",
-      "label": "Team 5 full smoke/strict pack",
-      "command": "npm run verify:team5:pack",
-      "ok": true,
-      "code": 0,
-      "timedOut": false,
-      "durationSec": 4.5,
-      "note": "",
-      "outputTail": "    \"failed\": 0,\n    \"skipped\": 0\n  },\n  \"runtime_and_live\": {\n    \"total\": 4,\n    \"passed\": 2,\n    \"failed\": 0,\n    \"skipped\": 2\n  }\n}"
-    },
     {
       "key": "planned_safe_wave_release",
       "label": "Wave D planned-safe release pack",

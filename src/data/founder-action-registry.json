@@ -1,0 +1,338 @@
+{
+  "version": "2026-04-21-team4-founder-actions-v1",
+  "owner": "team-4-founder-panel-data",
+  "autopilotModes": [
+    {
+      "key": "off",
+      "labelVi": "Tắt",
+      "labelEn": "Off",
+      "autopilotExecuteAllowed": false
+    },
+    {
+      "key": "assisted",
+      "labelVi": "Hỗ trợ",
+      "labelEn": "Assisted",
+      "autopilotExecuteAllowed": false
+    },
+    {
+      "key": "limited",
+      "labelVi": "Giới hạn",
+      "labelEn": "Limited",
+      "autopilotExecuteAllowed": true
+    }
+  ],
+  "ctaWhitelist": {
+    "vi": [
+      "Xem điểm vào",
+      "Khởi động đối thoại",
+      "Tiếp tục tại hub",
+      "Xem lớp liên quan",
+      "Mở toàn bộ hệ của bạn"
+    ],
+    "en": [
+      "View entry point",
+      "Start dialogue",
+      "Continue at hub",
+      "Explore related layer",
+      "Open your full system"
+    ]
+  },
+  "featureFlagWhitelist": [
+    "simple_submit_mode",
+    "invest_public_cta_enabled",
+    "finance_entry_promoted",
+    "content_review_queue_boost",
+    "broken_cta_route_locked"
+  ],
+  "routePriorityWhitelist": [
+    "hub_finance_entry",
+    "hub_life_entry",
+    "hub_edu_entry",
+    "hub_vc_entry"
+  ],
+  "registry": [
+    {
+      "actionId": "act_simple_submit_mode",
+      "nameVi": "Bật chế độ nộp bài đơn giản",
+      "nameEn": "Enable Simple Submit Mode",
+      "tier": "LOW_RISK",
+      "descriptionVi": "Rút gọn form nộp bài, ưu tiên mobile khi Learn → Submit giảm rõ rệt.",
+      "descriptionEn": "Reduce submission form complexity, prioritizing mobile when Learn to Submit drops sharply.",
+      "scopeDomains": [
+        "edu",
+        "member"
+      ],
+      "controlType": "feature_flag",
+      "flagKey": "simple_submit_mode",
+      "autopilotEligible": true,
+      "rollbackSupported": true,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead"
+      ],
+      "expectedMetricKeys": [
+        "learn_to_submit_rate",
+        "submissions_today"
+      ],
+      "forbiddenIf": [
+        "legal_copy_change_required",
+        "schema_migration_required"
+      ]
+    },
+    {
+      "actionId": "act_disable_invest_public_cta",
+      "nameVi": "Tắt CTA công khai tới Invest",
+      "nameEn": "Disable Public Invest CTA",
+      "tier": "LOW_RISK",
+      "descriptionVi": "Ẩn CTA công khai tới Invest khi route lỗi hoặc tone public chưa an toàn.",
+      "descriptionEn": "Hide the public CTA to Invest when the route is broken or the public tone is not yet safe.",
+      "scopeDomains": [
+        "hub",
+        "invest"
+      ],
+      "controlType": "feature_flag",
+      "flagKey": "invest_public_cta_enabled",
+      "autopilotEligible": true,
+      "rollbackSupported": true,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead"
+      ],
+      "expectedMetricKeys": [
+        "drop_rate",
+        "active_incident_count"
+      ],
+      "forbiddenIf": [
+        "invest_domain_live_and_healthy"
+      ]
+    },
+    {
+      "actionId": "act_promote_finance_entry_block",
+      "nameVi": "Đưa khối Finance lên cao hơn trên hub",
+      "nameEn": "Promote Finance Entry Block",
+      "tier": "LOW_RISK",
+      "descriptionVi": "Tăng ưu tiên hiển thị cho Finance khi trust conversion tốt nhưng lưu lượng đầu vào còn thấp.",
+      "descriptionEn": "Increase Finance visibility when trust conversion is strong but entry traffic remains low.",
+      "scopeDomains": [
+        "hub",
+        "finance"
+      ],
+      "controlType": "route_priority",
+      "priorityKey": "hub_finance_entry",
+      "autopilotEligible": true,
+      "rollbackSupported": true,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead",
+        "autopilot"
+      ],
+      "expectedMetricKeys": [
+        "cta_ctr",
+        "onward_conversion_rate"
+      ],
+      "forbiddenIf": [
+        "finance_has_active_p0_incident"
+      ]
+    },
+    {
+      "actionId": "act_force_content_review_queue_boost",
+      "nameVi": "Tăng ưu tiên hàng đợi review nội dung",
+      "nameEn": "Boost Content Review Queue",
+      "tier": "LOW_RISK",
+      "descriptionVi": "Đưa các mục review tồn đọng lên ưu tiên cao hơn để giảm backlog và chậm cấp VC.",
+      "descriptionEn": "Raise priority for pending review items to reduce backlog and delayed VC issuance.",
+      "scopeDomains": [
+        "edu",
+        "vc"
+      ],
+      "controlType": "queue_priority",
+      "queueKey": "content_review_queue_boost",
+      "autopilotEligible": true,
+      "rollbackSupported": true,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead"
+      ],
+      "expectedMetricKeys": [
+        "review_backlog",
+        "average_review_time_hours",
+        "submit_to_vc_rate"
+      ],
+      "forbiddenIf": [
+        "reviewers_unavailable"
+      ]
+    },
+    {
+      "actionId": "act_lock_broken_cta_route",
+      "nameVi": "Khóa route CTA lỗi",
+      "nameEn": "Lock Broken CTA Route",
+      "tier": "LOW_RISK",
+      "descriptionVi": "Tạm khóa route CTA đang trả lỗi và chuyển về điểm vào an toàn hơn trên hub.",
+      "descriptionEn": "Temporarily lock a failing CTA route and route users back to a safer hub entry point.",
+      "scopeDomains": [
+        "hub",
+        "edu",
+        "life",
+        "finance",
+        "invest",
+        "green",
+        "vc"
+      ],
+      "controlType": "route_guard",
+      "flagKey": "broken_cta_route_locked",
+      "autopilotEligible": true,
+      "rollbackSupported": true,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead",
+        "autopilot"
+      ],
+      "expectedMetricKeys": [
+        "error_rate",
+        "drop_rate"
+      ],
+      "forbiddenIf": [
+        "no_safe_fallback_route"
+      ]
+    },
+    {
+      "actionId": "act_request_mobile_submission_retest",
+      "nameVi": "Yêu cầu retest luồng nộp bài mobile",
+      "nameEn": "Request Mobile Submission Retest",
+      "tier": "LOW_RISK",
+      "descriptionVi": "Đẩy một tác vụ retest vào hàng đợi QA để xác minh ngay luồng mobile vừa bị drop.",
+      "descriptionEn": "Push a retest task into the QA queue to validate a mobile flow that has just dropped.",
+      "scopeDomains": [
+        "edu",
+        "member"
+      ],
+      "controlType": "qa_trigger",
+      "autopilotEligible": true,
+      "rollbackSupported": false,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead",
+        "qa_lead",
+        "autopilot"
+      ],
+      "expectedMetricKeys": [
+        "learn_to_submit_rate",
+        "error_rate"
+      ],
+      "forbiddenIf": [
+        "qa_queue_hard_locked"
+      ]
+    },
+    {
+      "actionId": "act_change_next_step_rule",
+      "nameVi": "Đổi quy tắc next step mặc định",
+      "nameEn": "Change Default Next Step Rule",
+      "tier": "MEDIUM_RISK",
+      "descriptionVi": "Thay đổi rule gợi ý bước tiếp theo cho một nhóm người dùng cụ thể.",
+      "descriptionEn": "Change the next-step recommendation rule for a specific user segment.",
+      "scopeDomains": [
+        "hub",
+        "member",
+        "edu",
+        "finance",
+        "life",
+        "vc"
+      ],
+      "controlType": "journey_rule",
+      "autopilotEligible": false,
+      "rollbackSupported": true,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead"
+      ],
+      "expectedMetricKeys": [
+        "onward_conversion_rate",
+        "users_missing_next_step"
+      ],
+      "forbiddenIf": [
+        "rule_change_not_reviewed"
+      ]
+    },
+    {
+      "actionId": "act_hide_public_section",
+      "nameVi": "Ẩn một section công khai",
+      "nameEn": "Hide a Public Section",
+      "tier": "MEDIUM_RISK",
+      "descriptionVi": "Ẩn tạm một section công khai khi copy hoặc demo của section đó gây hiểu sai runtime truth.",
+      "descriptionEn": "Temporarily hide a public section when its copy or demo misrepresents runtime truth.",
+      "scopeDomains": [
+        "hub",
+        "edu",
+        "life",
+        "finance",
+        "invest",
+        "green",
+        "vc"
+      ],
+      "controlType": "section_visibility",
+      "autopilotEligible": false,
+      "rollbackSupported": true,
+      "allowedRoles": [
+        "founder",
+        "pm_ops_lead"
+      ],
+      "expectedMetricKeys": [
+        "drop_rate",
+        "cta_ctr"
+      ],
+      "forbiddenIf": [
+        "section_is_sole_entry_point"
+      ]
+    },
+    {
+      "actionId": "act_change_pricing",
+      "nameVi": "Thay đổi pricing",
+      "nameEn": "Change Pricing",
+      "tier": "HIGH_RISK",
+      "descriptionVi": "Điều chỉnh giá hoặc cấu trúc thanh toán.",
+      "descriptionEn": "Adjust pricing or payment structure.",
+      "scopeDomains": [
+        "hub",
+        "member",
+        "payment_access"
+      ],
+      "controlType": "pricing",
+      "autopilotEligible": false,
+      "rollbackSupported": false,
+      "allowedRoles": [
+        "founder"
+      ],
+      "expectedMetricKeys": [
+        "activation_rate",
+        "cta_ctr"
+      ],
+      "forbiddenIf": [
+        "legal_review_missing",
+        "ops_confirmation_missing"
+      ]
+    },
+    {
+      "actionId": "act_edit_legal_policy",
+      "nameVi": "Sửa policy pháp lý",
+      "nameEn": "Edit Legal Policy",
+      "tier": "HIGH_RISK",
+      "descriptionVi": "Thay đổi điều khoản, refund, privacy hoặc disclosure pháp lý.",
+      "descriptionEn": "Change legal terms, refund, privacy, or disclosure policy.",
+      "scopeDomains": [
+        "hub",
+        "member",
+        "legal"
+      ],
+      "controlType": "policy",
+      "autopilotEligible": false,
+      "rollbackSupported": false,
+      "allowedRoles": [
+        "founder"
+      ],
+      "expectedMetricKeys": [],
+      "forbiddenIf": [
+        "legal_owner_not_present"
+      ]
+    }
+  ]
+}

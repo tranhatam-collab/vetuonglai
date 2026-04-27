@@ -1,0 +1,252 @@
+{
+  "summary": {
+    "recommendation": "go",
+    "stopLineOpen": false,
+    "highestSeverity": "P3",
+    "startedAt": "2026-04-27T09:07:10.072Z",
+    "endedAt": "2026-04-27T09:07:12.332Z",
+    "durationMs": 2257,
+    "suite": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0
+    }
+  },
+  "note": {
+    "vi": "Team 3 pass: không còn stop-line đang mở trong scope local parity hiện tại.",
+    "en": "Team 3 pass: there are no open stop-lines in the current local parity scope."
+  },
+  "memberCutover": {
+    "runtimeTruth": {
+      "status": "live",
+      "requiredPublic": true,
+      "servingModel": "worker_fronted"
+    },
+    "workerContract": {
+      "scriptName": "vetuonglai-member",
+      "routes": [
+        "member.vetuonglai.com/*",
+        "www.member.vetuonglai.com/*"
+      ],
+      "requiredSecrets": [
+        "SESSION_COOKIE_SECRET",
+        "MAGIC_LINK_SIGNING_KEY",
+        "PAY_IAI_ONE_API_KEY",
+        "PAY_IAI_ONE_WEBHOOK_SECRET"
+      ]
+    },
+    "checklistStrictSecrets": [
+      "SESSION_COOKIE_SECRET",
+      "MAGIC_LINK_SIGNING_KEY",
+      "PAY_IAI_ONE_API_KEY",
+      "PAY_IAI_ONE_WEBHOOK_SECRET"
+    ],
+    "promoteCommand": "npm run cloudflare:promote:member"
+  },
+  "continuationAudit": {
+    "board": "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md",
+    "mobile": {
+      "recommendation": "go",
+      "note": {
+        "vi": "Wave B go: mobile trust/disclosure wording hiện khớp live member truth và vẫn giữ no-checkout / no-fake-live guardrail.",
+        "en": "Wave B go: the mobile trust/disclosure wording matches the live member truth and keeps the no-checkout / no-fake-live guardrail intact."
+      },
+      "findings": [],
+      "auditedSurfaces": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/member.vetuonglai.com/app/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/member.vetuonglai.com/app/offline/index.html"
+      ]
+    },
+    "waveC": {
+      "recommendation": "go",
+      "note": {
+        "vi": "Wave C go: status/copy trên member và core subdomain sources không còn drift với continuation snapshot hiện hành.",
+        "en": "Wave C go: member and core-subdomain status/copy sources no longer drift from the current continuation snapshot."
+      },
+      "findings": [],
+      "auditedSurfaces": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/member.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/life.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/invest.vetuonglai.com/index.html"
+      ]
+    },
+    "plannedSafe": {
+      "scope": "local_wording_only",
+      "recommendation": "go",
+      "note": {
+        "vi": "Wave D local wording pass: work/market/community/ai/business đang giữ planned-safe wording đúng và shell hiện hành đã đủ để Team 3 audit tiếp.",
+        "en": "Wave D local wording pass: WORK, MARKET, COMMUNITY, AI, and BUSINESS keep the right planned-safe wording, and the current shells are present for Team 3 audits."
+      },
+      "findings": [],
+      "auditedSurfaces": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/work.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/work.vetuonglai.com/brief/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/market.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/market.vetuonglai.com/rules/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/community.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/ai.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/business.vetuonglai.com/index.html"
+      ]
+    },
+    "paymentWording": {
+      "recommendation": "go",
+      "note": {
+        "vi": "Payment wording gate pass: chưa thấy claim `payment/checkout live` trên các surface đã audit.",
+        "en": "Payment wording gate pass: no `payment/checkout live` claim is present on the audited surfaces."
+      },
+      "findings": [],
+      "auditedSurfaces": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vc.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/member.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/life.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/invest.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/work.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/market.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/community.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/ai.vetuonglai.com/index.html",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/business.vetuonglai.com/index.html"
+      ]
+    },
+    "waveDPublicRollout": {
+      "recommendation": "no_go",
+      "note": {
+        "vi": "Wave D no-go: planned-safe wording local đã sạch, nhưng public rollout vẫn bị chặn bởi DNS/runtime publish theo board active.",
+        "en": "Wave D no-go: the local planned-safe wording is clean, but the public rollout remains blocked by DNS/runtime publish in the active board."
+      },
+      "evidence": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md",
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_54_WAVE_D_DNS_AND_RUNTIME_PUBLISH_BLOCKERS_2026-04-22.md"
+      ]
+    },
+    "waveNotes": [
+      {
+        "wave": "A",
+        "recommendation": "go",
+        "note": {
+          "vi": "Wave A go: core live stabilization vẫn xanh theo verify hiện tại của Team 3.",
+          "en": "Wave A go: core live stabilization stays green under the current Team 3 verification set."
+        }
+      },
+      {
+        "wave": "B",
+        "recommendation": "go",
+        "note": {
+          "vi": "Wave B go: mobile trust/disclosure wording hiện khớp live member truth và vẫn giữ no-checkout / no-fake-live guardrail.",
+          "en": "Wave B go: the mobile trust/disclosure wording matches the live member truth and keeps the no-checkout / no-fake-live guardrail intact."
+        }
+      },
+      {
+        "wave": "C",
+        "recommendation": "go",
+        "note": {
+          "vi": "Wave C go: status/copy trên member và core subdomain sources không còn drift với continuation snapshot hiện hành.",
+          "en": "Wave C go: member and core-subdomain status/copy sources no longer drift from the current continuation snapshot."
+        }
+      },
+      {
+        "wave": "D",
+        "recommendation": "no_go",
+        "note": {
+          "vi": "Wave D no-go: planned-safe wording local đã sạch, nhưng public rollout vẫn bị chặn bởi DNS/runtime publish theo board active.",
+          "en": "Wave D no-go: the local planned-safe wording is clean, but the public rollout remains blocked by DNS/runtime publish in the active board."
+        }
+      },
+      {
+        "wave": "E",
+        "recommendation": "no_go",
+        "note": {
+          "vi": "Wave E no-go: Wave D còn đang bị chặn ở DNS/runtime publish và pack signoff cuối chưa được khóa.",
+          "en": "Wave E no-go: Wave D is still blocked on DNS/runtime publish and the final signoff pack is not locked yet."
+        }
+      }
+    ]
+  },
+  "stepResults": [
+    {
+      "key": "build",
+      "label": "Build static system",
+      "command": "npm run build",
+      "startedAt": "2026-04-27T09:07:10.075Z",
+      "endedAt": "2026-04-27T09:07:10.884Z",
+      "durationMs": 809,
+      "timeoutMs": 720000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "check",
+      "label": "Validate dist outputs",
+      "command": "npm run check",
+      "startedAt": "2026-04-27T09:07:10.884Z",
+      "endedAt": "2026-04-27T09:07:11.235Z",
+      "durationMs": 351,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "smoke_access",
+      "label": "Smoke access runtime",
+      "command": "npm run smoke:access-runtime",
+      "startedAt": "2026-04-27T09:07:11.235Z",
+      "endedAt": "2026-04-27T09:07:11.474Z",
+      "durationMs": 239,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "smoke_vc",
+      "label": "Smoke VC ownership runtime",
+      "command": "npm run smoke:vc-ownership-runtime",
+      "startedAt": "2026-04-27T09:07:11.474Z",
+      "endedAt": "2026-04-27T09:07:11.683Z",
+      "durationMs": 209,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "smoke_mobile",
+      "label": "Smoke mobile PWA",
+      "command": "npm run smoke:mobile-pwa",
+      "startedAt": "2026-04-27T09:07:11.683Z",
+      "endedAt": "2026-04-27T09:07:12.047Z",
+      "durationMs": 364,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "verify_founder_panel_local",
+      "label": "Verify founder panel local contract",
+      "command": "npm run verify:founder-panel:local",
+      "startedAt": "2026-04-27T09:07:12.047Z",
+      "endedAt": "2026-04-27T09:07:12.321Z",
+      "durationMs": 274,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    }
+  ],
+  "findings": []
+}

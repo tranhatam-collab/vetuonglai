@@ -1,0 +1,1761 @@
+{
+  "version": "2026-04-22-team4-package-form-registry-v2",
+  "owner": "team-4-data-registry-forms",
+  "sourceDocs": [
+    "docs/00_master/28_PACKAGING_AND_FORMS_SYSTEM_FULL.md",
+    "docs/00_master/32_RUNTIME_TRUTH_MATRIX_V1.md",
+    "docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md",
+    "docs/final-lock/VTL_49_TEAM4_PACKAGE_FORM_DATA_CONTRACT_2026-04-22.md"
+  ],
+  "guardrails": {
+    "recommendationMode": "always_recommend",
+    "allowRandomPackageSelection": false,
+    "plannedDomainsStayPlanned": true,
+    "businessDomainPublicState": "planned_internal_only",
+    "renderPolicy": "ui_must_follow_runtime_truth_before_any_public_render",
+    "comparisonMustExplainOutputBeforePrice": true,
+    "formPurpose": "qualification_and_next_step_only"
+  },
+  "entryLayers": [
+    {
+      "key": "free_member",
+      "labelVi": "Thành viên miễn phí",
+      "labelEn": "Free Member",
+      "intent": "enter_the_system_without_purchase",
+      "includes": [
+        "basic_profile",
+        "goal_selection",
+        "public_teasers",
+        "open_articles",
+        "basic_tools",
+        "demo_views"
+      ],
+      "excludes": [
+        "deep_member_library",
+        "full_dashboard",
+        "deep_ai_guidance",
+        "specialist_package_depth"
+      ]
+    },
+    {
+      "key": "future_access_pass",
+      "labelVi": "Future Access Pass",
+      "labelEn": "Future Access Pass",
+      "intent": "open_core_member_layer_across_the_system",
+      "includes": [
+        "member_dashboard_basic",
+        "journey_overview",
+        "basic_ai_guidance",
+        "member_library",
+        "deeper_domain_previews",
+        "extended_guides_and_packets"
+      ],
+      "excludes": [
+        "automatic_proof",
+        "guaranteed_work",
+        "full_specialist_depth",
+        "partner_only_layers"
+      ]
+    }
+  ],
+  "packageLayers": [
+    {
+      "key": "foundation",
+      "labelVi": "Foundation",
+      "labelEn": "Foundation",
+      "intent": "understand_basics_and_build_core_habits",
+      "targetAudience": [
+        "new_member",
+        "returning_member_without_stable_baseline"
+      ],
+      "recommendedOutputTypes": [
+        "baseline_snapshot",
+        "action_checklist",
+        "starter_plan"
+      ],
+      "aiSupport": "basic_guidance",
+      "reviewDepth": "light_or_none",
+      "proofPath": "not_direct"
+    },
+    {
+      "key": "applied",
+      "labelVi": "Applied",
+      "labelEn": "Applied",
+      "intent": "apply_method_on_real_case",
+      "targetAudience": [
+        "member_with_clear_problem",
+        "member_with_active_project"
+      ],
+      "recommendedOutputTypes": [
+        "execution_plan",
+        "measurable_kpi_sheet",
+        "workflow_map"
+      ],
+      "aiSupport": "guided_execution",
+      "reviewDepth": "feedback_or_review",
+      "proofPath": "possible_if_output_is_valid"
+    },
+    {
+      "key": "professional",
+      "labelVi": "Professional",
+      "labelEn": "Professional",
+      "intent": "deliver_proof_ready_output_for_work_or_business",
+      "targetAudience": [
+        "member_ready_for_proof",
+        "small_team_with_delivery_deadline"
+      ],
+      "recommendedOutputTypes": [
+        "proof_packet",
+        "vc_ready_dossier",
+        "operating_dashboard"
+      ],
+      "aiSupport": "deep_review_support",
+      "reviewDepth": "structured_review",
+      "proofPath": "vc_ready_if_eligible"
+    },
+    {
+      "key": "business",
+      "labelVi": "Business",
+      "labelEn": "Business",
+      "intent": "enterprise_intake_and_package_recommendation_only",
+      "targetAudience": [
+        "business_owner",
+        "operations_lead",
+        "partner_team"
+      ],
+      "recommendedOutputTypes": [
+        "business_scorecard",
+        "solution_fit_recommendation",
+        "enterprise_intake_packet"
+      ],
+      "aiSupport": "internal_guidance_only",
+      "reviewDepth": "readiness_review",
+      "proofPath": "partner_and_trust_readiness_only"
+    }
+  ],
+  "fieldRegistry": {
+    "full_name": {
+      "type": "text",
+      "labelVi": "Họ và tên",
+      "labelEn": "Full name",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "labelVi": "Email",
+      "labelEn": "Email",
+      "required": true
+    },
+    "location_region": {
+      "type": "text",
+      "labelVi": "Quốc gia / tỉnh thành",
+      "labelEn": "Country / province",
+      "required": false
+    },
+    "persona_type": {
+      "type": "single_select",
+      "labelVi": "Bạn đang là ai",
+      "labelEn": "Who are you",
+      "required": true,
+      "options": [
+        "individual",
+        "business"
+      ]
+    },
+    "goal_primary": {
+      "type": "single_select",
+      "labelVi": "Bạn đang quan tâm điều gì nhất",
+      "labelEn": "What matters most right now",
+      "required": true,
+      "options": [
+        "learn",
+        "stabilize_life",
+        "money_basics",
+        "investing_risk",
+        "green_proof",
+        "verification"
+      ]
+    },
+    "current_blockers": {
+      "type": "textarea",
+      "labelVi": "Điểm nghẽn hiện tại",
+      "labelEn": "Current blockers",
+      "required": true
+    },
+    "desired_outcome": {
+      "type": "textarea",
+      "labelVi": "Bạn muốn đầu ra là gì",
+      "labelEn": "Desired outcome",
+      "required": true
+    },
+    "time_commitment_per_week": {
+      "type": "single_select",
+      "labelVi": "Bạn có thể dành bao nhiêu giờ mỗi tuần",
+      "labelEn": "Hours available per week",
+      "required": true,
+      "options": [
+        "lt_2h",
+        "2_5h",
+        "5_10h",
+        "gt_10h"
+      ]
+    },
+    "skill_level": {
+      "type": "single_select",
+      "labelVi": "Mức hiện tại của bạn",
+      "labelEn": "Current level",
+      "required": true,
+      "options": [
+        "beginner",
+        "intermediate",
+        "advanced"
+      ]
+    },
+    "edu_goal": {
+      "type": "textarea",
+      "labelVi": "Bạn muốn học để làm gì",
+      "labelEn": "What do you want to learn for",
+      "required": true
+    },
+    "learning_hours_per_week": {
+      "type": "single_select",
+      "labelVi": "Giờ học mỗi tuần",
+      "labelEn": "Learning hours per week",
+      "required": true,
+      "options": [
+        "lt_2h",
+        "2_5h",
+        "5_10h",
+        "gt_10h"
+      ]
+    },
+    "desired_output": {
+      "type": "textarea",
+      "labelVi": "Đầu ra mong muốn",
+      "labelEn": "Desired output",
+      "required": true
+    },
+    "sleep_rhythm": {
+      "type": "single_select",
+      "labelVi": "Giấc ngủ hiện tại",
+      "labelEn": "Current sleep rhythm",
+      "required": true,
+      "options": [
+        "very_unstable",
+        "somewhat_unstable",
+        "mostly_stable",
+        "stable"
+      ]
+    },
+    "energy_level": {
+      "type": "single_select",
+      "labelVi": "Mức năng lượng",
+      "labelEn": "Energy level",
+      "required": true,
+      "options": [
+        "low",
+        "mixed",
+        "steady",
+        "high"
+      ]
+    },
+    "daily_stability": {
+      "type": "single_select",
+      "labelVi": "Mức ổn định hằng ngày",
+      "labelEn": "Daily stability",
+      "required": true,
+      "options": [
+        "chaotic",
+        "fragile",
+        "improving",
+        "stable"
+      ]
+    },
+    "life_biggest_difficulty": {
+      "type": "textarea",
+      "labelVi": "Khó khăn lớn nhất lúc này",
+      "labelEn": "Biggest current difficulty",
+      "required": true
+    },
+    "emergency_buffer_status": {
+      "type": "single_select",
+      "labelVi": "Quỹ dự phòng hiện tại",
+      "labelEn": "Emergency buffer status",
+      "required": true,
+      "options": [
+        "none",
+        "under_1_month",
+        "1_3_months",
+        "gt_3_months"
+      ]
+    },
+    "debt_status": {
+      "type": "single_select",
+      "labelVi": "Tình trạng nợ",
+      "labelEn": "Debt status",
+      "required": true,
+      "options": [
+        "none",
+        "manageable",
+        "high_pressure"
+      ]
+    },
+    "investing_status": {
+      "type": "single_select",
+      "labelVi": "Bạn có đang đầu tư không",
+      "labelEn": "Are you currently investing",
+      "required": true,
+      "options": [
+        "not_investing",
+        "just_started",
+        "active_but_unclear",
+        "disciplined"
+      ]
+    },
+    "money_primary_concern": {
+      "type": "textarea",
+      "labelVi": "Điều làm bạn lo nhất về tiền",
+      "labelEn": "Primary money concern",
+      "required": true
+    },
+    "investing_experience": {
+      "type": "single_select",
+      "labelVi": "Bạn đầu tư bao lâu rồi",
+      "labelEn": "Investing experience",
+      "required": true,
+      "options": [
+        "none",
+        "under_1_year",
+        "1_3_years",
+        "gt_3_years"
+      ]
+    },
+    "investing_goal": {
+      "type": "textarea",
+      "labelVi": "Mục tiêu đầu tư",
+      "labelEn": "Investing goal",
+      "required": true
+    },
+    "risk_tolerance": {
+      "type": "single_select",
+      "labelVi": "Mức chấp nhận rủi ro",
+      "labelEn": "Risk tolerance",
+      "required": true,
+      "options": [
+        "low",
+        "moderate",
+        "high"
+      ]
+    },
+    "fomo_loss_history": {
+      "type": "single_select",
+      "labelVi": "Bạn từng FOMO hoặc thua lỗ chưa",
+      "labelEn": "Past FOMO or loss history",
+      "required": true,
+      "options": [
+        "never",
+        "once",
+        "multiple_times"
+      ]
+    },
+    "green_actor_type": {
+      "type": "single_select",
+      "labelVi": "Bạn là cá nhân hay tổ chức",
+      "labelEn": "Individual or organization",
+      "required": true,
+      "options": [
+        "individual",
+        "organization"
+      ]
+    },
+    "green_current_actions": {
+      "type": "textarea",
+      "labelVi": "Bạn đang làm gì liên quan đến môi trường",
+      "labelEn": "Current environmental actions",
+      "required": true
+    },
+    "green_measurement_need": {
+      "type": "textarea",
+      "labelVi": "Bạn muốn đo lường điều gì",
+      "labelEn": "What do you want to measure",
+      "required": true
+    },
+    "green_proof_purpose": {
+      "type": "textarea",
+      "labelVi": "Bạn cần bằng chứng cho mục đích nào",
+      "labelEn": "Why do you need proof",
+      "required": true
+    },
+    "vc_claim_target": {
+      "type": "textarea",
+      "labelVi": "Bạn muốn xác minh cái gì",
+      "labelEn": "What do you want to verify",
+      "required": true
+    },
+    "vc_claim_purpose": {
+      "type": "textarea",
+      "labelVi": "Bạn cần xác minh cho mục đích nào",
+      "labelEn": "Why do you need verification",
+      "required": true
+    },
+    "vc_data_readiness": {
+      "type": "single_select",
+      "labelVi": "Bạn đã có dữ liệu / hồ sơ chưa",
+      "labelEn": "Do you already have data or records",
+      "required": true,
+      "options": [
+        "none",
+        "partial",
+        "ready"
+      ]
+    },
+    "vc_disclosure_preference": {
+      "type": "single_select",
+      "labelVi": "Bạn muốn public hay private",
+      "labelEn": "Public or private disclosure",
+      "required": true,
+      "options": [
+        "public",
+        "minimal_public",
+        "private_by_default"
+      ]
+    },
+    "business_company_name": {
+      "type": "text",
+      "labelVi": "Tên doanh nghiệp",
+      "labelEn": "Company name",
+      "required": true
+    },
+    "business_registration_number": {
+      "type": "text",
+      "labelVi": "Mã số doanh nghiệp / mã số thuế",
+      "labelEn": "Business registration number / tax number",
+      "required": true
+    },
+    "business_country_of_registration": {
+      "type": "text",
+      "labelVi": "Quốc gia đăng ký",
+      "labelEn": "Country of registration",
+      "required": true
+    },
+    "business_email": {
+      "type": "email",
+      "labelVi": "Email doanh nghiệp",
+      "labelEn": "Company email",
+      "required": true
+    },
+    "business_phone": {
+      "type": "tel",
+      "labelVi": "Số điện thoại doanh nghiệp",
+      "labelEn": "Company phone",
+      "required": true
+    },
+    "business_representative_name": {
+      "type": "text",
+      "labelVi": "Họ tên người đăng ký",
+      "labelEn": "Registrant name",
+      "required": true
+    },
+    "business_representative_title": {
+      "type": "text",
+      "labelVi": "Chức danh",
+      "labelEn": "Job title",
+      "required": true
+    },
+    "business_authorization_confirmed": {
+      "type": "boolean",
+      "labelVi": "Tôi là người đại diện hợp pháp hoặc được ủy quyền",
+      "labelEn": "I am the legal representative or an authorized delegate",
+      "required": true
+    },
+    "business_website": {
+      "type": "url",
+      "labelVi": "Website / hồ sơ công ty",
+      "labelEn": "Website / company profile",
+      "required": false
+    },
+    "business_company_size_band": {
+      "type": "single_select",
+      "labelVi": "Quy mô nhân sự",
+      "labelEn": "Company size",
+      "required": true,
+      "options": [
+        "under_10",
+        "10_50",
+        "51_200",
+        "gt_200"
+      ]
+    },
+    "business_industry": {
+      "type": "text",
+      "labelVi": "Lĩnh vực hoạt động",
+      "labelEn": "Industry",
+      "required": true
+    },
+    "business_priority_areas": {
+      "type": "multi_select",
+      "labelVi": "Doanh nghiệp đang quan tâm nhất đến",
+      "labelEn": "Current priority areas",
+      "required": true,
+      "options": [
+        "people",
+        "process",
+        "training",
+        "finance",
+        "trust_verification",
+        "ai_automation"
+      ]
+    },
+    "business_primary_problem_statement": {
+      "type": "textarea",
+      "labelVi": "Vấn đề lớn nhất đang gặp",
+      "labelEn": "Primary operating problem",
+      "required": true
+    },
+    "business_needed_support_type": {
+      "type": "multi_select",
+      "labelVi": "Doanh nghiệp đang cần",
+      "labelEn": "Support needed",
+      "required": true,
+      "options": [
+        "overall_assessment",
+        "internal_training",
+        "pilot_operation",
+        "long_term_solution"
+      ]
+    },
+    "business_registration_document_upload": {
+      "type": "file",
+      "labelVi": "Giấy phép / ảnh đăng ký kinh doanh",
+      "labelEn": "Business registration document",
+      "required": false
+    },
+    "business_linkedin_url": {
+      "type": "url",
+      "labelVi": "Website / LinkedIn công ty",
+      "labelEn": "Website / company LinkedIn",
+      "required": false
+    },
+    "business_reference_links": {
+      "type": "textarea",
+      "labelVi": "Link hồ sơ doanh nghiệp khác nếu có",
+      "labelEn": "Other company references",
+      "required": false
+    },
+    "recommended_layers": {
+      "type": "generated_array",
+      "labelVi": "Lớp gói đề xuất",
+      "labelEn": "Recommended layers",
+      "required": true
+    },
+    "recommended_packages": {
+      "type": "generated_array",
+      "labelVi": "Gói đề xuất",
+      "labelEn": "Recommended packages",
+      "required": true
+    },
+    "comparison_bundle_ids": {
+      "type": "generated_array",
+      "labelVi": "Gói so sánh",
+      "labelEn": "Comparison bundles",
+      "required": true
+    },
+    "demo_preview_ids": {
+      "type": "generated_array",
+      "labelVi": "Demo xem trước",
+      "labelEn": "Demo previews",
+      "required": true
+    },
+    "output_bundle_ids": {
+      "type": "generated_array",
+      "labelVi": "Đầu ra / bằng chứng mẫu",
+      "labelEn": "Output bundles",
+      "required": true
+    },
+    "next_step_action": {
+      "type": "generated_text",
+      "labelVi": "Bước tiếp theo",
+      "labelEn": "Next step",
+      "required": true
+    }
+  },
+  "forms": [
+    {
+      "formKey": "member_package_intake_v1",
+      "audience": "individual_member",
+      "surfaceKeys": [
+        "member"
+      ],
+      "steps": [
+        {
+          "key": "step_1_identity",
+          "titleVi": "Bước 1 - Thông tin cơ bản",
+          "titleEn": "Step 1 - Basic profile",
+          "fieldKeys": [
+            "full_name",
+            "email",
+            "location_region",
+            "persona_type",
+            "goal_primary"
+          ]
+        },
+        {
+          "key": "step_2_context",
+          "titleVi": "Bước 2 - Bối cảnh hiện tại",
+          "titleEn": "Step 2 - Current context",
+          "fieldKeys": [
+            "current_blockers",
+            "desired_outcome",
+            "time_commitment_per_week"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Gói đề xuất",
+          "titleEn": "Step 3 - Recommended package",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageLayers": [
+          "foundation",
+          "applied",
+          "professional"
+        ],
+        "requiredSignals": [
+          "goal_primary",
+          "current_blockers",
+          "desired_outcome",
+          "time_commitment_per_week"
+        ],
+        "comparisonBundleId": "member_access_layers_v1",
+        "crossDomainRecommendation": true
+      }
+    },
+    {
+      "formKey": "edu_learning_path_intake_v1",
+      "audience": "member_or_preview_user",
+      "surfaceKeys": [
+        "edu"
+      ],
+      "steps": [
+        {
+          "key": "step_1_learning_goal",
+          "titleVi": "Bước 1 - Mục tiêu học",
+          "titleEn": "Step 1 - Learning goal",
+          "fieldKeys": [
+            "edu_goal",
+            "skill_level",
+            "learning_hours_per_week"
+          ]
+        },
+        {
+          "key": "step_2_output_goal",
+          "titleVi": "Bước 2 - Đầu ra mong muốn",
+          "titleEn": "Step 2 - Desired output",
+          "fieldKeys": [
+            "desired_output",
+            "current_blockers"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Lộ trình đề xuất",
+          "titleEn": "Step 3 - Recommended path",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageKeys": [
+          "edu_foundation",
+          "edu_applied",
+          "edu_professional"
+        ],
+        "requiredSignals": [
+          "edu_goal",
+          "skill_level",
+          "learning_hours_per_week",
+          "desired_output"
+        ],
+        "comparisonBundleId": "edu_packages_v1"
+      }
+    },
+    {
+      "formKey": "life_rhythm_intake_v1",
+      "audience": "member_or_preview_user",
+      "surfaceKeys": [
+        "life"
+      ],
+      "steps": [
+        {
+          "key": "step_1_baseline",
+          "titleVi": "Bước 1 - Baseline hiện tại",
+          "titleEn": "Step 1 - Current baseline",
+          "fieldKeys": [
+            "sleep_rhythm",
+            "energy_level",
+            "daily_stability"
+          ]
+        },
+        {
+          "key": "step_2_difficulty",
+          "titleVi": "Bước 2 - Khó khăn chính",
+          "titleEn": "Step 2 - Main difficulty",
+          "fieldKeys": [
+            "life_biggest_difficulty",
+            "time_commitment_per_week"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Gói nhịp sống đề xuất",
+          "titleEn": "Step 3 - Recommended rhythm package",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageKeys": [
+          "life_baseline_7d",
+          "life_rhythm_30d",
+          "life_system_90d"
+        ],
+        "requiredSignals": [
+          "sleep_rhythm",
+          "energy_level",
+          "daily_stability",
+          "life_biggest_difficulty"
+        ],
+        "comparisonBundleId": "life_packages_v1"
+      }
+    },
+    {
+      "formKey": "finance_discipline_intake_v1",
+      "audience": "public_or_member_user",
+      "surfaceKeys": [
+        "finance"
+      ],
+      "steps": [
+        {
+          "key": "step_1_money_state",
+          "titleVi": "Bước 1 - Trạng thái tiền hiện tại",
+          "titleEn": "Step 1 - Current money state",
+          "fieldKeys": [
+            "emergency_buffer_status",
+            "debt_status",
+            "investing_status"
+          ]
+        },
+        {
+          "key": "step_2_money_concern",
+          "titleVi": "Bước 2 - Điều đáng lo nhất",
+          "titleEn": "Step 2 - Main concern",
+          "fieldKeys": [
+            "money_primary_concern",
+            "desired_outcome"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Gói tài chính đề xuất",
+          "titleEn": "Step 3 - Recommended finance package",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageKeys": [
+          "finance_money_basics",
+          "finance_money_discipline",
+          "finance_personal_finance_system"
+        ],
+        "requiredSignals": [
+          "emergency_buffer_status",
+          "debt_status",
+          "investing_status",
+          "money_primary_concern"
+        ],
+        "comparisonBundleId": "finance_packages_v1"
+      }
+    },
+    {
+      "formKey": "invest_risk_profile_intake_v1",
+      "audience": "member_or_preview_user",
+      "surfaceKeys": [
+        "invest"
+      ],
+      "steps": [
+        {
+          "key": "step_1_risk_state",
+          "titleVi": "Bước 1 - Hồ sơ rủi ro",
+          "titleEn": "Step 1 - Risk profile",
+          "fieldKeys": [
+            "investing_experience",
+            "investing_goal",
+            "risk_tolerance"
+          ]
+        },
+        {
+          "key": "step_2_history",
+          "titleVi": "Bước 2 - Lịch sử quyết định",
+          "titleEn": "Step 2 - Decision history",
+          "fieldKeys": [
+            "fomo_loss_history",
+            "desired_outcome"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Gói đầu tư đề xuất",
+          "titleEn": "Step 3 - Recommended investing package",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageKeys": [
+          "invest_risk_basics",
+          "invest_due_diligence_applied",
+          "invest_calm_investing_system"
+        ],
+        "requiredSignals": [
+          "investing_experience",
+          "investing_goal",
+          "risk_tolerance",
+          "fomo_loss_history"
+        ],
+        "comparisonBundleId": "invest_packages_v1"
+      }
+    },
+    {
+      "formKey": "green_impact_intake_v1",
+      "audience": "public_or_member_user",
+      "surfaceKeys": [
+        "green"
+      ],
+      "steps": [
+        {
+          "key": "step_1_actor_type",
+          "titleVi": "Bước 1 - Vai trò của bạn",
+          "titleEn": "Step 1 - Your role",
+          "fieldKeys": [
+            "green_actor_type",
+            "green_current_actions"
+          ]
+        },
+        {
+          "key": "step_2_measurement_need",
+          "titleVi": "Bước 2 - Nhu cầu đo lường",
+          "titleEn": "Step 2 - Measurement need",
+          "fieldKeys": [
+            "green_measurement_need",
+            "green_proof_purpose"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Gói xanh đề xuất",
+          "titleEn": "Step 3 - Recommended green package",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageKeys": [
+          "green_basics",
+          "green_impact_tracking",
+          "green_proof_system"
+        ],
+        "requiredSignals": [
+          "green_actor_type",
+          "green_current_actions",
+          "green_measurement_need",
+          "green_proof_purpose"
+        ],
+        "comparisonBundleId": "green_packages_v1"
+      }
+    },
+    {
+      "formKey": "vc_proof_readiness_intake_v1",
+      "audience": "public_or_member_user",
+      "surfaceKeys": [
+        "vc"
+      ],
+      "steps": [
+        {
+          "key": "step_1_claim_target",
+          "titleVi": "Bước 1 - Mục tiêu xác minh",
+          "titleEn": "Step 1 - Verification target",
+          "fieldKeys": [
+            "vc_claim_target",
+            "vc_claim_purpose"
+          ]
+        },
+        {
+          "key": "step_2_readiness",
+          "titleVi": "Bước 2 - Mức sẵn sàng",
+          "titleEn": "Step 2 - Readiness",
+          "fieldKeys": [
+            "vc_data_readiness",
+            "vc_disclosure_preference"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Gói proof đề xuất",
+          "titleEn": "Step 3 - Recommended proof package",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 1,
+        "maxRecommendations": 2,
+        "allowedPackageKeys": [
+          "vc_proof_basics",
+          "vc_proof_packaging",
+          "vc_verification_readiness"
+        ],
+        "requiredSignals": [
+          "vc_claim_target",
+          "vc_claim_purpose",
+          "vc_data_readiness",
+          "vc_disclosure_preference"
+        ],
+        "comparisonBundleId": "vc_packages_v1"
+      }
+    },
+    {
+      "formKey": "work_opportunity_intake_v1",
+      "audience": "planned_safe_user",
+      "surfaceKeys": [
+        "work"
+      ],
+      "steps": [
+        {
+          "key": "step_1_readiness",
+          "titleVi": "Bước 1 - Mức sẵn sàng làm việc",
+          "titleEn": "Step 1 - Work readiness",
+          "fieldKeys": [
+            "skill_level",
+            "desired_output",
+            "time_commitment_per_week"
+          ]
+        },
+        {
+          "key": "step_2_proof_context",
+          "titleVi": "Bước 2 - Bối cảnh bằng chứng",
+          "titleEn": "Step 2 - Proof context",
+          "fieldKeys": [
+            "vc_data_readiness",
+            "current_blockers"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Lớp nên đi trước",
+          "titleEn": "Step 3 - Recommended prior layer",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageLayers": [
+          "applied",
+          "professional"
+        ],
+        "requiredSignals": [
+          "skill_level",
+          "desired_output",
+          "vc_data_readiness"
+        ],
+        "comparisonBundleId": "work_planned_safe_prerequisites_v1"
+      }
+    },
+    {
+      "formKey": "market_transaction_intake_v1",
+      "audience": "planned_safe_user",
+      "surfaceKeys": [
+        "market"
+      ],
+      "steps": [
+        {
+          "key": "step_1_asset_context",
+          "titleVi": "Bước 1 - Bối cảnh tài sản số",
+          "titleEn": "Step 1 - Digital asset context",
+          "fieldKeys": [
+            "desired_output",
+            "vc_claim_target"
+          ]
+        },
+        {
+          "key": "step_2_readiness",
+          "titleVi": "Bước 2 - Mức sẵn sàng giao dịch",
+          "titleEn": "Step 2 - Transaction readiness",
+          "fieldKeys": [
+            "vc_data_readiness",
+            "desired_outcome"
+          ]
+        },
+        {
+          "key": "step_3_recommendation",
+          "titleVi": "Bước 3 - Lớp nên đi trước",
+          "titleEn": "Step 3 - Recommended prior layer",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageLayers": [
+          "applied",
+          "professional"
+        ],
+        "requiredSignals": [
+          "desired_output",
+          "vc_claim_target",
+          "vc_data_readiness"
+        ],
+        "comparisonBundleId": "market_planned_safe_prerequisites_v1"
+      }
+    },
+    {
+      "formKey": "business_enterprise_intake_v1",
+      "audience": "enterprise_only",
+      "surfaceKeys": [
+        "business"
+      ],
+      "steps": [
+        {
+          "key": "step_1_qualification",
+          "titleVi": "Bước 1 - Kiểm tra điều kiện",
+          "titleEn": "Step 1 - Qualification",
+          "fieldKeys": [
+            "business_company_name",
+            "business_registration_number",
+            "business_country_of_registration",
+            "business_email",
+            "business_phone",
+            "business_representative_name",
+            "business_representative_title",
+            "business_authorization_confirmed",
+            "business_website"
+          ]
+        },
+        {
+          "key": "step_2_need_survey",
+          "titleVi": "Bước 2 - Khảo sát nhu cầu",
+          "titleEn": "Step 2 - Need survey",
+          "fieldKeys": [
+            "business_company_size_band",
+            "business_industry",
+            "business_priority_areas",
+            "business_primary_problem_statement",
+            "business_needed_support_type"
+          ]
+        },
+        {
+          "key": "step_3_verification",
+          "titleVi": "Bước 3 - Xác minh hồ sơ",
+          "titleEn": "Step 3 - Verification",
+          "fieldKeys": [
+            "business_registration_document_upload",
+            "business_linkedin_url",
+            "business_reference_links"
+          ]
+        },
+        {
+          "key": "step_4_recommendation",
+          "titleVi": "Bước 4 - Gói doanh nghiệp đề xuất",
+          "titleEn": "Step 4 - Recommended business package",
+          "fieldKeys": [],
+          "generatedFields": [
+            "recommended_layers",
+            "recommended_packages",
+            "comparison_bundle_ids",
+            "demo_preview_ids",
+            "output_bundle_ids",
+            "next_step_action"
+          ]
+        }
+      ],
+      "recommendationContract": {
+        "minRecommendations": 2,
+        "maxRecommendations": 3,
+        "allowedPackageLayers": [
+          "business"
+        ],
+        "allowedPackageKeys": [
+          "business_entry",
+          "business_foundation",
+          "business_applied",
+          "business_strategic"
+        ],
+        "requiredSignals": [
+          "business_company_name",
+          "business_registration_number",
+          "business_country_of_registration",
+          "business_email",
+          "business_phone",
+          "business_representative_name",
+          "business_representative_title",
+          "business_authorization_confirmed",
+          "business_company_size_band",
+          "business_industry",
+          "business_priority_areas",
+          "business_primary_problem_statement",
+          "business_needed_support_type"
+        ],
+        "blockingSignals": [
+          "missing_registration_number",
+          "missing_authorization_confirmation"
+        ],
+        "comparisonBundleId": "business_packages_v1"
+      }
+    }
+  ],
+  "memberFormContract": {
+    "formKey": "member_package_intake_v1",
+    "audience": "individual_member",
+    "steps": [
+      {
+        "key": "step_1_identity",
+        "titleVi": "Bước 1 - Thông tin cơ bản",
+        "titleEn": "Step 1 - Basic profile",
+        "requiredFields": [
+          "full_name",
+          "email",
+          "goal_primary"
+        ]
+      },
+      {
+        "key": "step_2_context",
+        "titleVi": "Bước 2 - Bối cảnh hiện tại",
+        "titleEn": "Step 2 - Current context",
+        "requiredFields": [
+          "current_blockers",
+          "desired_outcome",
+          "time_commitment_per_week"
+        ]
+      },
+      {
+        "key": "step_3_recommendation",
+        "titleVi": "Bước 3 - Gói đề xuất",
+        "titleEn": "Step 3 - Recommended package",
+        "requiredFields": [
+          "recommended_layers",
+          "recommended_packages",
+          "comparison_bundle_ids",
+          "demo_preview_ids",
+          "output_bundle_ids",
+          "next_step_action"
+        ]
+      }
+    ],
+    "recommendationOutput": {
+      "minRecommendations": 2,
+      "maxRecommendations": 3,
+      "allowedPackageLayers": [
+        "foundation",
+        "applied",
+        "professional"
+      ],
+      "requiredSignals": [
+        "goal_primary",
+        "current_blockers",
+        "desired_outcome",
+        "time_commitment_per_week"
+      ]
+    }
+  },
+  "subdomainFormRegistry": [
+    {
+      "surfaceKey": "member",
+      "surfaceHost": "member.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "follow_runtime_truth",
+      "contractState": "ready",
+      "formKey": "member_package_intake_v1",
+      "intakeMode": "member",
+      "entryLayerRequirement": "free_member_or_future_access_pass",
+      "defaultRecommendationLayers": [
+        "foundation",
+        "applied"
+      ],
+      "comparisonBundleIds": [
+        "member_access_layers_v1",
+        "starter_cross_domain_packages_v1"
+      ],
+      "packageFamilyKey": "member_access_layers_v1"
+    },
+    {
+      "surfaceKey": "edu",
+      "surfaceHost": "edu.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "follow_runtime_truth",
+      "contractState": "ready",
+      "formKey": "edu_learning_path_intake_v1",
+      "intakeMode": "member",
+      "entryLayerRequirement": "future_access_pass",
+      "defaultRecommendationLayers": [
+        "foundation",
+        "applied",
+        "professional"
+      ],
+      "comparisonBundleIds": [
+        "edu_packages_v1"
+      ],
+      "packageFamilyKey": "edu_packages_v1"
+    },
+    {
+      "surfaceKey": "life",
+      "surfaceHost": "life.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "follow_runtime_truth",
+      "contractState": "ready",
+      "formKey": "life_rhythm_intake_v1",
+      "intakeMode": "member",
+      "entryLayerRequirement": "future_access_pass",
+      "defaultRecommendationLayers": [
+        "foundation",
+        "applied"
+      ],
+      "comparisonBundleIds": [
+        "life_packages_v1"
+      ],
+      "packageFamilyKey": "life_packages_v1"
+    },
+    {
+      "surfaceKey": "finance",
+      "surfaceHost": "finance.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "follow_runtime_truth",
+      "contractState": "ready",
+      "formKey": "finance_discipline_intake_v1",
+      "intakeMode": "public_to_member",
+      "entryLayerRequirement": "free_member_or_future_access_pass",
+      "defaultRecommendationLayers": [
+        "foundation",
+        "applied"
+      ],
+      "comparisonBundleIds": [
+        "finance_packages_v1"
+      ],
+      "packageFamilyKey": "finance_packages_v1"
+    },
+    {
+      "surfaceKey": "invest",
+      "surfaceHost": "invest.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "follow_runtime_truth",
+      "contractState": "ready",
+      "formKey": "invest_risk_profile_intake_v1",
+      "intakeMode": "member",
+      "entryLayerRequirement": "future_access_pass",
+      "defaultRecommendationLayers": [
+        "foundation",
+        "applied",
+        "professional"
+      ],
+      "comparisonBundleIds": [
+        "invest_packages_v1"
+      ],
+      "packageFamilyKey": "invest_packages_v1"
+    },
+    {
+      "surfaceKey": "green",
+      "surfaceHost": "green.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "follow_runtime_truth",
+      "contractState": "ready",
+      "formKey": "green_impact_intake_v1",
+      "intakeMode": "public_to_member",
+      "entryLayerRequirement": "free_member_or_future_access_pass",
+      "defaultRecommendationLayers": [
+        "foundation",
+        "applied",
+        "professional"
+      ],
+      "comparisonBundleIds": [
+        "green_packages_v1"
+      ],
+      "packageFamilyKey": "green_packages_v1"
+    },
+    {
+      "surfaceKey": "vc",
+      "surfaceHost": "vc.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "follow_runtime_truth",
+      "contractState": "ready",
+      "formKey": "vc_proof_readiness_intake_v1",
+      "intakeMode": "public_to_member",
+      "entryLayerRequirement": "free_member_or_future_access_pass",
+      "defaultRecommendationLayers": [
+        "professional"
+      ],
+      "comparisonBundleIds": [
+        "vc_packages_v1"
+      ],
+      "packageFamilyKey": "vc_packages_v1"
+    },
+    {
+      "surfaceKey": "work",
+      "surfaceHost": "work.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "planned_safe_only",
+      "contractState": "ready_for_wave_d",
+      "formKey": "work_opportunity_intake_v1",
+      "intakeMode": "planned_safe",
+      "entryLayerRequirement": "future_access_pass",
+      "defaultRecommendationLayers": [
+        "applied",
+        "professional"
+      ],
+      "comparisonBundleIds": [
+        "work_planned_safe_prerequisites_v1"
+      ],
+      "packageFamilyKey": null
+    },
+    {
+      "surfaceKey": "market",
+      "surfaceHost": "market.vetuonglai.com",
+      "runtimeTruthSource": "system-registry",
+      "publicRenderPolicy": "planned_safe_only",
+      "contractState": "ready_for_wave_d",
+      "formKey": "market_transaction_intake_v1",
+      "intakeMode": "planned_safe",
+      "entryLayerRequirement": "future_access_pass",
+      "defaultRecommendationLayers": [
+        "applied",
+        "professional"
+      ],
+      "comparisonBundleIds": [
+        "market_planned_safe_prerequisites_v1"
+      ],
+      "packageFamilyKey": null
+    },
+    {
+      "surfaceKey": "business",
+      "surfaceHost": "business.vetuonglai.com",
+      "runtimeTruthSource": "system-registry_and_runtime_truth_matrix",
+      "runtimeState": "planned_internal_only",
+      "publicRenderPolicy": "internal_only_until_runtime_upgrade",
+      "contractState": "ready_for_team2_shell_and_team5_verify_pack",
+      "formKey": "business_enterprise_intake_v1",
+      "intakeMode": "planned_safe_internal_only",
+      "entryLayerRequirement": "separate_business_lane_only",
+      "defaultRecommendationLayers": [
+        "business"
+      ],
+      "comparisonBundleIds": [
+        "business_packages_v1"
+      ],
+      "packageFamilyKey": "business_packages_v1"
+    }
+  ],
+  "surfacePackageFamilies": [
+    {
+      "familyKey": "member_access_layers_v1",
+      "surfaceKey": "member",
+      "packages": [
+        {
+          "packageKey": "free_member",
+          "layerKey": "free_member",
+          "labelVi": "Thành viên miễn phí",
+          "labelEn": "Free Member",
+          "comparisonRowId": "free_member",
+          "demoBundleId": "demo_member_free_v1",
+          "outputBundleId": "output_member_free_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "future_access_pass",
+          "layerKey": "future_access_pass",
+          "labelVi": "Future Access Pass",
+          "labelEn": "Future Access Pass",
+          "comparisonRowId": "future_access_pass",
+          "demoBundleId": "demo_future_access_pass_v1",
+          "outputBundleId": "output_future_access_pass_v1",
+          "proofEligible": false
+        }
+      ]
+    },
+    {
+      "familyKey": "edu_packages_v1",
+      "surfaceKey": "edu",
+      "packages": [
+        {
+          "packageKey": "edu_foundation",
+          "layerKey": "foundation",
+          "labelVi": "EDU Foundation",
+          "labelEn": "EDU Foundation",
+          "comparisonRowId": "edu_foundation",
+          "demoBundleId": "demo_edu_foundation_v1",
+          "outputBundleId": "output_edu_foundation_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "edu_applied",
+          "layerKey": "applied",
+          "labelVi": "EDU Applied",
+          "labelEn": "EDU Applied",
+          "comparisonRowId": "edu_applied",
+          "demoBundleId": "demo_edu_applied_v1",
+          "outputBundleId": "output_edu_applied_v1",
+          "proofEligible": true
+        },
+        {
+          "packageKey": "edu_professional",
+          "layerKey": "professional",
+          "labelVi": "EDU Professional",
+          "labelEn": "EDU Professional",
+          "comparisonRowId": "edu_professional",
+          "demoBundleId": "demo_edu_professional_v1",
+          "outputBundleId": "output_edu_professional_v1",
+          "proofEligible": true
+        }
+      ]
+    },
+    {
+      "familyKey": "life_packages_v1",
+      "surfaceKey": "life",
+      "packages": [
+        {
+          "packageKey": "life_baseline_7d",
+          "layerKey": "foundation",
+          "labelVi": "Baseline 7 ngày",
+          "labelEn": "Baseline 7 days",
+          "comparisonRowId": "life_baseline_7d",
+          "demoBundleId": "demo_life_baseline_7d_v1",
+          "outputBundleId": "output_life_baseline_7d_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "life_rhythm_30d",
+          "layerKey": "applied",
+          "labelVi": "Rhythm 30 ngày",
+          "labelEn": "Rhythm 30 days",
+          "comparisonRowId": "life_rhythm_30d",
+          "demoBundleId": "demo_life_rhythm_30d_v1",
+          "outputBundleId": "output_life_rhythm_30d_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "life_system_90d",
+          "layerKey": "professional",
+          "labelVi": "Life System 90 ngày",
+          "labelEn": "Life System 90 days",
+          "comparisonRowId": "life_system_90d",
+          "demoBundleId": "demo_life_system_90d_v1",
+          "outputBundleId": "output_life_system_90d_v1",
+          "proofEligible": false
+        }
+      ]
+    },
+    {
+      "familyKey": "finance_packages_v1",
+      "surfaceKey": "finance",
+      "packages": [
+        {
+          "packageKey": "finance_money_basics",
+          "layerKey": "foundation",
+          "labelVi": "Money Basics",
+          "labelEn": "Money Basics",
+          "comparisonRowId": "finance_money_basics",
+          "demoBundleId": "demo_finance_money_basics_v1",
+          "outputBundleId": "output_finance_money_basics_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "finance_money_discipline",
+          "layerKey": "applied",
+          "labelVi": "Money Discipline",
+          "labelEn": "Money Discipline",
+          "comparisonRowId": "finance_money_discipline",
+          "demoBundleId": "demo_finance_money_discipline_v1",
+          "outputBundleId": "output_finance_money_discipline_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "finance_personal_finance_system",
+          "layerKey": "professional",
+          "labelVi": "Personal Finance System",
+          "labelEn": "Personal Finance System",
+          "comparisonRowId": "finance_personal_finance_system",
+          "demoBundleId": "demo_finance_personal_finance_system_v1",
+          "outputBundleId": "output_finance_personal_finance_system_v1",
+          "proofEligible": false
+        }
+      ]
+    },
+    {
+      "familyKey": "invest_packages_v1",
+      "surfaceKey": "invest",
+      "packages": [
+        {
+          "packageKey": "invest_risk_basics",
+          "layerKey": "foundation",
+          "labelVi": "Risk Basics",
+          "labelEn": "Risk Basics",
+          "comparisonRowId": "invest_risk_basics",
+          "demoBundleId": "demo_invest_risk_basics_v1",
+          "outputBundleId": "output_invest_risk_basics_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "invest_due_diligence_applied",
+          "layerKey": "applied",
+          "labelVi": "Due Diligence Applied",
+          "labelEn": "Due Diligence Applied",
+          "comparisonRowId": "invest_due_diligence_applied",
+          "demoBundleId": "demo_invest_due_diligence_applied_v1",
+          "outputBundleId": "output_invest_due_diligence_applied_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "invest_calm_investing_system",
+          "layerKey": "professional",
+          "labelVi": "Calm Investing System",
+          "labelEn": "Calm Investing System",
+          "comparisonRowId": "invest_calm_investing_system",
+          "demoBundleId": "demo_invest_calm_investing_system_v1",
+          "outputBundleId": "output_invest_calm_investing_system_v1",
+          "proofEligible": false
+        }
+      ]
+    },
+    {
+      "familyKey": "green_packages_v1",
+      "surfaceKey": "green",
+      "packages": [
+        {
+          "packageKey": "green_basics",
+          "layerKey": "foundation",
+          "labelVi": "Green Basics",
+          "labelEn": "Green Basics",
+          "comparisonRowId": "green_basics",
+          "demoBundleId": "demo_green_basics_v1",
+          "outputBundleId": "output_green_basics_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "green_impact_tracking",
+          "layerKey": "applied",
+          "labelVi": "Impact Tracking",
+          "labelEn": "Impact Tracking",
+          "comparisonRowId": "green_impact_tracking",
+          "demoBundleId": "demo_green_impact_tracking_v1",
+          "outputBundleId": "output_green_impact_tracking_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "green_proof_system",
+          "layerKey": "professional",
+          "labelVi": "Green Proof System",
+          "labelEn": "Green Proof System",
+          "comparisonRowId": "green_proof_system",
+          "demoBundleId": "demo_green_proof_system_v1",
+          "outputBundleId": "output_green_proof_system_v1",
+          "proofEligible": true
+        }
+      ]
+    },
+    {
+      "familyKey": "vc_packages_v1",
+      "surfaceKey": "vc",
+      "packages": [
+        {
+          "packageKey": "vc_proof_basics",
+          "layerKey": "foundation",
+          "labelVi": "Proof Basics",
+          "labelEn": "Proof Basics",
+          "comparisonRowId": "vc_proof_basics",
+          "demoBundleId": "demo_vc_proof_basics_v1",
+          "outputBundleId": "output_vc_proof_basics_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "vc_proof_packaging",
+          "layerKey": "applied",
+          "labelVi": "Proof Packaging",
+          "labelEn": "Proof Packaging",
+          "comparisonRowId": "vc_proof_packaging",
+          "demoBundleId": "demo_vc_proof_packaging_v1",
+          "outputBundleId": "output_vc_proof_packaging_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "vc_verification_readiness",
+          "layerKey": "professional",
+          "labelVi": "Verification Readiness",
+          "labelEn": "Verification Readiness",
+          "comparisonRowId": "vc_verification_readiness",
+          "demoBundleId": "demo_vc_verification_readiness_v1",
+          "outputBundleId": "output_vc_verification_readiness_v1",
+          "proofEligible": true
+        }
+      ]
+    },
+    {
+      "familyKey": "business_packages_v1",
+      "surfaceKey": "business",
+      "packages": [
+        {
+          "packageKey": "business_entry",
+          "layerKey": "business",
+          "labelVi": "B1 - Entry",
+          "labelEn": "B1 - Entry",
+          "comparisonRowId": "business_entry",
+          "demoBundleId": "demo_business_entry_v1",
+          "outputBundleId": "output_business_entry_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "business_foundation",
+          "layerKey": "business",
+          "labelVi": "B2 - Foundation",
+          "labelEn": "B2 - Foundation",
+          "comparisonRowId": "business_foundation",
+          "demoBundleId": "demo_business_foundation_v1",
+          "outputBundleId": "output_business_foundation_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "business_applied",
+          "layerKey": "business",
+          "labelVi": "B3 - Applied",
+          "labelEn": "B3 - Applied",
+          "comparisonRowId": "business_applied",
+          "demoBundleId": "demo_business_applied_v1",
+          "outputBundleId": "output_business_applied_v1",
+          "proofEligible": false
+        },
+        {
+          "packageKey": "business_strategic",
+          "layerKey": "business",
+          "labelVi": "B4 - Strategic",
+          "labelEn": "B4 - Strategic",
+          "comparisonRowId": "business_strategic",
+          "demoBundleId": "demo_business_strategic_v1",
+          "outputBundleId": "output_business_strategic_v1",
+          "proofEligible": false
+        }
+      ]
+    }
+  ],
+  "comparisonRegistry": {
+    "packageOrder": [
+      "free_member",
+      "future_access_pass",
+      "foundation",
+      "applied",
+      "professional",
+      "business"
+    ],
+    "requiredColumns": [
+      "who_for",
+      "problem_solved",
+      "what_you_get",
+      "expected_output",
+      "ai_review_proof",
+      "next_step"
+    ],
+    "doNotShowColumns": [
+      "lesson_count",
+      "total_hours",
+      "technical_complexity_score"
+    ]
+  },
+  "apiPublication": {
+    "team4Endpoints": [
+      "/api/team4/package-form-registry.json",
+      "/api/team4/business-domain-contract.json",
+      "/api/team4/package-comparison-demo-output.json"
+    ],
+    "consumerNotes": [
+      "Team 2 render UI bằng package/form registry + comparison/demo/output data, nhưng status phải lấy từ runtime truth riêng.",
+      "Team 5 verify schema presence và required bundle IDs trước khi ký go/no-go cho wave planned-safe.",
+      "Business lane không được render thành public live flow nếu chưa nâng runtime truth ở board chính."
+    ]
+  }
+}

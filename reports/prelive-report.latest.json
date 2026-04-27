@@ -1,0 +1,84 @@
+{
+  "summary": {
+    "ok": true,
+    "startedAt": "2026-04-15T15:33:31.890Z",
+    "endedAt": "2026-04-15T15:33:32.952Z",
+    "durationMs": 1062,
+    "mode": "local-only",
+    "totalSteps": 5,
+    "passedSteps": 5,
+    "failedStepKey": null
+  },
+  "steps": [
+    {
+      "key": "build",
+      "label": "Build static system",
+      "command": "npm run build",
+      "startedAt": "2026-04-15T15:33:31.892Z",
+      "endedAt": "2026-04-15T15:33:32.251Z",
+      "durationMs": 359,
+      "timeoutMs": 720000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "check",
+      "label": "Validate dist outputs",
+      "command": "npm run check",
+      "startedAt": "2026-04-15T15:33:32.251Z",
+      "endedAt": "2026-04-15T15:33:32.396Z",
+      "durationMs": 145,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "smoke_access",
+      "label": "Smoke access runtime",
+      "command": "npm run smoke:access-runtime",
+      "startedAt": "2026-04-15T15:33:32.396Z",
+      "endedAt": "2026-04-15T15:33:32.588Z",
+      "durationMs": 192,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "smoke_vc",
+      "label": "Smoke VC ownership runtime",
+      "command": "npm run smoke:vc-ownership-runtime",
+      "startedAt": "2026-04-15T15:33:32.588Z",
+      "endedAt": "2026-04-15T15:33:32.761Z",
+      "durationMs": 173,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    },
+    {
+      "key": "smoke_mobile",
+      "label": "Smoke mobile PWA",
+      "command": "npm run smoke:mobile-pwa",
+      "startedAt": "2026-04-15T15:33:32.761Z",
+      "endedAt": "2026-04-15T15:33:32.952Z",
+      "durationMs": 191,
+      "timeoutMs": 180000,
+      "timedOut": false,
+      "ok": true,
+      "code": 0,
+      "signal": null,
+      "error": ""
+    }
+  ]
+}

@@ -1,0 +1,679 @@
+{
+  "version": "2026-04-10-team3-coordination-lock",
+  "owner": "team-3-trust-affiliate-legal-analytics-ops",
+  "sources": [
+    "docs/PROJECT_CONTEXT_ENGINE.md",
+    "docs/final-lock/VTL_00_FINAL_LOCK_INDEX_2026-04-09.md",
+    "docs/final-lock/VTL_05_SPECIALIST_PACKS_AND_AFFILIATE_FINAL.md",
+    "docs/final-lock/VTL_06_EXECUTION_WORKSTREAMS_AND_DEPENDENCIES_FINAL.md",
+    "docs/final-lock/VTL_07_TEAM_SPLIT_WORKLOAD_AND_PROMPTS_FINAL.md",
+    "docs/final-lock/VTL_08_FOUNDER_UPDATE_CHANGELOG_2026-04-09.md",
+    "docs/final-lock/VTL_09_EXECUTION_BOARD_1_PAGE_2026-04-09.md",
+    "docs/final-lock/VTL_12_TEAM_3_KICKOFF_48H.md"
+  ],
+  "guardrails": {
+    "homepagePurchaseHubOnly": true,
+    "annualAccessIsBaseLayerOnly": true,
+    "affiliateDisabledAtPublicLayer": true,
+    "affiliateDisabledAtAnnualOnlyLayer": true,
+    "vcMustStayPublicTrustRegistry": true,
+    "allowMultiTierCommission": false,
+    "allowMlmStructures": false,
+    "allowForcedRecruitingLanguage": false,
+    "allowEarningsGuaranteeLanguage": false
+  },
+  "affiliateEligibility": {
+    "states": [
+      {
+        "condition": "public_visitor",
+        "eligibilityState": "denied",
+        "referralLinkGeneration": false,
+        "commissionAccrual": false,
+        "payoutEligibility": false,
+        "legalDisclosureRequired": false
+      },
+      {
+        "condition": "registered_only_no_annual",
+        "eligibilityState": "denied",
+        "referralLinkGeneration": false,
+        "commissionAccrual": false,
+        "payoutEligibility": false,
+        "legalDisclosureRequired": false
+      },
+      {
+        "condition": "annual_only",
+        "eligibilityState": "denied",
+        "referralLinkGeneration": false,
+        "commissionAccrual": false,
+        "payoutEligibility": false,
+        "legalDisclosureRequired": false
+      },
+      {
+        "condition": "annual_plus_pack_without_compliance_pass",
+        "eligibilityState": "pending_compliance",
+        "referralLinkGeneration": false,
+        "commissionAccrual": false,
+        "payoutEligibility": false,
+        "legalDisclosureRequired": true
+      },
+      {
+        "condition": "annual_plus_pack_with_compliance_pass",
+        "eligibilityState": "eligible",
+        "referralLinkGeneration": true,
+        "commissionAccrual": true,
+        "payoutEligibility": true,
+        "legalDisclosureRequired": true
+      }
+    ],
+    "compliancePassRequirements": [
+      "valid_paid_member_state",
+      "valid_paid_specialist_pack_ownership",
+      "identity_confirmed",
+      "no_active_refund_abuse_flag",
+      "no_fraud_or_spam_risk_flag"
+    ],
+    "commissionModel": {
+      "referralType": "direct_only",
+      "multiTierEnabled": false,
+      "mlmEnabled": false
+    }
+  },
+  "vcExtensionAndProofRouting": {
+    "allowedStatuses": [
+      "verified",
+      "reviewing",
+      "planned"
+    ],
+    "requiredAnchors": [
+      "contentHash"
+    ],
+    "flows": [
+      {
+        "flow": "edu_completion_to_vc_record",
+        "trigger": "verified_learning_outcome",
+        "vcAction": "create_or_update_credential_entry",
+        "proofRoute": "edu_to_vc_registry",
+        "result": "allowed"
+      },
+      {
+        "flow": "pack_completion_with_evidence",
+        "trigger": "specialist_pack_outcome_validated",
+        "vcAction": "create_extension_metadata_tied_to_credential_path",
+        "proofRoute": "pack_outcome_to_vc_proof_reference",
+        "result": "allowed"
+      },
+      {
+        "flow": "pending_review_case",
+        "trigger": "evidence_incomplete_or_mentor_pending",
+        "vcAction": "mark_status_reviewing_only",
+        "proofRoute": "issuer_review_queue_to_vc",
+        "result": "allowed_with_restriction"
+      },
+      {
+        "flow": "planned_template_record",
+        "trigger": "future_program_blueprint",
+        "vcAction": "mark_status_planned_without_issuance_claim",
+        "proofRoute": "internal_template_to_vc_sample",
+        "result": "allowed_with_disclosure"
+      },
+      {
+        "flow": "affiliate_sales_claim_as_vc_proof",
+        "trigger": "sales_only_event_without_outcome_evidence",
+        "vcAction": "no_vc_credential_issuance",
+        "proofRoute": "none",
+        "result": "denied"
+      }
+    ]
+  },
+  "disclosureAndCompliance": {
+    "requirements": [
+      {
+        "area": "pricing",
+        "mandatoryDisclosure": "annual_pricing_ladder_and_pack_pricing_are_separate_layers",
+        "enforcementPoint": "homepage_purchase_and_pack_detail_surfaces"
+      },
+      {
+        "area": "affiliate",
+        "mandatoryDisclosure": "activation_requires_annual_plus_qualifying_pack_plus_compliance_pass",
+        "enforcementPoint": "affiliate_onboarding_and_referral_dashboard"
+      },
+      {
+        "area": "earnings_language",
+        "mandatoryDisclosure": "no_guarantee_no_fast_income_no_public_layer_auto_commission",
+        "enforcementPoint": "sales_copy_review_gate"
+      },
+      {
+        "area": "vc_proof",
+        "mandatoryDisclosure": "vc_confirms_proof_direction_not_guaranteed_income",
+        "enforcementPoint": "vc_record_detail_and_issuer_explanation"
+      },
+      {
+        "area": "routing",
+        "mandatoryDisclosure": "deep_content_and_purchase_intent_route_to_homepage_hub",
+        "enforcementPoint": "subdomain_cta_contract_and_route_checks"
+      },
+      {
+        "area": "refund_fraud",
+        "mandatoryDisclosure": "anti_abuse_and_fraud_flags_can_suspend_affiliate_state",
+        "enforcementPoint": "compliance_state_machine_and_payout_gate"
+      },
+      {
+        "area": "data_logging",
+        "mandatoryDisclosure": "activation_state_changes_and_payout_decisions_must_be_auditable",
+        "enforcementPoint": "reporting_pipeline_and_weekly_compliance_log"
+      }
+    ]
+  },
+  "reporting": {
+    "kpis": [
+      {
+        "key": "affiliate_activation_rate",
+        "eventSource": "affiliate_events",
+        "definition": "eligible_activated_over_eligible_candidates",
+        "owners": [
+          "team-3"
+        ]
+      },
+      {
+        "key": "compliance_rejection_rate",
+        "eventSource": "compliance_events",
+        "definition": "rejected_over_activation_attempts",
+        "owners": [
+          "team-3"
+        ]
+      },
+      {
+        "key": "pack_to_affiliate_conversion",
+        "eventSource": "commerce_and_affiliate_events",
+        "definition": "activated_affiliates_who_own_qualifying_pack",
+        "owners": [
+          "team-1",
+          "team-3"
+        ]
+      },
+      {
+        "key": "vc_verified_issuance_count",
+        "eventSource": "vc_events",
+        "definition": "count_of_records_reaching_verified_status",
+        "owners": [
+          "team-3"
+        ]
+      },
+      {
+        "key": "proof_review_cycle_time",
+        "eventSource": "vc_workflow_events",
+        "definition": "median_time_from_proof_submission_to_final_status",
+        "owners": [
+          "team-3"
+        ]
+      },
+      {
+        "key": "payout_readiness_ratio",
+        "eventSource": "payout_events",
+        "definition": "affiliates_passing_payout_checks_per_cycle",
+        "owners": [
+          "team-3"
+        ]
+      },
+      {
+        "key": "disclosure_coverage",
+        "eventSource": "qa_legal_events",
+        "definition": "required_surfaces_with_required_disclosures_present",
+        "owners": [
+          "team-2",
+          "team-3"
+        ]
+      }
+    ],
+    "requiredEvents": [
+      "annual_access_confirmed",
+      "specialist_pack_purchased",
+      "affiliate_activation_requested",
+      "affiliate_activation_approved",
+      "affiliate_activation_rejected",
+      "affiliate_state_suspended",
+      "vc_record_created",
+      "vc_record_status_changed",
+      "proof_submission_received",
+      "proof_review_completed",
+      "payout_cycle_opened",
+      "payout_cycle_closed",
+      "compliance_flag_raised",
+      "disclosure_acknowledged"
+    ]
+  },
+  "launchGate": {
+    "checks": [
+      "affiliate_impossible_for_public_and_annual_only_states",
+      "annual_and_pack_layers_separated_in_eligibility_logic",
+      "vc_rules_enforce_required_anchors_and_controlled_statuses",
+      "disclosure_blocks_present_at_required_affiliate_and_proof_touchpoints",
+      "kpi_events_emitted_named_consistently_and_mapped_to_owners",
+      "payout_logic_gated_by_compliance_state_and_audit_logs",
+      "execution_board_stop_rules_tested_and_documented"
+    ]
+  },
+  "blockers": {
+    "requiredFromTeam1": [
+      "final_member_state_taxonomy_and_transition_rules",
+      "annual_access_payment_success_fail_refund_event_names",
+      "pack_ownership_state_model_pending_paid_refunded_revoked",
+      "entitlement_contract_fields_for_affiliate_eligibility_calculation",
+      "webhook_contract_for_compliance_and_payout_dependency_events"
+    ],
+    "requiredFromTeam2": [
+      "canonical_cta_insertion_points_for_disclosure_and_trust_copy",
+      "homepage_and_subdomain_placement_map_for_affiliate_policy_text",
+      "pack_label_and_pricing_context_usage_rules_in_ui_components",
+      "route_state_map_for_deep_content_to_homepage_handoff",
+      "confirmation_surfaces_for_disclosure_acknowledgement"
+    ]
+  },
+  "coordination": {
+    "dependencyIds": {
+      "fromTeam1": [
+        {
+          "id": "T3-T1-001",
+          "priority": "P0",
+          "description": "member-state machine and normalized event vocabulary lock"
+        },
+        {
+          "id": "T3-T1-002",
+          "priority": "P1",
+          "description": "entitlement and pack ownership fields for affiliate eligibility"
+        },
+        {
+          "id": "T3-T1-003",
+          "priority": "P1",
+          "description": "webhook outputs for compliance and payout-audit dependencies"
+        }
+      ],
+      "fromTeam2": [
+        {
+          "id": "T3-T2-001",
+          "priority": "P0",
+          "description": "disclosure insertion-point map by surface"
+        },
+        {
+          "id": "T3-T2-002",
+          "priority": "P1",
+          "description": "confirmation surfaces requiring disclosure acknowledgment"
+        },
+        {
+          "id": "T3-T2-003",
+          "priority": "P1",
+          "description": "pricing display states by page and CTA state"
+        },
+        {
+          "id": "T3-T2-004",
+          "priority": "P1",
+          "description": "CTA insertion points for trust and affiliate-disabled messaging"
+        }
+      ],
+      "requestedByTeam2FromTeam3": [
+        {
+          "id": "T2-T3-001",
+          "scope": "trust_language_matrix",
+          "status": "locked"
+        },
+        {
+          "id": "T2-T3-002",
+          "scope": "disclosure_placement_rules",
+          "status": "locked"
+        },
+        {
+          "id": "T2-T3-003",
+          "scope": "pack_policy_labels",
+          "status": "locked"
+        },
+        {
+          "id": "T2-T3-004",
+          "scope": "annual_only_affiliate_disabled_copy",
+          "status": "locked"
+        }
+      ]
+    },
+    "reportingCadenceIct": [
+      "09:00",
+      "13:30_blocked_or_newly_unblocked",
+      "18:00"
+    ],
+    "mandatoryReportFields": [
+      "policy_area_completed",
+      "files_changed",
+      "constraints_delivered_to_team1_and_team2",
+      "dependency_ids_touched",
+      "remaining_ambiguity",
+      "launch_risk_level",
+      "handoff_sent_to",
+      "handoff_needed_from"
+    ]
+  },
+  "integrationContracts": {
+    "team1Runtime": {
+      "consumedIdentityStates": [
+        "visitor",
+        "pending_member",
+        "annual_active",
+        "pack_owner",
+        "program_user",
+        "partner"
+      ],
+      "normalizedEventsRequiredFromTeam1": [
+        "annual.subscription.activated",
+        "annual.subscription.renewed",
+        "annual.subscription.past_due",
+        "annual.subscription.cancelled",
+        "pack.order.captured",
+        "pack.order.refunded",
+        "STRIPE_CHECKOUT_SESSION_COMPLETED_SUBSCRIPTION",
+        "STRIPE_INVOICE_PAID",
+        "STRIPE_INVOICE_PAYMENT_FAILED",
+        "STRIPE_CUSTOMER_SUBSCRIPTION_DELETED",
+        "STRIPE_CHECKOUT_SESSION_COMPLETED_PAYMENT",
+        "STRIPE_CHARGE_REFUNDED"
+      ],
+      "policyToRuntimeEventMap": [
+        {
+          "policyEventKey": "annual_access_confirmed",
+          "runtimeEventKey": "annual.subscription.activated"
+        },
+        {
+          "policyEventKey": "specialist_pack_purchased",
+          "runtimeEventKey": "pack.order.captured"
+        },
+        {
+          "policyEventKey": "affiliate_activation_requested",
+          "runtimeEventKey": "affiliate_activation_requested"
+        },
+        {
+          "policyEventKey": "affiliate_activation_approved",
+          "runtimeEventKey": "affiliate_activation_approved"
+        },
+        {
+          "policyEventKey": "affiliate_activation_rejected",
+          "runtimeEventKey": "affiliate_activation_rejected"
+        },
+        {
+          "policyEventKey": "affiliate_state_suspended",
+          "runtimeEventKey": "affiliate_state_suspended"
+        },
+        {
+          "policyEventKey": "vc_record_created",
+          "runtimeEventKey": "vc_record_created"
+        },
+        {
+          "policyEventKey": "vc_record_status_changed",
+          "runtimeEventKey": "vc_record_status_changed"
+        },
+        {
+          "policyEventKey": "proof_submission_received",
+          "runtimeEventKey": "proof_submission_received"
+        },
+        {
+          "policyEventKey": "proof_review_completed",
+          "runtimeEventKey": "proof_review_completed"
+        },
+        {
+          "policyEventKey": "payout_cycle_opened",
+          "runtimeEventKey": "payout_cycle_opened"
+        },
+        {
+          "policyEventKey": "payout_cycle_closed",
+          "runtimeEventKey": "payout_cycle_closed"
+        },
+        {
+          "policyEventKey": "compliance_flag_raised",
+          "runtimeEventKey": "compliance_flag_raised"
+        },
+        {
+          "policyEventKey": "disclosure_acknowledged",
+          "runtimeEventKey": "disclosure_acknowledged"
+        }
+      ],
+      "webhookOutputsRequiredForComplianceAndPayout": {
+        "dependencyId": "T3-T1-003",
+        "requiredWebhookRoutes": [
+          "/api/access/webhooks/paypal/subscriptions",
+          "/api/access/webhooks/paypal/orders",
+          "/api/access/webhooks/stripe"
+        ],
+        "requiredNormalizedEvents": [
+          "annual.subscription.activated",
+          "annual.subscription.renewed",
+          "annual.subscription.past_due",
+          "annual.subscription.cancelled",
+          "pack.order.captured",
+          "pack.order.refunded"
+        ],
+        "requiredProviderSignals": [
+          "PAYPAL_SUBSCRIPTION_ACTIVATED",
+          "PAYPAL_SUBSCRIPTION_RENEWED",
+          "PAYPAL_SUBSCRIPTION_PAST_DUE",
+          "PAYPAL_SUBSCRIPTION_CANCELLED",
+          "PAYPAL_ORDER_CAPTURE_COMPLETED",
+          "PAYPAL_ORDER_REFUNDED",
+          "STRIPE_CHECKOUT_SESSION_COMPLETED_SUBSCRIPTION",
+          "STRIPE_INVOICE_PAID",
+          "STRIPE_INVOICE_PAYMENT_FAILED",
+          "STRIPE_CUSTOMER_SUBSCRIPTION_DELETED",
+          "STRIPE_CHECKOUT_SESSION_COMPLETED_PAYMENT",
+          "STRIPE_CHARGE_REFUNDED"
+        ],
+        "requiredDecisionFields": [
+          "normalizedEvent",
+          "dedupeKey",
+          "identity",
+          "memberStateAfter",
+          "annualAccessStatusAfter",
+          "affiliateEligibility",
+          "requiredDisclosures",
+          "requiredReportingEvents",
+          "nextActions"
+        ],
+        "requiredReportingEventsForAudit": [
+          "affiliate_activation_requested",
+          "affiliate_activation_approved",
+          "affiliate_activation_rejected",
+          "affiliate_state_suspended",
+          "compliance_flag_raised",
+          "payout_cycle_opened",
+          "payout_cycle_closed"
+        ],
+        "status": "contract_published_pending_team1_confirmation"
+      }
+    },
+    "team2Surfaces": {
+      "trustLanguageMatrix": {
+        "allowedPhrases": [
+          {
+            "phrase": "no guarantee",
+            "context": "earnings_and_outcomes",
+            "notes": "must_be_present_near_monetary_claims"
+          },
+          {
+            "phrase": "proof direction",
+            "context": "vc_explanation",
+            "notes": "clarify_vc_confirms_proof_not_income"
+          },
+          {
+            "phrase": "annual and pack are separate layers",
+            "context": "pricing_and_purchase_hub",
+            "notes": "must_remain_explicit"
+          }
+        ],
+        "restrictedPhrases": [
+          {
+            "phrase": "guaranteed income",
+            "replacement": "no guaranteed income",
+            "reason": "violates_anti_guarantee_guardrail"
+          },
+          {
+            "phrase": "fast money",
+            "replacement": "long-term value path",
+            "reason": "violates_trust_and_anti_fomo_guardrail"
+          },
+          {
+            "phrase": "recruit to earn",
+            "replacement": "direct-only referral after compliance pass",
+            "reason": "conflicts_with_anti_mlm_guardrail"
+          }
+        ],
+        "escalationRules": {
+          "requiresLegalReviewIfContains": [
+            "earnings projection",
+            "payout promise language",
+            "refund exception wording"
+          ],
+          "requiresComplianceReviewIfContains": [
+            "affiliate activation claims",
+            "vc status claims beyond verified reviewing planned"
+          ]
+        }
+      },
+      "disclosurePlacementRules": {
+        "homepage_purchase_hub": {
+          "requiredBlocks": [
+            "annual_vs_pack_layer_disclosure",
+            "no_guarantee_disclosure"
+          ],
+          "minimumPosition": "above_primary_purchase_cta"
+        },
+        "subdomain_deep_cta_page": {
+          "requiredBlocks": [
+            "deep_content_routes_to_homepage_disclosure"
+          ],
+          "minimumPosition": "near_deep_cta"
+        },
+        "checkout_route": {
+          "requiredBlocks": [
+            "pricing_layer_disclosure",
+            "refund_and_compliance_disclosure"
+          ],
+          "minimumPosition": "before_confirm_payment"
+        },
+        "success_route": {
+          "requiredBlocks": [
+            "activation_state_disclosure"
+          ],
+          "minimumPosition": "within_success_summary"
+        },
+        "visibilityRules": {
+          "mobile": "disclosure_visible_without_hidden_tabs_on_primary_flow",
+          "desktop": "disclosure_not_below_fold_only_on_primary_flow",
+          "readability": "minimum_accessible_contrast_and_plain_language"
+        }
+      },
+      "packPolicyLabels": [
+        {
+          "key": "annual_base_layer",
+          "shortLabel": "Annual Base",
+          "longLabel": "Annual access is the base layer, not specialist depth",
+          "appliesToPackCodes": [],
+          "legalNote": "mandatory_on_homepage_purchase_hub"
+        },
+        {
+          "key": "specialist_pack_depth",
+          "shortLabel": "Specialist Pack",
+          "longLabel": "Specialist depth unlock requires qualifying pack ownership",
+          "appliesToPackCodes": [
+            "g1",
+            "g2",
+            "g3",
+            "g4",
+            "g5",
+            "g6",
+            "g7",
+            "g8",
+            "g9"
+          ],
+          "legalNote": "align_with_entitlement_and_compliance_state"
+        },
+        {
+          "key": "affiliate_not_active",
+          "shortLabel": "Affiliate Disabled",
+          "longLabel": "Affiliate is disabled for public and annual-only states",
+          "appliesToPackCodes": [
+            "g1",
+            "g2",
+            "g3",
+            "g4",
+            "g5",
+            "g6",
+            "g7",
+            "g8",
+            "g9"
+          ],
+          "legalNote": "must_be_shown_on_activation_related_surfaces"
+        }
+      ],
+      "annualOnlyAffiliateDisabledCopy": {
+        "headline": "Affiliate chưa mở ở gói năm cơ bản",
+        "body": "Bạn cần gói năm, gói chuyên sâu phù hợp và bước rà soát cần thiết trước khi mở affiliate.",
+        "ctaPrimary": "Xem điều kiện kích hoạt",
+        "ctaSecondary": "Quay về homepage package chooser",
+        "allowedNextSteps": [
+          {
+            "action": "view_activation_requirements",
+            "destination": "homepage_purchase_hub"
+          },
+          {
+            "action": "open_pack_chooser",
+            "destination": "homepage_package_chooser"
+          }
+        ],
+        "forbiddenWording": [
+          {
+            "phrase": "Bật affiliate ngay",
+            "reason": "annual_only_state_is_denied"
+          },
+          {
+            "phrase": "Hoa hồng tự động",
+            "reason": "violates_compliance_state_machine"
+          }
+        ]
+      },
+      "launchComplianceEventMapping": [
+        {
+          "eventKey": "affiliate_activation_approved",
+          "trigger": "compliance_passed_with_annual_plus_pack",
+          "requiredProperties": [
+            "member_id",
+            "pack_key",
+            "compliance_state",
+            "timestamp"
+          ]
+        },
+        {
+          "eventKey": "affiliate_activation_rejected",
+          "trigger": "compliance_failed_or_missing_requirements",
+          "requiredProperties": [
+            "member_id",
+            "reason_code",
+            "compliance_state",
+            "timestamp"
+          ]
+        },
+        {
+          "eventKey": "vc_record_status_changed",
+          "trigger": "vc_status_transition",
+          "requiredProperties": [
+            "record_code",
+            "from_status",
+            "to_status",
+            "source_owner"
+          ]
+        },
+        {
+          "eventKey": "disclosure_acknowledged",
+          "trigger": "required_disclosure_confirmed",
+          "requiredProperties": [
+            "surface_key",
+            "member_state",
+            "timestamp"
+          ]
+        }
+      ]
+    }
+  }
+}

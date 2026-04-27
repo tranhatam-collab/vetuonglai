@@ -1,0 +1,217 @@
+{
+  "version": "2026-04-22-team4-business-domain-contract-v2",
+  "owner": "team-4-data-registry-forms",
+  "sourceDocs": [
+    "docs/00_master/28_PACKAGING_AND_FORMS_SYSTEM_FULL.md",
+    "docs/00_master/32_RUNTIME_TRUTH_MATRIX_V1.md",
+    "docs/final-lock/VTL_48_TOTAL_SYSTEM_5_TEAM_CONTINUATION_BOARD_2026-04-22.md",
+    "docs/final-lock/VTL_49_TEAM4_PACKAGE_FORM_DATA_CONTRACT_2026-04-22.md"
+  ],
+  "domain": {
+    "key": "business",
+    "host": "business.vetuonglai.com",
+    "runtimeStatus": "planned",
+    "publicState": "internal_planning_only",
+    "stageLabel": "PLANNED",
+    "runtimeTruthSource": [
+      "docs/00_master/32_RUNTIME_TRUTH_MATRIX_V1.md",
+      "src/data/system-registry.json"
+    ]
+  },
+  "runtimeTruthGuardrails": {
+    "allowPublicLaunch": false,
+    "allowProductionOnboarding": false,
+    "allowEnterpriseCheckoutLive": false,
+    "allowPersonalFlowReuse": false,
+    "allowedClaims": [
+      "business spec",
+      "package contract",
+      "form schema",
+      "demo-safe consulting preview"
+    ],
+    "forbiddenClaims": [
+      "business solution live",
+      "enterprise onboarding usable",
+      "ai agent integration live"
+    ]
+  },
+  "intakeContract": {
+    "formKey": "business_enterprise_intake_v1",
+    "stepOrder": [
+      "step_1_qualification",
+      "step_2_need_survey",
+      "step_3_verification",
+      "step_4_recommendation"
+    ],
+    "blockingRules": [
+      "Nếu thiếu business_registration_number thì không cho qua bước 1.",
+      "Nếu business_authorization_confirmed != true thì không cho qua bước 1.",
+      "Recommendation chỉ sinh sau khi hoàn tất bước 1 và bước 2."
+    ],
+    "requiredFieldsByStep": {
+      "step_1_qualification": [
+        "business_company_name",
+        "business_registration_number",
+        "business_country_of_registration",
+        "business_email",
+        "business_phone",
+        "business_representative_name",
+        "business_representative_title",
+        "business_authorization_confirmed"
+      ],
+      "step_2_need_survey": [
+        "business_company_size_band",
+        "business_industry",
+        "business_priority_areas",
+        "business_primary_problem_statement",
+        "business_needed_support_type"
+      ],
+      "step_3_verification": [
+        "business_registration_document_upload",
+        "business_linkedin_url",
+        "business_reference_links"
+      ],
+      "step_4_recommendation": [
+        "recommended_packages",
+        "comparison_bundle_ids",
+        "demo_preview_ids",
+        "output_bundle_ids",
+        "next_step_action"
+      ]
+    }
+  },
+  "packageRecommendationRules": {
+    "allowedPackageFamilyKey": "business_packages_v1",
+    "minimumRecommendationCount": 2,
+    "maximumRecommendationCount": 3,
+    "businessLayerRequires": [
+      "company_registration_verified",
+      "primary_problem_statement",
+      "operations_owner_available"
+    ],
+    "sizeBandRules": [
+      {
+        "if": "under_10",
+        "recommend": [
+          "business_entry",
+          "business_foundation"
+        ]
+      },
+      {
+        "if": "10_50",
+        "recommend": [
+          "business_foundation",
+          "business_applied"
+        ]
+      },
+      {
+        "if": "51_200_or_gt_200",
+        "recommend": [
+          "business_applied",
+          "business_strategic"
+        ]
+      }
+    ],
+    "supportTypeInfluence": [
+      {
+        "signal": "overall_assessment",
+        "promote": "business_entry"
+      },
+      {
+        "signal": "internal_training",
+        "promote": "business_foundation"
+      },
+      {
+        "signal": "pilot_operation",
+        "promote": "business_applied"
+      },
+      {
+        "signal": "long_term_solution",
+        "promote": "business_strategic"
+      }
+    ],
+    "fallbackPackageKeys": [
+      "business_entry",
+      "business_foundation"
+    ]
+  },
+  "businessPackages": [
+    {
+      "key": "business_entry",
+      "labelVi": "B1 - Entry",
+      "labelEn": "B1 - Entry",
+      "goal": "diagnostic_and_direction",
+      "comparisonBundleId": "business_packages_v1",
+      "demoBundleId": "demo_business_entry_v1",
+      "outputBundleId": "output_business_entry_v1",
+      "deliverables": [
+        "business_scorecard",
+        "priority_problem_map",
+        "next_30_day_actions"
+      ]
+    },
+    {
+      "key": "business_foundation",
+      "labelVi": "B2 - Foundation",
+      "labelEn": "B2 - Foundation",
+      "goal": "baseline_operating_system",
+      "comparisonBundleId": "business_packages_v1",
+      "demoBundleId": "demo_business_foundation_v1",
+      "outputBundleId": "output_business_foundation_v1",
+      "deliverables": [
+        "core_checklist",
+        "operating_structure_map",
+        "owner_responsibility_matrix"
+      ]
+    },
+    {
+      "key": "business_applied",
+      "labelVi": "B3 - Applied",
+      "labelEn": "B3 - Applied",
+      "goal": "real_world_execution",
+      "comparisonBundleId": "business_packages_v1",
+      "demoBundleId": "demo_business_applied_v1",
+      "outputBundleId": "output_business_applied_v1",
+      "deliverables": [
+        "sop_bundle",
+        "execution_timeline",
+        "governance_review_log"
+      ]
+    },
+    {
+      "key": "business_strategic",
+      "labelVi": "B4 - Strategic",
+      "labelEn": "B4 - Strategic",
+      "goal": "trust_layer_and_partner_readiness",
+      "comparisonBundleId": "business_packages_v1",
+      "demoBundleId": "demo_business_strategic_v1",
+      "outputBundleId": "output_business_strategic_v1",
+      "deliverables": [
+        "trust_layer_blueprint",
+        "team_readiness_assessment",
+        "partner_enablement_pack"
+      ]
+    }
+  ],
+  "integrationPlaceholder": {
+    "flowIaiOne": {
+      "status": "planned_not_connected",
+      "targetUrl": "https://flow.iai.one",
+      "allowedClaim": "link placeholder only",
+      "activationCondition": "enabled_only_after_founder_api_approval_and_runtime_gate_upgrade"
+    }
+  },
+  "plannedApiContract": {
+    "indexEndpoint": "/api/business/contracts.json",
+    "futureEndpoints": [
+      "/api/business/intake-schema.json",
+      "/api/business/package-recommendation-rules.json",
+      "/api/business/comparison-demo-output.json"
+    ],
+    "currentSourceOfTruth": [
+      "/api/team4/business-domain-contract.json",
+      "/api/team4/package-form-registry.json",
+      "/api/team4/package-comparison-demo-output.json"
+    ]
+  }
+}

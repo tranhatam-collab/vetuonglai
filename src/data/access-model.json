@@ -1,0 +1,829 @@
+{
+  "version": "2026-04-15-team1-vc-profile-enterprise",
+  "owner": "team-1-platform-access-commerce-core",
+  "homepagePurchaseHub": {
+    "domain": "vetuonglai.com",
+    "pathname": "/",
+    "fallbackPath": "/bat-dau/",
+    "cta": {
+      "vi": "Mở toàn bộ hệ của bạn",
+      "en": "Open your full system"
+    },
+    "annualAccess": {
+      "productKey": "annual-access",
+      "provider": "pay_iai_one_checkout_session",
+      "supportedProviders": [
+        {
+          "key": "pay",
+          "provider": "pay_iai_one_checkout_session",
+          "checkoutMode": "runtime_create_session",
+          "checkoutSessionEndpoint": "/api/access/checkout/resolve",
+          "gatewayBaseEnv": "PAY_IAI_ONE_BASE_URL"
+        },
+        {
+          "key": "paypal",
+          "provider": "paypal_subscriptions",
+          "checkoutMode": "runtime_resolve",
+          "checkoutUrlEnv": "PAYPAL_ANNUAL_ACCESS_CHECKOUT_URL"
+        },
+        {
+          "key": "stripe",
+          "provider": "stripe_checkout_subscription",
+          "checkoutMode": "runtime_resolve",
+          "checkoutUrlEnv": "STRIPE_ANNUAL_ACCESS_CHECKOUT_URL"
+        }
+      ],
+      "currency": "USD",
+      "billingCycles": [
+        {
+          "key": "year_1_intro",
+          "sequence": 1,
+          "price": 3,
+          "interval": "P1Y"
+        },
+        {
+          "key": "year_2_plus_standard",
+          "sequence": 2,
+          "price": 99,
+          "interval": "P1Y",
+          "repeat": "until_cancelled"
+        }
+      ]
+    },
+    "specialistPackCheckout": {
+      "productKey": "specialist-pack",
+      "supportedProviders": [
+        {
+          "key": "pay",
+          "provider": "pay_iai_one_checkout_session",
+          "checkoutMode": "runtime_create_session",
+          "checkoutSessionEndpoint": "/api/access/checkout/resolve",
+          "gatewayBaseEnv": "PAY_IAI_ONE_BASE_URL"
+        },
+        {
+          "key": "paypal",
+          "provider": "paypal_orders",
+          "checkoutMode": "runtime_resolve",
+          "checkoutUrlEnvPattern": "PAYPAL_PACK_<PACK>_CHECKOUT_URL",
+          "checkoutUrlMapEnv": "PAYPAL_PACK_CHECKOUT_URLS_JSON"
+        },
+        {
+          "key": "stripe",
+          "provider": "stripe_checkout_payment",
+          "checkoutMode": "runtime_resolve",
+          "checkoutUrlEnvPattern": "STRIPE_PACK_<PACK>_CHECKOUT_URL",
+          "checkoutUrlMapEnv": "STRIPE_PACK_CHECKOUT_URLS_JSON"
+        }
+      ]
+    }
+  },
+  "vcProtectionPolicy": {
+    "publicLookupEnabled": true,
+    "freeOwnershipCertification": {
+      "includedWithPaidMembership": true,
+      "membershipStatesAllowed": [
+        "annual_active",
+        "pack_owner",
+        "program_user",
+        "partner"
+      ]
+    },
+    "twoLayerProtectionLevel": "STRONG_2_LAYER",
+    "acceptedFileTypes": "*/*",
+    "profileVerification": {
+      "required": true,
+      "requiredFields": [
+        "legal_full_name",
+        "date_of_birth",
+        "country_code",
+        "phone_e164",
+        "national_id_last4",
+        "address_line_1",
+        "city"
+      ],
+      "requiredConsents": [
+        "consent_truthful_data",
+        "consent_privacy_policy"
+      ],
+      "identityAssuranceMinLevel": 2
+    }
+  },
+  "enterprisePlans": [
+    {
+      "key": "enterprise_core",
+      "name": "Enterprise Core",
+      "nameVi": "Doanh Nghiệp Core",
+      "billing": {
+        "currency": "USD",
+        "amount": 299,
+        "interval": "month"
+      },
+      "coverage": {
+        "monthlyOwnershipCertifications": 500,
+        "teamSeats": 25
+      },
+      "included": [
+        "Dedicated enterprise namespace for ownership records",
+        "API key + webhook callbacks for internal systems",
+        "2-layer ownership protection and immutable verification links"
+      ],
+      "includedVi": [
+        "Namespace doanh nghiệp riêng cho bản ghi sở hữu",
+        "API key + webhook callback để tích hợp hệ thống nội bộ",
+        "Bảo vệ sở hữu 2 lớp và link xác minh bất biến"
+      ],
+      "cta": {
+        "label": "Book Enterprise Core",
+        "labelVi": "Đăng ký Enterprise Core",
+        "href": "https://vetuonglai.com/lien-he/?intent=enterprise-vc-core"
+      }
+    },
+    {
+      "key": "enterprise_scale",
+      "name": "Enterprise Scale",
+      "nameVi": "Doanh Nghiệp Scale",
+      "billing": {
+        "currency": "USD",
+        "amount": 999,
+        "interval": "month"
+      },
+      "coverage": {
+        "monthlyOwnershipCertifications": 5000,
+        "teamSeats": 200
+      },
+      "included": [
+        "Everything in Enterprise Core",
+        "Priority support SLA and custom verification dashboards",
+        "Cross-domain trust bundle (VC + NFT bridge + member state sync)"
+      ],
+      "includedVi": [
+        "Bao gồm toàn bộ Enterprise Core",
+        "Hỗ trợ ưu tiên SLA và dashboard xác minh tùy biến",
+        "Gói trust liên thông đa miền (VC + NFT bridge + đồng bộ member state)"
+      ],
+      "cta": {
+        "label": "Book Enterprise Scale",
+        "labelVi": "Đăng ký Enterprise Scale",
+        "href": "https://vetuonglai.com/lien-he/?intent=enterprise-vc-scale"
+      }
+    },
+    {
+      "key": "enterprise_custom",
+      "name": "Enterprise Custom",
+      "nameVi": "Doanh Nghiệp Custom",
+      "billing": {
+        "currency": "USD",
+        "amount": 0,
+        "interval": "custom_quote"
+      },
+      "coverage": {
+        "monthlyOwnershipCertifications": "unlimited_by_contract",
+        "teamSeats": "custom"
+      },
+      "included": [
+        "Custom compliance workflow and legal evidence templates",
+        "Dedicated architecture review for high-volume issuance",
+        "Migration support for existing NFT and digital-asset registries"
+      ],
+      "includedVi": [
+        "Luồng compliance tùy biến và mẫu bằng chứng pháp lý theo yêu cầu",
+        "Rà soát kiến trúc riêng cho hệ phát hành khối lượng lớn",
+        "Hỗ trợ migration từ registry NFT và tài sản số hiện có"
+      ],
+      "cta": {
+        "label": "Talk To Enterprise Team",
+        "labelVi": "Liên hệ đội Enterprise",
+        "href": "https://vetuonglai.com/lien-he/?intent=enterprise-vc-custom"
+      }
+    }
+  ],
+  "identityStates": [
+    {
+      "key": "visitor",
+      "label": "Visitor",
+      "entry": "public",
+      "requires": [],
+      "grants": [
+        "public_basics"
+      ]
+    },
+    {
+      "key": "pending_member",
+      "label": "Pending Member",
+      "entry": "pre_provisioning",
+      "requires": [
+        "candidate_email",
+        "checkout_started"
+      ],
+      "grants": [
+        "public_basics"
+      ]
+    },
+    {
+      "key": "annual_active",
+      "label": "Annual Access Member",
+      "entry": "member",
+      "requires": [
+        "subscription_active"
+      ],
+      "grants": [
+        "annual_access_core",
+        "purchase_hub",
+        "cross_domain_orientation"
+      ]
+    },
+    {
+      "key": "pack_owner",
+      "label": "Specialist Pack Owner",
+      "entry": "specialist",
+      "requires": [
+        "subscription_active",
+        "owned_pack"
+      ],
+      "grants": [
+        "annual_access_core",
+        "purchase_hub",
+        "cross_domain_orientation",
+        "owned_pack_depth"
+      ]
+    },
+    {
+      "key": "program_user",
+      "label": "Program User",
+      "entry": "guided",
+      "requires": [
+        "subscription_active",
+        "program_admitted"
+      ],
+      "grants": [
+        "annual_access_core",
+        "purchase_hub",
+        "cross_domain_orientation",
+        "program_layer"
+      ]
+    },
+    {
+      "key": "partner",
+      "label": "Partner",
+      "entry": "partner",
+      "requires": [
+        "proof_verified",
+        "founder_or_ops_approval"
+      ],
+      "grants": [
+        "annual_access_core",
+        "purchase_hub",
+        "cross_domain_orientation",
+        "owned_pack_depth",
+        "partner_rights"
+      ]
+    }
+  ],
+  "entitlements": [
+    {
+      "key": "public_basics",
+      "label": "Public Basics",
+      "category": "public",
+      "scope": "basic open content on every subdomain"
+    },
+    {
+      "key": "annual_access_core",
+      "label": "Annual Access Core",
+      "category": "payment",
+      "scope": "member identity, onboarding, dashboard, foundational cross-domain navigation"
+    },
+    {
+      "key": "purchase_hub",
+      "label": "Purchase Hub",
+      "category": "payment",
+      "scope": "homepage package chooser and annual-access management"
+    },
+    {
+      "key": "cross_domain_orientation",
+      "label": "Cross-Domain Orientation",
+      "category": "payment",
+      "scope": "core member-only orientation content across domains"
+    },
+    {
+      "key": "owned_pack_depth",
+      "label": "Owned Pack Depth",
+      "category": "payment",
+      "scope": "specialist depth only for pack(s) currently owned by the member"
+    },
+    {
+      "key": "program_layer",
+      "label": "Program Layer",
+      "category": "governance",
+      "scope": "guided cohort, mentor, or approved advanced program layer"
+    },
+    {
+      "key": "partner_rights",
+      "label": "Partner Rights",
+      "category": "governance",
+      "scope": "negotiated contribution, commercial, or integration rights"
+    },
+    {
+      "key": "vc_claim_submit",
+      "label": "VC Claim Submit",
+      "category": "proof",
+      "scope": "permission to submit a verification-ready claim after qualifying completion or review states"
+    },
+    {
+      "key": "vc_claim_reviewed",
+      "label": "VC Claim Reviewed",
+      "category": "proof",
+      "scope": "review-complete proof state that can unlock downstream trust or showcase steps"
+    },
+    {
+      "key": "verified_builder",
+      "label": "Verified Builder",
+      "category": "proof",
+      "scope": "proof-backed state for deeper trust, work, partner, or showcase pathways when approved"
+    }
+  ],
+  "submissionWorkflow": {
+    "states": [
+      "not_started",
+      "submitted",
+      "reviewing",
+      "approved",
+      "rejected",
+      "vc_candidate_ready"
+    ],
+    "submissionTypes": [
+      {
+        "key": "action_proof",
+        "label": "Action Proof",
+        "lessonTypes": [
+          "action",
+          "ai_guided"
+        ]
+      },
+      {
+        "key": "project_output",
+        "label": "Project Output",
+        "lessonTypes": [
+          "project"
+        ]
+      },
+      {
+        "key": "reflection",
+        "label": "Reflection",
+        "lessonTypes": [
+          "reflection"
+        ]
+      }
+    ],
+    "reviewDecisions": [
+      "reviewing",
+      "approved",
+      "rejected"
+    ],
+    "reviewerStates": [
+      "program_user",
+      "partner"
+    ],
+    "vcCandidateRules": {
+      "requiredApprovedSubmissions": [
+        "action_proof",
+        "project_output",
+        "reflection"
+      ],
+      "entitlements": [
+        "vc_claim_submit",
+        "vc_claim_reviewed"
+      ]
+    }
+  },
+  "specialistPacks": [
+    {
+      "key": "g1",
+      "code": "G1",
+      "slug": "nen-tang-tu-duy",
+      "name": "Nền Tảng Tư Duy",
+      "price": 9,
+      "affiliatePercent": 5,
+      "vcDirection": "Foundation Verified"
+    },
+    {
+      "key": "g2",
+      "code": "G2",
+      "slug": "ky-luat-tai-chinh",
+      "name": "Kỷ Luật Tài Chính",
+      "price": 19,
+      "affiliatePercent": 5.5,
+      "vcDirection": "Finance Discipline"
+    },
+    {
+      "key": "g3",
+      "code": "G3",
+      "slug": "he-dieu-hanh-song",
+      "name": "Hệ Điều Hành Sống",
+      "price": 29,
+      "affiliatePercent": 6,
+      "vcDirection": "Life System Verified"
+    },
+    {
+      "key": "g4",
+      "code": "G4",
+      "slug": "khoi-nghiep-thuc-chien",
+      "name": "Khởi Nghiệp Thực Chiến",
+      "price": 39,
+      "affiliatePercent": 6.5,
+      "vcDirection": "Builder Verified"
+    },
+    {
+      "key": "g5",
+      "code": "G5",
+      "slug": "dau-tu-tinh-tao",
+      "name": "Đầu Tư Tỉnh Táo",
+      "price": 49,
+      "affiliatePercent": 7,
+      "vcDirection": "Sane Investor"
+    },
+    {
+      "key": "g6",
+      "code": "G6",
+      "slug": "tao-gia-tri-so",
+      "name": "Tạo Giá Trị Số",
+      "price": 59,
+      "affiliatePercent": 7.5,
+      "vcDirection": "Creator Verified"
+    },
+    {
+      "key": "g7",
+      "code": "G7",
+      "slug": "tac-dong-xanh",
+      "name": "Tác Động Xanh",
+      "price": 69,
+      "affiliatePercent": 8,
+      "vcDirection": "Green Steward"
+    },
+    {
+      "key": "g8",
+      "code": "G8",
+      "slug": "dan-dat-va-cong-dong",
+      "name": "Dẫn Dắt và Cộng Đồng",
+      "price": 79,
+      "affiliatePercent": 8.9,
+      "vcDirection": "Community Builder"
+    },
+    {
+      "key": "g9",
+      "code": "G9",
+      "slug": "vtl-elite-toan-he",
+      "name": "VTL Elite — Toàn Hệ",
+      "price": 99,
+      "affiliatePercent": 9.9,
+      "vcDirection": "VTL Elite Verified"
+    }
+  ],
+  "billingObjects": {
+    "subscription": {
+      "key": "annual_access_subscription",
+      "provider": "pay_iai_one_checkout_session",
+      "supportedProviders": [
+        "pay_iai_one_checkout_session",
+        "paypal_subscriptions",
+        "stripe_checkout_subscription"
+      ],
+      "identityKeys": [
+        "candidate_email",
+        "member_id",
+        "pay_iai_one_session_id",
+        "pay_iai_one_provider_ref",
+        "paypal_subscription_id",
+        "stripe_subscription_id",
+        "stripe_checkout_session_id"
+      ],
+      "statusKeys": [
+        "pending_activation",
+        "active",
+        "past_due",
+        "cancelled",
+        "expired"
+      ]
+    },
+    "packOrder": {
+      "key": "specialist_pack_order",
+      "provider": "pay_iai_one_checkout_session",
+      "supportedProviders": [
+        "pay_iai_one_checkout_session",
+        "paypal_orders",
+        "stripe_checkout_payment"
+      ],
+      "identityKeys": [
+        "candidate_email",
+        "member_id",
+        "pay_iai_one_session_id",
+        "pay_iai_one_provider_ref",
+        "paypal_order_id",
+        "stripe_checkout_session_id",
+        "stripe_payment_intent_id",
+        "pack_key"
+      ],
+      "statusKeys": [
+        "pending_payment",
+        "captured",
+        "provisioned",
+        "refunded",
+        "revoked"
+      ]
+    }
+  },
+  "webhookEvents": [
+    {
+      "key": "annual.subscription.created",
+      "providerSignal": "PAYPAL_SUBSCRIPTION_CREATED",
+      "action": "create_or_refresh_pending_member"
+    },
+    {
+      "key": "annual.subscription.activated",
+      "providerSignal": "PAYPAL_SUBSCRIPTION_ACTIVATED",
+      "action": "provision_annual_access"
+    },
+    {
+      "key": "annual.subscription.activated",
+      "providerSignal": "STRIPE_CHECKOUT_SESSION_COMPLETED_SUBSCRIPTION",
+      "action": "provision_annual_access"
+    },
+    {
+      "key": "annual.subscription.activated",
+      "providerSignal": "PAY_IAI_ONE_SUBSCRIPTION_ACTIVATED",
+      "action": "provision_annual_access"
+    },
+    {
+      "key": "annual.subscription.renewed",
+      "providerSignal": "PAYPAL_SUBSCRIPTION_RENEWED",
+      "action": "extend_annual_access_cycle"
+    },
+    {
+      "key": "annual.subscription.renewed",
+      "providerSignal": "STRIPE_INVOICE_PAID",
+      "action": "extend_annual_access_cycle"
+    },
+    {
+      "key": "annual.subscription.renewed",
+      "providerSignal": "PAY_IAI_ONE_SUBSCRIPTION_RENEWED",
+      "action": "extend_annual_access_cycle"
+    },
+    {
+      "key": "annual.subscription.past_due",
+      "providerSignal": "PAYPAL_SUBSCRIPTION_PAST_DUE",
+      "action": "flag_grace_state_and_limit_upgrades"
+    },
+    {
+      "key": "annual.subscription.past_due",
+      "providerSignal": "STRIPE_INVOICE_PAYMENT_FAILED",
+      "action": "flag_grace_state_and_limit_upgrades"
+    },
+    {
+      "key": "annual.subscription.past_due",
+      "providerSignal": "PAY_IAI_ONE_SUBSCRIPTION_PAST_DUE",
+      "action": "flag_grace_state_and_limit_upgrades"
+    },
+    {
+      "key": "annual.subscription.cancelled",
+      "providerSignal": "PAYPAL_SUBSCRIPTION_CANCELLED",
+      "action": "disable_future_renewal_keep_historical_proof"
+    },
+    {
+      "key": "annual.subscription.cancelled",
+      "providerSignal": "STRIPE_CUSTOMER_SUBSCRIPTION_DELETED",
+      "action": "disable_future_renewal_keep_historical_proof"
+    },
+    {
+      "key": "annual.subscription.cancelled",
+      "providerSignal": "PAY_IAI_ONE_SUBSCRIPTION_CANCELLED",
+      "action": "disable_future_renewal_keep_historical_proof"
+    },
+    {
+      "key": "pack.order.created",
+      "providerSignal": "PAYPAL_ORDER_CREATED",
+      "action": "create_pending_pack_order"
+    },
+    {
+      "key": "pack.order.captured",
+      "providerSignal": "PAYPAL_ORDER_CAPTURE_COMPLETED",
+      "action": "grant_owned_pack_depth"
+    },
+    {
+      "key": "pack.order.captured",
+      "providerSignal": "STRIPE_CHECKOUT_SESSION_COMPLETED_PAYMENT",
+      "action": "grant_owned_pack_depth"
+    },
+    {
+      "key": "pack.order.captured",
+      "providerSignal": "PAY_IAI_ONE_ORDER_CAPTURED",
+      "action": "grant_owned_pack_depth"
+    },
+    {
+      "key": "pack.order.refunded",
+      "providerSignal": "PAYPAL_ORDER_REFUNDED",
+      "action": "revoke_pack_entitlement_and_affiliate_eligibility"
+    },
+    {
+      "key": "pack.order.refunded",
+      "providerSignal": "STRIPE_CHARGE_REFUNDED",
+      "action": "revoke_pack_entitlement_and_affiliate_eligibility"
+    },
+    {
+      "key": "pack.order.refunded",
+      "providerSignal": "PAY_IAI_ONE_ORDER_REFUNDED",
+      "action": "revoke_pack_entitlement_and_affiliate_eligibility"
+    }
+  ],
+  "routeContract": {
+    "purchaseHub": {
+      "domain": "vetuonglai.com",
+      "pathname": "/",
+      "fallbackPath": "/bat-dau/"
+    },
+    "parseOrder": [
+      "entry",
+      "pack",
+      "intent",
+      "source",
+      "slug",
+      "gateway",
+      "lang",
+      "ref",
+      "return_to"
+    ],
+    "intentAliases": {
+      "annual": "annual-access",
+      "pack": "specialist-pack",
+      "course-depth": "specialist-pack",
+      "course-card": "specialist-pack",
+      "course-list": "specialist-pack",
+      "course-list-item": "specialist-pack",
+      "course-detail": "specialist-pack",
+      "job-apply": "specialist-pack",
+      "brief": "specialist-pack",
+      "market-buy": "specialist-pack",
+      "market-rules": "specialist-pack",
+      "green-depth": "specialist-pack",
+      "finance-depth": "specialist-pack",
+      "life-depth": "specialist-pack",
+      "invest-depth": "specialist-pack",
+      "member-depth": "specialist-pack",
+      "journey": "specialist-pack"
+    },
+    "gatewayAliases": {
+      "payos": "pay",
+      "pay.iai.one": "pay",
+      "pay-iai-one": "pay",
+      "pay_iai_one": "pay"
+    },
+    "fallbackRules": {
+      "invalidEntry": "fallback_to_hub",
+      "invalidPack": "fallback_to_g1_with_warning_when_raw_pack_present",
+      "invalidIntent": "normalize_alias_then_fallback_to_specialist_pack",
+      "invalidGateway": "fallback_to_pay",
+      "invalidSource": "drop_source",
+      "invalidSlug": "drop_slug",
+      "invalidRef": "drop_ref",
+      "invalidReturnTo": "fallback_to_root",
+      "missingGatewayAtDeepCtaStage": "allowed_until_checkout_resolve"
+    },
+    "queryParams": [
+      {
+        "name": "entry",
+        "required": true,
+        "values": [
+          "hub",
+          "vc",
+          "edu",
+          "green",
+          "finance",
+          "life",
+          "invest",
+          "member",
+          "work",
+          "market"
+        ]
+      },
+      {
+        "name": "intent",
+        "required": true,
+        "values": [
+          "annual-access",
+          "specialist-pack"
+        ]
+      },
+      {
+        "name": "pack",
+        "required": false,
+        "values": [
+          "g1",
+          "g2",
+          "g3",
+          "g4",
+          "g5",
+          "g6",
+          "g7",
+          "g8",
+          "g9"
+        ]
+      },
+      {
+        "name": "source",
+        "required": false,
+        "format": "lowercase_slug_like_source_tag"
+      },
+      {
+        "name": "slug",
+        "required": false,
+        "format": "lowercase_slug_like_content_identifier"
+      },
+      {
+        "name": "gateway",
+        "required": false,
+        "values": [
+          "pay",
+          "paypal",
+          "stripe"
+        ]
+      },
+      {
+        "name": "lang",
+        "required": false,
+        "values": [
+          "vi",
+          "en"
+        ]
+      },
+      {
+        "name": "ref",
+        "required": false,
+        "format": "partner_or_campaign_code",
+        "notes": "Ignored when intent=annual-access."
+      },
+      {
+        "name": "return_to",
+        "required": false,
+        "format": "same_ecosystem_relative_path"
+      }
+    ],
+    "examples": [
+      "/?entry=finance&intent=annual-access&gateway=pay&lang=vi",
+      "/?entry=invest&intent=specialist-pack&pack=g5&gateway=pay&lang=vi",
+      "/?entry=green&intent=specialist-pack&pack=g7&gateway=stripe&lang=en&ref=partner-code",
+      "/?entry=edu&intent=course-detail&pack=g6&source=edu-course-detail&slug=startup-1000"
+    ],
+    "returnFlow": {
+      "priorityOrder": [
+        "source_domain",
+        "member_dashboard",
+        "homepage"
+      ],
+      "failureFallbackRoutes": {
+        "paymentSuccessButNoSession": "https://member.vetuonglai.com/unlock/success/",
+        "paymentPendingTimeout": "https://member.vetuonglai.com/unlock/",
+        "magicLinkExpired": "https://member.vetuonglai.com/unlock/login/",
+        "genericFallback": "https://vetuonglai.com/bat-dau/"
+      }
+    }
+  },
+  "externalDependencies": {
+    "team3PolicyMatrix": {
+      "owner": "team-3-trust-affiliate-legal-analytics-ops",
+      "discoveryUrl": "https://member.vetuonglai.com/api/index.json",
+      "contractUrl": "https://member.vetuonglai.com/api/team3-policy-matrix.json",
+      "requiredFor": [
+        "affiliate_eligibility_gates",
+        "disclosure_and_compliance_requirements",
+        "proof_routing_guardrails",
+        "launch_gate_alignment"
+      ],
+      "team1MustConsume": [
+        "integrationContracts.team1Runtime.consumedIdentityStates",
+        "integrationContracts.team1Runtime.normalizedEventsRequiredFromTeam1",
+        "integrationContracts.team1Runtime.policyToRuntimeEventMap",
+        "guardrails.homepagePurchaseHubOnly",
+        "guardrails.affiliateDisabledAtAnnualOnlyLayer",
+        "affiliateEligibility.states",
+        "affiliateEligibility.compliancePassRequirements",
+        "disclosureAndCompliance.requirements",
+        "reporting.requiredEvents",
+        "launchGate.checks"
+      ]
+    }
+  },
+  "handoffs": {
+    "team1Consumes": [
+      "externalDependencies.team3PolicyMatrix"
+    ],
+    "team2Consumes": [
+      "homepagePurchaseHub",
+      "specialistPacks",
+      "routeContract"
+    ],
+    "team3Consumes": [
+      "identityStates",
+      "specialistPacks",
+      "webhookEvents",
+      "billingObjects"
+    ]
+  }
+}

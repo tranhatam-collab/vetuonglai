@@ -1,0 +1,476 @@
+{
+  "version": "2026-04-21-team4-founder-panel-seeds-v1",
+  "owner": "team-4-founder-panel-data",
+  "seedPolicy": {
+    "productionSafe": true,
+    "overviewMetricsState": "awaiting_runtime",
+    "insightsState": "sample_until_runtime_replaces",
+    "incidentsState": "sample_until_runtime_replaces",
+    "notesVi": [
+      "Dùng ngay cho cấu trúc UI, nhãn, empty state và mapping API.",
+      "Không coi các insight hoặc incident có isSample=true là sự kiện đang diễn ra."
+    ],
+    "notesEn": [
+      "Use immediately for UI structure, labels, empty states, and API mapping.",
+      "Do not treat insights or incidents with isSample=true as live events."
+    ]
+  },
+  "panel": {
+    "id": "founder_command_panel_v1",
+    "titleVi": "Founder Command Panel",
+    "titleEn": "Founder Command Panel",
+    "theme": "dark_calm_minimal",
+    "layout": "topbar_leftnav_grid_drawer_stream",
+    "defaultView": "overview",
+    "defaultWindow": "7d",
+    "environmentOptions": [
+      {
+        "key": "staging",
+        "labelVi": "Staging",
+        "labelEn": "Staging"
+      },
+      {
+        "key": "production",
+        "labelVi": "Production",
+        "labelEn": "Production"
+      }
+    ],
+    "topBarFields": [
+      {
+        "key": "environment",
+        "labelVi": "Môi trường",
+        "labelEn": "Environment",
+        "type": "badge"
+      },
+      {
+        "key": "version",
+        "labelVi": "Phiên bản",
+        "labelEn": "Version",
+        "type": "text"
+      },
+      {
+        "key": "critical_alert_count",
+        "labelVi": "Cảnh báo nghiêm trọng",
+        "labelEn": "Critical Alerts",
+        "type": "count"
+      },
+      {
+        "key": "active_incident_count",
+        "labelVi": "Incident đang mở",
+        "labelEn": "Active Incidents",
+        "type": "count"
+      },
+      {
+        "key": "command_input",
+        "labelVi": "Lệnh founder",
+        "labelEn": "Founder Command",
+        "type": "input"
+      },
+      {
+        "key": "manual_override_state",
+        "labelVi": "Override thủ công",
+        "labelEn": "Manual Override",
+        "type": "state"
+      }
+    ],
+    "leftNav": [
+      {
+        "key": "overview",
+        "labelVi": "Tổng quan",
+        "labelEn": "Overview",
+        "default": true
+      },
+      {
+        "key": "system_health",
+        "labelVi": "Sức khỏe hệ thống",
+        "labelEn": "System Health"
+      },
+      {
+        "key": "user_journey",
+        "labelVi": "Hành trình người dùng",
+        "labelEn": "User Journey"
+      },
+      {
+        "key": "learning_and_proof",
+        "labelVi": "Học và bằng chứng",
+        "labelEn": "Learning & Proof"
+      },
+      {
+        "key": "domain_performance",
+        "labelVi": "Hiệu quả domain",
+        "labelEn": "Domain Performance"
+      },
+      {
+        "key": "ai_insights",
+        "labelVi": "AI Insight",
+        "labelEn": "AI Insights"
+      },
+      {
+        "key": "incidents",
+        "labelVi": "Incident",
+        "labelEn": "Incidents"
+      },
+      {
+        "key": "actions",
+        "labelVi": "Hành động",
+        "labelEn": "Actions"
+      },
+      {
+        "key": "audit_log",
+        "labelVi": "Nhật ký kiểm toán",
+        "labelEn": "Audit Log"
+      },
+      {
+        "key": "deployments",
+        "labelVi": "Deploy",
+        "labelEn": "Deployments"
+      },
+      {
+        "key": "settings",
+        "labelVi": "Cài đặt",
+        "labelEn": "Settings"
+      }
+    ],
+    "commandInput": {
+      "placeholderVi": "Hỏi hệ đang yếu ở đâu hoặc cần sửa gì hôm nay",
+      "placeholderEn": "Ask where the system is weak or what to fix today",
+      "linkedExampleIds": [
+        "cmd_weakest_domain",
+        "cmd_drop_after_lesson_2",
+        "cmd_fix_today",
+        "cmd_pause_invest_cta",
+        "cmd_vc_bottleneck"
+      ]
+    },
+    "overviewSnapshot": {
+      "isSample": true,
+      "dataState": "awaiting_runtime",
+      "environment": "production",
+      "version": null,
+      "criticalAlertCount": null,
+      "activeIncidentCount": null,
+      "manualOverrideState": "off",
+      "fallbackMessageVi": "Chờ dữ liệu tổng hợp từ runtime thật.",
+      "fallbackMessageEn": "Awaiting runtime aggregation data."
+    },
+    "blockOrder": [
+      "system_health",
+      "user_journey_truth",
+      "learning_and_proof",
+      "domain_performance",
+      "ai_insights",
+      "actions",
+      "incident_stream",
+      "audit_log",
+      "deployments"
+    ],
+    "blocks": [
+      {
+        "key": "system_health",
+        "titleVi": "Sức khỏe hệ thống",
+        "titleEn": "System Health",
+        "goalVi": "Nhìn 10 giây để biết hệ có đang chạy thật không.",
+        "goalEn": "See within 10 seconds whether the system is truly running.",
+        "apiHint": "/api/founder/system-health",
+        "emptyStateVi": "Chưa có snapshot sức khỏe hệ thống.",
+        "emptyStateEn": "No system health snapshot yet.",
+        "cards": [
+          {
+            "key": "hub",
+            "labelVi": "Hub",
+            "labelEn": "Hub",
+            "scopeState": "active",
+            "runtimeStatus": "awaiting_runtime",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "member",
+            "labelVi": "Member",
+            "labelEn": "Member",
+            "scopeState": "planned",
+            "runtimeStatus": "not_in_scope",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "edu",
+            "labelVi": "EDU",
+            "labelEn": "EDU",
+            "scopeState": "member_preview",
+            "runtimeStatus": "awaiting_runtime",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "submission",
+            "labelVi": "Submission",
+            "labelEn": "Submission",
+            "scopeState": "internal_core",
+            "runtimeStatus": "awaiting_runtime",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "vc",
+            "labelVi": "VC",
+            "labelEn": "VC",
+            "scopeState": "active",
+            "runtimeStatus": "awaiting_runtime",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "dashboard",
+            "labelVi": "Dashboard",
+            "labelEn": "Dashboard",
+            "scopeState": "planned",
+            "runtimeStatus": "not_in_scope",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "journey_engine",
+            "labelVi": "Journey Engine",
+            "labelEn": "Journey Engine",
+            "scopeState": "planned",
+            "runtimeStatus": "not_in_scope",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "payment_access",
+            "labelVi": "Thanh toán và quyền truy cập",
+            "labelEn": "Payment & Access",
+            "scopeState": "active",
+            "runtimeStatus": "awaiting_runtime",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "search",
+            "labelVi": "Tìm kiếm",
+            "labelEn": "Search",
+            "scopeState": "planned",
+            "runtimeStatus": "not_in_scope",
+            "latencyMs": null,
+            "errorsLastHour": null
+          },
+          {
+            "key": "ai_layer",
+            "labelVi": "Lớp AI",
+            "labelEn": "AI Layer",
+            "scopeState": "member_preview",
+            "runtimeStatus": "awaiting_runtime",
+            "latencyMs": null,
+            "errorsLastHour": null
+          }
+        ]
+      },
+      {
+        "key": "user_journey_truth",
+        "titleVi": "Sự thật hành trình người dùng",
+        "titleEn": "User Journey Truth",
+        "goalVi": "Biết người dùng đang dừng ở bước nào và có còn bước tiếp theo hay không.",
+        "goalEn": "See where users stop and whether they still have a next step.",
+        "apiHint": "/api/founder/journey-funnel",
+        "funnelStages": [
+          "discover",
+          "join",
+          "learn",
+          "submit",
+          "prove",
+          "next"
+        ],
+        "summaryFields": [
+          "total_users",
+          "activated_users",
+          "learners",
+          "users_with_submissions",
+          "users_with_vc",
+          "users_stuck",
+          "users_missing_next_step"
+        ],
+        "emptyStateVi": "Chưa có funnel hành trình để hiển thị.",
+        "emptyStateEn": "No journey funnel available yet."
+      },
+      {
+        "key": "learning_and_proof",
+        "titleVi": "Học và bằng chứng",
+        "titleEn": "Learning & Proof",
+        "goalVi": "Theo dõi số học xong, số nộp bài, thời gian review và số VC đã cấp.",
+        "goalEn": "Track completions, submissions, review time, and VC issuance.",
+        "apiHint": "/api/founder/learning-summary | /api/founder/vc-summary",
+        "summaryFields": [
+          "courses_live",
+          "lessons_completed",
+          "submissions_today",
+          "review_backlog",
+          "vc_issued_today",
+          "submit_to_vc_rate",
+          "average_review_time_hours"
+        ],
+        "emptyStateVi": "Chưa có dữ liệu học và bằng chứng.",
+        "emptyStateEn": "No learning and proof data yet."
+      },
+      {
+        "key": "domain_performance",
+        "titleVi": "Hiệu quả theo domain",
+        "titleEn": "Domain Performance",
+        "goalVi": "Biết domain nào đang kéo trust tốt, domain nào đang rơi conversion hoặc có incident.",
+        "goalEn": "See which domains build trust well and which ones lose conversion or carry incidents.",
+        "apiHint": "/api/founder/domains",
+        "domains": [
+          {
+            "key": "hub",
+            "status": "live"
+          },
+          {
+            "key": "edu",
+            "status": "member_preview"
+          },
+          {
+            "key": "life",
+            "status": "member_preview"
+          },
+          {
+            "key": "finance",
+            "status": "live"
+          },
+          {
+            "key": "invest",
+            "status": "member_preview"
+          },
+          {
+            "key": "green",
+            "status": "live"
+          },
+          {
+            "key": "vc",
+            "status": "live"
+          },
+          {
+            "key": "member",
+            "status": "planned"
+          }
+        ],
+        "metricKeys": [
+          "traffic_7d",
+          "cta_ctr",
+          "teaser_engagement_rate",
+          "onward_conversion_rate",
+          "drop_rate",
+          "active_incident_count"
+        ]
+      },
+      {
+        "key": "ai_insights",
+        "titleVi": "AI Insight",
+        "titleEn": "AI Insights",
+        "goalVi": "Nhìn thấy vấn đề, bằng chứng, đề xuất và mức rủi ro trong cùng một nơi.",
+        "goalEn": "See the issue, evidence, recommendation, and risk level in one place.",
+        "apiHint": "/api/founder/insights",
+        "drawerSections": [
+          "explanation",
+          "evidence",
+          "recommendations",
+          "action_options",
+          "rollback_support"
+        ],
+        "types": [
+          "critical",
+          "operational",
+          "optimization"
+        ]
+      },
+      {
+        "key": "actions",
+        "titleVi": "Hành động",
+        "titleEn": "Actions",
+        "goalVi": "Áp dụng action an toàn, theo dõi kết quả và rollback khi cần.",
+        "goalEn": "Apply safe actions, monitor outcomes, and roll back when needed.",
+        "apiHint": "/api/founder/actions/recommended | /api/founder/actions/history",
+        "sections": [
+          "recommended_actions",
+          "manual_actions",
+          "recent_executions",
+          "success_fail_rate"
+        ]
+      },
+      {
+        "key": "incident_stream",
+        "titleVi": "Luồng incident",
+        "titleEn": "Incident Stream",
+        "goalVi": "Theo dõi các lỗi hoặc flow gãy vừa xảy ra để ưu tiên xử lý.",
+        "goalEn": "Track recent failures and broken flows so the team can prioritize them.",
+        "apiHint": "/api/founder/incidents",
+        "eventTypes": [
+          "errors",
+          "actions",
+          "deploys",
+          "vc_spikes",
+          "submit_drops",
+          "payment_failures",
+          "login_failures"
+        ]
+      },
+      {
+        "key": "audit_log",
+        "titleVi": "Nhật ký kiểm toán",
+        "titleEn": "Audit Log",
+        "goalVi": "Biết ai đã làm gì, khi nào, vì sao và có rollback hay không.",
+        "goalEn": "Know who changed what, when, why, and whether rollback is available.",
+        "apiHint": "/api/founder/audit-log",
+        "columns": [
+          "actor",
+          "action_id",
+          "reason",
+          "result",
+          "rollback_available",
+          "created_at"
+        ]
+      },
+      {
+        "key": "deployments",
+        "titleVi": "Deploy",
+        "titleEn": "Deployments",
+        "goalVi": "Theo dõi phiên bản đang chạy, lần deploy gần nhất và khả năng rollback.",
+        "goalEn": "Track the running version, recent deployments, and rollback readiness.",
+        "apiHint": "/api/founder/deployments",
+        "summaryFields": [
+          "current_version",
+          "last_deploy_at",
+          "rollback_ready",
+          "deploy_status"
+        ]
+      }
+    ],
+    "activityStreamTypes": [
+      {
+        "key": "error",
+        "labelVi": "Lỗi",
+        "labelEn": "Error"
+      },
+      {
+        "key": "action",
+        "labelVi": "Hành động",
+        "labelEn": "Action"
+      },
+      {
+        "key": "deploy",
+        "labelVi": "Deploy",
+        "labelEn": "Deploy"
+      },
+      {
+        "key": "vc_spike",
+        "labelVi": "VC tăng đột biến",
+        "labelEn": "VC Spike"
+      },
+      {
+        "key": "submit_drop",
+        "labelVi": "Nộp bài giảm",
+        "labelEn": "Submission Drop"
+      }
+    ]
+  }
+}
