@@ -89,6 +89,9 @@
   }
 
   function initScrollAnimations() {
+    /* Respect reduced-motion preference */
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const observerOptions = {
       threshold: 0.1,
       rootMargin: '0px 0px -50px 0px'
