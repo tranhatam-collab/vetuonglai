@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -86,6 +86,7 @@ const COMMUNITY_HOME_PATH = path.join(DIST_DIR, "community.vetuonglai.com", "ind
 const AI_HOME_PATH = path.join(DIST_DIR, "ai.vetuonglai.com", "index.html");
 const BUSINESS_HOME_PATH = path.join(DIST_DIR, "business.vetuonglai.com", "index.html");
 const READ_HOME_SOURCE_PATH = path.join(ROOT, "src", "static-pages", "read.vetuonglai.com", "index.html");
+const BANNED_TERMS_PUBLIC_PATH = path.join(ROOT, "src", "data", "banned-terms-public.json");
 
 function severityRank(value) {
   switch (String(value || "").toUpperCase()) {
@@ -731,6 +732,106 @@ function summarizeStepResults(stepResults) {
     total: stepResults.length,
     passed: stepResults.length - failed,
     failed,
+  };
+}
+
+function slugifyTerm(input) {
+  return String(input || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "");
+}
+
+async function auditBannedTermsInDist({ distDir, bannedTermsConfig }) {
+  const findings = [];
+  const parityScopeTerms = new Set(["planned-safe", "i18n", "route kỹ thuật"]);
+  const bannedTerms = Array.isArray(bannedTermsConfig?.bannedTerms)
+    ? bannedTermsConfig.bannedTerms
+      .map((entry) => String(entry?.term || "").trim())
+      .filter((term) => parityScopeTerms.has(term))
+    : [];
+
+  if (bannedTerms.length === 0) {
+    findings.push(makeFinding({
+      key: "banned_terms_config_empty",
+      title: "Banned-terms config is empty",
+      severity: "P1",
+      owner: "Team 3",
+      stopLine: true,
+      summaryVi: "`banned-terms-public.json` đang rỗng hoặc thiếu danh sách term, Team 3 không thể chạy gate ngôn ngữ cấm.",
+      summaryEn: "`banned-terms-public.json` is empty or missing term entries, so Team 3 cannot run the banned-language gate.",
+      evidence: [BANNED_TERMS_PUBLIC_PATH],
+      wave: "E",
+      surfaceKey: "all_dist_html",
+      scope: "banned_terms_clean",
+    }));
+    return {
+      recommendation: buildScopedRecommendation(findings),
+      note: buildScopedNote({
+        recommendation: buildScopedRecommendation(findings),
+        findings,
+        passVi: "Banned terms gate pass: không còn thuật ngữ nội bộ bị cấm trên toàn bộ dist HTML.",
+        passEn: "Banned terms gate pass: no banned internal terms are present across dist HTML.",
+        prefixVi: "Banned terms gate no-go",
+        prefixEn: "Banned terms gate no-go",
+      }),
+      findings,
+      auditedSurfaces: [],
+    };
+  }
+
+  const distEntries = await readdir(distDir, { withFileTypes: true });
+  const auditedSurfaces = [];
+  for (const entry of distEntries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+
+    const filePath = path.join(distDir, entry.name, "index.html");
+    let html = "";
+    try {
+      html = await readFile(filePath, "utf8");
+    } catch (error) {
+      if (error?.code === "ENOENT") {
+        continue;
+      }
+      throw error;
+    }
+
+    auditedSurfaces.push(path.relative(ROOT, filePath));
+    for (const term of bannedTerms) {
+      if (!html.includes(term)) {
+        continue;
+      }
+      findings.push(makeFinding({
+        key: `banned_term_${slugifyTerm(term)}_${slugifyTerm(path.relative(distDir, filePath))}`,
+        title: "Dist HTML still contains banned internal wording",
+        severity: "P1",
+        owner: "Team 2 + Team 3",
+        stopLine: true,
+        summaryVi: `Phát hiện term bị cấm \`${term}\` trong text hiển thị của ${path.relative(ROOT, filePath)}.`,
+        summaryEn: `The banned term \`${term}\` is present in visible text at ${path.relative(ROOT, filePath)}.`,
+        evidence: [path.relative(ROOT, filePath), BANNED_TERMS_PUBLIC_PATH],
+        wave: "E",
+        surfaceKey: "all_dist_html",
+        scope: "banned_terms_clean",
+      }));
+    }
+  }
+
+  const recommendation = buildScopedRecommendation(findings);
+  return {
+    recommendation,
+    note: buildScopedNote({
+      recommendation,
+      findings,
+      passVi: "Banned terms gate pass: không còn thuật ngữ nội bộ bị cấm trên toàn bộ dist HTML.",
+      passEn: "Banned terms gate pass: no banned internal terms are present across dist HTML.",
+      prefixVi: "Banned terms gate no-go",
+      prefixEn: "Banned terms gate no-go",
+    }),
+    findings,
+    auditedSurfaces,
   };
 }
 
@@ -1447,6 +1548,7 @@ async function main() {
     aiHome,
     businessHome,
     readHomeSource,
+    bannedTermsConfig,
   ] = await Promise.all([
     readFile(DOC_15_PATH, "utf8"),
     readFile(DOC_32_PATH, "utf8"),
@@ -1480,6 +1582,7 @@ async function main() {
     readOptionalText(AI_HOME_PATH),
     readOptionalText(BUSINESS_HOME_PATH),
     readOptionalText(READ_HOME_SOURCE_PATH),
+    readFile(BANNED_TERMS_PUBLIC_PATH, "utf8").then((value) => JSON.parse(value)),
   ]);
 
   const doc15Map = parseDoc15StatusMap(doc15);
@@ -1551,8 +1654,13 @@ async function main() {
   const readPlannedPublicAudit = auditReadPlannedPublicWording({
     readHomeSource,
   });
+  const bannedTermsAudit = await auditBannedTermsInDist({
+    distDir: DIST_DIR,
+    bannedTermsConfig,
+  });
   findings.push(...paymentWordingAudit.findings);
   findings.push(...readPlannedPublicAudit.findings);
+  findings.push(...bannedTermsAudit.findings);
   const waveDPublicGate = auditWaveDPublicPublishGate({
     board48,
     waveDBlockers,
@@ -1588,6 +1696,7 @@ async function main() {
       plannedSafe: plannedSafeAudit,
       paymentWording: paymentWordingAudit,
       readPlannedPublic: readPlannedPublicAudit,
+      bannedTermsClean: bannedTermsAudit,
       waveDPublicRollout: waveDPublicGate,
       waveNotes,
     },
