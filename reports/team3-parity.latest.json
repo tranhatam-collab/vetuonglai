@@ -3,9 +3,9 @@
     "recommendation": "hold",
     "stopLineOpen": true,
     "highestSeverity": "P1",
-    "startedAt": "2026-04-27T21:23:54.694Z",
-    "endedAt": "2026-04-27T21:23:57.949Z",
-    "durationMs": 3254,
+    "startedAt": "2026-04-27T21:26:17.219Z",
+    "endedAt": "2026-04-27T21:26:19.260Z",
+    "durationMs": 2041,
     "suite": {
       "total": 6,
       "passed": 6,
@@ -89,28 +89,12 @@
       ]
     },
     "paymentWording": {
-      "recommendation": "hold",
+      "recommendation": "go",
       "note": {
-        "vi": "Payment wording gate no-go: HUB home có nhắc payment hoặc checkout nhưng chưa thấy qualifier an toàn kiểu `assignment active / live blocked` hoặc `không có thanh toán trực tiếp`.",
-        "en": "Payment wording gate no-go: HUB home mentions payment or checkout without a safe qualifier such as `assignment active / live blocked` or `no direct payment step`."
+        "vi": "Payment wording gate pass: chưa thấy claim `payment/checkout live` trên các surface đã audit.",
+        "en": "Payment wording gate pass: no `payment/checkout live` claim is present on the audited surfaces."
       },
-      "findings": [
-        {
-          "key": "hub_home_payment_wording_missing_qualifier",
-          "title": "HUB home mentions payment without safe qualifier",
-          "severity": "P2",
-          "owner": "Team 2 + Team 3",
-          "stopLine": false,
-          "summaryVi": "HUB home có nhắc payment hoặc checkout nhưng chưa thấy qualifier an toàn kiểu `assignment active / live blocked` hoặc `không có thanh toán trực tiếp`.",
-          "summaryEn": "HUB home mentions payment or checkout without a safe qualifier such as `assignment active / live blocked` or `no direct payment step`.",
-          "evidence": [
-            "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vetuonglai.com/index.html"
-          ],
-          "wave": "E",
-          "surfaceKey": "hub_home",
-          "scope": "payment_copy_gate"
-        }
-      ],
+      "findings": [],
       "auditedSurfaces": [
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vetuonglai.com/index.html",
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vc.vetuonglai.com/index.html",
@@ -194,9 +178,9 @@
       "key": "build",
       "label": "Build static system",
       "command": "npm run build",
-      "startedAt": "2026-04-27T21:23:54.695Z",
-      "endedAt": "2026-04-27T21:23:55.943Z",
-      "durationMs": 1248,
+      "startedAt": "2026-04-27T21:26:17.219Z",
+      "endedAt": "2026-04-27T21:26:18.147Z",
+      "durationMs": 928,
       "timeoutMs": 720000,
       "timedOut": false,
       "ok": true,
@@ -208,9 +192,9 @@
       "key": "check",
       "label": "Validate dist outputs",
       "command": "npm run check",
-      "startedAt": "2026-04-27T21:23:55.943Z",
-      "endedAt": "2026-04-27T21:23:56.577Z",
-      "durationMs": 634,
+      "startedAt": "2026-04-27T21:26:18.148Z",
+      "endedAt": "2026-04-27T21:26:18.451Z",
+      "durationMs": 303,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -222,9 +206,9 @@
       "key": "smoke_access",
       "label": "Smoke access runtime",
       "command": "npm run smoke:access-runtime",
-      "startedAt": "2026-04-27T21:23:56.577Z",
-      "endedAt": "2026-04-27T21:23:56.977Z",
-      "durationMs": 400,
+      "startedAt": "2026-04-27T21:26:18.451Z",
+      "endedAt": "2026-04-27T21:26:18.723Z",
+      "durationMs": 272,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -236,9 +220,9 @@
       "key": "smoke_vc",
       "label": "Smoke VC ownership runtime",
       "command": "npm run smoke:vc-ownership-runtime",
-      "startedAt": "2026-04-27T21:23:56.977Z",
-      "endedAt": "2026-04-27T21:23:57.313Z",
-      "durationMs": 336,
+      "startedAt": "2026-04-27T21:26:18.723Z",
+      "endedAt": "2026-04-27T21:26:18.924Z",
+      "durationMs": 201,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -250,9 +234,9 @@
       "key": "smoke_mobile",
       "label": "Smoke mobile PWA",
       "command": "npm run smoke:mobile-pwa",
-      "startedAt": "2026-04-27T21:23:57.313Z",
-      "endedAt": "2026-04-27T21:23:57.624Z",
-      "durationMs": 311,
+      "startedAt": "2026-04-27T21:26:18.924Z",
+      "endedAt": "2026-04-27T21:26:19.081Z",
+      "durationMs": 157,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -264,9 +248,9 @@
       "key": "verify_founder_panel_local",
       "label": "Verify founder panel local contract",
       "command": "npm run verify:founder-panel:local",
-      "startedAt": "2026-04-27T21:23:57.624Z",
-      "endedAt": "2026-04-27T21:23:57.937Z",
-      "durationMs": 313,
+      "startedAt": "2026-04-27T21:26:19.081Z",
+      "endedAt": "2026-04-27T21:26:19.251Z",
+      "durationMs": 170,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -287,21 +271,6 @@
       "evidence": [
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/cloudflare/domain-runtime-truth.json"
       ]
-    },
-    {
-      "key": "hub_home_payment_wording_missing_qualifier",
-      "title": "HUB home mentions payment without safe qualifier",
-      "severity": "P2",
-      "owner": "Team 2 + Team 3",
-      "stopLine": false,
-      "summaryVi": "HUB home có nhắc payment hoặc checkout nhưng chưa thấy qualifier an toàn kiểu `assignment active / live blocked` hoặc `không có thanh toán trực tiếp`.",
-      "summaryEn": "HUB home mentions payment or checkout without a safe qualifier such as `assignment active / live blocked` or `no direct payment step`.",
-      "evidence": [
-        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vetuonglai.com/index.html"
-      ],
-      "wave": "E",
-      "surfaceKey": "hub_home",
-      "scope": "payment_copy_gate"
     }
   ]
 }
