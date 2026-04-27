@@ -673,7 +673,16 @@
       "community-depth": "specialist-pack",
       "ai-depth": "specialist-pack",
       "business-depth": "specialist-pack",
-      "business-intake": "specialist-pack"
+      "business-intake": "specialist-pack",
+      "interest": "interest",
+      "register-interest": "interest",
+      "life-interest": "interest",
+      "invest-interest": "interest",
+      "work-interest": "interest",
+      "market-interest": "interest",
+      "community-interest": "interest",
+      "ai-interest": "interest",
+      "business-interest": "interest"
     },
     "gatewayAliases": {
       "payos": "pay",
@@ -717,7 +726,8 @@
         "required": true,
         "values": [
           "annual-access",
-          "specialist-pack"
+          "specialist-pack",
+          "interest"
         ]
       },
       {

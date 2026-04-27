@@ -334,12 +334,12 @@ async function testCheckoutResolveAndStripeWebhook() {
     },
     body: JSON.stringify({
       candidate_email: "smoke-stripe@vetuonglai.com",
-      entry: "invest",
+      entry: "finance",
       intent: "specialist-pack",
       pack: "g5",
       gateway: "stripe",
       lang: "vi",
-      return_to: "/invest/",
+      return_to: "/finance/",
     }),
   }), env);
   assert(checkoutResponse);
@@ -815,6 +815,39 @@ async function testWaveDEntryNormalization() {
     assert.equal(data.normalized.intent, test.expectedIntent, `Alias ${test.intent} should resolve to ${test.expectedIntent}`);
     assert.equal(data.normalized.aliasApplied, test.intent, `aliasApplied should be ${test.intent}`);
   }
+
+  // Test planned domain checkout block (T1-1)
+  for (const plannedEntry of ["life", "invest", "work", "market", "community", "ai", "business"]) {
+    const response = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/checkout/resolve", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        candidate_email: `smoke-planned-${plannedEntry}@vetuonglai.com`,
+        entry: plannedEntry,
+        intent: "specialist-pack",
+        pack: "g1",
+        gateway: "pay",
+      }),
+    }), {});
+    assert(response, `Planned domain checkout block failed for ${plannedEntry}`);
+    assert.equal(response.status, 403, `Checkout for planned domain ${plannedEntry} should return 403`);
+    const data = await readJson(response);
+    assert.equal(data.status, "checkout_blocked_planned_domain", `Expected checkout_blocked_planned_domain for ${plannedEntry}`);
+  }
+
+  // Test interest intent resolves correctly
+  const interestResponse = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/route/normalize", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      entry: "life",
+      intent: "interest",
+    }),
+  }), {});
+  assert(interestResponse);
+  assert.equal(interestResponse.status, 200);
+  const interestData = await readJson(interestResponse);
+  assert.equal(interestData.normalized.intent, "interest");
 }
 
 async function main() {

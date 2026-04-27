@@ -34,13 +34,29 @@
       "sm": "8px",
       "md": "16px",
       "lg": "24px",
-      "xl": "40px"
+      "xl": "40px",
+      "2xl": "64px",
+      "3xl": "96px"
     },
     "radius": {
       "button": "16px",
       "card": "20px",
       "modal": "24px",
       "input": "12px"
+    },
+    "shadow": {
+      "xs": "0 1px 2px rgba(15, 23, 42, 0.04)",
+      "sm": "0 4px 12px rgba(15, 23, 42, 0.06)",
+      "md": "0 14px 34px rgba(15, 23, 42, 0.1)",
+      "lg": "0 24px 64px rgba(15, 23, 42, 0.14)"
+    },
+    "zIndex": {
+      "base": 0,
+      "card": 1,
+      "sticky": 30,
+      "topbar": 40,
+      "modal": 50,
+      "toast": 60
     },
     "motion": {
       "durationFast": "200ms",
@@ -90,6 +106,36 @@
       "primary": "#FB7185",
       "gradient": "linear-gradient(135deg, #FB7185, #A78BFA)",
       "surfaceTint": "rgba(251,113,133,0.14)"
+    },
+    "ai": {
+      "primary": "#B28DFF",
+      "gradient": "linear-gradient(135deg, #B28DFF, #818CF8)",
+      "surfaceTint": "rgba(178,141,255,0.14)"
+    },
+    "work": {
+      "primary": "#FFD27A",
+      "gradient": "linear-gradient(135deg, #FFD27A, #FB923C)",
+      "surfaceTint": "rgba(255,210,122,0.14)"
+    },
+    "market": {
+      "primary": "#9BE37F",
+      "gradient": "linear-gradient(135deg, #9BE37F, #4ADE80)",
+      "surfaceTint": "rgba(155,227,127,0.14)"
+    },
+    "business": {
+      "primary": "#FF9F6B",
+      "gradient": "linear-gradient(135deg, #FF9F6B, #FACC15)",
+      "surfaceTint": "rgba(255,159,107,0.14)"
+    },
+    "member": {
+      "primary": "#8FD9D2",
+      "gradient": "linear-gradient(135deg, #8FD9D2, #22D3EE)",
+      "surfaceTint": "rgba(143,217,210,0.14)"
+    },
+    "kids": {
+      "primary": "#FB923C",
+      "gradient": "linear-gradient(135deg, #FB923C, #FACC15)",
+      "surfaceTint": "rgba(251,146,60,0.14)"
     }
   }
 }

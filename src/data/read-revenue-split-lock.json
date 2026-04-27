@@ -1,0 +1,59 @@
+{
+  "version": "1.0",
+  "lockedAt": "2026-04-28",
+  "lockedBy": "founder",
+  "platformFeePct": 15,
+  "paymentProcessorFeePct": 0,
+  "paymentProcessorNote": "PayOS free unlimited from 2026-01-23",
+  "minPayoutVnd": 200000,
+  "payoutCycle": "weekly_monday_06_ict",
+  "internationalCreatorsEnabled": false,
+  "internationalCreatorsPlannedPhase": 7,
+  "defaultRoleSplits": {
+    "author": 60,
+    "translator": 10,
+    "editor": 5,
+    "designer": 3,
+    "curator_of_stack": 5,
+    "referrer": 15,
+    "reviewer_flat_vnd_min": 30000,
+    "reviewer_flat_vnd_max": 100000,
+    "sponsor_receives": 0
+  },
+  "constraints": {
+    "platformFeeMaxPct": 15,
+    "authorMinShareAfterAllSplitsPct": 50,
+    "referrerCommissionWindowMonths": 12,
+    "bonusPoolNeverGoesToFounder": true
+  },
+  "bonusPoolAllocationPct": {
+    "editorialPrize": 40,
+    "translatorBonus": 20,
+    "referrerLeaderboard": 20,
+    "reserve": 20
+  },
+  "taxWithholding": {
+    "royaltyExemptionVnd": 10000000,
+    "royaltyRatePct": 5,
+    "serviceVangLaiRatePct": 10,
+    "serviceHkdRatePct": 2,
+    "vatGoodsHkdPct": 1,
+    "vatServiceHkdPct": 5
+  },
+  "refundPolicy": {
+    "windowDays": 7,
+    "maxReadPctForFullRefund": 20,
+    "clawbackImmediate": true
+  },
+  "examplesVnd": {
+    "ebook199k": {
+      "gross": 199000,
+      "platformFee": 29850,
+      "paymentFee": 0,
+      "pitWithheld": 0,
+      "netDistributable": 169150,
+      "authorOnly": 119400,
+      "bonusPool": 49750
+    }
+  }
+}

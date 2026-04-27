@@ -209,6 +209,24 @@ File này khóa rõ:
 - không public
 - không index
 
+## READ — `read.vetuonglai.com`
+### Giải quyết
+- long-form essays về tương lai (5 pillar: work / money / learning / society / timeless)
+- xuất bản và bán sách điện tử
+- creator economy 8 vai trò: Author / Translator / Editor / Reviewer / Curator / Referrer / Designer / Sponsor
+- chia 85% doanh thu cho cộng đồng (15% platform fee khoá cứng)
+- public ledger có thể verify
+- khấu trừ thuế tại nguồn theo luật Việt Nam
+
+### Không giải quyết
+- không phải khoá học (đó là EDU)
+- không phải SEO blog ngắn (đó là BLOG)
+- không phải checklist tài chính (đó là FINANCE)
+- không phải due-diligence đầu tư (đó là INVEST)
+- không phải job board (đó là WORK)
+- không phải circles/cohort (đó là COMMUNITY)
+- không phải news/tin tức cycle
+
 ## Overlap rules bắt buộc
 1. Nếu một domain chỉ đang link sang domain khác để giải bài toán chính, nó đang ôm sai role.
 2. Nếu cùng một nội dung chuyên sâu xuất hiện ở nhiều domain, phải xác định một source domain duy nhất.

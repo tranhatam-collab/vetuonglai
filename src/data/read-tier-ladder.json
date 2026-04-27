@@ -1,0 +1,165 @@
+{
+  "version": "1.0",
+  "tiers": [
+    {
+      "key": "reader",
+      "level": 0,
+      "label_vi": "Người đọc",
+      "label_en": "Reader",
+      "requirements_vi": "Mặc định cho mọi người. Không cần đăng ký.",
+      "requirements_en": "Default for everyone. No registration required.",
+      "rights_vi": [
+        "Đọc essay miễn phí",
+        "Mua ebook",
+        "Yêu cầu refund 7 ngày"
+      ],
+      "rights_en": [
+        "Read free essays",
+        "Buy ebooks",
+        "Request 7-day refund"
+      ]
+    },
+    {
+      "key": "trial",
+      "level": 1,
+      "label_vi": "Người đóng góp thử nghiệm",
+      "label_en": "Trial Contributor",
+      "requirements_vi": [
+        "Verify email qua member.vetuonglai.com",
+        "Submit 1 essay miễn phí đầu tiên",
+        "Pass auto-check (dấu tiếng Việt, độ dài 800–3000 từ, không AI-generated)"
+      ],
+      "requirements_en": [
+        "Verify email via member.vetuonglai.com",
+        "Submit first free essay",
+        "Pass auto-check (Vietnamese diacritics, 800–3000 words, no AI-generated)"
+      ],
+      "rights_vi": [
+        "Đăng essay miễn phí",
+        "Chưa kiếm tiền"
+      ],
+      "rights_en": [
+        "Publish free essays",
+        "Not yet monetizing"
+      ]
+    },
+    {
+      "key": "active",
+      "level": 2,
+      "label_vi": "Người đóng góp tích cực",
+      "label_en": "Active Contributor",
+      "requirements_vi": [
+        "2 essay đã pass peer review",
+        "Verify CCCD + tài khoản ngân hàng qua vc.vetuonglai.com",
+        "Đồng ý điều khoản khấu trừ thuế"
+      ],
+      "requirements_en": [
+        "2 essays passed peer review",
+        "Verify ID + bank account via vc.vetuonglai.com",
+        "Agree to tax withholding terms"
+      ],
+      "rights_vi": [
+        "Bật monetization (essay paid hoặc tipping)",
+        "Bán ebook đầu tiên",
+        "Hưởng 60% doanh thu (default)"
+      ],
+      "rights_en": [
+        "Enable monetization (paid essay or tipping)",
+        "Sell first ebook",
+        "Earn 60% default split"
+      ]
+    },
+    {
+      "key": "trusted",
+      "level": 3,
+      "label_vi": "Tác giả tin cậy",
+      "label_en": "Trusted Author",
+      "requirements_vi": [
+        "10 essay đã publish, không vi phạm 6 tháng gần nhất",
+        "Doanh thu lifetime ≥ 5 triệu VNĐ",
+        "VC badge Trusted Author cấp qua vc.vetuonglai.com"
+      ],
+      "requirements_en": [
+        "10 published essays, zero violations in last 6 months",
+        "Lifetime revenue ≥ 5M VND",
+        "VC badge Trusted Author issued via vc.vetuonglai.com"
+      ],
+      "rights_vi": [
+        "Self-publish không cần peer review từng bài",
+        "Tham gia editorial council",
+        "Mời cộng tác viên (translator, editor, designer)"
+      ],
+      "rights_en": [
+        "Self-publish without per-essay peer review",
+        "Join editorial council",
+        "Invite collaborators (translator, editor, designer)"
+      ]
+    },
+    {
+      "key": "curator",
+      "level": 4,
+      "label_vi": "Người chọn lọc (Curator)",
+      "label_en": "Curator",
+      "requirements_vi": [
+        "Trusted Author tier",
+        "Được mời bởi editor hoặc Trusted Author khác",
+        "1 reading recommendation đã được community vote >50"
+      ],
+      "requirements_en": [
+        "Trusted Author tier",
+        "Invited by editor or another Trusted Author",
+        "1 reading recommendation with community vote >50"
+      ],
+      "rights_vi": [
+        "Tạo Reading Stack (bundle 5–10 sách)",
+        "Hưởng 5% doanh thu của bundle",
+        "Editorial signoff cho Tier 2 contributor (paid 50k/essay)"
+      ],
+      "rights_en": [
+        "Create Reading Stacks (5–10 book bundles)",
+        "Earn 5% of bundle revenue",
+        "Editorial signoff for Tier 2 contributor (paid 50k/essay)"
+      ]
+    }
+  ],
+  "auxiliary_roles": [
+    {
+      "key": "translator",
+      "label_vi": "Người dịch",
+      "label_en": "Translator",
+      "share_pct_of_translation_product": 10,
+      "verify": "bilingual_test_pass"
+    },
+    {
+      "key": "editor",
+      "label_vi": "Biên tập",
+      "label_en": "Editor",
+      "share_pct_deducted_from_author": 5,
+      "verify": "invited_by_author_or_curator"
+    },
+    {
+      "key": "designer",
+      "label_vi": "Thiết kế",
+      "label_en": "Designer",
+      "share_pct_deducted_from_author": 3,
+      "verify": "portfolio_review"
+    },
+    {
+      "key": "reviewer",
+      "label_vi": "Người đánh giá",
+      "label_en": "Reviewer",
+      "flat_vnd_per_review_min": 30000,
+      "flat_vnd_per_review_max": 100000,
+      "max_reviews_per_week": 5,
+      "paid_from": "bonus_pool"
+    },
+    {
+      "key": "sponsor",
+      "label_vi": "Người tài trợ",
+      "label_en": "Sponsor",
+      "receives_money": false,
+      "receives_vc_badge": "Sponsor",
+      "can_be_anonymous": true
+    }
+  ]
+}

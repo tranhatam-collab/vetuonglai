@@ -1368,6 +1368,58 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 2 Log
 
+### 2026-04-28 08:42 ICT — Team 2
+
+- status: in_progress
+- deliverable_total: 8
+- deliverable_done: 6
+- % hoàn thành: 75%
+- % còn lại: 25%
+- done:
+  - đồng bộ execution docs lane `read`:
+    - cập nhật `READ_11` để link trực tiếp sang `READ_13`
+    - chuẩn hóa lock doc path sang `VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md`
+  - triển khai shell Phase 1 cho `read.vetuonglai.com` theo phạm vi Team 2:
+    - bổ sung app card metadata cho `read` trong `src/data/apps.json`
+    - bổ sung static assets cho read shell (`read.css`, `read.js`, `icon.svg`)
+    - giữ wording planned-safe cho các surface `read` để tránh false-live claim ở stage `planned_public`
+  - chạy gate Phase 1 theo plan:
+    - `npm run build` -> pass
+    - `npm run check` -> pass
+    - `node scripts/audit-bilingual.mjs` -> pass, `0 issues`
+- next:
+  - tiếp tục rà wording drift còn lại trên read shell (`how-we-pay`, `transparency`, `write`, `stacks`) để bám chặt stop-line planned_public
+  - phối hợp Team 3 audit pass cuối cho read wording gate
+  - phối hợp Team 1/Ops cho runtime proof `read.vetuonglai.com` HTTP 200 sau publish lane
+- blocked:
+  - public runtime proof `read.vetuonglai.com` vẫn phụ thuộc Team 1/Ops (Pages + DNS publish evidence)
+  - lane tổng hệ vẫn phụ thuộc `B0/B1` cho cutover + DNS wave hiện hành
+- changed files:
+  - `docs/25_read/READ_11_DEV_PHASE_PLAN.md`
+  - `docs/25_read/READ_13_TEAM_DEV_EXECUTION_PLAN.md`
+  - `src/data/apps.json`
+  - `src/static-pages/read.vetuonglai.com/index.html`
+  - `src/static-pages/read.vetuonglai.com/essays/index.html`
+  - `src/static-pages/read.vetuonglai.com/stacks/index.html`
+  - `src/static-pages/read.vetuonglai.com/how-we-pay/index.html`
+  - `src/static-pages/read.vetuonglai.com/transparency/index.html`
+  - `src/static-pages/read.vetuonglai.com/write/index.html`
+  - `src/static-pages/read.vetuonglai.com/write/apply/index.html`
+  - `src/static-pages/read.vetuonglai.com/assets/read.css`
+  - `src/static-pages/read.vetuonglai.com/assets/read.js`
+  - `src/static-pages/read.vetuonglai.com/assets/icon.svg`
+  - `docs/final-lock/VTL_18_CROSS_TEAM_SYNC_REPORT.md`
+- handoff sent to:
+  - Team 1: Team 2 shell + wording gate local đã xanh, chờ Team 1/Ops chốt publish/DNS evidence
+  - Team 3: mời audit stop-line planned_public cho read surfaces sau batch cleanup mới
+  - Team 5: có thể dùng bộ lệnh Phase 1 (`build/check/audit-bilingual`) làm baseline verify cho read lane
+  - Ops: cần evidence domain publish để đóng exit gate HTTP 200
+- handoff needed from:
+  - Team 1/Ops: signal Pages + DNS pass cho `read.vetuonglai.com`
+  - Team 3: kết quả wording audit stop-line cho read lane
+- risks:
+  - medium: nếu publish lane đi trước wording audit cuối, có thể phát sinh false-live phrase trên một số read subpage
+
 ### 2026-04-27 16:18 ICT — Team 2
 
 - status: in_progress

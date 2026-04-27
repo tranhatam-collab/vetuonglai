@@ -1,11 +1,11 @@
 {
   "summary": {
-    "recommendation": "go",
-    "stopLineOpen": false,
-    "highestSeverity": "P3",
-    "startedAt": "2026-04-27T10:48:42.017Z",
-    "endedAt": "2026-04-27T10:48:44.132Z",
-    "durationMs": 2113,
+    "recommendation": "hold",
+    "stopLineOpen": true,
+    "highestSeverity": "P1",
+    "startedAt": "2026-04-27T20:04:41.417Z",
+    "endedAt": "2026-04-27T20:04:43.646Z",
+    "durationMs": 2228,
     "suite": {
       "total": 6,
       "passed": 6,
@@ -13,12 +13,12 @@
     }
   },
   "note": {
-    "vi": "Team 3 pass: không còn stop-line đang mở trong scope local parity hiện tại.",
-    "en": "Team 3 pass: there are no open stop-lines in the current local parity scope."
+    "vi": "Team 3 hold: Runtime truth vẫn ghi member là `member_preview` với `requiredPublic=true`, nên Team 3 phải giữ verdict ở mức hold/no-go cho cutover công khai.",
+    "en": "Team 3 hold: Runtime truth still records member as `member_preview` with `requiredPublic=true`, so Team 3 must keep the verdict at hold/no-go for public cutover."
   },
   "memberCutover": {
     "runtimeTruth": {
-      "status": "live",
+      "status": "member_preview",
       "requiredPublic": true,
       "servingModel": "worker_fronted"
     },
@@ -89,12 +89,28 @@
       ]
     },
     "paymentWording": {
-      "recommendation": "go",
+      "recommendation": "hold",
       "note": {
-        "vi": "Payment wording gate pass: chưa thấy claim `payment/checkout live` trên các surface đã audit.",
-        "en": "Payment wording gate pass: no `payment/checkout live` claim is present on the audited surfaces."
+        "vi": "Payment wording gate no-go: HUB home có nhắc payment hoặc checkout nhưng chưa thấy qualifier an toàn kiểu `assignment active / live blocked` hoặc `không có thanh toán trực tiếp`.",
+        "en": "Payment wording gate no-go: HUB home mentions payment or checkout without a safe qualifier such as `assignment active / live blocked` or `no direct payment step`."
       },
-      "findings": [],
+      "findings": [
+        {
+          "key": "hub_home_payment_wording_missing_qualifier",
+          "title": "HUB home mentions payment without safe qualifier",
+          "severity": "P2",
+          "owner": "Team 2 + Team 3",
+          "stopLine": false,
+          "summaryVi": "HUB home có nhắc payment hoặc checkout nhưng chưa thấy qualifier an toàn kiểu `assignment active / live blocked` hoặc `không có thanh toán trực tiếp`.",
+          "summaryEn": "HUB home mentions payment or checkout without a safe qualifier such as `assignment active / live blocked` or `no direct payment step`.",
+          "evidence": [
+            "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vetuonglai.com/index.html"
+          ],
+          "wave": "E",
+          "surfaceKey": "hub_home",
+          "scope": "payment_copy_gate"
+        }
+      ],
       "auditedSurfaces": [
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vetuonglai.com/index.html",
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vc.vetuonglai.com/index.html",
@@ -106,6 +122,17 @@
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/community.vetuonglai.com/index.html",
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/ai.vetuonglai.com/index.html",
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/business.vetuonglai.com/index.html"
+      ]
+    },
+    "readPlannedPublic": {
+      "recommendation": "go",
+      "note": {
+        "vi": "READ Phase 1 wording pass: source homepage giữ đúng planned_public wording.",
+        "en": "READ Phase 1 wording pass: the source homepage keeps correct planned_public wording."
+      },
+      "findings": [],
+      "auditedSurfaces": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/src/static-pages/read.vetuonglai.com/index.html"
       ]
     },
     "waveDPublicRollout": {
@@ -122,10 +149,10 @@
     "waveNotes": [
       {
         "wave": "A",
-        "recommendation": "go",
+        "recommendation": "hold",
         "note": {
-          "vi": "Wave A go: core live stabilization vẫn xanh theo verify hiện tại của Team 3.",
-          "en": "Wave A go: core live stabilization stays green under the current Team 3 verification set."
+          "vi": "Wave A không thể chốt go vì core parity hiện tại chưa sạch hoàn toàn.",
+          "en": "Wave A cannot be closed as go because current core parity is not fully clean."
         }
       },
       {
@@ -167,9 +194,9 @@
       "key": "build",
       "label": "Build static system",
       "command": "npm run build",
-      "startedAt": "2026-04-27T10:48:42.019Z",
-      "endedAt": "2026-04-27T10:48:42.554Z",
-      "durationMs": 535,
+      "startedAt": "2026-04-27T20:04:41.418Z",
+      "endedAt": "2026-04-27T20:04:41.925Z",
+      "durationMs": 507,
       "timeoutMs": 720000,
       "timedOut": false,
       "ok": true,
@@ -181,9 +208,9 @@
       "key": "check",
       "label": "Validate dist outputs",
       "command": "npm run check",
-      "startedAt": "2026-04-27T10:48:42.554Z",
-      "endedAt": "2026-04-27T10:48:42.762Z",
-      "durationMs": 208,
+      "startedAt": "2026-04-27T20:04:41.925Z",
+      "endedAt": "2026-04-27T20:04:42.193Z",
+      "durationMs": 268,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -195,9 +222,9 @@
       "key": "smoke_access",
       "label": "Smoke access runtime",
       "command": "npm run smoke:access-runtime",
-      "startedAt": "2026-04-27T10:48:42.762Z",
-      "endedAt": "2026-04-27T10:48:43.300Z",
-      "durationMs": 538,
+      "startedAt": "2026-04-27T20:04:42.193Z",
+      "endedAt": "2026-04-27T20:04:42.432Z",
+      "durationMs": 239,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -209,9 +236,9 @@
       "key": "smoke_vc",
       "label": "Smoke VC ownership runtime",
       "command": "npm run smoke:vc-ownership-runtime",
-      "startedAt": "2026-04-27T10:48:43.300Z",
-      "endedAt": "2026-04-27T10:48:43.521Z",
-      "durationMs": 221,
+      "startedAt": "2026-04-27T20:04:42.432Z",
+      "endedAt": "2026-04-27T20:04:42.859Z",
+      "durationMs": 427,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -223,9 +250,9 @@
       "key": "smoke_mobile",
       "label": "Smoke mobile PWA",
       "command": "npm run smoke:mobile-pwa",
-      "startedAt": "2026-04-27T10:48:43.521Z",
-      "endedAt": "2026-04-27T10:48:43.704Z",
-      "durationMs": 183,
+      "startedAt": "2026-04-27T20:04:42.859Z",
+      "endedAt": "2026-04-27T20:04:43.135Z",
+      "durationMs": 276,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -237,9 +264,9 @@
       "key": "verify_founder_panel_local",
       "label": "Verify founder panel local contract",
       "command": "npm run verify:founder-panel:local",
-      "startedAt": "2026-04-27T10:48:43.704Z",
-      "endedAt": "2026-04-27T10:48:44.122Z",
-      "durationMs": 418,
+      "startedAt": "2026-04-27T20:04:43.135Z",
+      "endedAt": "2026-04-27T20:04:43.569Z",
+      "durationMs": 434,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -248,5 +275,33 @@
       "error": ""
     }
   ],
-  "findings": []
+  "findings": [
+    {
+      "key": "member_cutover_not_live_yet",
+      "title": "Member cutover is still not release-ready",
+      "severity": "P1",
+      "owner": "Team 1 + Ops",
+      "stopLine": true,
+      "summaryVi": "Runtime truth vẫn ghi member là `member_preview` với `requiredPublic=true`, nên Team 3 phải giữ verdict ở mức hold/no-go cho cutover công khai.",
+      "summaryEn": "Runtime truth still records member as `member_preview` with `requiredPublic=true`, so Team 3 must keep the verdict at hold/no-go for public cutover.",
+      "evidence": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/cloudflare/domain-runtime-truth.json"
+      ]
+    },
+    {
+      "key": "hub_home_payment_wording_missing_qualifier",
+      "title": "HUB home mentions payment without safe qualifier",
+      "severity": "P2",
+      "owner": "Team 2 + Team 3",
+      "stopLine": false,
+      "summaryVi": "HUB home có nhắc payment hoặc checkout nhưng chưa thấy qualifier an toàn kiểu `assignment active / live blocked` hoặc `không có thanh toán trực tiếp`.",
+      "summaryEn": "HUB home mentions payment or checkout without a safe qualifier such as `assignment active / live blocked` or `no direct payment step`.",
+      "evidence": [
+        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/vetuonglai.com/index.html"
+      ],
+      "wave": "E",
+      "surfaceKey": "hub_home",
+      "scope": "payment_copy_gate"
+    }
+  ]
 }

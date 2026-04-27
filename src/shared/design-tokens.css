@@ -19,11 +19,25 @@
   --vt-space-md: 16px;
   --vt-space-lg: 24px;
   --vt-space-xl: 40px;
+  --vt-space-2xl: 64px;
+  --vt-space-3xl: 96px;
 
   --vt-radius-input: 12px;
   --vt-radius-button: 16px;
   --vt-radius-card: 20px;
   --vt-radius-modal: 24px;
+
+  --vt-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --vt-shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --vt-shadow-md: 0 14px 34px rgba(15, 23, 42, 0.1);
+  --vt-shadow-lg: 0 24px 64px rgba(15, 23, 42, 0.14);
+
+  --vt-z-base: 0;
+  --vt-z-card: 1;
+  --vt-z-sticky: 30;
+  --vt-z-topbar: 40;
+  --vt-z-modal: 50;
+  --vt-z-toast: 60;
 
   --vt-motion-fast: 200ms;
   --vt-motion-base: 300ms;
@@ -107,4 +121,40 @@ html[data-domain="community"] {
   --vt-domain-primary: #fb7185;
   --vt-domain-gradient: linear-gradient(135deg, #fb7185, #a78bfa);
   --vt-domain-surface-tint: rgba(251, 113, 133, 0.14);
+}
+
+html[data-domain="ai"] {
+  --vt-domain-primary: #b28dff;
+  --vt-domain-gradient: linear-gradient(135deg, #b28dff, #818cf8);
+  --vt-domain-surface-tint: rgba(178, 141, 255, 0.14);
+}
+
+html[data-domain="work"] {
+  --vt-domain-primary: #ffd27a;
+  --vt-domain-gradient: linear-gradient(135deg, #ffd27a, #fb923c);
+  --vt-domain-surface-tint: rgba(255, 210, 122, 0.14);
+}
+
+html[data-domain="market"] {
+  --vt-domain-primary: #9be37f;
+  --vt-domain-gradient: linear-gradient(135deg, #9be37f, #4ade80);
+  --vt-domain-surface-tint: rgba(155, 227, 127, 0.14);
+}
+
+html[data-domain="business"] {
+  --vt-domain-primary: #ff9f6b;
+  --vt-domain-gradient: linear-gradient(135deg, #ff9f6b, #facc15);
+  --vt-domain-surface-tint: rgba(255, 159, 107, 0.14);
+}
+
+html[data-domain="member"] {
+  --vt-domain-primary: #8fd9d2;
+  --vt-domain-gradient: linear-gradient(135deg, #8fd9d2, #22d3ee);
+  --vt-domain-surface-tint: rgba(143, 217, 210, 0.14);
+}
+
+html[data-domain="kids"] {
+  --vt-domain-primary: #fb923c;
+  --vt-domain-gradient: linear-gradient(135deg, #fb923c, #facc15);
+  --vt-domain-surface-tint: rgba(251, 146, 60, 0.14);
 }

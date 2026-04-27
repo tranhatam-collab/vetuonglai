@@ -379,6 +379,7 @@ function detectEntryFromHostname() {
 
 function initScrollAnimations() {
   if (typeof window.IntersectionObserver === 'undefined') return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   const observerOptions = {
     threshold: 0.1,

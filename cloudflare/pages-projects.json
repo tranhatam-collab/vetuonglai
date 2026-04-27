@@ -80,6 +80,13 @@
       "distDir": "dist/business.vetuonglai.com",
       "customDomains": ["business.vetuonglai.com"],
       "notes": "Business shell remains planned-safe and cannot be presented as live enterprise onboarding until DNS, Team 4 contract, and Team 5 verify all pass."
+    },
+    {
+      "key": "read",
+      "projectName": "vetuonglai-read",
+      "distDir": "dist/read.vetuonglai.com",
+      "customDomains": ["read.vetuonglai.com"],
+      "notes": "Knowledge layer + creator economy. Phase 1 = static shell only (planned_public). Checkout, settlement, multi-role payout opens in Phase 2+ per VTL_67."
     }
   ]
 }

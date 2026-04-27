@@ -252,7 +252,7 @@ function memberDomainInfo() {
 function canonicalIntent(intent) {
   const normalized = String(intent || "").trim().toLowerCase();
   if (!normalized) return "specialist-pack";
-  if (normalized === "annual-access" || normalized === "specialist-pack") return normalized;
+  if (normalized === "annual-access" || normalized === "specialist-pack" || normalized === "interest") return normalized;
   return intentAliases[normalized] || "specialist-pack";
 }
 
@@ -1742,9 +1742,29 @@ async function handlePayIaiOneWebhook(request, env) {
   });
 }
 
+const PLANNED_DOMAINS = new Set(["life", "invest", "work", "market", "community", "ai", "business"]);
+
 async function handleCheckoutResolve(request, env) {
   const input = await readRequestJson(request);
   const normalized = normalizeRouteInput(input);
+
+  // T1-1: Block checkout for planned domains — they must not trigger purchases
+  if (PLANNED_DOMAINS.has(normalized.entry) && (normalized.intent === "specialist-pack" || normalized.intent === "annual-access")) {
+    await logSessionAudit(env, "checkout_blocked_planned_domain", {
+      entry: normalized.entry,
+      intent: normalized.intent,
+      pack: normalized.pack,
+    });
+    return jsonResponse({
+      status: "checkout_blocked_planned_domain",
+      detail: `Domain "${normalized.entry}" is not yet open for purchases. Browse existing domains at the hub.`,
+      entry: normalized.entry,
+      redirect: "https://vetuonglai.com/",
+    }, {
+      status: 403,
+    });
+  }
+
   const gateway = normalized.gateway || "pay";
 
   if (gateway === "pay") {

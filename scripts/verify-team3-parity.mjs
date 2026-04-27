@@ -85,6 +85,7 @@ const MARKET_RULES_PATH = path.join(DIST_DIR, "market.vetuonglai.com", "rules", 
 const COMMUNITY_HOME_PATH = path.join(DIST_DIR, "community.vetuonglai.com", "index.html");
 const AI_HOME_PATH = path.join(DIST_DIR, "ai.vetuonglai.com", "index.html");
 const BUSINESS_HOME_PATH = path.join(DIST_DIR, "business.vetuonglai.com", "index.html");
+const READ_HOME_SOURCE_PATH = path.join(ROOT, "src", "static-pages", "read.vetuonglai.com", "index.html");
 
 function severityRank(value) {
   switch (String(value || "").toUpperCase()) {
@@ -1201,6 +1202,103 @@ function auditPaymentLiveWording({
   };
 }
 
+function auditReadPlannedPublicWording({ readHomeSource }) {
+  const findings = [];
+  const content = String(readHomeSource || "");
+
+  if (!content) {
+    findings.push(makeFinding({
+      key: "read_home_source_missing",
+      title: "READ home source is missing",
+      severity: "P1",
+      owner: "Team 1 + Team 2 + Team 3",
+      stopLine: false,
+      summaryVi: "Chưa tìm thấy source của READ homepage để Team 3 audit wording planned_public.",
+      summaryEn: "The READ homepage source is missing, so Team 3 cannot audit planned_public wording.",
+      evidence: [READ_HOME_SOURCE_PATH],
+      wave: "READ-P1",
+      surfaceKey: "read_home_source",
+      scope: "read_planned_public",
+    }));
+    return {
+      recommendation: buildScopedRecommendation(findings),
+      note: buildScopedNote({
+        recommendation: buildScopedRecommendation(findings),
+        findings,
+        passVi: "READ Phase 1 wording pass: source homepage giữ đúng planned_public wording.",
+        passEn: "READ Phase 1 wording pass: the source homepage keeps correct planned_public wording.",
+        prefixVi: "READ Phase 1 wording no-go",
+        prefixEn: "READ Phase 1 wording no-go",
+      }),
+      findings,
+      auditedSurfaces: [READ_HOME_SOURCE_PATH],
+    };
+  }
+
+  const requiredPatterns = [
+    /planned_public/i,
+    /Chưa bán, chưa nhận đóng góp|Not selling, not accepting contributions yet/i,
+  ];
+  const bannedPatterns = [
+    /mở cho mọi thành viên đóng góp/i,
+    /đều có thể kiếm tiền/i,
+    /public ledger có thể verify|public ledger có thể kiểm chứng/i,
+    /đang trả creator/i,
+    /creator economy minh bạch hoàn toàn/i,
+  ];
+
+  for (const pattern of requiredPatterns) {
+    if (!pattern.test(content)) {
+      findings.push(makeFinding({
+        key: `read_home_missing_${String(pattern)}`,
+        title: "READ home is missing required planned_public disclosure",
+        severity: "P1",
+        owner: "Team 2 + Team 3",
+        stopLine: false,
+        summaryVi: "READ homepage source đang thiếu disclosure bắt buộc cho stage planned_public.",
+        summaryEn: "The READ homepage source is missing a required disclosure for the planned_public stage.",
+        evidence: [READ_HOME_SOURCE_PATH],
+        wave: "READ-P1",
+        surfaceKey: "read_home_source",
+        scope: "read_planned_public",
+      }));
+    }
+  }
+
+  for (const pattern of bannedPatterns) {
+    if (pattern.test(content)) {
+      findings.push(makeFinding({
+        key: `read_home_banned_${String(pattern)}`,
+        title: "READ home still contains banned monetization wording",
+        severity: "P1",
+        owner: "Team 2 + Team 3",
+        stopLine: true,
+        summaryVi: "READ homepage source vẫn có wording monetization vượt stage planned_public.",
+        summaryEn: "The READ homepage source still contains monetization wording beyond the planned_public stage.",
+        evidence: [READ_HOME_SOURCE_PATH],
+        wave: "READ-P1",
+        surfaceKey: "read_home_source",
+        scope: "read_planned_public",
+      }));
+    }
+  }
+
+  const recommendation = buildScopedRecommendation(findings);
+  return {
+    recommendation,
+    note: buildScopedNote({
+      recommendation,
+      findings,
+      passVi: "READ Phase 1 wording pass: source homepage giữ đúng planned_public wording.",
+      passEn: "READ Phase 1 wording pass: the source homepage keeps correct planned_public wording.",
+      prefixVi: "READ Phase 1 wording no-go",
+      prefixEn: "READ Phase 1 wording no-go",
+    }),
+    findings,
+    auditedSurfaces: [READ_HOME_SOURCE_PATH],
+  };
+}
+
 function auditWaveDPublicPublishGate({ board48, waveDBlockers }) {
   const blockersActive = (
     board48.includes("Trạng thái: `active_next / local_ready / dns_blocked`")
@@ -1348,6 +1446,7 @@ async function main() {
     communityHome,
     aiHome,
     businessHome,
+    readHomeSource,
   ] = await Promise.all([
     readFile(DOC_15_PATH, "utf8"),
     readFile(DOC_32_PATH, "utf8"),
@@ -1380,6 +1479,7 @@ async function main() {
     readOptionalText(COMMUNITY_HOME_PATH),
     readOptionalText(AI_HOME_PATH),
     readOptionalText(BUSINESS_HOME_PATH),
+    readOptionalText(READ_HOME_SOURCE_PATH),
   ]);
 
   const doc15Map = parseDoc15StatusMap(doc15);
@@ -1448,7 +1548,11 @@ async function main() {
     aiHome,
     businessHome,
   });
+  const readPlannedPublicAudit = auditReadPlannedPublicWording({
+    readHomeSource,
+  });
   findings.push(...paymentWordingAudit.findings);
+  findings.push(...readPlannedPublicAudit.findings);
   const waveDPublicGate = auditWaveDPublicPublishGate({
     board48,
     waveDBlockers,
@@ -1483,6 +1587,7 @@ async function main() {
       waveC: waveCAudit,
       plannedSafe: plannedSafeAudit,
       paymentWording: paymentWordingAudit,
+      readPlannedPublic: readPlannedPublicAudit,
       waveDPublicRollout: waveDPublicGate,
       waveNotes,
     },

@@ -14,6 +14,7 @@ File này là bản đồ vai trò ngắn gọn để DEV, Content, Design và Q
 - `member.vetuonglai.com`: member layer, planned/public rollout theo runtime truth
 - `work.vetuonglai.com`: planned
 - `market.vetuonglai.com`: planned
+- `read.vetuonglai.com`: knowledge layer + creator economy — long-form essay + sách điện tử về tương lai, mở cho mọi thành viên đóng góp với 8 vai trò kiếm tiền (Author / Translator / Editor / Reviewer / Curator / Referrer / Designer / Sponsor), 85% về creator, public ledger. Khoá theo `docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md`.
 
 ## Public Routing Rule
 - public layer phải tự có giá trị thật

@@ -1,0 +1,60 @@
+{
+  "version": "1.0",
+  "pillars": [
+    {
+      "key": "work",
+      "slug": "work",
+      "label_vi": "Tương lai công việc",
+      "label_en": "The future of work",
+      "tagline_vi": "AI không lấy việc bạn — nó làm thứ bạn không ngờ tới.",
+      "tagline_en": "AI is not taking your job — it's doing what you didn't expect.",
+      "boundary_note": "Không phải lộ trình học của edu. Không phải job board của work domain.",
+      "example_essay_vi": "Tại sao 80% kỹ năng AI được dạy hiện tại sẽ vô dụng trong 3 năm",
+      "example_essay_en": "Why 80% of currently taught AI skills will be useless in 3 years"
+    },
+    {
+      "key": "money",
+      "slug": "money",
+      "label_vi": "Tiền và thời gian",
+      "label_en": "Money and time",
+      "tagline_vi": "Lời khuyên tài chính đúng về lý thuyết nhưng sai về hành vi.",
+      "tagline_en": "Financial advice is right in theory but wrong in behavior.",
+      "boundary_note": "Không phải checklist của finance. Không phải due-diligence của invest.",
+      "example_essay_vi": "Tại sao bạn nghèo hơn cha mẹ mà có nhiều tiền hơn",
+      "example_essay_en": "Why you're poorer than your parents while having more money"
+    },
+    {
+      "key": "learning",
+      "slug": "learning",
+      "label_vi": "Học thật sự",
+      "label_en": "Real learning",
+      "tagline_vi": "Sự khác biệt giữa thông tin và hiểu biết.",
+      "tagline_en": "The difference between information and understanding.",
+      "boundary_note": "Không phải curriculum của edu. Meta về tri thức.",
+      "example_essay_vi": "Lý do AI không thể thay người học — nhưng có thể thay người dạy",
+      "example_essay_en": "Why AI cannot replace learners — but can replace teachers"
+    },
+    {
+      "key": "society",
+      "slug": "society",
+      "label_vi": "Xã hội đang thay đổi",
+      "label_en": "Society is changing",
+      "tagline_vi": "Cộng đồng sẽ quan trọng hơn công ty trong 10 năm tới.",
+      "tagline_en": "Community will matter more than companies in the next 10 years.",
+      "boundary_note": "Không phải circles của community. Lens về thay đổi xã hội.",
+      "example_essay_vi": "Vì sao Việt Nam đang bỏ lỡ sóng cộng đồng số",
+      "example_essay_en": "Why Vietnam is missing the digital community wave"
+    },
+    {
+      "key": "timeless",
+      "slug": "timeless",
+      "label_vi": "Những gì không thay đổi",
+      "label_en": "What never changes",
+      "tagline_vi": "Nỗi sợ, lòng tham, và sự kiên nhẫn — mãi mãi giống nhau.",
+      "tagline_en": "Fear, greed, and patience — same as ever.",
+      "boundary_note": "Pillar độc nhất — không có ở domain nào khác trong hệ.",
+      "example_essay_vi": "Bài học từ 100 năm trước cho thị trường hôm nay",
+      "example_essay_en": "Lessons from 100 years ago for today's market"
+    }
+  ]
+}

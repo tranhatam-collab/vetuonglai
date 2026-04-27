@@ -136,7 +136,19 @@ const requiredFiles = [
   "kids.vetuonglai.com/api/registry.json",
   "kids.vetuonglai.com/assets/kids.css",
   "kids.vetuonglai.com/assets/kids.js",
-  "kids.vetuonglai.com/robots.txt"
+  "kids.vetuonglai.com/robots.txt",
+  "read.vetuonglai.com/index.html",
+  "read.vetuonglai.com/books/index.html",
+  "read.vetuonglai.com/how-we-pay/index.html",
+  "read.vetuonglai.com/transparency/index.html",
+  "read.vetuonglai.com/creator/index.html",
+  "read.vetuonglai.com/submit/index.html",
+  "read.vetuonglai.com/review/index.html",
+  "read.vetuonglai.com/stacks/index.html",
+  "read.vetuonglai.com/terms/index.html",
+  "read.vetuonglai.com/tax-note/index.html",
+  "read.vetuonglai.com/assets/read.css",
+  "read.vetuonglai.com/assets/read.js"
 ];
 
 async function assertFile(relativePath) {
