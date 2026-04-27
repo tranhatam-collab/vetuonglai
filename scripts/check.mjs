@@ -446,10 +446,18 @@ async function main() {
     throw new Error("Team 2 kickoff output chua du CTA map.");
   }
 
+  const plannedDomainSet = new Set(["work", "market", "community", "ai", "business", "life", "invest", "kids", "read"]);
   for (const cta of team2Kickoff.outputs.ctaMap) {
     const intent = new URL(cta.target).searchParams.get("intent");
-    if (intent !== "specialist-pack") {
-      throw new Error(`Team 2 kickoff CTA intent must be specialist-pack. Found ${intent || "empty"} at ${cta.domain}.`);
+    const domainKey = String(cta.domain || "").replace(/\.vetuonglai\.com$/, "");
+    if (plannedDomainSet.has(domainKey)) {
+      if (intent !== "interest") {
+        throw new Error(`Planned domain ${cta.domain} CTA intent must be interest. Found ${intent || "empty"}.`);
+      }
+    } else {
+      if (intent !== "specialist-pack") {
+        throw new Error(`Live domain ${cta.domain} CTA intent must be specialist-pack. Found ${intent || "empty"}.`);
+      }
     }
   }
 
@@ -689,9 +697,26 @@ async function main() {
     }
   }
 
-  const bilingualInlinePattern = /data-lang="vi"|data-lang="en"/;
-  if (bilingualInlinePattern.test(hubHtml) || bilingualInlinePattern.test(eduHtml) || bilingualInlinePattern.test(greenHtml) || bilingualInlinePattern.test(financeHtml) || bilingualInlinePattern.test(lifeHtml) || bilingualInlinePattern.test(investHtml)) {
-    throw new Error("Public pages chua tat bilingual-inline render (data-lang spans).");
+  const sharedShellInlineLangPattern = /data-lang="vi"|data-lang="en"/;
+  for (const [label, html] of [
+    ["Hub", hubHtml],
+    ["EDU", eduHtml],
+    ["GREEN", greenHtml],
+    ["FINANCE", financeHtml],
+    ["LIFE", lifeHtml],
+    ["INVEST", investHtml],
+    ["WORK", workHtml],
+    ["MARKET", marketHtml],
+    ["COMMUNITY", communityHtml],
+    ["AI", aiHtml],
+    ["BUSINESS", businessHtml],
+    ["MEMBER", memberHtml],
+    ["MEMBER JOURNEY", memberJourneyHtml],
+    ["MEMBER APP", memberAppHtml],
+  ]) {
+    if (sharedShellInlineLangPattern.test(html)) {
+      throw new Error(`${label} van con dung bilingual-inline render (data-lang spans).`);
+    }
   }
 
   if (!vcHtml.includes("?lang=en") || !vcHtml.includes("?lang=vi")) {

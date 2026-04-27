@@ -45,7 +45,11 @@ const workflowRequiredApprovedSubmissions = Array.isArray(submissionWorkflow.vcC
 const plannedDomains = new Set(
   (runtimeTruth.domains || [])
     .filter((d) => d.status === "planned_public" || d.status === "planned")
-    .map((d) => String(d.key || "").toLowerCase())
+    .map((d) => {
+      const host = String(d.host || "");
+      const dot = host.indexOf(".");
+      return dot > 0 ? host.substring(0, dot).toLowerCase() : "";
+    })
     .filter(Boolean),
 );
 
@@ -1760,19 +1764,22 @@ const PLANNED_DOMAINS = new Set(["life", "invest", "work", "market", "community"
 
 async function handleCheckoutResolve(request, env) {
   const input = await readRequestJson(request);
+  const requestedIntent = canonicalIntent(input?.intent);
   const normalized = normalizeRouteInput(input);
 
   // T1-1: Block checkout for planned domains — they must not trigger purchases
-  if (PLANNED_DOMAINS.has(normalized.entry) && (normalized.intent === "specialist-pack" || normalized.intent === "annual-access")) {
+  if (PLANNED_DOMAINS.has(normalized.entry) && (requestedIntent === "specialist-pack" || requestedIntent === "annual-access")) {
     await logSessionAudit(env, "checkout_blocked_planned_domain", {
       entry: normalized.entry,
-      intent: normalized.intent,
+      intent: requestedIntent,
       pack: normalized.pack,
     });
     return jsonResponse({
       status: "checkout_blocked_planned_domain",
       detail: `Domain "${normalized.entry}" is not yet open for purchases. Browse existing domains at the hub.`,
       entry: normalized.entry,
+      requestedIntent,
+      normalizedIntent: normalized.intent,
       redirect: "https://vetuonglai.com/",
     }, {
       status: 403,

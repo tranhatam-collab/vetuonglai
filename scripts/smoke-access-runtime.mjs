@@ -787,16 +787,17 @@ async function testWaveDEntryNormalization() {
     assert.equal(response.status, 200, `Expected 200 for entry: ${entryName}`);
     const data = await readJson(response);
     assert.equal(data.normalized.entry, entryName, `Entry ${entryName} should not fallback to hub`);
-    assert.equal(data.normalized.intent, "specialist-pack");
+    assert.equal(data.normalized.intent, "interest");
     assert.equal(data.normalized.pack, "g1");
+    assert(data.normalized.warnings.includes("planned_domain_checkout_blocked_downgrade_to_interest"));
   }
 
   // Test Wave D intent aliases
   const aliasTests = [
-    { entry: "community", intent: "community-depth", expectedIntent: "specialist-pack" },
-    { entry: "ai", intent: "ai-depth", expectedIntent: "specialist-pack" },
-    { entry: "business", intent: "business-depth", expectedIntent: "specialist-pack" },
-    { entry: "business", intent: "business-intake", expectedIntent: "specialist-pack" },
+    { entry: "community", intent: "community-depth", expectedIntent: "interest" },
+    { entry: "ai", intent: "ai-depth", expectedIntent: "interest" },
+    { entry: "business", intent: "business-depth", expectedIntent: "interest" },
+    { entry: "business", intent: "business-intake", expectedIntent: "interest" },
   ];
 
   for (const test of aliasTests) {

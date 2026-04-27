@@ -186,7 +186,11 @@ const runtimeTruthByHost = new Map(
 const plannedDomainKeys = new Set(
   (domainRuntimeTruth.domains || [])
     .filter((d) => normalizeRuntimeTruthStatus(d.status) === "planned")
-    .map((d) => String(d.key || "").toLowerCase())
+    .map((d) => {
+      const host = String(d.host || "");
+      const dot = host.indexOf(".");
+      return dot > 0 ? host.substring(0, dot) : "";
+    })
     .filter(Boolean),
 );
 
@@ -1305,7 +1309,7 @@ function cardHtml(copy, className = "card-copy") {
 
 function renderCard({ title, body, badge = "", meta = "", actions = "", support = "" }) {
   return `
-    <article class="card">
+    <article class="card" data-animate="fade-up">
       <div class="card-body stack">
         <div class="cluster" style="justify-content:space-between;align-items:flex-start">
           ${title}
@@ -1321,7 +1325,7 @@ function renderCard({ title, body, badge = "", meta = "", actions = "", support 
 }
 
 function renderCards(items) {
-  return `<div class="grid-3">${items.join("")}</div>`;
+  return `<div class="grid-3" data-animate-stagger>${items.join("")}</div>`;
 }
 
 function renderMetrics(items) {
@@ -1366,7 +1370,7 @@ function renderTable(headers, rows, { tbodyId = "" } = {}) {
 function renderSection(title, note, content, sectionId = "") {
   const idAttr = sectionId ? ` id="${escapeHtml(sectionId)}"` : "";
   return `
-    <section class="section"${idAttr}>
+    <section class="section" data-animate="fade-up"${idAttr}>
       <div class="section-header">
         <div>
           ${localizedText(title, "h2", { class: "section-title" })}
@@ -1384,7 +1388,7 @@ function renderHero({ eyebrow, title, description, beforeActions = "", actions =
     : "");
   return `
     ${localizedText(eyebrow, "div", { class: "eyebrow" })}
-    <div class="hero-grid">
+    <div class="hero-grid" data-animate="fade-up">
       <div class="stack">
         ${localizedHtml(title, "h1", { class: "headline" })}
         ${localizedHtml(description, "p", { class: "lede" })}
@@ -1798,12 +1802,32 @@ function renderHubPage() {
       button("#journey-entry", codexPair("sites.hub.hero.primary_cta", "Xem điểm vào", "View entry point")),
       button("#ecosystem-map", codexPair("shared.cta.explore_related_layer", "Xem lớp liên quan", "Explore related layer"), "ghost"),
     ].join(""),
-    aside: renderMetrics([
-      { value: String(liveCount), label: pair("domain đang hoạt động", "live domains") },
-      { value: String(memberPreviewCount), label: pair("domain mở lớp thành viên", "member-preview domains") },
-      { value: String(plannedCount), label: pair("domain đang chuẩn bị", "planned domains") },
-      { value: system.version, label: pair("phiên bản hệ", "system version") },
-    ]),
+    aside: `
+      <div class="hub-hero-aside stack" data-animate-stagger>
+        ${renderMetrics([
+          { value: String(liveCount), label: pair("domain đang hoạt động", "live domains") },
+          { value: String(memberPreviewCount), label: pair("domain mở lớp thành viên", "member-preview domains") },
+          { value: String(plannedCount), label: pair("domain đang chuẩn bị", "planned domains") },
+          { value: system.version, label: pair("phiên bản hệ", "system version") },
+        ]).replace('<aside class="card"', '<aside class="card" data-animate="fade-up"')}
+        <aside class="card hub-hero-illustration" data-animate="scale-in">
+          <div class="card-body stack">
+            ${localizedText(pair("Bản đồ nhịp hệ", "System rhythm map"), "h2", { class: "card-title" })}
+            ${localizedText(
+              pair(
+                "Một hình ảnh tĩnh để định hướng toàn hệ trước khi đi vào từng lớp chuyên sâu.",
+                "A static orientation image before entering each deeper layer.",
+              ),
+              "p",
+              { class: "body-copy" },
+            )}
+            <div class="hero-illustration">
+              <img src="/assets/hero-illustration.svg" alt="" width="400" height="250" loading="eager" aria-hidden="true" />
+            </div>
+          </div>
+        </aside>
+      </div>
+    `,
   });
 
   const appCards = renderCards(appCatalog.map((app) => {
@@ -2139,7 +2163,6 @@ function renderHubPage() {
       renderSection(pair("Cách hệ hoạt động", "How the system works"), pair("Học đúng, làm thật, tạo giá trị và xác minh bằng bằng chứng.", "Learn correctly, do real work, create value, and verify it through evidence."), `${startHere}${rollout}`, "start-here"),
       renderSection(pair("Lớp truy cập và chiều sâu", "Access and depth"), pair("Giữ đúng lớp nền, rồi mới mở chiều sâu khi thật sự cần.", "Keep the foundation clear, then open depth only when it is truly needed."), `${purchaseHubDisclosure}${entryCards}${packageChooserDisclosure}${packageChooser}`, "purchase-hub"),
       renderSection(pair("Trust và bằng chứng", "Trust and evidence"), pair("Niềm tin tốt hơn khi có thể kiểm tra.", "Trust improves when it can be checked."), `${stories}${trustFlow}${trustReferenceDisclosure}`),
-      renderSection(pair("Language Codex", "Language Codex"), pair("Một hệ, một giọng nói, một chuẩn CTA và status.", "One system, one voice, one CTA standard, and one status model."), languageStandard),
       renderSection(pair("Khóa triển khai hiện tại", "Current implementation lock"), pair("Phiên bản đang chạy phải bám đúng vai trò hub.", "The running version must stay faithful to the hub role."), v1),
     ],
   });

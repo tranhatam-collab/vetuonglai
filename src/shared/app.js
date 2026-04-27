@@ -386,7 +386,27 @@ function initScrollAnimations() {
     rootMargin: '0px 0px -50px 0px'
   };
 
-  const observer = new IntersectionObserver((entries) => {
+  // ─── New data-animate system (Slice 4) ───
+  const dataAnimateObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        dataAnimateObserver.unobserve(entry.target); // animate once only
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('[data-animate]').forEach(el => {
+    dataAnimateObserver.observe(el);
+  });
+
+  // Also observe children inside stagger containers
+  document.querySelectorAll('[data-animate-stagger] > [data-animate]').forEach(el => {
+    dataAnimateObserver.observe(el);
+  });
+
+  // ─── Legacy class-based animations (deprecated) ───
+  const legacyObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('animate-fade-in');
@@ -394,14 +414,16 @@ function initScrollAnimations() {
     });
   }, observerOptions);
 
-  // Observe sections, cards, and other elements
+  // Only observe elements that don't use data-animate (avoid double-animation)
   document.querySelectorAll('section, .card, .surface').forEach(el => {
-    observer.observe(el);
+    if (!el.hasAttribute('data-animate')) {
+      legacyObserver.observe(el);
+    }
   });
 
-  // Add stagger to lists
+  // Legacy stagger for lists without data-animate-stagger
   document.querySelectorAll('ul, ol').forEach(list => {
-    if (list.children.length > 1) {
+    if (list.children.length > 1 && !list.hasAttribute('data-animate-stagger')) {
       list.classList.add('animate-stagger');
     }
   });

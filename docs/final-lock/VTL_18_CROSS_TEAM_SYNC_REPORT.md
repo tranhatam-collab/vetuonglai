@@ -1368,6 +1368,56 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 2 Log
 
+### 2026-04-28 10:32 ICT — Team 2
+
+- status: in_progress
+- deliverable_total: 10
+- deliverable_done: 9
+- % hoàn thành: 90%
+- % còn lại: 10%
+- done:
+  - hoàn tất pass remediation tối thiểu cho `kids.vetuonglai.com` theo Slice 2 Workstream D:
+    - bổ sung content source riêng `content/sites.kids.vi.json`
+    - bổ sung content source riêng `content/sites.kids.en.json`
+    - làm rõ trust/status wording trên `kids` homepage theo hướng `public preview` + phụ huynh/người giám hộ đồng hành
+    - giữ hướng kỹ thuật Option A: tiếp tục dùng `kids.css` / `kids.js` riêng trong Slice 2, không rebuild lớn
+  - hoàn tất pass wording cleanup tiếp theo cho `read.vetuonglai.com`:
+    - hạ các trang `transparency/reports`, `write/guidelines`, `write/tiers` về đúng stop-line `planned_public`
+    - loại bỏ phrasing nghe như runtime/reporting/editorial flow đã mở chính thức
+  - chạy verify batch KIDS + READ:
+    - `npm run build` -> pass
+    - `npm run check` -> pass
+    - `npm run smoke:kids:worker` -> pass (`33/33`)
+    - `npm run verify:planned-safe:wave:release` -> pass (`37/37`)
+- next:
+  - tiếp tục nếu cần: rà thêm các KIDS subpages để giảm wording lệch giữa homepage và các route parent/learn
+  - phối hợp Team 3 cho audit wording cuối của lane READ/KIDS trong phạm vi public-facing copy
+  - chờ Team 1/Ops gỡ stop-line `member_preview` để parity tổng hệ quay lại `go`
+- blocked:
+  - `npm run verify:team3:parity` hiện `hold`, nhưng blocker nằm ngoài scope Team 2:
+    - `member_cutover_not_live_yet`
+    - owner: Team 1 + Ops
+    - evidence: `cloudflare/domain-runtime-truth.json`
+- changed files:
+  - `content/sites.kids.vi.json`
+  - `content/sites.kids.en.json`
+  - `src/static-pages/kids.vetuonglai.com/index.html`
+  - `src/static-pages/read.vetuonglai.com/transparency/reports/index.html`
+  - `src/static-pages/read.vetuonglai.com/write/guidelines/index.html`
+  - `src/static-pages/read.vetuonglai.com/write/tiers/index.html`
+  - `docs/final-lock/VTL_18_CROSS_TEAM_SYNC_REPORT.md`
+- handoff sent to:
+  - Team 1: parity `hold` hiện không phải do Team 2 copy surfaces; cần xử lý `member` runtime truth/cutover
+  - Team 3: mời audit lại public wording cho batch KIDS + READ mới
+  - Team 5: có thể dùng batch verify này như bằng chứng local cho Workstream D/E
+  - Ops: chưa có action mới trong scope Team 2, ngoài dependency parity chung cùng Team 1
+- handoff needed from:
+  - Team 1/Ops: gỡ stop-line `member_cutover_not_live_yet`
+  - Team 3: xác nhận lại wording audit cho KIDS + READ sau batch cleanup
+- risks:
+  - low: KIDS hiện đã bớt lệch homepage, nhưng một số subpage cũ vẫn có thể còn wording không đồng đều nếu chưa được rà tiếp
+  - medium: parity tổng hệ vẫn có thể bị hiểu nhầm là do Team 2 nếu không tách rõ root cause ở `member` lane
+
 ### 2026-04-28 08:42 ICT — Team 2
 
 - status: in_progress

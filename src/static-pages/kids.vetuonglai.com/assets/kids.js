@@ -97,6 +97,21 @@
       rootMargin: '0px 0px -50px 0px'
     };
 
+    // New data-animate system (Slice 4)
+    const dataAnimateObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          dataAnimateObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('[data-animate]').forEach(el => {
+      dataAnimateObserver.observe(el);
+    });
+
+    // Legacy class-based (for pages without data-animate)
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -105,14 +120,17 @@
       });
     }, observerOptions);
 
-    // Observe sections
+    // Observe sections and surfaces that don't use data-animate
     document.querySelectorAll('.section').forEach(section => {
-      observer.observe(section);
+      if (!section.hasAttribute('data-animate')) {
+        observer.observe(section);
+      }
     });
 
-    // Observe surfaces
     document.querySelectorAll('.surface').forEach(surface => {
-      observer.observe(surface);
+      if (!surface.hasAttribute('data-animate')) {
+        observer.observe(surface);
+      }
     });
 
     // Observe feature lists with stagger
