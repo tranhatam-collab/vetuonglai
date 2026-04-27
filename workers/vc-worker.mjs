@@ -16,11 +16,35 @@ function missingAssetsResponse(request) {
   );
 }
 
+const CORS_HEADERS = {
+  "access-control-allow-origin": "https://member.vetuonglai.com",
+  "access-control-allow-methods": "GET, POST, OPTIONS",
+  "access-control-allow-headers": "content-type, authorization",
+  "access-control-max-age": "86400",
+};
+
+function addCorsHeaders(response) {
+  const headers = new Headers(response.headers);
+  for (const [key, value] of Object.entries(CORS_HEADERS)) {
+    headers.set(key, value);
+  }
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 export default {
   async fetch(request, env) {
+    // Handle CORS preflight
+    if (request.method === "OPTIONS") {
+      return new Response(null, { status: 204, headers: CORS_HEADERS });
+    }
+
     const vcApiResponse = await maybeHandleVcOwnershipRuntime(request, env);
     if (vcApiResponse) {
-      return vcApiResponse;
+      return addCorsHeaders(vcApiResponse);
     }
 
     const url = new URL(request.url);

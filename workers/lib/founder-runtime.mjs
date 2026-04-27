@@ -239,6 +239,11 @@ function buildSystemHealth(env, incidents = []) {
   const lifeRuntime = runtimeByHost.get("life.vetuonglai.com");
   const investRuntime = runtimeByHost.get("invest.vetuonglai.com");
   const greenRuntime = runtimeByHost.get("green.vetuonglai.com");
+  const workRuntime = runtimeByHost.get("work.vetuonglai.com");
+  const marketRuntime = runtimeByHost.get("market.vetuonglai.com");
+  const communityRuntime = runtimeByHost.get("community.vetuonglai.com");
+  const aiRuntime = runtimeByHost.get("ai.vetuonglai.com");
+  const businessRuntime = runtimeByHost.get("business.vetuonglai.com");
   const lastIncidentTime = incidents[0]?.created_at || "";
 
   return [
@@ -320,6 +325,36 @@ function buildSystemHealth(env, incidents = []) {
       latency_ms: 158,
       errors_last_1h: 0,
       last_incident_time: lastIncidentTime,
+    }),
+    healthItem("work", "WORK", workRuntime?.status || "unknown", {
+      status: workRuntime?.requiredPublic ? "OK" : "Planned",
+      latency_ms: 0,
+      errors_last_1h: 0,
+      last_incident_time: "",
+    }),
+    healthItem("market", "MARKET", marketRuntime?.status || "unknown", {
+      status: marketRuntime?.requiredPublic ? "OK" : "Planned",
+      latency_ms: 0,
+      errors_last_1h: 0,
+      last_incident_time: "",
+    }),
+    healthItem("community", "COMMUNITY", communityRuntime?.status || "unknown", {
+      status: communityRuntime?.requiredPublic ? "OK" : "Planned",
+      latency_ms: 0,
+      errors_last_1h: 0,
+      last_incident_time: "",
+    }),
+    healthItem("ai", "AI", aiRuntime?.status || "unknown", {
+      status: aiRuntime?.requiredPublic ? "OK" : "Planned",
+      latency_ms: 0,
+      errors_last_1h: 0,
+      last_incident_time: "",
+    }),
+    healthItem("business", "BUSINESS", businessRuntime?.status || "unknown", {
+      status: businessRuntime?.requiredPublic ? "OK" : "Planned",
+      latency_ms: 0,
+      errors_last_1h: 0,
+      last_incident_time: "",
     }),
   ];
 }
@@ -417,7 +452,7 @@ async function buildVcSummary(env) {
 
 function buildDomainSummary(incidents = []) {
   return (systemRegistry.domains || [])
-    .filter((entry) => ["hub", "edu", "life", "finance", "invest", "green", "vc", "member"].includes(String(entry?.key || "")))
+    .filter((entry) => ["hub", "edu", "life", "finance", "invest", "green", "vc", "member", "work", "market", "community", "ai", "business"].includes(String(entry?.key || "")))
     .map((entry) => ({
       key: entry.key,
       label: entry.labelVi || entry.labelEn || entry.label || entry.key,

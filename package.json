@@ -67,6 +67,11 @@
     "preview:green": "python3 -m http.server 4176 --directory dist/green.vetuonglai.com",
     "preview:finance": "python3 -m http.server 4177 --directory dist/finance.vetuonglai.com",
     "preview:life": "python3 -m http.server 4178 --directory dist/life.vetuonglai.com",
-    "preview:invest": "python3 -m http.server 4179 --directory dist/invest.vetuonglai.com"
+    "preview:invest": "python3 -m http.server 4179 --directory dist/invest.vetuonglai.com",
+    "preview:work": "python3 -m http.server 4181 --directory dist/work.vetuonglai.com",
+    "preview:market": "python3 -m http.server 4182 --directory dist/market.vetuonglai.com",
+    "preview:community": "python3 -m http.server 4183 --directory dist/community.vetuonglai.com",
+    "preview:ai": "python3 -m http.server 4184 --directory dist/ai.vetuonglai.com",
+    "preview:business": "python3 -m http.server 4185 --directory dist/business.vetuonglai.com"
   }
 }

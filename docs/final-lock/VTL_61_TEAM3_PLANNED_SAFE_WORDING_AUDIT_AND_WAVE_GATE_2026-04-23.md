@@ -1,8 +1,8 @@
 # VTL TEAM 3 PLANNED-SAFE WORDING AUDIT AND WAVE GATE
 
-Phiên bản: 1.0
-Ngày: 2026-04-23
-Mốc chốt: 2026-04-23 18:02 ICT
+Phiên bản: 1.1
+Ngày: 2026-04-27
+Mốc chốt: 2026-04-27 16:10 ICT
 Trạng thái: active_reference
 Owner: Team 3
 Phạm vi: audit wording planned-safe cho `work` / `market` / `community` / `ai` / `business`, chốt Wave C và chặn Wave E khi Wave D chưa có live evidence
@@ -35,6 +35,16 @@ Team 3 giữ quyền stop-line nếu public copy hoặc tài liệu điều ph�
 | `ai` | `PASS` | Public copy chỉ nói tình huống mẫu, demo trợ giúp và ranh giới AI. Không nói assistant live, production tool, payment step, thay thế con người hoặc kiếm tiền tự động. |
 | `business` | `FIXED + PASS` | Public copy đã bỏ dev wording kiểu `/api`, payload, hydrate, runtime, waiting-state, shell, contract. Trang chỉ giữ định hướng, gợi ý gói, demo an toàn và hub contact. |
 
+## 3B. Payment wording gate refresh (2026-04-27)
+
+Theo sync mới nhất, Team 3 bổ sung gate wording payment trên verifier parity để chặn claim sai nghĩa khi gate runtime còn khóa.
+
+Rule Team 3 đang giữ:
+
+- chặn claim kiểu `payment ready`, `payment email live`, `checkout live`, `payment production-ready`
+- chặn mọi wording làm người đọc hiểu nhầm payment/checkout đã live khi gate còn blocked
+- khi có nhắc payment/checkout, phải có qualifier an toàn như `assignment active / live blocked` hoặc disclosure `không có thanh toán trực tiếp` / `no direct payment step`
+
 ## 4. Source đã chỉnh trong scope Team 3
 
 - [scripts/build.mjs](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/scripts/build.mjs): dọn public copy planned-safe cho 5 surface, đặc biệt BUSINESS và AI.
@@ -52,6 +62,10 @@ Team 3 giữ quyền stop-line nếu public copy hoặc tài liệu điều ph�
 - `node scripts/verify-total-system-release-gate.mjs --skip-heavy --timeout-ms 12000`: `baseline_ready: true`, `system_signoff_ready: false`, `wave_e_allowed: false`, blocker `wave_d_dns_or_runtime_publish`
 - planned-safe visible/localized scan cho `work`, `market`, `community`, `ai`, `business`: `PASS 5/5`
 - planned-safe API scan cho summary/use-case/business contracts: `PASS 7/7`
+- `npm run verify:team3:parity` (refresh 2026-04-27): `PASS`, `recommendation: go`, `stopLineOpen: false`, suite `6/6`
+- `node scripts/verify-wave-c-life-invest-hardening.mjs` (refresh 2026-04-27): `hardening_ready: true`, `release_ready: false`, `planned_safe_hold: true`
+- `npm run verify:planned-safe:wave:release` (refresh 2026-04-27): `PASS 32/32`
+- `node scripts/verify-total-system-release-gate.mjs --skip-heavy --timeout-ms 12000` (refresh 2026-04-27): `baseline_ready: true`, `publish_ready: false`, blocker `wave_d_dns_or_runtime_publish`
 
 ## 6. Câu chốt điều phối
 
@@ -60,3 +74,5 @@ Wave C được chốt `hardening PASS`, nhưng promotion vẫn `NO-GO`.
 Wave D được chốt `planned-safe wording PASS`, nhưng public rollout vẫn `NO-GO` cho tới khi có live evidence.
 
 Wave E không được signoff nếu Wave D chưa có live evidence thật.
+
+Team 3 giữ stop-line wording payment: không cho public copy tạo hiểu nhầm rằng payment/checkout đã live khi release gate còn khóa.

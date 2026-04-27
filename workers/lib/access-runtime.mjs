@@ -1609,9 +1609,17 @@ async function handleLearningVcCandidate(request, env) {
   });
 }
 
-async function handleSessionLogout(env) {
+async function handleSessionLogout(request, env) {
+  let sessionEmail = "";
+  try {
+    const session = await resolveEffectiveSession(request, env);
+    sessionEmail = session?.email || session?.candidate_email || "";
+  } catch {
+    // Best-effort session resolution for audit
+  }
   await logSessionAudit(env, "session_logout", {
     reason: "user_initiated",
+    candidate_email: sessionEmail,
   });
   return jsonResponse({
     status: "session_cleared",
@@ -1938,7 +1946,7 @@ export async function maybeHandleAccessRuntime(request, env = {}) {
   }
 
   if (request.method === "POST" && url.pathname === `${ACCESS_BASE}/session/logout`) {
-    return handleSessionLogout(env);
+    return handleSessionLogout(request, env);
   }
 
   if (request.method === "POST" && url.pathname === `${ACCESS_BASE}/webhooks/paypal/subscriptions`) {

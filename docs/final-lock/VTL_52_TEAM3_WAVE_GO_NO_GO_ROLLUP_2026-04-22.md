@@ -1,8 +1,8 @@
 # VTL TEAM 3 WAVE GO / NO-GO ROLLUP
 
-Phiên bản: 1.2
-Ngày: 2026-04-23
-Mốc chốt: 2026-04-23 18:02 ICT
+Phiên bản: 1.3
+Ngày: 2026-04-27
+Mốc chốt: 2026-04-27 16:07 ICT
 Trạng thái: active_reference
 Owner: Team 3
 Phạm vi: note ngắn theo từng wave ở board continuation hiện hành
@@ -29,6 +29,8 @@ Nguồn sự thật dùng cho file này:
 - [VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_58_AUTOMATED_TEAM_CHANNEL_MAPPING_AND_15_MIN_DEV_REMINDER_2026-04-23.md)
 - [VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_60_TOTAL_SYSTEM_ALL_TASKS_OPEN_FOR_5_TEAMS_2026-04-23.md)
 - [VTL_61_TEAM3_PLANNED_SAFE_WORDING_AUDIT_AND_WAVE_GATE_2026-04-23.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_61_TEAM3_PLANNED_SAFE_WORDING_AUDIT_AND_WAVE_GATE_2026-04-23.md)
+- [VTL_63_CLOUDFLARE_ACCOUNT_MIGRATION_LOCK_2026-04-26.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_63_CLOUDFLARE_ACCOUNT_MIGRATION_LOCK_2026-04-26.md)
+- [VTL_64_ACCOUNT_MIGRATION_RUNTIME_BLOCKERS_2026-04-26.md](/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/docs/final-lock/VTL_64_ACCOUNT_MIGRATION_RUNTIME_BLOCKERS_2026-04-26.md)
 
 ## 1. Note ngắn theo từng wave
 
@@ -40,6 +42,14 @@ Nguồn sự thật dùng cho file này:
 | D | `WORDING PASS / PUBLIC ROLLOUT NO-GO` | Cụm `work` / `market` / `community` / `ai` / `business` đã sạch planned-safe wording ở local build, nhưng vẫn `DNS_BLOCKED` nên chưa được claim public rollout. |
 | E | `SIGNOFF NO-GO` | Không cho Wave E signoff khi Wave D chưa có live evidence đủ: DNS reachable, runtime publish, smoke/live verify và release pack evidence. |
 
+## 1B. Evidence refresh 2026-04-27
+
+- `npm run verify:team3:parity`: `PASS`, `recommendation: go`, `stopLineOpen: false`, suite `6/6`.
+- `node scripts/verify-wave-c-life-invest-hardening.mjs`: `hardening_ready: true`, `release_ready: false`, `planned_safe_hold: true`.
+- `npm run verify:planned-safe:wave:release`: `PASS 32/32`.
+- `node scripts/verify-total-system-release-gate.mjs --skip-heavy --timeout-ms 12000`: `baseline_ready: true`, `publish_ready: false`, blocker `wave_d_dns_or_runtime_publish`.
+- Team 3 đã bổ sung payment wording gate trong verifier parity để chặn claim `payment/checkout live` và bắt qualifier an toàn cho các surface public.
+
 ## 2. Ý nghĩa vận hành
 
 - Wave A: không cần Team 3 stop-line mới ở lượt này.
@@ -47,6 +57,7 @@ Nguồn sự thật dùng cho file này:
 - Wave C: Team 3 chốt hardening PASS, nhưng promotion là NO-GO cho tới khi runtime truth đổi thật và có signoff riêng.
 - Wave D: Team 3 chốt planned-safe wording PASS ở local build; blocker còn lại là DNS/runtime publish/live evidence, không còn là thiếu shell hoặc copy local.
 - Wave E: Team 3 không cho signoff cuối khi Wave D còn thiếu live evidence và pack release/QA/Ops cuối chưa khóa.
+- Wave E (refresh 2026-04-27): Team 3 giữ `SIGNOFF NO-GO`; account migration lane đã có tiến triển nhưng chưa đủ runtime cutover proof để mở release claim.
 
 ## 3. Audit planned-safe wording 2026-04-23
 
@@ -73,3 +84,4 @@ Nguồn sự thật dùng cho file này:
 - Team 3 chốt Wave C là `HARDENING PASS / PROMOTION NO-GO`
 - Team 3 chốt Wave D là `WORDING PASS / PUBLIC ROLLOUT NO-GO`
 - Team 3 giữ Wave E ở `SIGNOFF NO-GO` cho tới khi Wave D có live evidence thật
+- Team 3 giữ stop-line cho wording payment: không cho public copy tạo hiểu nhầm `payment/checkout live` khi gate vẫn blocked
