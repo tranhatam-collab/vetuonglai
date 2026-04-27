@@ -133,8 +133,8 @@
     "key": "read",
     "title": "ĐỌC",
     "titleEn": "READ",
-    "desc": "Lớp đọc dài hạn — essay, sách, biên tập về tương lai. Phase 0: reading shell công khai, chưa mở checkout / payout / onboarding.",
-    "descEn": "Long-form reading layer — essays, books, editorial on the future. Phase 0: public reading shell only; checkout, payout, and onboarding remain gated.",
+    "desc": "Lớp đọc dài hạn cho essay, sách và biên tập về tương lai. Phase 0: mở lớp đọc công khai, còn checkout, payout và onboarding vẫn khóa theo phase.",
+    "descEn": "A long-form reading layer for essays, books, and editorial work about the future. Phase 0 opens the public reading layer, while checkout, payout, and onboarding stay gated by phase.",
     "url": "https://read.vetuonglai.com",
     "status": "planned",
     "stageLabel": "PLANNED"

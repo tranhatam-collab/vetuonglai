@@ -183,6 +183,12 @@ const runtimeTruthByHost = new Map(
     .filter((entry) => entry && typeof entry === "object" && entry.host)
     .map((entry) => [String(entry.host), normalizeRuntimeTruthStatus(entry.status)]),
 );
+const plannedDomainKeys = new Set(
+  (domainRuntimeTruth.domains || [])
+    .filter((d) => normalizeRuntimeTruthStatus(d.status) === "planned")
+    .map((d) => String(d.key || "").toLowerCase())
+    .filter(Boolean),
+);
 
 const nftBridge = system.nftBridge || {};
 const enterprisePlans = Array.isArray(accessModel.enterprisePlans) ? accessModel.enterprisePlans : [];
@@ -724,6 +730,7 @@ const canonicalIntentMap = new Map([
   ["finance-depth", "specialist-pack"],
   ["life-depth", "specialist-pack"],
   ["invest-depth", "specialist-pack"],
+  ["interest", "interest"],
 ]);
 
 function canonicalPurchaseIntent(intent) {
@@ -743,10 +750,12 @@ function purchaseHubUrl({ entry, pack, slug = "", intent = "specialist-pack", so
 }
 
 function deepContentHubCta(entry, intent = "specialist-pack", source = "", slug = "") {
+  // Block checkout for planned domains — use interest form instead
+  const safeIntent = plannedDomainKeys.has(entry) ? "interest" : intent;
   return purchaseHubUrl({
     entry,
     pack: domainPackMap[entry] || "g1",
-    intent,
+    intent: safeIntent,
     source,
     slug,
   });
@@ -1667,8 +1676,8 @@ function renderTopbar(siteKey, activeKey, items) {
             })).join("")}
           </nav>
           <div class="lang-switch" role="group" aria-label="Language switch" data-aria-label-vi="Chọn ngôn ngữ" data-aria-label-en="Choose language">
-            <button class="lang-button is-active" type="button" data-language-option="vi" aria-pressed="true" data-aria-label-vi="Chuyển sang tiếng Việt" data-aria-label-en="Switch to Vietnamese" lang="vi" hreflang="vi">Tiếng Việt</button>
-            <button class="lang-button" type="button" data-language-option="en" aria-pressed="false" data-aria-label-vi="Chuyển sang tiếng Anh" data-aria-label-en="Switch to English" lang="en" hreflang="en">English</button>
+            <button class="lang-button is-active" type="button" data-language-option="vi" aria-pressed="true" data-aria-label-vi="Chuyển sang tiếng Việt" data-aria-label-en="Switch to Vietnamese" lang="vi" hreflang="vi"><span aria-hidden="true">🇻🇳</span> Tiếng Việt</button>
+            <button class="lang-button" type="button" data-language-option="en" aria-pressed="false" data-aria-label-vi="Chuyển sang tiếng Anh" data-aria-label-en="Switch to English" lang="en" hreflang="en"><span aria-hidden="true">🇺🇸</span> English</button>
           </div>
         </div>
       </div>

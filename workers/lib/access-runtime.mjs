@@ -42,6 +42,13 @@ const workflowRequiredApprovedSubmissions = Array.isArray(submissionWorkflow.vcC
   ? submissionWorkflow.vcCandidateRules.requiredApprovedSubmissions.map((entry) => String(entry || ""))
   : ["action_proof", "project_output", "reflection"];
 
+const plannedDomains = new Set(
+  (runtimeTruth.domains || [])
+    .filter((d) => d.status === "planned_public" || d.status === "planned")
+    .map((d) => String(d.key || "").toLowerCase())
+    .filter(Boolean),
+);
+
 const runtimeState = globalThis.__vtlAccessRuntimeState || {
   auditNonce: 0,
 };
@@ -307,9 +314,16 @@ function normalizeRouteInput(input = {}) {
   const return_to = rawReturnTo.startsWith("/") ? rawReturnTo : "/";
   if (rawReturnTo && return_to !== rawReturnTo) warnings.push("invalid_return_to_fallback_to_root");
 
+  // Block checkout for planned domains — downgrade to interest
+  let finalIntent = normalizedIntent;
+  if (plannedDomains.has(entry) && (finalIntent === "specialist-pack" || finalIntent === "annual-access")) {
+    finalIntent = "interest";
+    warnings.push("planned_domain_checkout_blocked_downgrade_to_interest");
+  }
+
   return {
     entry,
-    intent: normalizedIntent,
+    intent: finalIntent,
     pack,
     gateway,
     lang,
