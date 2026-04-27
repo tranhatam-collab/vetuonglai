@@ -64,6 +64,13 @@ function mustIncludeAll(label, sourceArray, expectedValues) {
   }
 }
 
+function requiresPublicNameVi(version) {
+  const match = String(version || "").match(/-v(\d+)$/i);
+  if (!match) return false;
+  const parsed = Number.parseInt(match[1], 10);
+  return Number.isFinite(parsed) && parsed >= 3;
+}
+
 function validatePackageFormRegistrySmoke(json) {
   assertJsonObject("package-form-registry", json);
   assertStringField(json, "version", "package-form-registry");
@@ -90,6 +97,14 @@ function validatePackageFormRegistryStrict(json) {
     "professional",
     "business",
   ]);
+
+  if (requiresPublicNameVi(json.version)) {
+    for (const layer of json.packageLayers || []) {
+      if (typeof layer?.publicNameVi !== "string" || layer.publicNameVi.trim().length === 0) {
+        throw new Error(`package-form-registry package layer ${layer?.key || "unknown"} thieu publicNameVi.`);
+      }
+    }
+  }
 
   if (json.guardrails?.businessDomainPublicState !== "planned_internal_only") {
     throw new Error("package-form-registry guardrails.businessDomainPublicState phai la planned_internal_only.");
@@ -454,10 +469,10 @@ function runSelfTest() {
     owner: "team4",
     guardrails: { businessDomainPublicState: "planned_internal_only" },
     packageLayers: [
-      { key: "foundation" },
-      { key: "applied" },
-      { key: "professional" },
-      { key: "business" },
+      { key: "foundation", publicNameVi: "Nền tảng" },
+      { key: "applied", publicNameVi: "Ứng dụng" },
+      { key: "professional", publicNameVi: "Chuyên nghiệp" },
+      { key: "business", publicNameVi: "Doanh nghiệp" },
     ],
     subdomainFormRegistry: [
       { surfaceKey: "business", runtimeState: "planned_internal_only" },
