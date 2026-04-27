@@ -356,6 +356,24 @@ input {
   margin-top: 20px;
 }
 
+.hero-illustration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-illustration img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+
+.hero-illustration img:hover {
+  opacity: 1;
+}
+
 .grid-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -434,6 +452,12 @@ input {
   color: #2c7be5;
   border-color: rgba(44, 123, 229, 0.28);
   background: rgba(44, 123, 229, 0.08);
+}
+
+.badge.external {
+  color: #6b7280;
+  border-color: rgba(107, 114, 128, 0.28);
+  background: rgba(107, 114, 128, 0.08);
 }
 
 .metrics {
@@ -1133,6 +1157,25 @@ input {
   color: color-mix(in srgb, var(--muted) 90%, white 10%);
   background: rgba(71, 85, 105, 0.08);
   border-color: rgba(71, 85, 105, 0.2);
+}
+
+/* Accessibility: respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessibility: visible focus indicator for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--accent, #22d3ee);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 @media (max-width: 980px) {

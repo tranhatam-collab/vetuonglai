@@ -63,6 +63,7 @@ const domains = {
   life: "life.vetuonglai.com",
   invest: "invest.vetuonglai.com",
   kids: "kids.vetuonglai.com",
+  read: "read.vetuonglai.com",
 };
 
 const kidsCurriculum = JSON.parse(await readFile(path.join(SRC, "data", "kids-curriculum.json"), "utf8"));
@@ -119,6 +120,7 @@ function normalizeSurfaceStatus(value = "") {
   const normalized = String(value || "").trim().toLowerCase();
   if (normalized === "live") return "live";
   if (normalized === "bridge") return "bridge";
+  if (normalized === "external") return "external";
   if (normalized === "member_preview" || normalized === "member-preview") return "member_preview";
   if (normalized === "beta" || normalized === "preview") return "member_preview";
   return "planned";
@@ -148,7 +150,7 @@ function resolveSurfaceStatusMeta(status = "") {
 
 function siteContentKeyForApp(appKey = "") {
   const key = String(appKey || "").trim().toLowerCase();
-  return ["hub", "vc", "edu", "life", "finance", "invest", "green"].includes(key) ? key : "";
+  return ["hub", "vc", "edu", "life", "finance", "invest", "green", "member", "work", "market", "community", "ai", "business", "kids"].includes(key) ? key : "";
 }
 
 function resolveAppPublicCopy(app) {
@@ -285,6 +287,13 @@ const siteTheme = {
     accent: "#ffb86f",
     accentSoft: "rgba(255, 184, 111, 0.18)",
     accentStrong: "#ffe7c7",
+  },
+  read: {
+    brand: "RD",
+    name: pair("Future READ", "Future READ"),
+    accent: "#a8c4e0",
+    accentSoft: "rgba(168, 196, 224, 0.18)",
+    accentStrong: "#dce8f4",
   },
 };
 
@@ -1226,6 +1235,7 @@ function registryStatusLabel(status) {
     member_preview: pair("Member Preview", "Member Preview"),
     planned: pair("Planned", "Planned"),
     bridge: pair("Bridge", "Bridge"),
+    external: pair("External", "External"),
   };
   const registryLabel = registryStatusVocabulary[normalized] || {};
 
@@ -1359,7 +1369,10 @@ function renderSection(title, note, content, sectionId = "") {
   `;
 }
 
-function renderHero({ eyebrow, title, description, beforeActions = "", actions = "", afterActions = "", aside = "" }) {
+function renderHero({ eyebrow, title, description, beforeActions = "", actions = "", afterActions = "", aside = "", heroIllustration = true }) {
+  const asideContent = aside || (heroIllustration
+    ? `<div class="hero-illustration"><img src="/assets/hero-illustration.svg" alt="" width="400" height="250" loading="eager" aria-hidden="true" /></div>`
+    : "");
   return `
     ${localizedText(eyebrow, "div", { class: "eyebrow" })}
     <div class="hero-grid">
@@ -1370,7 +1383,7 @@ function renderHero({ eyebrow, title, description, beforeActions = "", actions =
         ${actions ? `<div class="cluster">${actions}</div>` : ""}
         ${afterActions || ""}
       </div>
-      ${aside || ""}
+      ${asideContent}
     </div>
   `;
 }
@@ -1705,10 +1718,13 @@ function renderShell({
   <meta property="og:description" data-content-vi="${escapeHtml(descriptionCopy.vi)}" data-content-en="${escapeHtml(descriptionCopy.en)}" content="${escapeHtml(descriptionCopy.vi)}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="${escapeHtml(canonical)}" />
+  <meta property="og:image" content="${escapeHtml(absoluteUrl(domains[currentKey], "/assets/og-image.svg"))}" />
+  <meta property="og:image:alt" content="${escapeHtml(titleCopy.vi)}" />
 ${renderOgLocaleMeta()}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" data-content-vi="${escapeHtml(titleCopy.vi)}" data-content-en="${escapeHtml(titleCopy.en)}" content="${escapeHtml(titleCopy.vi)}" />
   <meta name="twitter:description" data-content-vi="${escapeHtml(descriptionCopy.vi)}" data-content-en="${escapeHtml(descriptionCopy.en)}" content="${escapeHtml(descriptionCopy.vi)}" />
+  <meta name="twitter:image" content="${escapeHtml(absoluteUrl(domains[currentKey], "/assets/og-image.svg"))}" />
   <link rel="canonical" href="${escapeHtml(canonical)}" />
 ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
   ${headExtras || ""}
@@ -1721,6 +1737,21 @@ ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
       --accent-strong: ${theme.accentStrong};
     }
   </style>
+  <script type="application/ld+json">
+  ${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": titleCopy.vi,
+    "description": descriptionCopy.vi,
+    "url": canonical,
+    "inLanguage": primaryRuntimeLocale,
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "Vetuonglai",
+      "url": `https://${domains.hub}/`,
+    },
+  })}
+  </script>
 </head>
   <body${bodyClass ? ` class="${escapeHtml(bodyClass)}"` : ""}>
   ${renderTopbar(currentKey, activeKey, navItems)}
@@ -4534,6 +4565,382 @@ function renderPwaIconSvg({ label = "VTL", accent = "#0ea5e9", background = "#0f
   <text x="128" y="223" text-anchor="middle" fill="#dff4ff" font-family="Arial, sans-serif" font-size="18" letter-spacing="3">${escapeHtml(label)}</text>
 </svg>
 `;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Domain-specific SVG icon metaphors for OG images & hero art.
+   Each returns pure SVG path/shape data — no text, no copyright.
+   ──────────────────────────────────────────────────────────────── */
+const domainIconMetaphors = {
+  /* hub — constellation / network of nodes */
+  hub: (c, s) => `
+    <circle cx="${c+60}" cy="${s-40}" r="8" fill="${c > 800 ? '#fff' : 'currentColor'}" opacity="0.9"/>
+    <circle cx="${c-30}" cy="${s+20}" r="6" fill="currentColor" opacity="0.7"/>
+    <circle cx="${c+120}" cy="${s+30}" r="10" fill="currentColor" opacity="0.8"/>
+    <circle cx="${c+20}" cy="${s+80}" r="7" fill="currentColor" opacity="0.6"/>
+    <circle cx="${c+90}" cy="${s-20}" r="5" fill="currentColor" opacity="0.5"/>
+    <circle cx="${c+160}" cy="${s+70}" r="9" fill="currentColor" opacity="0.7"/>
+    <circle cx="${c-10}" cy="${s+110}" r="6" fill="currentColor" opacity="0.4"/>
+    <line x1="${c+60}" y1="${s-40}" x2="${c+120}" y2="${s+30}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    <line x1="${c+60}" y1="${s-40}" x2="${c-30}" y2="${s+20}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    <line x1="${c+120}" y1="${s+30}" x2="${c+160}" y2="${s+70}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    <line x1="${c-30}" y1="${s+20}" x2="${c+20}" y2="${s+80}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    <line x1="${c+20}" y1="${s+80}" x2="${c+120}" y2="${s+30}" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+    <line x1="${c+90}" y1="${s-20}" x2="${c+160}" y2="${s+70}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+    <line x1="${c-10}" y1="${s+110}" x2="${c+20}" y2="${s+80}" stroke="currentColor" stroke-width="1" opacity="0.2"/>`,
+
+  /* edu — open book / ascending steps of knowledge */
+  edu: (c, s) => `
+    <path d="M${c} ${s+90} Q${c+50} ${s+50} ${c+100} ${s+90}" fill="none" stroke="currentColor" stroke-width="3" opacity="0.8"/>
+    <path d="M${c} ${s+90} Q${c+50} ${s+130} ${c+100} ${s+90}" fill="none" stroke="currentColor" stroke-width="3" opacity="0.8"/>
+    <line x1="${c+50}" y1="${s+50}" x2="${c+50}" y2="${s+20}" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+    <rect x="${c+20}" y="${s}" width="12" height="40" rx="2" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+44}" y="${s-10}" width="12" height="50" rx="2" fill="currentColor" opacity="0.5"/>
+    <rect x="${c+68}" y="${s+5}" width="12" height="35" rx="2" fill="currentColor" opacity="0.4"/>
+    <circle cx="${c+50}" cy="${s-20}" r="6" fill="currentColor" opacity="0.7"/>`,
+
+  /* vc — shield / checkmark — verification trust */
+  vc: (c, s) => `
+    <path d="M${c+50} ${s} L${c+100} ${s+25} L${c+100} ${s+70} Q${c+100} ${s+110} ${c+50} ${s+130} Q${c} ${s+110} ${c} ${s+70} L${c} ${s+25} Z" fill="none" stroke="currentColor" stroke-width="3" opacity="0.6"/>
+    <path d="M${c+50} ${s+10} L${c+90} ${s+30} L${c+90} ${s+68} Q${c+90} ${s+100} ${c+50} ${s+118} Q${c+10} ${s+100} ${c+10} ${s+68} L${c+10} ${s+30} Z" fill="currentColor" opacity="0.12"/>
+    <polyline points="${c+30},${s+65} ${c+45},${s+82} ${c+72},${s+48}" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>`,
+
+  /* finance — bar chart / coin stack */
+  finance: (c, s) => `
+    <rect x="${c}" y="${s+70}" width="18" height="50" rx="4" fill="currentColor" opacity="0.4"/>
+    <rect x="${c+28}" y="${s+45}" width="18" height="75" rx="4" fill="currentColor" opacity="0.55"/>
+    <rect x="${c+56}" y="${s+25}" width="18" height="95" rx="4" fill="currentColor" opacity="0.7"/>
+    <rect x="${c+84}" y="${s+10}" width="18" height="110" rx="4" fill="currentColor" opacity="0.85"/>
+    <circle cx="${c+130}" cy="${s+50}" r="22" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.5"/>
+    <circle cx="${c+130}" cy="${s+50}" r="14" fill="currentColor" opacity="0.15"/>
+    <line x1="${c}" y1="${s+122}" x2="${c+102}" y2="${s+122}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>`,
+
+  /* green — leaf / growing plant */
+  green: (c, s) => `
+    <line x1="${c+50}" y1="${s+130}" x2="${c+50}" y2="${s+40}" stroke="currentColor" stroke-width="3" opacity="0.5"/>
+    <path d="M${c+50} ${s+60} Q${c+20} ${s+20} ${c+50} ${s} Q${c+80} ${s+20} ${c+50} ${s+60}" fill="currentColor" opacity="0.25"/>
+    <path d="M${c+50} ${s+60} Q${c+30} ${s+30} ${c+50} ${s+10}" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+    <path d="M${c+50} ${s+90} Q${c+10} ${s+70} ${c+5} ${s+40}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+    <path d="M${c+50} ${s+80} Q${c+90} ${s+60} ${c+95} ${s+35}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+    <ellipse cx="${c+5}" cy="${s+35}" rx="15" ry="22" transform="rotate(-30,${c+5},${s+35})" fill="currentColor" opacity="0.15"/>
+    <ellipse cx="${c+95}" cy="${s+30}" rx="15" ry="22" transform="rotate(30,${c+95},${s+30})" fill="currentColor" opacity="0.15"/>
+    <circle cx="${c+50}" cy="${s+130}" r="4" fill="currentColor" opacity="0.5"/>`,
+
+  /* member — person silhouette + ID card */
+  member: (c, s) => `
+    <circle cx="${c+50}" cy="${s+25}" r="20" fill="currentColor" opacity="0.3"/>
+    <path d="M${c+15} ${s+90} Q${c+15} ${s+55} ${c+50} ${s+50} Q${c+85} ${s+55} ${c+85} ${s+90}" fill="currentColor" opacity="0.2"/>
+    <rect x="${c+5}" y="${s+95}" width="90" height="35" rx="6" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    <line x1="${c+15}" y1="${s+108}" x2="${c+55}" y2="${s+108}" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+    <line x1="${c+15}" y1="${s+118}" x2="${c+40}" y2="${s+118}" stroke="currentColor" stroke-width="2" opacity="0.2"/>
+    <rect x="${c+65}" y="${s+102}" width="22" height="22" rx="3" fill="currentColor" opacity="0.15"/>`,
+
+  /* life — heartbeat / pulse rhythm */
+  life: (c, s) => `
+    <polyline points="${c},${s+65} ${c+25},${s+65} ${c+35},${s+30} ${c+50},${s+100} ${c+65},${s+45} ${c+75},${s+65} ${c+100},${s+65}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    <circle cx="${c+50}" cy="${s+65}" r="40" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.15"/>
+    <circle cx="${c+50}" cy="${s+65}" r="55" fill="none" stroke="currentColor" stroke-width="1" opacity="0.08"/>`,
+
+  /* invest — trend line / growth arrow */
+  invest: (c, s) => `
+    <polyline points="${c},${s+110} ${c+30},${s+80} ${c+55},${s+90} ${c+80},${s+40} ${c+110},${s+10}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    <polygon points="${c+105},${s} ${c+120},${s+5} ${c+115},${s+20}" fill="currentColor" opacity="0.6"/>
+    <line x1="${c}" y1="${s+120}" x2="${c+115}" y2="${s+120}" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
+    <line x1="${c}" y1="${s+120}" x2="${c}" y2="${s}" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="${c+80}" cy="${s+40}" r="5" fill="currentColor" opacity="0.5"/>
+    <circle cx="${c+30}" cy="${s+80}" r="4" fill="currentColor" opacity="0.4"/>`,
+
+  /* work — briefcase / tools */
+  work: (c, s) => `
+    <rect x="${c+10}" y="${s+40}" width="80" height="60" rx="8" fill="currentColor" opacity="0.15"/>
+    <rect x="${c+10}" y="${s+40}" width="80" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"/>
+    <path d="M${c+35} ${s+40} L${c+35} ${s+25} Q${c+35} ${s+15} ${c+45} ${s+15} L${c+55} ${s+15} Q${c+65} ${s+15} ${c+65} ${s+25} L${c+65} ${s+40}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    <line x1="${c+10}" y1="${s+65}" x2="${c+90}" y2="${s+65}" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+    <rect x="${c+42}" y="${s+58}" width="16" height="14" rx="3" fill="currentColor" opacity="0.4"/>`,
+
+  /* market — storefront / display grid */
+  market: (c, s) => `
+    <rect x="${c}" y="${s+30}" width="100" height="90" rx="6" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    <line x1="${c}" y1="${s+55}" x2="${c+100}" y2="${s+55}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    <line x1="${c+50}" y1="${s+55}" x2="${c+50}" y2="${s+120}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    <path d="M${c+10} ${s+30} L${c+50} ${s} L${c+90} ${s+30}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+    <rect x="${c+12}" y="${s+65}" width="26" height="20" rx="3" fill="currentColor" opacity="0.2"/>
+    <rect x="${c+62}" y="${s+65}" width="26" height="20" rx="3" fill="currentColor" opacity="0.2"/>
+    <rect x="${c+12}" y="${s+95}" width="26" height="16" rx="3" fill="currentColor" opacity="0.15"/>
+    <rect x="${c+62}" y="${s+95}" width="26" height="16" rx="3" fill="currentColor" opacity="0.15"/>`,
+
+  /* community — overlapping circles / people group */
+  community: (c, s) => `
+    <circle cx="${c+30}" cy="${s+50}" r="28" fill="currentColor" opacity="0.12"/>
+    <circle cx="${c+70}" cy="${s+50}" r="28" fill="currentColor" opacity="0.12"/>
+    <circle cx="${c+50}" cy="${s+25}" r="28" fill="currentColor" opacity="0.12"/>
+    <circle cx="${c+30}" cy="${s+50}" r="28" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+    <circle cx="${c+70}" cy="${s+50}" r="28" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+    <circle cx="${c+50}" cy="${s+25}" r="28" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
+    <circle cx="${c+50}" cy="${s+42}" r="5" fill="currentColor" opacity="0.6"/>`,
+
+  /* ai — neural / circuit pattern */
+  ai: (c, s) => `
+    <circle cx="${c+50}" cy="${s+55}" r="12" fill="currentColor" opacity="0.4"/>
+    <circle cx="${c+50}" cy="${s+55}" r="8" fill="currentColor" opacity="0.2"/>
+    <circle cx="${c+10}" cy="${s+20}" r="6" fill="currentColor" opacity="0.3"/>
+    <circle cx="${c+90}" cy="${s+20}" r="6" fill="currentColor" opacity="0.3"/>
+    <circle cx="${c+10}" cy="${s+90}" r="6" fill="currentColor" opacity="0.3"/>
+    <circle cx="${c+90}" cy="${s+90}" r="6" fill="currentColor" opacity="0.3"/>
+    <circle cx="${c+50}" cy="${s}" r="5" fill="currentColor" opacity="0.25"/>
+    <circle cx="${c+50}" cy="${s+110}" r="5" fill="currentColor" opacity="0.25"/>
+    <line x1="${c+50}" y1="${s+55}" x2="${c+10}" y2="${s+20}" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+    <line x1="${c+50}" y1="${s+55}" x2="${c+90}" y2="${s+20}" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+    <line x1="${c+50}" y1="${s+55}" x2="${c+10}" y2="${s+90}" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+    <line x1="${c+50}" y1="${s+55}" x2="${c+90}" y2="${s+90}" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
+    <line x1="${c+50}" y1="${s+55}" x2="${c+50}" y2="${s}" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
+    <line x1="${c+50}" y1="${s+55}" x2="${c+50}" y2="${s+110}" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>`,
+
+  /* business — building / org chart */
+  business: (c, s) => `
+    <rect x="${c+25}" y="${s+20}" width="50" height="100" rx="4" fill="currentColor" opacity="0.15"/>
+    <rect x="${c+25}" y="${s+20}" width="50" height="100" rx="4" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    <rect x="${c+35}" y="${s+35}" width="10" height="10" rx="1" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+55}" y="${s+35}" width="10" height="10" rx="1" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+35}" y="${s+55}" width="10" height="10" rx="1" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+55}" y="${s+55}" width="10" height="10" rx="1" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+35}" y="${s+75}" width="10" height="10" rx="1" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+55}" y="${s+75}" width="10" height="10" rx="1" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+42}" y="${s+100}" width="16" height="20" rx="2" fill="currentColor" opacity="0.25"/>
+    <rect x="${c}" y="${s+60}" width="20" height="60" rx="3" fill="currentColor" opacity="0.1"/>
+    <rect x="${c+80}" y="${s+50}" width="20" height="70" rx="3" fill="currentColor" opacity="0.1"/>`,
+
+  /* kids — star / sun / playful shapes */
+  kids: (c, s) => `
+    <polygon points="${c+50},${s} ${c+62},${s+38} ${c+100},${s+42} ${c+70},${s+68} ${c+80},${s+108} ${c+50},${s+85} ${c+20},${s+108} ${c+30},${s+68} ${c},${s+42} ${c+38},${s+38}" fill="currentColor" opacity="0.2"/>
+    <polygon points="${c+50},${s+15} ${c+58},${s+40} ${c+85},${s+43} ${c+64},${s+62} ${c+72},${s+90} ${c+50},${s+75} ${c+28},${s+90} ${c+36},${s+62} ${c+15},${s+43} ${c+42},${s+40}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    <circle cx="${c+50}" cy="${s+50}" r="12" fill="currentColor" opacity="0.3"/>`,
+
+  /* read — open book / pages */
+  read: (c, s) => `
+    <path d="M${c+50} ${s+20} Q${c+10} ${s+25} ${c} ${s+40} L${c} ${s+100} Q${c+10} ${s+85} ${c+50} ${s+80}" fill="currentColor" opacity="0.12"/>
+    <path d="M${c+50} ${s+20} Q${c+90} ${s+25} ${c+100} ${s+40} L${c+100} ${s+100} Q${c+90} ${s+85} ${c+50} ${s+80}" fill="currentColor" opacity="0.12"/>
+    <path d="M${c+50} ${s+20} Q${c+10} ${s+25} ${c} ${s+40} L${c} ${s+100} Q${c+10} ${s+85} ${c+50} ${s+80}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    <path d="M${c+50} ${s+20} Q${c+90} ${s+25} ${c+100} ${s+40} L${c+100} ${s+100} Q${c+90} ${s+85} ${c+50} ${s+80}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
+    <line x1="${c+50}" y1="${s+20}" x2="${c+50}" y2="${s+80}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
+    <line x1="${c+12}" y1="${s+52}" x2="${c+42}" y2="${s+48}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+    <line x1="${c+12}" y1="${s+62}" x2="${c+42}" y2="${s+58}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+    <line x1="${c+12}" y1="${s+72}" x2="${c+42}" y2="${s+68}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+    <line x1="${c+58}" y1="${s+48}" x2="${c+88}" y2="${s+52}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+    <line x1="${c+58}" y1="${s+58}" x2="${c+88}" y2="${s+62}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
+    <line x1="${c+58}" y1="${s+68}" x2="${c+88}" y2="${s+72}" stroke="currentColor" stroke-width="1" opacity="0.2"/>`,
+};
+
+function renderOgImageSvg({
+  title = "Vetuonglai",
+  subtitle = "No promised outcomes. Only structure.",
+  accent = "#22d3ee",
+  accentSoft = "rgba(34, 211, 238, 0.18)",
+  domainKey = "hub",
+  domainHost = "vetuonglai.com",
+} = {}) {
+  const iconFn = domainIconMetaphors[domainKey] || domainIconMetaphors.hub;
+  /* Icon positioned at right side of the card area */
+  const iconSvg = iconFn(880, 160);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="${escapeHtml(title)} open graph image">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="50%" stop-color="#101b2d"/>
+      <stop offset="100%" stop-color="#0d1525"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="${accent}"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="75%" cy="35%" r="45%">
+      <stop offset="0%" stop-color="${accent}" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="cardFill" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.06)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0.02)"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Decorative ambient circles -->
+  <circle cx="1050" cy="-60" r="320" fill="${accentSoft}" opacity="0.6"/>
+  <circle cx="180" cy="720" r="280" fill="${accentSoft}" opacity="0.4"/>
+  <circle cx="600" cy="315" r="180" fill="${accentSoft}" opacity="0.08"/>
+
+  <!-- Subtle grid pattern -->
+  <line x1="200" y1="0" x2="200" y2="630" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="630" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <line x1="600" y1="0" x2="600" y2="630" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <line x1="800" y1="0" x2="800" y2="630" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <line x1="1000" y1="0" x2="1000" y2="630" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <line x1="0" y1="157" x2="1200" y2="157" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <line x1="0" y1="315" x2="1200" y2="315" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+  <line x1="0" y1="473" x2="1200" y2="473" stroke="rgba(255,255,255,0.02)" stroke-width="1"/>
+
+  <!-- Main card -->
+  <rect x="60" y="60" width="1080" height="510" rx="24" fill="url(#cardFill)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+  <!-- Accent stripe top -->
+  <rect x="60" y="60" width="1080" height="4" rx="2" fill="${accent}" opacity="0.6"/>
+
+  <!-- Domain icon illustration (right side) -->
+  <g color="${accent}" opacity="0.85">
+    ${iconSvg}
+  </g>
+
+  <!-- Text content (left side) -->
+  <text x="112" y="200" fill="#ffffff" font-family="Plus Jakarta Sans, Inter, Arial, sans-serif" font-size="64" font-weight="700" opacity="0.95">${escapeHtml(title)}</text>
+  <text x="112" y="260" fill="#c0d0e4" font-family="Inter, Arial, sans-serif" font-size="28" opacity="0.8">${escapeHtml(subtitle)}</text>
+
+  <!-- Accent bar -->
+  <rect x="112" y="300" width="320" height="4" rx="2" fill="url(#accent)" opacity="0.7"/>
+
+  <!-- Brand mark -->
+  <text x="112" y="500" fill="#8ea3bf" font-family="JetBrains Mono, Menlo, monospace" font-size="22" letter-spacing="3" opacity="0.7">${escapeHtml(domainHost)}</text>
+
+  <!-- Small brand dot -->
+  <circle cx="90" cy="496" r="4" fill="${accent}" opacity="0.6"/>
+</svg>
+`;
+}
+
+/* ────────────────────────────────────────────────────────────────
+   Hero illustration SVG — larger, more detailed version
+   for the hero section of each domain page.
+   800×500 viewBox, pure vector, no text.
+   ──────────────────────────────────────────────────────────────── */
+function renderHeroIllustrationSvg({
+  accent = "#22d3ee",
+  accentSoft = "rgba(34, 211, 238, 0.18)",
+  domainKey = "hub",
+} = {}) {
+  const iconFn = domainIconMetaphors[domainKey] || domainIconMetaphors.hub;
+  /* Center the icon in a larger canvas with more breathing room */
+  const iconSvg = iconFn(350, 180);
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500" role="img" aria-label="Hero illustration">
+  <defs>
+    <radialGradient id="heroGlow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="${accent}" stop-opacity="0.15"/>
+      <stop offset="70%" stop-color="${accent}" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="${accent}" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Soft background glow -->
+  <rect width="800" height="500" fill="transparent"/>
+  <rect width="800" height="500" fill="url(#heroGlow)"/>
+
+  <!-- Ambient rings -->
+  <circle cx="400" cy="250" r="180" fill="none" stroke="${accent}" stroke-width="1" opacity="0.08"/>
+  <circle cx="400" cy="250" r="140" fill="none" stroke="${accent}" stroke-width="1" opacity="0.06"/>
+  <circle cx="400" cy="250" r="100" fill="none" stroke="${accent}" stroke-width="0.5" opacity="0.04"/>
+
+  <!-- Domain icon (centered, larger scale) -->
+  <g color="${accent}" opacity="0.9" transform="scale(1.8) translate(-40,-10)">
+    ${iconSvg}
+  </g>
+
+  <!-- Decorative dots -->
+  <circle cx="120" cy="80" r="3" fill="${accent}" opacity="0.2"/>
+  <circle cx="680" cy="420" r="3" fill="${accent}" opacity="0.2"/>
+  <circle cx="700" cy="100" r="2" fill="${accent}" opacity="0.15"/>
+  <circle cx="100" cy="400" r="2" fill="${accent}" opacity="0.15"/>
+  <circle cx="400" cy="460" r="2.5" fill="${accent}" opacity="0.12"/>
+</svg>
+`;
+}
+
+async function ensureDomainOgAsset(domain) {
+  const domainKey = Object.entries(domains).find(([, host]) => host === domain)?.[0] || "hub";
+  const theme = siteTheme[domainKey] || siteTheme.hub;
+  const title = normalizeCopy(theme.name).vi || domainKey.toUpperCase();
+  const siteKey = siteContentKeyForApp(domainKey);
+  const subtitle = siteKey
+    ? readNestedValue(contentEn, `sites.${siteKey}.seo.description`, "No promised outcomes. Only structure.")
+    : "No promised outcomes. Only structure.";
+  /* Truncate subtitle for OG image readability (max ~80 chars) */
+  const shortSubtitle = subtitle.length > 80 ? `${subtitle.slice(0, 77)}...` : subtitle;
+
+  await writeSiteFile(domain, "assets/og-image.svg", renderOgImageSvg({
+    title,
+    subtitle: shortSubtitle,
+    accent: theme.accent,
+    accentSoft: theme.accentSoft,
+    domainKey,
+    domainHost: domain,
+  }));
+
+  await writeSiteFile(domain, "assets/hero-illustration.svg", renderHeroIllustrationSvg({
+    accent: theme.accent,
+    accentSoft: theme.accentSoft,
+    domainKey,
+  }));
+}
+
+async function listDomainHtmlFiles(domain) {
+  const base = path.join(DIST, domain);
+  const files = [];
+
+  async function walk(dir) {
+    const entries = await readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const nextPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        await walk(nextPath);
+      } else if (entry.isFile() && nextPath.toLowerCase().endsWith(".html")) {
+        files.push(nextPath);
+      }
+    }
+  }
+
+  await walk(base);
+  return files;
+}
+
+function injectOgImageMeta(html, domain) {
+  if (typeof html !== "string" || html.length === 0) return html;
+  if (html.includes('property="og:image"') && html.includes('name="twitter:image"')) return html;
+
+  const imageUrl = absoluteUrl(domain, "/assets/og-image.svg");
+  const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+  const title = titleMatch?.[1]?.trim() || "Vetuonglai";
+  let next = html;
+
+  if (!next.includes('property="og:image"')) {
+    const ogImageMeta = `  <meta property="og:image" content="${escapeHtml(imageUrl)}" />\n  <meta property="og:image:alt" content="${escapeHtml(title)}" />\n`;
+    if (next.includes("</head>")) {
+      next = next.replace("</head>", `${ogImageMeta}</head>`);
+    }
+  }
+
+  if (!next.includes('name="twitter:image"')) {
+    const twitterImageMeta = `  <meta name="twitter:image" content="${escapeHtml(imageUrl)}" />\n`;
+    if (next.includes("</head>")) {
+      next = next.replace("</head>", `${twitterImageMeta}</head>`);
+    }
+  }
+
+  return next;
+}
+
+async function applyOgImageBaselineToDomain(domain) {
+  const htmlFiles = await listDomainHtmlFiles(domain);
+  for (const filePath of htmlFiles) {
+    const original = await readFile(filePath, "utf8");
+    const updated = injectOgImageMeta(original, domain);
+    if (updated !== original) {
+      await writeFile(filePath, updated, "utf8");
+    }
+  }
 }
 
 function renderMemberAppServiceWorker() {
@@ -8604,7 +9011,7 @@ async function acquireBuildLock() {
 }
 
 async function releaseBuildLock() {
-  await rm(BUILD_LOCK_DIR, { recursive: true, force: true });
+  await rm(BUILD_LOCK_DIR, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 }
 
 async function resetDistRoot() {
@@ -8614,13 +9021,13 @@ async function resetDistRoot() {
     if (entry === lockDirName) {
       continue;
     }
-    await rm(path.join(DIST, entry), { recursive: true, force: true });
+    await rm(path.join(DIST, entry), { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   }
 }
 
 async function resetDomainDist(domain) {
   const domainRoot = path.join(DIST, domain);
-  await rm(domainRoot, { recursive: true, force: true });
+  await rm(domainRoot, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
   await ensureDir(domainRoot);
 }
 
@@ -8649,6 +9056,7 @@ async function writeAssets(domain) {
   await writeSiteFile(domain, "assets/design-tokens.json", designTokensJson);
   await writeSiteFile(domain, "assets/style.css", styleCss);
   await writeSiteFile(domain, "assets/app.js", sharedJs);
+  await ensureDomainOgAsset(domain);
 }
 
 function buildLog(step) {
@@ -9373,6 +9781,12 @@ async function build() {
   buildLog("rendering kids");
   await renderKidsDomain();
   buildLog("kids done");
+
+  buildLog("rendering read");
+  await ensureDomainOgAsset(domains.read);
+  await copyStaticTreeForDomain(domains.read);
+  await applyOgImageBaselineToDomain(domains.read);
+  buildLog("read done");
   } finally {
     await releaseBuildLock();
   }
@@ -9538,6 +9952,7 @@ function escBuildHtml(s) {
 
 async function renderKidsDomain() {
   const domain = domains.kids;
+  await ensureDomainOgAsset(domain);
   await copyStaticTreeForDomain(domain);
 
   const robots = [
@@ -9650,6 +10065,8 @@ async function renderKidsDomain() {
     apiStage: kidsApiContract.stage,
     childSafety: kidsCurriculum.childSafety || {},
   }));
+
+  await applyOgImageBaselineToDomain(domain);
 }
 
 await build();

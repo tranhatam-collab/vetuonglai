@@ -24,7 +24,8 @@
       "live": "Live",
       "member_preview": "Member Preview",
       "planned": "Planned",
-      "bridge": "Bridge"
+      "bridge": "Bridge",
+      "external": "External"
     }
   },
   "sites": {
@@ -110,6 +111,102 @@
         "title": "GREEN",
         "subline": "Turn green claims into evidence.",
         "primary_cta": "View a sample dossier"
+      }
+    },
+    "member": {
+      "seo": {
+        "title": "MEMBER | Profile, access, and proof in one entry point",
+        "description": "The member system that keeps profile, access, progress, and proof in one shared entry point."
+      },
+      "hero": {
+        "eyebrow": "Member layer",
+        "title": "MEMBER",
+        "subline": "The member layer keeps profile, access, progress, and proof in one shared entry point.",
+        "primary_cta": "View membership"
+      }
+    },
+    "work": {
+      "seo": {
+        "title": "WORK | Proof first, apply later",
+        "description": "WORK is a public layer in Planned status for sample briefs, proof framing, and a clear path back to the hub."
+      },
+      "hero": {
+        "eyebrow": "WORK public",
+        "title": "WORK",
+        "subline": "You may have skills, but people still do not see enough proof to choose you. WORK opens a public layer with sample briefs and a clear next step.",
+        "primary_cta": "View sample briefs"
+      }
+    },
+    "market": {
+      "seo": {
+        "title": "MARKET | Sample assets first, commerce later",
+        "description": "MARKET is a public layer in Planned status for sample assets, storefront previews, and trust framing before commerce goes live."
+      },
+      "hero": {
+        "eyebrow": "MARKET public",
+        "title": "MARKET",
+        "subline": "MARKET currently opens public samples to explain digital assets, creator presentation, and trust rules.",
+        "primary_cta": "View sample assets"
+      }
+    },
+    "community": {
+      "seo": {
+        "title": "COMMUNITY | Cohort preview and safe participation",
+        "description": "COMMUNITY is a public layer in Planned status for cohort previews, participation principles, and valid entry points."
+      },
+      "hero": {
+        "eyebrow": "COMMUNITY public",
+        "title": "COMMUNITY",
+        "subline": "COMMUNITY currently opens a preview layer for cohorts, circles, and safe participation principles.",
+        "primary_cta": "View preview"
+      }
+    },
+    "ai": {
+      "seo": {
+        "title": "AI | Use-case previews and safe AI boundaries",
+        "description": "AI is a public layer in Planned status for sample-use previews, guided demos, and safe AI boundaries."
+      },
+      "hero": {
+        "eyebrow": "AI public",
+        "title": "AI",
+        "subline": "AI currently opens a preview layer for sample use cases, safe AI boundaries, and guided previews.",
+        "primary_cta": "View sample use cases"
+      }
+    },
+    "business": {
+      "seo": {
+        "title": "BUSINESS | Enterprise direction before rollout",
+        "description": "The BUSINESS layer is in Planned status for enterprise intake, path comparison, and next-step guidance."
+      },
+      "hero": {
+        "eyebrow": "BUSINESS enterprise",
+        "title": "BUSINESS",
+        "subline": "BUSINESS is in a preview layer. This page opens only orientation, package guidance, and safe demos.",
+        "primary_cta": "View enterprise path"
+      }
+    },
+    "kids": {
+      "seo": {
+        "title": "KIDS | Vetuonglai Kids — Learn the right way",
+        "description": "A learning layer for children with interactive lessons, practice exercises, and a safe learning assistant."
+      },
+      "hero": {
+        "eyebrow": "Dedicated zone for children",
+        "title": "KIDS",
+        "subline": "Vetuonglai Kids — Learn the right way, safely, with parents alongside.",
+        "primary_cta": "Start learning"
+      }
+    },
+    "read": {
+      "seo": {
+        "title": "READ | Long-form knowledge layer",
+        "description": "A long-form knowledge layer with essays and ebooks about the future. Currently in Phase 0: public reading shell only."
+      },
+      "hero": {
+        "eyebrow": "Knowledge layer",
+        "title": "READ",
+        "subline": "A long-form knowledge layer — essays, books, and deep writing about the future.",
+        "primary_cta": "View transparency commitment"
       }
     }
   }

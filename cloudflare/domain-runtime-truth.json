@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-22",
+  "lastUpdated": "2026-04-28",
   "domains": [
     {
       "host": "vetuonglai.com",
@@ -12,7 +12,7 @@
       "host": "member.vetuonglai.com",
       "url": "https://member.vetuonglai.com",
       "servingModel": "worker_fronted",
-      "status": "live",
+      "status": "member_preview",
       "requiredPublic": true,
       "updatedAt": "2026-04-21"
     },
@@ -27,7 +27,7 @@
       "host": "edu.vetuonglai.com",
       "url": "https://edu.vetuonglai.com",
       "servingModel": "worker_fronted",
-      "status": "live",
+      "status": "member_preview",
       "requiredPublic": true
     },
     {
@@ -104,6 +104,22 @@
         "isolated": true,
         "primaryNav": false,
         "publicDiscovery": false
+      }
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false,
+      "owner_team": "team1",
+      "creator_economy": {
+        "phase": 0,
+        "phase_label": "reading_shell_only",
+        "monetization_open": false,
+        "contributor_onboarding_open": false,
+        "public_transparency_mode": "principles_only",
+        "lock_doc": "docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md"
       }
     }
   ]

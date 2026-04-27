@@ -21,10 +21,11 @@
       "explore_related_layer": "Xem lớp liên quan"
     },
     "status": {
-      "live": "Live",
-      "member_preview": "Member Preview",
-      "planned": "Planned",
-      "bridge": "Bridge"
+      "live": "Đang hoạt động",
+      "member_preview": "Thành viên xem trước",
+      "planned": "Đang chuẩn bị",
+      "bridge": "Cầu nối",
+      "external": "Hệ ngoài"
     }
   },
   "sites": {
@@ -73,7 +74,7 @@
         "eyebrow": "Lớp đời sống",
         "title": "NHỊP SỐNG",
         "subline": "Ổn định cuộc sống trước khi tối ưu cuộc đời.",
-        "primary_cta": "Bắt đầu từ baseline"
+        "primary_cta": "Bắt đầu từ mốc khởi đầu"
       }
     },
     "finance": {
@@ -110,6 +111,102 @@
         "title": "XANH",
         "subline": "Biến tuyên bố xanh thành bằng chứng.",
         "primary_cta": "Xem hồ sơ mẫu"
+      }
+    },
+    "member": {
+      "seo": {
+        "title": "MEMBER | Lớp thành viên — hồ sơ, quyền và bằng chứng",
+        "description": "Hệ thống thành viên để giữ hồ sơ, quyền truy cập, tiến độ và bằng chứng trong một điểm vào."
+      },
+      "hero": {
+        "eyebrow": "Lớp thành viên",
+        "title": "THÀNH VIÊN",
+        "subline": "Lớp thành viên giữ hồ sơ, quyền truy cập, tiến độ và bằng chứng trong cùng một điểm vào.",
+        "primary_cta": "Xem quyền lợi"
+      }
+    },
+    "work": {
+      "seo": {
+        "title": "WORK | Proof trước, apply sau",
+        "description": "WORK là lớp công khai ở trạng thái Planned để mở brief mẫu, khung bằng chứng và đường đi tiếp về hub."
+      },
+      "hero": {
+        "eyebrow": "WORK công khai",
+        "title": "VIỆC LÀM",
+        "subline": "Bạn có kỹ năng nhưng người đối diện chưa thấy đủ bằng chứng để chọn bạn. WORK mở lớp công khai với brief mẫu và hướng đi tiếp rõ ràng.",
+        "primary_cta": "Xem brief mẫu"
+      }
+    },
+    "market": {
+      "seo": {
+        "title": "MARKET | Tài sản mẫu trước, giao dịch sau",
+        "description": "MARKET là lớp công khai ở trạng thái Planned cho tài sản mẫu, xem trước gian trưng bày và cách đọc mức độ tin cậy trước khi giao dịch hoạt động."
+      },
+      "hero": {
+        "eyebrow": "MARKET công khai",
+        "title": "CHỢ",
+        "subline": "MARKET hiện mở các mẫu công khai để giải thích tài sản số, cách người tạo trình bày và quy tắc tin cậy.",
+        "primary_cta": "Xem tài sản mẫu"
+      }
+    },
+    "community": {
+      "seo": {
+        "title": "COMMUNITY | Bản xem trước cohort và cộng đồng",
+        "description": "COMMUNITY là lớp công khai ở trạng thái Planned để mở bản xem trước cohort, nguyên tắc tham gia và điểm vào hợp lệ."
+      },
+      "hero": {
+        "eyebrow": "COMMUNITY công khai",
+        "title": "CỘNG ĐỒNG",
+        "subline": "COMMUNITY hiện mở lớp xem trước để giới thiệu cohort, circle và cách tham gia an toàn.",
+        "primary_cta": "Xem bản xem trước"
+      }
+    },
+    "ai": {
+      "seo": {
+        "title": "AI | Bản xem trước tình huống và ranh giới dùng AI",
+        "description": "AI là lớp công khai ở trạng thái Planned cho bản xem trước tình huống, demo trợ giúp và ranh giới dùng AI đúng chỗ."
+      },
+      "hero": {
+        "eyebrow": "AI công khai",
+        "title": "AI",
+        "subline": "AI hiện mở lớp xem trước cho tình huống mẫu, nguyên tắc dùng AI đúng chỗ và bản xem trước an toàn.",
+        "primary_cta": "Xem tình huống mẫu"
+      }
+    },
+    "business": {
+      "seo": {
+        "title": "BUSINESS | Định hướng doanh nghiệp trước khi triển khai",
+        "description": "Lớp BUSINESS đang ở trạng thái Planned để mở trao đổi doanh nghiệp, so sánh lộ trình và gợi ý bước tiếp theo."
+      },
+      "hero": {
+        "eyebrow": "BUSINESS doanh nghiệp",
+        "title": "DOANH NGHIỆP",
+        "subline": "BUSINESS đang ở lớp xem trước. Trang này chỉ mở định hướng, gợi ý gói và demo an toàn.",
+        "primary_cta": "Xem lộ trình doanh nghiệp"
+      }
+    },
+    "kids": {
+      "seo": {
+        "title": "KIDS | Trẻ Em Về Tương Lai — Học đúng cách",
+        "description": "Lớp học dành cho trẻ em với bài học tương tác, bài tập thực hành và trợ lý học tập an toàn."
+      },
+      "hero": {
+        "eyebrow": "Vùng riêng cho trẻ em",
+        "title": "TRẺ EM",
+        "subline": "Trẻ Em Về Tương Lai — Học đúng cách, an toàn và có phụ huynh đồng hành.",
+        "primary_cta": "Bắt đầu học"
+      }
+    },
+    "read": {
+      "seo": {
+        "title": "READ | Lớp tri thức dài hạn",
+        "description": "Lớp tri thức dài hạn với essay và sách điện tử về tương lai. Đang ở Phase 0: mở lớp đọc công khai, chưa mở checkout và payout."
+      },
+      "hero": {
+        "eyebrow": "Lớp tri thức",
+        "title": "ĐỌC",
+        "subline": "Lớp tri thức dài hạn — essay, sách và bài viết sâu về tương lai.",
+        "primary_cta": "Xem cam kết minh bạch"
       }
     }
   }

@@ -1,116 +1,136 @@
 {
-  "version": "2026-04-22-team2-wave-b-business-planned-safe",
+  "version": "2026-04-28-read-phase0-bootstrap",
   "statusVocabulary": {
     "live": {
-      "vi": "Live",
+      "vi": "Đang hoạt động",
       "en": "Live"
     },
     "member_preview": {
-      "vi": "Member Preview",
+      "vi": "Thành viên xem trước",
       "en": "Member Preview"
     },
     "planned": {
-      "vi": "Planned",
+      "vi": "Đang chuẩn bị",
       "en": "Planned"
     },
     "bridge": {
-      "vi": "Bridge",
+      "vi": "Cầu nối",
       "en": "Bridge"
+    },
+    "external": {
+      "vi": "Hệ ngoài",
+      "en": "External"
     }
   },
   "domains": [
     {
       "key": "hub",
-      "labelVi": "Hub",
-      "labelEn": "Hub",
+      "labelVi": "Trang chủ",
+      "labelEn": "Home",
       "host": "vetuonglai.com",
       "url": "https://vetuonglai.com",
       "status": "live",
       "stageLabel": "LIVE",
       "primaryNav": true,
-      "mission": "onboarding + ecosystem map"
+      "mission": "onboarding + ecosystem map",
+      "missionVi": "giới thiệu hệ và bản đồ các lớp",
+      "missionEn": "onboarding + ecosystem map"
     },
     {
       "key": "edu",
-      "labelVi": "EDU",
-      "labelEn": "EDU",
+      "labelVi": "Học",
+      "labelEn": "Learn",
       "host": "edu.vetuonglai.com",
       "url": "https://edu.vetuonglai.com",
-      "status": "live",
-      "stageLabel": "LIVE",
+      "status": "member_preview",
+      "stageLabel": "MEMBER_PREVIEW",
       "primaryNav": true,
-      "mission": "learning + output + packet to VC"
+      "mission": "learning + output + packet to VC",
+      "missionVi": "học để làm được việc, tạo đầu ra, nối sang xác minh",
+      "missionEn": "learning + output + packet to VC"
     },
     {
       "key": "vc",
-      "labelVi": "VC",
-      "labelEn": "VC",
+      "labelVi": "Xác minh",
+      "labelEn": "Verify",
       "host": "vc.vetuonglai.com",
       "url": "https://vc.vetuonglai.com",
       "status": "live",
       "stageLabel": "LIVE",
       "primaryNav": true,
-      "mission": "independent verification registry"
+      "mission": "independent verification registry",
+      "missionVi": "sổ xác minh độc lập",
+      "missionEn": "independent verification registry"
     },
     {
       "key": "life",
-      "labelVi": "LIFE",
-      "labelEn": "LIFE",
+      "labelVi": "Nhịp sống",
+      "labelEn": "Life",
       "host": "life.vetuonglai.com",
       "url": "https://life.vetuonglai.com",
       "status": "planned",
       "stageLabel": "PLANNED",
       "primaryNav": true,
-      "mission": "life rhythm + recovery + stability"
+      "mission": "life rhythm + recovery + stability",
+      "missionVi": "ổn định nhịp sống, giữ năng lượng và tạo kỷ luật nền",
+      "missionEn": "life rhythm + recovery + stability"
     },
     {
       "key": "finance",
-      "labelVi": "FIN",
-      "labelEn": "FIN",
+      "labelVi": "Tài chính",
+      "labelEn": "Finance",
       "host": "finance.vetuonglai.com",
       "url": "https://finance.vetuonglai.com",
       "status": "live",
       "stageLabel": "LIVE",
       "primaryNav": true,
-      "mission": "financial resilience + anti-scam"
+      "mission": "financial resilience + anti-scam",
+      "missionVi": "hiểu tiền, giữ tiền, tránh rủi ro bằng kỷ luật dòng tiền",
+      "missionEn": "financial resilience + anti-scam"
     },
     {
       "key": "invest",
-      "labelVi": "INVEST",
-      "labelEn": "INVEST",
+      "labelVi": "Đầu tư",
+      "labelEn": "Invest",
       "host": "invest.vetuonglai.com",
       "url": "https://invest.vetuonglai.com",
       "status": "planned",
       "stageLabel": "PLANNED",
       "primaryNav": true,
-      "mission": "due diligence + no-FOMO investing"
+      "mission": "due diligence + no-FOMO investing",
+      "missionVi": "đầu tư tỉnh táo, đặt rủi ro lên trước, tự thẩm định",
+      "missionEn": "due diligence + no-FOMO investing"
     },
     {
       "key": "green",
-      "labelVi": "GREEN",
-      "labelEn": "GREEN",
+      "labelVi": "Xanh",
+      "labelEn": "Green",
       "host": "green.vetuonglai.com",
       "url": "https://green.vetuonglai.com",
       "status": "live",
       "stageLabel": "LIVE",
       "primaryNav": true,
-      "mission": "impact + sustainability evidence"
+      "mission": "impact + sustainability evidence",
+      "missionVi": "ghi nhận hành động, tạo hồ sơ tác động, neo bằng chứng sang xác minh",
+      "missionEn": "impact + sustainability evidence"
     },
     {
       "key": "member",
-      "labelVi": "MEMBER",
-      "labelEn": "MEMBER",
+      "labelVi": "Thành viên",
+      "labelEn": "Member",
       "host": "member.vetuonglai.com",
       "url": "https://member.vetuonglai.com",
-      "status": "live",
-      "stageLabel": "LIVE",
+      "status": "member_preview",
+      "stageLabel": "MEMBER_PREVIEW",
       "primaryNav": false,
-      "mission": "identity + access + dashboard"
+      "mission": "identity + access + dashboard",
+      "missionVi": "danh tính, quyền truy cập và bảng điều khiển",
+      "missionEn": "identity + access + dashboard"
     },
     {
       "key": "work",
-      "labelVi": "WORK",
-      "labelEn": "WORK",
+      "labelVi": "Việc",
+      "labelEn": "Work",
       "host": "work.vetuonglai.com",
       "url": "https://work.vetuonglai.com",
       "status": "planned",
@@ -122,8 +142,8 @@
     },
     {
       "key": "market",
-      "labelVi": "MARKET",
-      "labelEn": "MARKET",
+      "labelVi": "Chợ",
+      "labelEn": "Market",
       "host": "market.vetuonglai.com",
       "url": "https://market.vetuonglai.com",
       "status": "planned",
@@ -135,8 +155,8 @@
     },
     {
       "key": "community",
-      "labelVi": "COMMUNITY",
-      "labelEn": "COMMUNITY",
+      "labelVi": "Cộng đồng",
+      "labelEn": "Community",
       "host": "community.vetuonglai.com",
       "url": "https://community.vetuonglai.com",
       "status": "planned",
@@ -161,8 +181,8 @@
     },
     {
       "key": "business",
-      "labelVi": "BUSINESS",
-      "labelEn": "BUSINESS",
+      "labelVi": "Doanh nghiệp",
+      "labelEn": "Business",
       "host": "business.vetuonglai.com",
       "url": "https://business.vetuonglai.com",
       "status": "planned",
@@ -185,8 +205,8 @@
     },
     {
       "key": "kids",
-      "labelVi": "KIDS",
-      "labelEn": "KIDS",
+      "labelVi": "Trẻ em",
+      "labelEn": "Kids",
       "host": "kids.vetuonglai.com",
       "url": "https://kids.vetuonglai.com",
       "status": "planned",
@@ -204,6 +224,27 @@
         "noLeaderboards": true,
         "noPublicProfiles": true,
         "noEarningProgram": true
+      }
+    },
+    {
+      "key": "read",
+      "labelVi": "Đọc",
+      "labelEn": "Read",
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": true,
+      "mission": "long-form reading layer for essays, books, and publishing direction about the future",
+      "missionVi": "lớp đọc dài hạn cho essay, sách và định hướng xuất bản về tương lai",
+      "missionEn": "long-form reading layer for essays, books, and publishing direction about the future",
+      "creatorEconomy": {
+        "phase": 0,
+        "publicState": "reading_shell_only",
+        "monetizationOpen": false,
+        "contributorOnboardingOpen": false,
+        "lockDoc": "docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md",
+        "transparencyUrl": "https://read.vetuonglai.com/transparency/"
       }
     }
   ]

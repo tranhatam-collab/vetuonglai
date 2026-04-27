@@ -60,6 +60,36 @@
     "stageLabel": "PLANNED"
   },
   {
+    "key": "member",
+    "title": "THÀNH VIÊN",
+    "titleEn": "MEMBER",
+    "desc": "Lớp thành viên giữ hồ sơ, quyền truy cập, tiến độ và bằng chứng trong cùng một điểm vào.",
+    "descEn": "The member layer keeps profile, access, progress, and proof in one shared entry point.",
+    "url": "https://member.vetuonglai.com",
+    "status": "member_preview",
+    "stageLabel": "MEMBER_PREVIEW"
+  },
+  {
+    "key": "work",
+    "title": "VIỆC LÀM",
+    "titleEn": "WORK",
+    "desc": "WORK mở lớp công khai với brief mẫu, khung bằng chứng và đường đi tiếp về hub.",
+    "descEn": "WORK opens a public layer with sample briefs, proof framing, and a clear path back to the hub.",
+    "url": "https://work.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  },
+  {
+    "key": "market",
+    "title": "CHỢ",
+    "titleEn": "MARKET",
+    "desc": "MARKET hiện mở các mẫu công khai để giải thích tài sản số, cách người tạo trình bày và quy tắc tin cậy.",
+    "descEn": "MARKET currently opens public samples to explain digital assets, creator presentation, and trust rules.",
+    "url": "https://market.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  },
+  {
     "key": "community",
     "title": "CỘNG ĐỒNG",
     "titleEn": "COMMUNITY",
@@ -76,6 +106,36 @@
     "desc": "Lớp AI công khai cho các use-case mẫu, nguyên tắc dùng AI đúng chỗ và các helper preview an toàn trước khi mở tool runtime.",
     "descEn": "The AI layer opens public use-case previews, safe AI usage principles, and helper demos before runtime tools are opened.",
     "url": "https://ai.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  },
+  {
+    "key": "business",
+    "title": "DOANH NGHIỆP",
+    "titleEn": "BUSINESS",
+    "desc": "BUSINESS mở định hướng, gợi ý gói và demo an toàn cho doanh nghiệp.",
+    "descEn": "BUSINESS opens orientation, package guidance, and safe demos for enterprise.",
+    "url": "https://business.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  },
+  {
+    "key": "kids",
+    "title": "TRẺ EM",
+    "titleEn": "KIDS",
+    "desc": "Lớp học dành cho trẻ em với bài học tương tác, bài tập thực hành và trợ lý học tập an toàn.",
+    "descEn": "A learning layer for children with interactive lessons, practice exercises, and a safe learning assistant.",
+    "url": "https://kids.vetuonglai.com",
+    "status": "member_preview",
+    "stageLabel": "MEMBER_PREVIEW"
+  },
+  {
+    "key": "read",
+    "title": "ĐỌC",
+    "titleEn": "READ",
+    "desc": "Lớp tri thức dài hạn với essay và sách điện tử về tương lai. Hiện ở planned_public: mở lớp đọc công khai, chưa mở checkout và payout.",
+    "descEn": "A long-form knowledge layer with essays and ebooks about the future. Currently planned_public: public reading shell only, with checkout and payout still gated.",
+    "url": "https://read.vetuonglai.com",
     "status": "planned",
     "stageLabel": "PLANNED"
   },
