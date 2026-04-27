@@ -1368,6 +1368,48 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 2 Log
 
+### 2026-04-28 10:58 ICT — Team 2
+
+- status: in_progress
+- deliverable_total: 11
+- deliverable_done: 10
+- % hoàn thành: 91%
+- % còn lại: 9%
+- done:
+  - hoàn tất pass đồng bộ wording tiếp theo cho KIDS subpages `parent/**` và `learn/**`:
+    - hạ `parent/pricing` về đúng framing `public preview` + structure-only
+    - làm rõ `parent/dashboard` chỉ là preview cho data rights / safety-report flow, chưa phải SLA vận hành chính thức
+    - làm rõ `parent/support/sessions` là mô tả cách tổ chức buổi hỗ trợ ở phase sau, chưa mở lịch thật
+    - thêm/siết `public preview` framing trên `learn/dashboard`, `learn/lessons`, `learn/ai-helper`, `learn/achievements`, `learn/quiz`
+    - thống nhất wording local/stub/phase-gated để giảm cảm giác runtime account đã mở hoàn chỉnh
+  - rerun verify riêng cho batch KIDS subpages:
+    - `npm run build` -> pass
+    - `npm run check` -> pass
+    - `npm run smoke:kids:worker` -> pass (`33/33`)
+- next:
+  - chuẩn bị commit batch Team 2 nếu founder muốn chốt luôn KIDS + READ hardening trong một commit
+  - hoặc rà thêm một vòng nhỏ cho các KIDS route còn lại (`consent`, `child-profile`, `certificates`) nếu muốn đồng bộ tuyệt đối wording preview
+- blocked:
+  - không có blocker mới trong scope Team 2 cho KIDS local batch
+  - parity tổng hệ vẫn phụ thuộc Team 1 + Ops ở `member_cutover_not_live_yet`
+- changed files:
+  - `src/static-pages/kids.vetuonglai.com/parent/pricing/index.html`
+  - `src/static-pages/kids.vetuonglai.com/parent/dashboard/index.html`
+  - `src/static-pages/kids.vetuonglai.com/parent/support/sessions/index.html`
+  - `src/static-pages/kids.vetuonglai.com/learn/dashboard/index.html`
+  - `src/static-pages/kids.vetuonglai.com/learn/lessons/index.html`
+  - `src/static-pages/kids.vetuonglai.com/learn/ai-helper/index.html`
+  - `src/static-pages/kids.vetuonglai.com/learn/achievements/index.html`
+  - `src/static-pages/kids.vetuonglai.com/learn/quiz/index.html`
+  - `docs/final-lock/VTL_18_CROSS_TEAM_SYNC_REPORT.md`
+- handoff sent to:
+  - Team 3: có thể audit lại KIDS wording với framing `public preview` đã đồng đều hơn trên subpages
+  - Team 5: KIDS local smoke vẫn xanh sau batch cleanup copy
+- handoff needed from:
+  - Team 3: xác nhận không còn stop-line wording ở KIDS public/preview surfaces
+- risks:
+  - low: vẫn còn vài route phụ ít quan trọng có thể chưa đồng bộ tuyệt đối về wording nếu muốn polish thêm một vòng
+
 ### 2026-04-28 10:32 ICT — Team 2
 
 - status: in_progress
