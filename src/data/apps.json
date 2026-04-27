@@ -133,8 +133,8 @@
     "key": "read",
     "title": "ĐỌC",
     "titleEn": "READ",
-    "desc": "Lớp tri thức dài hạn với essay và sách điện tử về tương lai. Hiện ở planned_public: mở lớp đọc công khai, chưa mở checkout và payout.",
-    "descEn": "A long-form knowledge layer with essays and ebooks about the future. Currently planned_public: public reading shell only, with checkout and payout still gated.",
+    "desc": "Lớp đọc dài hạn — essay, sách, biên tập về tương lai. Phase 0: reading shell công khai, chưa mở checkout / payout / onboarding.",
+    "descEn": "Long-form reading layer — essays, books, editorial on the future. Phase 0: public reading shell only; checkout, payout, and onboarding remain gated.",
     "url": "https://read.vetuonglai.com",
     "status": "planned",
     "stageLabel": "PLANNED"
