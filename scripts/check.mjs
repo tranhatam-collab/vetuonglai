@@ -292,6 +292,9 @@ async function main() {
   const teaserContractFragments = ['id="public-value"', 'id="demo"', 'id="gateway-cta"', 'id="trust-status"'];
   const requiredGatewayCopyVi = "Mở toàn bộ hệ của bạn";
   const requiredGatewayCopyEn = "Open your full system";
+  const interestCopyVi = "Đăng ký quan tâm";
+  const interestCopyEn = "Register interest";
+  const plannedDomainLabels = new Set(["WORK home", "MARKET home", "COMMUNITY home", "AI home", "LIFE home", "INVEST home"]);
 
   if (!Array.isArray(apps) || apps.length < 6) {
     throw new Error("apps.json khong du app registry.");
@@ -692,8 +695,14 @@ async function main() {
     ["LIFE home", lifeHtml],
     ["INVEST home", investHtml],
   ]) {
-    if (!html.includes(requiredGatewayCopyVi) || !html.includes(requiredGatewayCopyEn)) {
-      throw new Error(`${label} chua dong bo gateway CTA copy ${requiredGatewayCopyVi} / ${requiredGatewayCopyEn}.`);
+    if (plannedDomainLabels.has(label)) {
+      if (!html.includes(interestCopyVi) || !html.includes(interestCopyEn)) {
+        throw new Error(`${label} chua dong bo interest CTA copy ${interestCopyVi} / ${interestCopyEn}.`);
+      }
+    } else {
+      if (!html.includes(requiredGatewayCopyVi) || !html.includes(requiredGatewayCopyEn)) {
+        throw new Error(`${label} chua dong bo gateway CTA copy ${requiredGatewayCopyVi} / ${requiredGatewayCopyEn}.`);
+      }
     }
   }
 

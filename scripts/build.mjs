@@ -236,22 +236,22 @@ const siteTheme = {
     accentStrong: "#d9fff7",
   },
   work: {
-    brand: "WK",
-    name: pair("Future WORK", "Future WORK"),
+    brand: "Việc",
+    name: pair("Việc Làm", "Future WORK"),
     accent: "#ffd27a",
     accentSoft: "rgba(255, 210, 122, 0.18)",
     accentStrong: "#fff0c7",
   },
   market: {
-    brand: "MK",
-    name: pair("Future MARKET", "Future MARKET"),
+    brand: "Chợ",
+    name: pair("Chợ Tương Lai", "Future MARKET"),
     accent: "#9be37f",
     accentSoft: "rgba(155, 227, 127, 0.18)",
     accentStrong: "#e5ffd7",
   },
   community: {
-    brand: "CM",
-    name: pair("Future COMMUNITY", "Future COMMUNITY"),
+    brand: "Cộng",
+    name: pair("Cộng Đồng", "Future COMMUNITY"),
     accent: "#8ac6ff",
     accentSoft: "rgba(138, 198, 255, 0.18)",
     accentStrong: "#deefff",
@@ -264,8 +264,8 @@ const siteTheme = {
     accentStrong: "#efe4ff",
   },
   business: {
-    brand: "BS",
-    name: pair("Future BUSINESS", "Future BUSINESS"),
+    brand: "DN",
+    name: pair("Doanh Nghiệp", "Future BUSINESS"),
     accent: "#ff9f6b",
     accentSoft: "rgba(255, 159, 107, 0.18)",
     accentStrong: "#ffe6d5",
@@ -1056,8 +1056,18 @@ function renderDisclosureBlock(placementId, { compact = false, className = "" } 
   `;
 }
 
+// Track rendered disclosure IDs per page to prevent duplicates
+let _renderedDisclosureIds = new Set();
+
+function resetDisclosureTracker() {
+  _renderedDisclosureIds = new Set();
+}
+
 function renderDisclosureStack(placementIds, { className = "" } = {}) {
-  const blocks = placementIds
+  const uniqueIds = placementIds.filter((id) => !_renderedDisclosureIds.has(id));
+  uniqueIds.forEach((id) => _renderedDisclosureIds.add(id));
+
+  const blocks = uniqueIds
     .map((placementId) => renderDisclosureBlock(placementId))
     .filter(Boolean)
     .join("");
@@ -1233,7 +1243,16 @@ function button(href, label, variant = "primary", attrs = {}) {
   });
 }
 
+const gatewayInterestCtaCopy = pair("Đăng ký quan tâm", "Register interest");
+
 function gatewayCtaButton(href, variant = "primary", attrs = {}) {
+  // Use interest-appropriate label for planned domains
+  try {
+    const url = new URL(href);
+    if (url.searchParams.get("intent") === "interest") {
+      return button(href, gatewayInterestCtaCopy, variant, attrs);
+    }
+  } catch { /* use default */ }
   return button(href, gatewayPrimaryCtaCopy, variant, attrs);
 }
 
@@ -1705,6 +1724,7 @@ function renderShell({
   headExtras = "",
   bodyClass = "",
 }) {
+  resetDisclosureTracker();
   const theme = siteTheme[currentKey];
   const titleCopy = normalizeCopy(title);
   const descriptionCopy = normalizeCopy(description);
@@ -1938,14 +1958,13 @@ function renderHubPage() {
   const trustReferenceDisclosure = renderDisclosureStack(["DPM-021"]);
 
   const packRows = specialistPacks.map((pack) => [
-    `<span class="mono">${escapeHtml(pack.code.toUpperCase())}</span>`,
     localizedText(pack.name),
     `<span class="mono">${escapeHtml(pack.price)}</span>`,
     `<a href="${purchaseHubUrl({ entry: "hub", pack: pack.code, intent: "pack" })}" class="button ghost">${localizedText(pair("Mở ở homepage", "Open on homepage"))}</a>`,
   ]);
 
   const packageChooser = renderTable(
-    [pair("Code", "Code"), pair("Gói", "Pack"), pair("Giá", "Price"), pair("Mở", "Open")],
+    [pair("Gói", "Pack"), pair("Giá", "Price"), pair("Mở", "Open")],
     packRows,
   );
 
@@ -5214,7 +5233,7 @@ function renderMemberAppPage() {
       pair("Nếu trạng thái chưa mở đủ quyền, app chỉ hiển thị hướng dẫn và nút quay về hub thay vì tạo một luồng mua trong app không có thật.", "If the state does not open enough access, the app shows guidance and a button back to the hub instead of creating a fake in-app purchase flow."),
     ],
     disclosureIds: ["DPM-016", "DPM-017", "DPM-020", "DPM-021"],
-    actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.member}/api/mobile-config.json`, pair("Xem mobile config", "Open mobile config"), "ghost")}`,
+    actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
   });
 
   const inlineScript = `
