@@ -114,17 +114,39 @@ Ngoài phạm vi repo:
   - `vetuonglai-community` → deployment proof có trong `vetuonglai-community.pages.dev`
   - `vetuonglai-ai` → deployment proof có trong `vetuonglai-ai.pages.dev`
   - `vetuonglai-business` → deployment proof có trong `vetuonglai-business.pages.dev`
-- custom-domain runtime cutover: `PENDING`
-  - pages.dev deployment proof đã có
-  - custom-domain runtime/public DNS và worker/route cutover chưa được chốt trong file này
-- Workers code mirror sang account mới: `PASS`
+- zone activation: `PASS` — 2026-04-28
+  - zone `vetuonglai.com` trên account mới: `active`
+  - nameservers active: `barbara.ns.cloudflare.com` + `patrick.ns.cloudflare.com`
+  - 13/14 host resolve HTTP 200 công khai (vc.vetuonglai.com trả 403 do thiếu secret)
+- Wave D DNS + custom-domain: `PASS` — 2026-04-28
+  - `work.vetuonglai.com`, `market.vetuonglai.com`, `community.vetuonglai.com`
+  - `ai.vetuonglai.com`, `business.vetuonglai.com`
+  - tất cả CNAME proxy về `*.pages.dev` trên account mới, HTTP 200
+- Pages deploy proof (2026-04-28 — wave mới nhất):
+  - `vetuonglai-landing` → `0ccdbe02.vetuonglai-landing-55c.pages.dev`
+  - `vetuonglai-vc` → `496fe8a4.vetuonglai-vc-7b7.pages.dev`
+  - `vetuonglai-edu` → `463e4363.vetuonglai-edu-8i6.pages.dev`
+  - `vetuonglai-green` → `873f3149.vetuonglai-green-5pn.pages.dev`
+  - `vetuonglai-finance` → `c0ca2fb2.vetuonglai-finance-3un.pages.dev`
+  - `vetuonglai-life` → `c42cdcb8.vetuonglai-life-cbw.pages.dev`
+  - `vetuonglai-invest` → `04165373.vetuonglai-invest-4eu.pages.dev`
+  - `vetuonglai-work` → `9269e4dc.vetuonglai-work.pages.dev`
+  - `vetuonglai-market` → `ce00bf26.vetuonglai-market.pages.dev`
+  - `vetuonglai-community` → `cb7cb44b.vetuonglai-community.pages.dev`
+  - `vetuonglai-ai` → `364a6356.vetuonglai-ai.pages.dev`
+  - `vetuonglai-business` → `00e04f4c.vetuonglai-business.pages.dev`
+- Workers code mirror sang account mới: `PASS` — 2026-04-28
   - `vetuonglai-home` → `https://vetuonglai-home.anhhatam.workers.dev`
   - `vetuonglai-vc` → `https://vetuonglai-vc.anhhatam.workers.dev`
   - `vetuonglai-edu-github` → `https://vetuonglai-edu-github.anhhatam.workers.dev`
   - `vetuonglai-member` → `https://vetuonglai-member.anhhatam.workers.dev`
   - `vetuonglai-green` → `https://vetuonglai-green.anhhatam.workers.dev`
   - `vetuonglai-finance` → `https://vetuonglai-finance.anhhatam.workers.dev`
-  - HTTP probe: `200` cho cả 6 URL `worker.dev`
+  - `vetuonglai-kids` → `https://vetuonglai-kids.anhhatam.workers.dev`
+  - tất cả 7 worker: script-only deploy, không attach route công khai
+- Wave D live verify: `PASS` — 2026-04-28
+  - `node scripts/verify-wave-d-public-publish.mjs`: 10/10 checks PASS
+  - `publish_ready: true`
 - worker secret migration: `PENDING`
   - `vetuonglai-home` thiếu:
     - `SESSION_COOKIE_SECRET`
@@ -140,10 +162,11 @@ Ngoài phạm vi repo:
     - `SESSION_COOKIE_SECRET`
     - `VC_IDENTITY_ATTESTATION_SECRET`
     - `VC_OWNERSHIP_CHALLENGE_SECRET`
-- worker route cutover: `PENDING`
-  - worker code đã có trên account mới
-  - route công khai chưa được attach trong migration lane này
-- dọn account cũ: `BLOCKED` cho tới khi cutover pass
+- worker route cutover: `PARTIAL`
+  - edu, green, finance: route đang phục vụ qua zone mới (HTTP 200)
+  - home, member: script có, route chưa attach (thiếu secret)
+  - vc: script có, 403 do thiếu secret — chưa attach route
+- dọn account cũ: `BLOCKED` — chờ secret migration + vc route pass
 
 ## 6. Definition of done
 

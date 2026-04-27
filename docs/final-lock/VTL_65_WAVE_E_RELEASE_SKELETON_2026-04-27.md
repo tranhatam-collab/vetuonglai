@@ -109,9 +109,18 @@ Nếu Wave E release gặp sự cố:
 
 ## 5. Trạng thái hiện tại
 
+Cập nhật: 2026-04-28
+
 - Wave C: `hardening_ready / promotion_blocked`
-- Wave D: `tooling_ready / dns_blocked`
-- Wave E: `preparation_only / release_blocked`
-- Tổng hệ: `73% / 27%`
+- Wave D: `LIVE` — verify-wave-d-public-publish 10/10 PASS, `publish_ready: true`
+- Cloudflare account migration: zone ACTIVE, 12 Pages DEPLOYED, 7 Workers script-only DEPLOYED
+- Wave E: `preparation_only / secret_migration_blocked`
+- Tổng hệ: `~88% / ~12%`
+
+Blocker còn lại:
+
+- `vetuonglai-home`, `vetuonglai-member`, `vetuonglai-vc` thiếu secrets (11 giá trị)
+- vc.vetuonglai.com trả 403 — prelive blocked tại VC endpoints
+- payment gate vẫn `LOCK_RETAINED_WITH_REASON` (chưa có rotated API key)
 
 Không được tự tăng phần trăm hoặc đổi trạng thái nếu chưa có verify/evidence mới.
