@@ -1,10 +1,37 @@
 # VTL 67 — TINH CHỈNH NGÔN NGỮ, TƯ DUY, LOGIC TỔNG THỂ + GIAO NHIỆM VỤ 5 TEAM
 
-Phiên bản: 1.0
+Phiên bản: 1.1
 Ngày: 2026-04-28
 Trạng thái: active — bắt buộc thực thi
 Owner điều phối: Team 1
 Áp dụng cho: Team 1 · Team 2 · Team 3 · Team 4 · Team 5 · Ops
+**Universal Standard:** Phải tuân thủ `docs/00_master/00_UNIVERSAL_WEB_PROJECT_MASTER_IMPLEMENTATION_LOCK_BILINGUAL.md`
+
+---
+
+## 0. Compliance với Universal Standard
+
+Tài liệu này áp dụng các quy tắc cốt lõi từ Universal Standard:
+
+- Section 6 (Brand/Language): Ngôn ngữ công khai phải calm, precise, real, non-sales ✅
+- Section 7 (Bilingual Switch): 🇻🇳 Tiếng Việt / 🇺🇸 English — KHÔNG dùng VI/EN ✅
+- Section 4 (Non-Negotiable): Không expose internal technical labels ra trang công khai ✅
+- Section 8 (Content Source): Toàn bộ text công khai phải từ content JSON ✅
+
+Bảng thuật ngữ bị cấm trên trang công khai (từ Universal Standard Section 6 + VTL_67):
+
+| Thuật ngữ bị cấm | Thay thế tiếng Việt |
+|---|---|
+| planned-safe | (không hiển thị) |
+| CTA | nút hành động |
+| intent | hướng đi |
+| i18n | đa ngôn ngữ |
+| deep-content | nội dung chuyên sâu |
+| Layer A/B/C/D | lớp công khai / lớp thành viên / lớp chuyên sâu |
+| gateway CTA | nút đi tiếp |
+| disclosure block | ghi chú công khai |
+| trust-layer | niềm tin |
+| purchase hub | điểm vào |
 
 ---
 

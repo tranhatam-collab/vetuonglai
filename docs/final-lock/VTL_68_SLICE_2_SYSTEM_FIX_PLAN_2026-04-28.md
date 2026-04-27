@@ -1,10 +1,28 @@
 # SLICE_2_SYSTEM_FIX_PLAN_2026.md
 
-**Version:** 1.1  
+**Version:** 1.2  
 **Date:** 2026-04-28  
 **Status:** Approved execution lock for Slice 2  
 **Scope:** Toàn bộ hệ `vetuonglai.com` trong Slice 2  
-**Important note:** Đây là bản khóa triển khai. Mọi thay đổi sau phải qua founder approval.
+**Important note:** Đây là bản khóa triển khai. Mọi thay đổi sau phải qua founder approval.  
+**Universal Standard:** Phải tuân thủ `docs/00_master/00_UNIVERSAL_WEB_PROJECT_MASTER_IMPLEMENTATION_LOCK_BILINGUAL.md`
+
+---
+
+## 0. Compliance với Universal Standard
+
+Tài liệu này tuân thủ Universal Web Project Master Implementation Lock (v1.0).
+
+Các gate áp dụng cho Slice 2:
+- Section 3 (Core Rule): Không xây lại, chỉ nâng cấp theo lát nhỏ ✅
+- Section 4 (Non-Negotiable): Không hardcode text, không đổi kiến trúc ✅
+- Section 6 (Brand/Language): Calm, precise, real, non-sales ✅
+- Section 7 (Bilingual Switch): 🇻🇳 Tiếng Việt / 🇺🇸 English (không dùng VI/EN) ✅
+- Section 8 (Content Source): Toàn bộ text từ content/vi.json + content/en.json ✅
+- Section 12 (Image Rules): OG images SVG, icon metaphors riêng mỗi domain, không stock ✅
+- Section 13 (Motion): CSS-only, prefers-reduced-motion fallback ✅
+- Section 14 (SEO): title, meta, canonical, hreflang, og:image, JSON-LD, H1 ✅
+- Section 15 (Accessibility): focus-visible, reduced-motion, semantic HTML ✅
 
 ---
 

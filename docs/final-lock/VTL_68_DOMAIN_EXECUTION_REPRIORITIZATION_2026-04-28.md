@@ -1,10 +1,41 @@
 # VETUONGLAI_DOMAIN_EXECUTION_REPRIORITIZATION_2026.md
 
-**Version:** 1.1  
+**Version:** 1.2  
 **Date:** 2026-04-28  
 **Status:** Approved execution lock for Slice 2  
 **Scope:** `vetuonglai.com` + toàn bộ domain/subdomain trong inventory hiện tại  
-**Important note:** Đây là bản khóa thực thi cho Slice 2. Mọi thay đổi sau phải qua founder approval.
+**Important note:** Đây là bản khóa thực thi cho Slice 2. Mọi thay đổi sau phải qua founder approval.  
+**Universal Standard:** Phải tuân thủ `docs/00_master/00_UNIVERSAL_WEB_PROJECT_MASTER_IMPLEMENTATION_LOCK_BILINGUAL.md`
+
+---
+
+## 0. Compliance với Universal Standard
+
+Tài liệu này tuân thủ Universal Web Project Master Implementation Lock (v1.0).
+
+Trạng thái compliance theo domain:
+
+| Domain | Content JSON | OG Image | Hero Illust. | JSON-LD | Canonical | Hreflang | H1 | Reduced Motion | Focus Visible |
+|--------|-------------|----------|-------------|---------|-----------|----------|----|----|------|
+| hub | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| edu | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| vc | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| finance | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| green | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| member | ✅ | ✅ SVG | ✅ auto | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| life | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| invest | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| work | ✅ | ✅ SVG | ✅ auto | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| market | ✅ | ✅ SVG | ✅ auto | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| community | ✅ | ✅ SVG | ✅ auto | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| ai | ✅ | ✅ SVG | ✅ auto | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| business | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| kids | ✅ | ✅ SVG | ✅ metrics | ✅ | ✅ | ✅ | ✅ | ⚠️ PENDING | ⚠️ PENDING |
+| read | ✅ | ✅ SVG | ✅ auto | ⚠️ | ✅ | ✅ | ✅ | ✅ | ✅ |
+
+Còn lại cần hoàn thành:
+- kids: prefers-reduced-motion + focus-visible trong kids.css/kids.js
+- read: JSON-LD khi bootstrap 3 trang
 
 ---
 
