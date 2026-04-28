@@ -2,21 +2,20 @@
 
 Generated: 2026-04-28 (informational; not a build gate)
 
-Scope: `dist/` (88 HTML files across 16 hosts)
+Scope: `dist/` (74 HTML files across 16 hosts)
 
 Reference: [`41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md`](41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md)
 
 ## Summary
 
-- Total issues: 33
-- Files scanned: 88
+- Total issues: 29
+- Files scanned: 74
 
 ### Issues by code
 
 | Code | Count |
 | --- | ---: |
 | image-empty-alt | 29 |
-| broken-internal-link | 4 |
 
 ### Issues by host
 
@@ -25,12 +24,12 @@ Reference: [`41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md`](41_UNIVERSAL_B
 | `ai.vetuonglai.com` | 2 | 2 |
 | `business.vetuonglai.com` | 1 | 0 |
 | `community.vetuonglai.com` | 2 | 2 |
-| `docs.vetuonglai.com` | 4 | 4 |
+| `docs.vetuonglai.com` | 9 | 0 |
 | `edu.vetuonglai.com` | 11 | 7 |
 | `finance.vetuonglai.com` | 1 | 0 |
 | `green.vetuonglai.com` | 1 | 0 |
 | `invest.vetuonglai.com` | 1 | 0 |
-| `kids.vetuonglai.com` | 21 | 0 |
+| `kids.vetuonglai.com` | 2 | 0 |
 | `life.vetuonglai.com` | 1 | 0 |
 | `market.vetuonglai.com` | 2 | 2 |
 | `member.vetuonglai.com` | 4 | 3 |
@@ -47,10 +46,6 @@ Reference: [`41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md`](41_UNIVERSAL_B
 | `ai.vetuonglai.com/use-cases/index.html` | 1 | image-empty-alt |
 | `community.vetuonglai.com/index.html` | 1 | image-empty-alt |
 | `community.vetuonglai.com/principles/index.html` | 1 | image-empty-alt |
-| `docs.vetuonglai.com/changelog/index.html` | 1 | broken-internal-link |
-| `docs.vetuonglai.com/getting-started/index.html` | 1 | broken-internal-link |
-| `docs.vetuonglai.com/index.html` | 1 | broken-internal-link |
-| `docs.vetuonglai.com/pricing/index.html` | 1 | broken-internal-link |
 | `edu.vetuonglai.com/courses/index.html` | 1 | image-empty-alt |
 | `edu.vetuonglai.com/learn/green-stewardship-pilot/index.html` | 1 | image-empty-alt |
 | `edu.vetuonglai.com/learn/green-stewardship-pilot/player/index.html` | 1 | image-empty-alt |
@@ -73,20 +68,11 @@ Reference: [`41_UNIVERSAL_BILINGUAL_LANGUAGE_REBUILD_COMMAND.md`](41_UNIVERSAL_B
 | `vetuonglai.com/sitemap/index.html` | 1 | image-empty-alt |
 | `vetuonglai.com/thanh-vien/index.html` | 1 | image-empty-alt |
 | `vetuonglai.com/tin-tuc/index.html` | 1 | image-empty-alt |
+| `vetuonglai.com/ve-chung-toi/index.html` | 1 | image-empty-alt |
+| `work.vetuonglai.com/brief/index.html` | 1 | image-empty-alt |
+| `work.vetuonglai.com/index.html` | 1 | image-empty-alt |
 
 ## Detail (high-severity only)
-
-### `docs.vetuonglai.com/changelog/index.html`
-- **broken-internal-link** — 4 broken internal link(s): "docs.vetuonglai.com/api-reference/", "docs.vetuonglai.com/trust-system/", "docs.vetuonglai.com/support/", "docs.vetuonglai.com/legal/"
-
-### `docs.vetuonglai.com/getting-started/index.html`
-- **broken-internal-link** — 21 broken internal link(s): "docs.vetuonglai.com/api-reference/", "docs.vetuonglai.com/trust-system/", "docs.vetuonglai.com/support/", "learn.vetuonglai.com/", "exam.vetuonglai.com/"
-
-### `docs.vetuonglai.com/index.html`
-- **broken-internal-link** — 7 broken internal link(s): "docs.vetuonglai.com/api-reference/", "docs.vetuonglai.com/trust-system/", "docs.vetuonglai.com/support/", "docs.vetuonglai.com/api-reference/", "docs.vetuonglai.com/trust-system/"
-
-### `docs.vetuonglai.com/pricing/index.html`
-- **broken-internal-link** — 4 broken internal link(s): "docs.vetuonglai.com/api-reference/", "docs.vetuonglai.com/trust-system/", "docs.vetuonglai.com/support/", "docs.vetuonglai.com/legal/"
 
 ## Notes
 

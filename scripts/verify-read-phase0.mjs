@@ -17,9 +17,14 @@
 import { readFile, stat, readdir, mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import dns from "node:dns";
+import { execFile } from "node:child_process";
+import { promisify } from "node:util";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
+dns.setDefaultResultOrder("ipv4first");
+const execFileAsync = promisify(execFile);
 
 const REQUIRED_PAGES = [
   "index.html",
@@ -205,14 +210,41 @@ async function checkLiveHttp() {
   const pages = ["/", "/how-we-pay/", "/transparency/", "/creator/", "/submit/", "/review/", "/stacks/", "/terms/", "/tax-note/"];
   const failures = [];
   for (const pg of pages) {
+    const url = `https://read.vetuonglai.com${pg}`;
+    let status = null;
+    let fetchErr = null;
     try {
-      const res = await fetch(`https://read.vetuonglai.com${pg}`, {
+      const res = await fetch(url, {
         redirect: "follow",
         signal: AbortSignal.timeout(10000),
       });
-      if (res.status !== 200) failures.push(`${pg} → ${res.status}`);
+      status = res.status;
     } catch (e) {
-      failures.push(`${pg} → ${e.message}`);
+      fetchErr = e;
+    }
+
+    if (status === 200) continue;
+
+    try {
+      const { stdout } = await execFileAsync("curl", [
+        "-sS",
+        "-L",
+        "--max-time",
+        "10",
+        "-o",
+        "/dev/null",
+        "-w",
+        "%{http_code}",
+        url,
+      ]);
+      const curlStatus = Number(String(stdout || "").trim());
+      if (curlStatus !== 200) {
+        const reason = status ?? fetchErr?.message ?? "probe_failed";
+        failures.push(`${pg} → ${reason} (curl=${Number.isFinite(curlStatus) ? curlStatus : "n/a"})`);
+      }
+    } catch (curlErr) {
+      const reason = status ?? fetchErr?.message ?? "probe_failed";
+      failures.push(`${pg} → ${reason}; curl_error=${curlErr.message}`);
     }
   }
   check(

@@ -130,6 +130,18 @@ Tài liệu điều phối active:
 
 - `docs/final-lock/VTL_68_KIDS_HOMEPAGE_LAUNCH_TEAM_SPLIT_2026-04-29.md`
 
+### Blocker B5 — Homepage/Docs/Read live-claim gate
+
+Lane `homepage/docs/read` đang chạy checklist mới, nhưng không được claim live cho tới khi đủ đồng thời:
+
+- deploy evidence
+- domain active
+- QA pass
+
+Tài liệu điều phối active:
+
+- `docs/final-lock/VTL_69_HOMEPAGE_DOCS_READ_BROADCAST_AND_TEAM_CHECKLIST_2026-04-29.md`
+
 ## 4. Team 1 — Platform / Runtime / Release Control
 
 Channel: `vtl-team1-runtime-release`
@@ -197,6 +209,11 @@ Channel: `vtl-team2-frontend-ux-mobile`
 7. Chuẩn hóa CTA planned-safe về hub/gateway/entry point hợp lệ.
 8. Chuẩn bị copy fallback cho trường hợp Wave D DNS mở từng phần.
 9. Chốt homepage `kids.vetuonglai.com` và `/en/` theo `docs/kids/11_DAY_0_LAUNCH_PLAN.md`.
+10. Rebuild homepage theo `VETUONGLAI_HOMEPAGE_CONTENT.md` (hero + 3 cards + 6-tier timeline + signup + disclosure blocks).
+11. Publish 12 docs pages theo `VETUONGLAI_DOCS_PUBLIC_CONTENT.md` (VI/EN), không lộ income wording.
+12. Render đúng tier clusters: `Discover / Create Value / Deep Collaboration`.
+13. Đặt FTC disclosure block gần CTA, không để ở footer.
+14. Chạy visual QA + WCAG, đính kèm evidence ảnh + issue list.
 
 ### Lệnh bắt buộc
 
@@ -242,6 +259,11 @@ Channel: `vtl-team3-governance-runtime-truth`
 6. Cập nhật go/no-go note khi Team 2 hoặc Team 4 đổi surface/data.
 7. Chặn Wave E nếu Wave D chưa có DNS/deploy/live evidence.
 8. Audit child-safe / no-commerce / no-registration wording cho homepage `kids`.
+9. Lock wording mới vào `language-codex.md` (forbidden terms + FTC rule).
+10. Signoff nội dung 12 docs pages (public content scope).
+11. Invest gate wording: không ROI claim, không `invest now`.
+12. Xác nhận disclosure wording chuẩn cho referral.
+13. Chuẩn bị quarterly FTC audit checklist (v1).
 
 ### Lệnh bắt buộc
 
@@ -319,6 +341,11 @@ Channel: `vtl-team5-smoke-release-qa`
 6. Phối hợp Team 4 để xác nhận endpoint verifier fail do môi trường hay do data thật.
 7. Chuẩn bị release note cuối theo từng wave.
 8. Không ký `publish_ready` khi chưa có evidence live.
+9. Thêm check cho 7-tier model, FTC forbidden terms, disclosure placement, invest gate.
+10. Chạy SEO + canonical checks cho docs pages.
+11. Update evidence pack sau khi deploy `docs/read` live.
+12. Re-run `verify:read:phase0 --live` sau khi DNS ổn định.
+13. Báo verdict: `baseline_ready`, `publish_ready`, blocker còn lại.
 
 ### Lệnh bắt buộc
 
@@ -356,6 +383,9 @@ Channel: `vtl-ops-dns-cloudflare`
 3. Kiểm tra TLS/custom hostname readiness.
 4. Xác nhận route/runtime publish policy.
 5. Báo lại Team 1 ngay khi từng host resolve công khai.
+6. Nếu DNS đã tạo cho `read/docs`, xác nhận CNAME đúng + SSL active.
+7. Confirm custom domains `read.vetuonglai.com` và `docs.vetuonglai.com` trạng thái `Active`.
+8. Gửi evidence dashboard screenshot + timestamp + host status cho Team 1/Team 5.
 
 ### Gate DNS
 
@@ -380,6 +410,16 @@ Channel: `vtl-founder-pm-signoff`
 3. Duyệt stop-line nếu có team xin đổi scope.
 4. Không cho tắt reminder nếu team chưa đủ `100% / 0%`.
 
+## 10B. Legal / Accounting
+
+Channel: `vtl-legal-accounting-gate`
+
+### Nhiệm vụ mở ngay
+
+1. Review Terms (`READ_CREATOR_08`).
+2. Review tax withholding rules.
+3. Xác nhận trạng thái PayOS merchant KYC (Phase 1 blocker) + thiếu gì để mở gate.
+
 ## 11. Báo cáo bắt buộc mỗi 15 phút
 
 Mỗi team báo:
@@ -387,12 +427,18 @@ Mỗi team báo:
 ```md
 Team:
 Channel:
-Completed:
+Done:
 In progress:
-Next 15 minutes:
-Blockers:
+Blocked:
 Owner needed:
-Evidence:
+Evidence link:
+ETA:
+```
+
+Khi cần vận hành chi tiết theo nhịp 15 phút, team có thể bổ sung:
+
+```md
+Next 15 minutes:
 % hoàn thành / % còn lại:
 ```
 

@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-04-28T06:08:45.445Z",
+  "timestamp": "2026-04-28T18:15:21.148Z",
   "phase": 0,
-  "liveMode": false,
+  "liveMode": true,
   "passed": 8,
   "total": 8,
   "allPass": true,
@@ -44,7 +44,7 @@
     {
       "key": "live_http",
       "pass": true,
-      "detail": "skipped (use --live to enable)"
+      "detail": "all 9 pages return 200"
     }
   ]
 }

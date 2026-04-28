@@ -68,10 +68,15 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - không phải full public launch của parent / learn / onboarding flows
   - packet điều phối active:
     - `docs/final-lock/VTL_68_KIDS_HOMEPAGE_LAUNCH_TEAM_SPLIT_2026-04-29.md`
+- từ `2026-04-29`, lane `homepage/docs/read` được khóa checklist mới theo broadcast chung:
+  - không claim live khi thiếu deploy evidence + domain active + QA pass
+  - packet điều phối active:
+    - `docs/final-lock/VTL_69_HOMEPAGE_DOCS_READ_BROADCAST_AND_TEAM_CHECKLIST_2026-04-29.md`
 - trọng tâm active của tổng kế hoạch hiện tại là:
   - chốt signoff Wave C
   - khóa DNS/runtime publish cho Wave D
   - chốt homepage `kids.vetuonglai.com` nếu qua predeploy gate
+  - chốt homepage/docs/read lane theo checklist VTL 69
   - rồi mới gom Wave E — Release/QA/Ops pack toàn hệ
 
 ## Board điều phối chi tiết đang active
@@ -94,6 +99,8 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_63_CLOUDFLARE_ACCOUNT_MIGRATION_LOCK_2026-04-26.md`
 - Kids homepage launch team split:
   - `docs/final-lock/VTL_68_KIDS_HOMEPAGE_LAUNCH_TEAM_SPLIT_2026-04-29.md`
+- Homepage/docs/read broadcast checklist:
+  - `docs/final-lock/VTL_69_HOMEPAGE_DOCS_READ_BROADCAST_AND_TEAM_CHECKLIST_2026-04-29.md`
 - release/signoff pack mới nhất của Wave C:
   - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
   - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
