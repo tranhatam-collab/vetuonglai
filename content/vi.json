@@ -26,6 +26,28 @@
       "planned": "Đang chuẩn bị",
       "bridge": "Cầu nối",
       "external": "Hệ ngoài"
+    },
+    "compliance": {
+      "anti_mlm": "Đây không phải mô hình kinh doanh đa cấp và không có cấu trúc hoa hồng nhiều tầng.",
+      "income_disclaimer": "Về Tương Lai không cam kết bất kỳ mức thu nhập cụ thể nào. Cơ hội cộng tác phụ thuộc vào kỹ năng, thời gian, chất lượng đầu ra và nhu cầu thị trường.",
+      "referral": {
+        "label": "Giới thiệu minh bạch (1 cấp)",
+        "disclosure_default": "Liên kết này có thể mang lại lợi ích cho người giới thiệu. Bạn không trả thêm phí khi đăng ký qua liên kết này.",
+        "disclosure_short": "Có hoa hồng giới thiệu — không phát sinh phí cho bạn."
+      },
+      "tier_clusters": {
+        "discover": "Khám phá",
+        "create_value": "Tạo giá trị",
+        "deep_collab": "Cộng tác sâu"
+      },
+      "pathways": {
+        "learn": "Học",
+        "read": "Đọc",
+        "work": "Làm việc",
+        "build": "Tạo sản phẩm",
+        "verify": "Xác minh",
+        "belong": "Cộng đồng"
+      }
     }
   },
   "sites": {

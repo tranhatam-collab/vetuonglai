@@ -26,6 +26,28 @@
       "planned": "Planned",
       "bridge": "Bridge",
       "external": "External"
+    },
+    "compliance": {
+      "anti_mlm": "This is not a multi-level marketing model and does not involve tiered commission structures.",
+      "income_disclaimer": "Vetuonglai does not guarantee any specific income level. Collaboration opportunities depend on skills, time, output quality, and market demand.",
+      "referral": {
+        "label": "Transparent referral (single-tier)",
+        "disclosure_default": "This link may provide a benefit to the person who shared it. You do not pay extra when you sign up through this link.",
+        "disclosure_short": "Referral benefit applies — no extra cost to you."
+      },
+      "tier_clusters": {
+        "discover": "Discover",
+        "create_value": "Create value",
+        "deep_collab": "Deep collaboration"
+      },
+      "pathways": {
+        "learn": "Learn",
+        "read": "Read",
+        "work": "Work",
+        "build": "Build",
+        "verify": "Verify",
+        "belong": "Belong"
+      }
     }
   },
   "sites": {
