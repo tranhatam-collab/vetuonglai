@@ -248,6 +248,19 @@
         "lockDoc": "docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md",
         "transparencyUrl": "https://read.vetuonglai.com/transparency/"
       }
+    },
+    {
+      "key": "docs",
+      "labelVi": "Tài liệu",
+      "labelEn": "Docs",
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com",
+      "status": "planned",
+      "stageLabel": "PLANNED",
+      "primaryNav": true,
+      "mission": "public documentation, API reference, pricing, and system transparency",
+      "missionVi": "tài liệu công khai, tham chiếu API, bảng giá và minh bạch hệ thống",
+      "missionEn": "public documentation, API reference, pricing, and system transparency"
     }
   ]
 }

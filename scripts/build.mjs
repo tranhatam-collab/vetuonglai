@@ -64,6 +64,7 @@ const domains = {
   invest: "invest.vetuonglai.com",
   kids: "kids.vetuonglai.com",
   read: "read.vetuonglai.com",
+  docs: "docs.vetuonglai.com",
 };
 
 const kidsCurriculum = JSON.parse(await readFile(path.join(SRC, "data", "kids-curriculum.json"), "utf8"));
@@ -4780,6 +4781,17 @@ const domainIconMetaphors = {
     <line x1="${c+58}" y1="${s+48}" x2="${c+88}" y2="${s+52}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
     <line x1="${c+58}" y1="${s+58}" x2="${c+88}" y2="${s+62}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
     <line x1="${c+58}" y1="${s+68}" x2="${c+88}" y2="${s+72}" stroke="currentColor" stroke-width="1" opacity="0.2"/>`,
+
+  /* docs — document stack / code brackets */
+  docs: (c, s) => `
+    <rect x="${c}" y="${s+10}" width="70" height="90" rx="6" fill="currentColor" opacity="0.08"/>
+    <rect x="${c+10}" y="${s}" width="70" height="90" rx="6" fill="currentColor" opacity="0.12"/>
+    <rect x="${c+20}" y="${s+20}" width="50" height="4" rx="2" fill="currentColor" opacity="0.4"/>
+    <rect x="${c+20}" y="${s+32}" width="40" height="4" rx="2" fill="currentColor" opacity="0.3"/>
+    <rect x="${c+20}" y="${s+44}" width="45" height="4" rx="2" fill="currentColor" opacity="0.25"/>
+    <rect x="${c+20}" y="${s+56}" width="35" height="4" rx="2" fill="currentColor" opacity="0.2"/>
+    <polyline points="${c+95},${s+35} ${c+110},${s+50} ${c+95},${s+65}" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+    <polyline points="${c+135},${s+35} ${c+120},${s+50} ${c+135},${s+65}" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>`,
 };
 
 function renderOgImageSvg({
@@ -9838,6 +9850,12 @@ async function build() {
   await copyStaticTreeForDomain(domains.read);
   await applyOgImageBaselineToDomain(domains.read);
   buildLog("read done");
+
+  buildLog("rendering docs");
+  await ensureDomainOgAsset(domains.docs);
+  await copyStaticTreeForDomain(domains.docs);
+  await applyOgImageBaselineToDomain(domains.docs);
+  buildLog("docs done");
   } finally {
     await releaseBuildLock();
   }

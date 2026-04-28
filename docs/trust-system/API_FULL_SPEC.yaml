@@ -1,0 +1,1356 @@
+openapi: 3.1.0
+info:
+  title: Trust IAI Platform API
+  version: 1.0.0
+  description: |
+    Production API for trust.iai.one — digital proof, verifiable credentials,
+    and asset management platform.
+  contact:
+    name: IAI Support
+    url: https://trust.iai.one
+    email: support@iai.one
+  license:
+    name: Proprietary
+
+servers:
+  - url: https://trust.iai.one/api
+    description: Production
+
+tags:
+  - name: Auth
+    description: Authentication and session management
+  - name: Proof
+    description: File proof creation and verification
+  - name: Credentials
+    description: Verifiable Credential issuance and management
+  - name: Assets
+    description: Digital asset minting and transfer
+  - name: Verify
+    description: Public verification (no auth required)
+  - name: API Keys
+    description: API key management
+  - name: Billing
+    description: Plans, subscriptions, and checkout
+  - name: Usage
+    description: Usage statistics and history
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: JWT token from auth endpoints
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: "API key prefixed with 'Bearer ', e.g. Bearer tiai_xxxxx"
+
+  headers:
+    X-RateLimit-Limit:
+      schema:
+        type: integer
+        example: 100
+      description: Max requests per window
+    X-RateLimit-Remaining:
+      schema:
+        type: integer
+        example: 97
+      description: Remaining requests in current window
+    X-RateLimit-Reset:
+      schema:
+        type: integer
+        example: 1700000000
+      description: Unix timestamp when the window resets
+
+  schemas:
+    # ── Common ──────────────────────────────────────────────
+    Error:
+      type: object
+      required: [error, message]
+      properties:
+        error:
+          type: string
+          example: validation_error
+        message:
+          type: string
+          example: "field 'email' is required"
+        details:
+          type: array
+          items:
+            type: object
+            properties:
+              field:
+                type: string
+                example: email
+              message:
+                type: string
+                example: must be a valid email
+
+    PaginatedResponse:
+      type: object
+      required: [data, next_cursor, has_more]
+      properties:
+        data:
+          type: array
+          items: {}
+        next_cursor:
+          type: string
+          nullable: true
+          example: eyJpZCI6MTAwfQ
+        has_more:
+          type: boolean
+          example: true
+
+    # ── Auth ────────────────────────────────────────────────
+    User:
+      type: object
+      required: [id, email, name, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        email:
+          type: string
+          format: email
+          example: user@example.com
+        name:
+          type: string
+          example: Tran Ha Tam
+        avatar_url:
+          type: string
+          format: uri
+          nullable: true
+          example: https://lh3.googleusercontent.com/a/photo
+        plan:
+          type: string
+          enum: [free, pro, enterprise]
+          example: pro
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-01-15T08:30:00Z"
+
+    AuthToken:
+      type: object
+      required: [access_token, token_type, expires_in]
+      properties:
+        access_token:
+          type: string
+          example: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...
+        token_type:
+          type: string
+          example: bearer
+        expires_in:
+          type: integer
+          description: Seconds until expiration
+          example: 86400
+        user:
+          $ref: "#/components/schemas/User"
+
+    # ── Proof ───────────────────────────────────────────────
+    Proof:
+      type: object
+      required: [id, file_hash, algorithm, verify_url, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        file_hash:
+          type: string
+          example: sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+        algorithm:
+          type: string
+          enum: [sha256, sha512]
+          example: sha256
+        file_name:
+          type: string
+          example: contract.pdf
+        file_size:
+          type: integer
+          description: File size in bytes
+          example: 204800
+        metadata:
+          type: object
+          additionalProperties: true
+          example: { "description": "Signed contract Q1" }
+        verify_url:
+          type: string
+          format: uri
+          example: https://trust.iai.one/verify/a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        issuer_id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-06-01T12:00:00Z"
+
+    ProofVerifyResult:
+      type: object
+      required: [valid]
+      properties:
+        valid:
+          type: boolean
+          example: true
+        proof:
+          type: object
+          required: [id, file_hash, created_at, issuer]
+          properties:
+            id:
+              type: string
+              format: uuid
+              example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+            file_hash:
+              type: string
+              example: sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+            created_at:
+              type: string
+              format: date-time
+              example: "2025-06-01T12:00:00Z"
+            issuer:
+              type: string
+              example: Tran Ha Tam
+
+    # ── Credentials (VC) ───────────────────────────────────
+    Credential:
+      type: object
+      required: [id, subject_name, subject_identifier, credential_type, status, verify_url, issued_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: c1d2e3f4-a5b6-7890-cdef-123456789abc
+        subject_name:
+          type: string
+          example: Nguyen Van A
+        subject_identifier:
+          type: string
+          example: "ID:0123456789"
+        credential_type:
+          type: string
+          enum: [identity, certificate, license, membership, custom]
+          example: certificate
+        proof_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+        metadata:
+          type: object
+          additionalProperties: true
+          example: { "course": "Blockchain 101", "grade": "A" }
+        status:
+          type: string
+          enum: [active, revoked, expired]
+          example: active
+        revocation_reason:
+          type: string
+          nullable: true
+          example: null
+        verify_url:
+          type: string
+          format: uri
+          example: https://trust.iai.one/verify/c1d2e3f4-a5b6-7890-cdef-123456789abc
+        issuer_id:
+          type: string
+          format: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
+        issued_at:
+          type: string
+          format: date-time
+          example: "2025-06-01T12:00:00Z"
+        expires_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2026-06-01T12:00:00Z"
+
+    # ── Assets ──────────────────────────────────────────────
+    Asset:
+      type: object
+      required: [id, token_id, owner_address, status, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: d4e5f6a7-b8c9-0123-def4-56789abcdef0
+        token_id:
+          type: string
+          example: "42"
+        credential_id:
+          type: string
+          format: uuid
+          nullable: true
+          example: c1d2e3f4-a5b6-7890-cdef-123456789abc
+        owner_address:
+          type: string
+          example: "0xABCDEF1234567890ABCDEF1234567890ABCDEF12"
+        chain:
+          type: string
+          enum: [ethereum, polygon, base]
+          example: polygon
+        metadata:
+          type: object
+          additionalProperties: true
+          example: { "name": "Certificate #42" }
+        status:
+          type: string
+          enum: [pending, minted, transferred, burned]
+          example: minted
+        transfer_history:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transfer"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-06-01T12:00:00Z"
+
+    Transfer:
+      type: object
+      required: [from_address, to_address, tx_hash, transferred_at]
+      properties:
+        from_address:
+          type: string
+          example: "0xABCDEF1234567890ABCDEF1234567890ABCDEF12"
+        to_address:
+          type: string
+          example: "0x1234567890ABCDEF1234567890ABCDEF12345678"
+        tx_hash:
+          type: string
+          example: "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890"
+        transferred_at:
+          type: string
+          format: date-time
+          example: "2025-07-01T10:00:00Z"
+
+    # ── Verify (public) ────────────────────────────────────
+    VerifyResult:
+      type: object
+      required: [type, status, details, issuer, created_at]
+      properties:
+        type:
+          type: string
+          enum: [proof, credential, asset]
+          example: credential
+        status:
+          type: string
+          enum: [valid, revoked, expired, not_found]
+          example: valid
+        details:
+          type: object
+          additionalProperties: true
+          description: Type-specific detail fields
+          example: { "subject_name": "Nguyen Van A", "credential_type": "certificate" }
+        issuer:
+          type: string
+          example: Tran Ha Tam
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-06-01T12:00:00Z"
+
+    # ── API Keys ────────────────────────────────────────────
+    ApiKey:
+      type: object
+      required: [id, name, prefix, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: f0a1b2c3-d4e5-6789-0abc-def123456789
+        name:
+          type: string
+          example: production-backend
+        prefix:
+          type: string
+          description: First 8 chars of the key for identification
+          example: tiai_abc1
+        last_used_at:
+          type: string
+          format: date-time
+          nullable: true
+          example: "2025-06-15T09:00:00Z"
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-06-01T12:00:00Z"
+
+    ApiKeyCreated:
+      type: object
+      required: [id, name, key, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: f0a1b2c3-d4e5-6789-0abc-def123456789
+        name:
+          type: string
+          example: production-backend
+        key:
+          type: string
+          description: Full API key — shown only once
+          example: tiai_abc1def2ghi3jkl4mno5pqr6stu7vwx8
+        created_at:
+          type: string
+          format: date-time
+          example: "2025-06-01T12:00:00Z"
+
+    # ── Billing ─────────────────────────────────────────────
+    Plan:
+      type: object
+      required: [code, name, price_monthly, price_yearly, limits]
+      properties:
+        code:
+          type: string
+          enum: [free, pro, enterprise]
+          example: pro
+        name:
+          type: string
+          example: Pro
+        price_monthly:
+          type: number
+          example: 29.00
+        price_yearly:
+          type: number
+          example: 290.00
+        currency:
+          type: string
+          example: USD
+        limits:
+          type: object
+          properties:
+            proofs_per_month:
+              type: integer
+              example: 1000
+            credentials_per_month:
+              type: integer
+              example: 500
+            assets_per_month:
+              type: integer
+              example: 100
+            api_keys:
+              type: integer
+              example: 10
+
+    Subscription:
+      type: object
+      required: [id, plan_code, status, current_period_start, current_period_end]
+      properties:
+        id:
+          type: string
+          format: uuid
+          example: sub_abc123
+        plan_code:
+          type: string
+          example: pro
+        status:
+          type: string
+          enum: [active, canceled, past_due, trialing]
+          example: active
+        payment_provider:
+          type: string
+          enum: [stripe, paypal]
+          example: stripe
+        current_period_start:
+          type: string
+          format: date-time
+          example: "2025-06-01T00:00:00Z"
+        current_period_end:
+          type: string
+          format: date-time
+          example: "2025-07-01T00:00:00Z"
+
+    # ── Usage ───────────────────────────────────────────────
+    UsageStats:
+      type: object
+      required: [period_start, period_end, proofs, credentials, assets, api_calls]
+      properties:
+        period_start:
+          type: string
+          format: date-time
+          example: "2025-06-01T00:00:00Z"
+        period_end:
+          type: string
+          format: date-time
+          example: "2025-07-01T00:00:00Z"
+        proofs:
+          type: integer
+          example: 142
+        credentials:
+          type: integer
+          example: 67
+        assets:
+          type: integer
+          example: 12
+        api_calls:
+          type: integer
+          example: 4230
+
+  responses:
+    BadRequest:
+      description: Validation or client error
+      headers:
+        X-RateLimit-Limit:
+          $ref: "#/components/headers/X-RateLimit-Limit"
+        X-RateLimit-Remaining:
+          $ref: "#/components/headers/X-RateLimit-Remaining"
+        X-RateLimit-Reset:
+          $ref: "#/components/headers/X-RateLimit-Reset"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: validation_error
+            message: "field 'email' is required"
+    Unauthorized:
+      description: Missing or invalid authentication
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: unauthorized
+            message: Invalid or expired token
+    Forbidden:
+      description: Insufficient permissions
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: forbidden
+            message: You do not have access to this resource
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: not_found
+            message: Resource not found
+    RateLimited:
+      description: Too many requests
+      headers:
+        X-RateLimit-Limit:
+          $ref: "#/components/headers/X-RateLimit-Limit"
+        X-RateLimit-Remaining:
+          $ref: "#/components/headers/X-RateLimit-Remaining"
+        X-RateLimit-Reset:
+          $ref: "#/components/headers/X-RateLimit-Reset"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: rate_limited
+            message: Rate limit exceeded. Retry after 60 seconds
+
+  parameters:
+    CursorParam:
+      name: cursor
+      in: query
+      schema:
+        type: string
+      description: Pagination cursor from previous response
+      example: eyJpZCI6MTAwfQ
+    LimitParam:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 20
+      description: Number of items per page
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+paths:
+  # ═══════════════════════════════════════════════════════════
+  #  AUTH
+  # ═══════════════════════════════════════════════════════════
+  /api/auth/magic-link:
+    post:
+      tags: [Auth]
+      summary: Send magic link to email
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email]
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: user@example.com
+      responses:
+        "200":
+          description: Magic link sent
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Magic link sent to user@example.com
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+
+  /api/auth/verify-token:
+    post:
+      tags: [Auth]
+      summary: Verify magic link token and return JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [token]
+              properties:
+                token:
+                  type: string
+                  example: mlk_abc123def456
+      responses:
+        "200":
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /api/auth/google:
+    post:
+      tags: [Auth]
+      summary: Exchange Google OAuth code for JWT
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [code]
+              properties:
+                code:
+                  type: string
+                  example: 4/0AX4XfWh...
+                redirect_uri:
+                  type: string
+                  format: uri
+                  example: https://trust.iai.one/auth/callback
+      responses:
+        "200":
+          description: Authentication successful
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /api/auth/me:
+    get:
+      tags: [Auth]
+      summary: Get current user profile
+      responses:
+        "200":
+          description: Current user
+          headers:
+            X-RateLimit-Limit:
+              $ref: "#/components/headers/X-RateLimit-Limit"
+            X-RateLimit-Remaining:
+              $ref: "#/components/headers/X-RateLimit-Remaining"
+            X-RateLimit-Reset:
+              $ref: "#/components/headers/X-RateLimit-Reset"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/auth/logout:
+    post:
+      tags: [Auth]
+      summary: Invalidate current session
+      responses:
+        "200":
+          description: Session invalidated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Logged out successfully
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  # ═══════════════════════════════════════════════════════════
+  #  PROOF
+  # ═══════════════════════════════════════════════════════════
+  /api/proof/create:
+    post:
+      tags: [Proof]
+      summary: Upload file and create proof
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required: [file]
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: File to hash and prove
+                metadata:
+                  type: string
+                  description: JSON string with optional metadata
+                  example: '{"description":"Signed contract Q1"}'
+      responses:
+        "201":
+          description: Proof created
+          headers:
+            X-RateLimit-Limit:
+              $ref: "#/components/headers/X-RateLimit-Limit"
+            X-RateLimit-Remaining:
+              $ref: "#/components/headers/X-RateLimit-Remaining"
+            X-RateLimit-Reset:
+              $ref: "#/components/headers/X-RateLimit-Reset"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proof"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+
+  /api/proof/verify:
+    post:
+      tags: [Proof]
+      summary: Verify a proof by hash or id
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                file_hash:
+                  type: string
+                  example: sha256:9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08
+              description: Provide either id or file_hash
+      responses:
+        "200":
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProofVerifyResult"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/proof/{id}:
+    get:
+      tags: [Proof]
+      summary: Get proof details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Proof details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Proof"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/proof:
+    get:
+      tags: [Proof]
+      summary: List user's proofs (paginated)
+      parameters:
+        - $ref: "#/components/parameters/CursorParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: Paginated list of proofs
+          headers:
+            X-RateLimit-Limit:
+              $ref: "#/components/headers/X-RateLimit-Limit"
+            X-RateLimit-Remaining:
+              $ref: "#/components/headers/X-RateLimit-Remaining"
+            X-RateLimit-Reset:
+              $ref: "#/components/headers/X-RateLimit-Reset"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Proof"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  # ═══════════════════════════════════════════════════════════
+  #  CREDENTIALS (VC)
+  # ═══════════════════════════════════════════════════════════
+  /api/vc/issue:
+    post:
+      tags: [Credentials]
+      summary: Issue a verifiable credential
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [subject_name, subject_identifier, credential_type]
+              properties:
+                subject_name:
+                  type: string
+                  example: Nguyen Van A
+                subject_identifier:
+                  type: string
+                  example: "ID:0123456789"
+                credential_type:
+                  type: string
+                  enum: [identity, certificate, license, membership, custom]
+                  example: certificate
+                proof_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  example: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+                metadata:
+                  type: object
+                  additionalProperties: true
+                  example: { "course": "Blockchain 101", "grade": "A" }
+                expires_at:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  example: "2026-06-01T12:00:00Z"
+      responses:
+        "201":
+          description: Credential issued
+          headers:
+            X-RateLimit-Limit:
+              $ref: "#/components/headers/X-RateLimit-Limit"
+            X-RateLimit-Remaining:
+              $ref: "#/components/headers/X-RateLimit-Remaining"
+            X-RateLimit-Reset:
+              $ref: "#/components/headers/X-RateLimit-Reset"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Credential"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+
+  /api/vc/{id}:
+    get:
+      tags: [Credentials]
+      summary: Get credential details
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Credential details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Credential"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/vc/{id}/revoke:
+    post:
+      tags: [Credentials]
+      summary: Revoke a credential
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [reason]
+              properties:
+                reason:
+                  type: string
+                  example: Subject requested revocation
+      responses:
+        "200":
+          description: Credential revoked
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Credential"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/vc:
+    get:
+      tags: [Credentials]
+      summary: List user's credentials (paginated, filterable)
+      parameters:
+        - $ref: "#/components/parameters/CursorParam"
+        - $ref: "#/components/parameters/LimitParam"
+        - name: status
+          in: query
+          schema:
+            type: string
+            enum: [active, revoked, expired]
+          description: Filter by credential status
+      responses:
+        "200":
+          description: Paginated list of credentials
+          headers:
+            X-RateLimit-Limit:
+              $ref: "#/components/headers/X-RateLimit-Limit"
+            X-RateLimit-Remaining:
+              $ref: "#/components/headers/X-RateLimit-Remaining"
+            X-RateLimit-Reset:
+              $ref: "#/components/headers/X-RateLimit-Reset"
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Credential"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  # ═══════════════════════════════════════════════════════════
+  #  ASSETS
+  # ═══════════════════════════════════════════════════════════
+  /api/asset/create:
+    post:
+      tags: [Assets]
+      summary: Mint a digital asset
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                credential_id:
+                  type: string
+                  format: uuid
+                  nullable: true
+                  example: c1d2e3f4-a5b6-7890-cdef-123456789abc
+                metadata:
+                  type: object
+                  additionalProperties: true
+                  example: { "name": "Certificate #42" }
+                chain:
+                  type: string
+                  enum: [ethereum, polygon, base]
+                  default: polygon
+                  example: polygon
+      responses:
+        "201":
+          description: Asset created
+          headers:
+            X-RateLimit-Limit:
+              $ref: "#/components/headers/X-RateLimit-Limit"
+            X-RateLimit-Remaining:
+              $ref: "#/components/headers/X-RateLimit-Remaining"
+            X-RateLimit-Reset:
+              $ref: "#/components/headers/X-RateLimit-Reset"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Asset"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+
+  /api/asset/{id}:
+    get:
+      tags: [Assets]
+      summary: Get asset details with transfer history
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Asset details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Asset"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /api/asset/{id}/transfer:
+    post:
+      tags: [Assets]
+      summary: Transfer asset ownership
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [to_address]
+              properties:
+                to_address:
+                  type: string
+                  example: "0x1234567890ABCDEF1234567890ABCDEF12345678"
+      responses:
+        "200":
+          description: Transfer initiated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Asset"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "403":
+          $ref: "#/components/responses/Forbidden"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ═══════════════════════════════════════════════════════════
+  #  VERIFY (PUBLIC)
+  # ═══════════════════════════════════════════════════════════
+  /api/verify/{id}:
+    get:
+      tags: [Verify]
+      summary: Universal public verification endpoint
+      description: Auto-detects whether the id refers to a proof, credential, or asset.
+      security: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Verification result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerifyResult"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ═══════════════════════════════════════════════════════════
+  #  API KEYS
+  # ═══════════════════════════════════════════════════════════
+  /api/keys:
+    post:
+      tags: [API Keys]
+      summary: Create an API key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name]
+              properties:
+                name:
+                  type: string
+                  example: production-backend
+      responses:
+        "201":
+          description: API key created (key shown only once)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiKeyCreated"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/RateLimited"
+    get:
+      tags: [API Keys]
+      summary: List API keys
+      responses:
+        "200":
+          description: List of API keys
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApiKey"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/keys/{id}:
+    delete:
+      tags: [API Keys]
+      summary: Revoke an API key
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: API key revoked
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: API key revoked
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  # ═══════════════════════════════════════════════════════════
+  #  BILLING
+  # ═══════════════════════════════════════════════════════════
+  /api/billing/plans:
+    get:
+      tags: [Billing]
+      summary: List available plans
+      security: []
+      responses:
+        "200":
+          description: Available plans
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Plan"
+
+  /api/billing/checkout:
+    post:
+      tags: [Billing]
+      summary: Create checkout session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [plan_code, payment_provider]
+              properties:
+                plan_code:
+                  type: string
+                  enum: [pro, enterprise]
+                  example: pro
+                payment_provider:
+                  type: string
+                  enum: [stripe, paypal]
+                  example: stripe
+      responses:
+        "200":
+          description: Checkout session created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [checkout_url]
+                properties:
+                  checkout_url:
+                    type: string
+                    format: uri
+                    example: https://checkout.stripe.com/c/pay/cs_live_abc123
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/billing/subscription:
+    get:
+      tags: [Billing]
+      summary: Get current subscription
+      responses:
+        "200":
+          description: Current subscription
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Subscription"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/billing/webhook/{provider}:
+    post:
+      tags: [Billing]
+      summary: Payment provider webhook
+      security: []
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [stripe, paypal]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Provider-specific webhook payload
+      responses:
+        "200":
+          description: Webhook processed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  received:
+                    type: boolean
+                    example: true
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  # ═══════════════════════════════════════════════════════════
+  #  USAGE
+  # ═══════════════════════════════════════════════════════════
+  /api/usage:
+    get:
+      tags: [Usage]
+      summary: Get usage stats for current billing period
+      responses:
+        "200":
+          description: Current period usage
+          headers:
+            X-RateLimit-Limit:
+              $ref: "#/components/headers/X-RateLimit-Limit"
+            X-RateLimit-Remaining:
+              $ref: "#/components/headers/X-RateLimit-Remaining"
+            X-RateLimit-Reset:
+              $ref: "#/components/headers/X-RateLimit-Reset"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UsageStats"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/usage/history:
+    get:
+      tags: [Usage]
+      summary: Get usage history (paginated)
+      parameters:
+        - $ref: "#/components/parameters/CursorParam"
+        - $ref: "#/components/parameters/LimitParam"
+      responses:
+        "200":
+          description: Paginated usage history
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/PaginatedResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/UsageStats"
+        "401":
+          $ref: "#/components/responses/Unauthorized"

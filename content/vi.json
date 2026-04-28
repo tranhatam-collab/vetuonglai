@@ -208,6 +208,18 @@
         "subline": "Lớp tri thức dài hạn — essay, sách và bài viết sâu về tương lai.",
         "primary_cta": "Xem cam kết minh bạch"
       }
+    },
+    "docs": {
+      "seo": {
+        "title": "DOCS | Tài liệu hệ thống Về Tương Lai",
+        "description": "Tài liệu kỹ thuật, tham chiếu API, bảng giá và hướng dẫn tích hợp cho toàn bộ hệ sinh thái Về Tương Lai."
+      },
+      "hero": {
+        "eyebrow": "Tài liệu",
+        "title": "DOCS",
+        "subline": "Tài liệu kỹ thuật, tham chiếu API, bảng giá và minh bạch hệ thống.",
+        "primary_cta": "Bắt đầu"
+      }
     }
   }
 }

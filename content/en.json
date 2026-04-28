@@ -208,6 +208,18 @@
         "subline": "A long-form knowledge layer — essays, books, and deep writing about the future.",
         "primary_cta": "View transparency commitment"
       }
+    },
+    "docs": {
+      "seo": {
+        "title": "DOCS | Vetuonglai System Documentation",
+        "description": "Technical documentation, API reference, pricing, and integration guides for the entire Vetuonglai ecosystem."
+      },
+      "hero": {
+        "eyebrow": "Documentation",
+        "title": "DOCS",
+        "subline": "Technical documentation, API reference, pricing, and system transparency.",
+        "primary_cta": "Get started"
+      }
     }
   }
 }
