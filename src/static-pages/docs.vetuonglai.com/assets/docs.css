@@ -229,6 +229,12 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   gap: 1rem;
 }
 
+.docs-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
 /* ─── Cards ─── */
 .docs-card {
   background: var(--docs-surface);
@@ -246,6 +252,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 
 .docs-card h3 { margin: 0 0 0.4rem; font-size: 1.05rem; }
 .docs-card p { margin: 0; color: var(--docs-muted); font-size: 0.9rem; }
+.docs-card-icon { display: inline-block; font-size: 1.4rem; margin-bottom: 0.5rem; }
 
 /* ─── Table ─── */
 .docs-table {
@@ -272,6 +279,22 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   overflow-x: auto;
   font-size: 0.88rem;
   line-height: 1.5;
+}
+
+.docs-code pre { margin: 0; white-space: pre-wrap; }
+
+.docs-copy-btn {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  border: 1px solid rgba(226, 232, 240, 0.25);
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  background: rgba(15, 23, 42, 0.75);
+  color: #e2e8f0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
 }
 
 /* ─── Badges ─── */
@@ -322,7 +345,8 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 
 /* ─── Mobile ─── */
 @media (max-width: 860px) {
-  .docs-grid { grid-template-columns: 1fr; }
+  .docs-grid,
+  .docs-cards { grid-template-columns: 1fr; }
 
   .docs-menu-toggle { display: block; }
 
@@ -349,7 +373,8 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 }
 
 @media (max-width: 600px) {
-  .docs-grid { grid-template-columns: 1fr; }
+  .docs-grid,
+  .docs-cards { grid-template-columns: 1fr; }
 }
 
 /* ─── Print ─── */

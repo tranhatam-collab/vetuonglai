@@ -148,7 +148,18 @@ const requiredFiles = [
   "read.vetuonglai.com/terms/index.html",
   "read.vetuonglai.com/tax-note/index.html",
   "read.vetuonglai.com/assets/read.css",
-  "read.vetuonglai.com/assets/read.js"
+  "read.vetuonglai.com/assets/read.js",
+  "docs.vetuonglai.com/index.html",
+  "docs.vetuonglai.com/getting-started/index.html",
+  "docs.vetuonglai.com/api-reference/index.html",
+  "docs.vetuonglai.com/trust-system/index.html",
+  "docs.vetuonglai.com/pricing/index.html",
+  "docs.vetuonglai.com/legal/index.html",
+  "docs.vetuonglai.com/changelog/index.html",
+  "docs.vetuonglai.com/support/index.html",
+  "docs.vetuonglai.com/assets/docs.css",
+  "docs.vetuonglai.com/assets/docs.js",
+  "docs.vetuonglai.com/assets/icon.svg"
 ];
 
 async function assertFile(relativePath) {

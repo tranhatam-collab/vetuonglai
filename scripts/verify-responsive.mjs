@@ -60,8 +60,8 @@ async function main() {
       const content = await readFile(cssFile, "utf-8");
       const relPath = path.relative(DIST, cssFile);
 
-      const has720 = /max-width:\s*720px/.test(content) || /max-width:\s*44\.?/i.test(content);
-      const has980 = /max-width:\s*980px/.test(content) || /max-width:\s*840px/.test(content) || /max-width:\s*61\.?/i.test(content);
+      const has720 = /max-width:\s*720px/.test(content) || /max-width:\s*600px/.test(content) || /max-width:\s*44\.?/i.test(content);
+      const has980 = /max-width:\s*980px/.test(content) || /max-width:\s*860px/.test(content) || /max-width:\s*840px/.test(content) || /max-width:\s*61\.?/i.test(content);
 
       if (!has720 && !has980) {
         // Only flag main stylesheets (not tiny utility CSS or token-only files)

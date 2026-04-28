@@ -77,10 +77,11 @@ function checkLanguageSwitcher(content, relPath, isKids) {
       issues.push({ type: "missing-lang-switch", file: relPath, detail: "No kids-lang switcher found" });
     }
   } else {
-    // Build pipeline pages use lang-switch/data-language-option; read uses read-lang/data-lang
+    // Build pipeline pages use lang-switch/data-language-option; read/docs use domain-specific lang controls.
     const hasSwitch = content.includes("data-language-option")
       || content.includes("lang-switch")
-      || content.includes("read-lang");
+      || content.includes("read-lang")
+      || content.includes("docs-lang");
     if (!hasSwitch && content.includes("<html")) {
       const isMainPage = content.includes("<main") || content.includes('id="main"');
       if (isMainPage) {
@@ -102,6 +103,7 @@ async function main() {
     const domainName = domainEntry.name;
     const isKids = domainName.startsWith("kids.");
     const isRead = domainName.startsWith("read.");
+    const isDocs = domainName.startsWith("docs.");
     const htmlFiles = await collectHtmlFiles(domainDir);
 
     for (const htmlFile of htmlFiles) {
@@ -113,8 +115,8 @@ async function main() {
       const pairs = isKids ? KIDS_ATTR_PAIRS : ATTR_PAIRS;
       totalPairs += checkAttrPairs(content, relPath, pairs);
 
-      // Read uses its own data-vi/data-en pattern too
-      if (isRead) {
+      // Read and Docs use their own data-vi/data-en pattern too
+      if (isRead || isDocs) {
         totalPairs += checkAttrPairs(content, relPath, [["data-vi", "data-en"]]);
       }
 

@@ -74,9 +74,12 @@
     "preview:ai": "python3 -m http.server 4184 --directory dist/ai.vetuonglai.com",
     "preview:business": "python3 -m http.server 4185 --directory dist/business.vetuonglai.com",
     "preview:read": "python3 -m http.server 4186 --directory dist/read.vetuonglai.com",
+    "preview:docs": "python3 -m http.server 4187 --directory dist/docs.vetuonglai.com",
     "verify:links": "node scripts/verify-links.mjs",
     "verify:responsive": "node scripts/verify-responsive.mjs",
     "verify:i18n": "node scripts/verify-i18n.mjs",
+    "verify:read:phase0": "node scripts/verify-read-phase0.mjs",
+    "verify:read:phase0:live": "node scripts/verify-read-phase0.mjs --live",
     "verify:qa": "npm run verify:links && npm run verify:responsive && npm run verify:i18n"
   }
 }

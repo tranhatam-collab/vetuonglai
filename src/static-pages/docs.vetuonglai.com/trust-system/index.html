@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>trust.iai.one Verification System | DOCS</title>
+  <meta name="description" content="Tổng quan trust.iai.one: Proof Engine, Credential Engine, Asset Engine, dashboard, API và roadmap." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://docs.vetuonglai.com/trust-system/" />
+  <link rel="alternate" hreflang="vi-VN" href="https://docs.vetuonglai.com/trust-system/" />
+  <link rel="alternate" hreflang="en-US" href="https://docs.vetuonglai.com/trust-system/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.vetuonglai.com/trust-system/" />
+  <meta property="og:title" content="trust.iai.one Verification System | DOCS" />
+  <meta property="og:description" content="Hạ tầng xác minh cho dữ liệu, danh tính, credential và tài sản số." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://docs.vetuonglai.com/trust-system/" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <link rel="stylesheet" href="/assets/docs.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Tới nội dung</a>
+  <header class="docs-header"><div class="container"><a class="docs-brand" href="/" data-vi="DOCS" data-en="DOCS">DOCS</a><nav class="docs-nav-top" aria-label="Docs primary"><a href="/getting-started/" data-vi="Bắt đầu" data-en="Get started">Bắt đầu</a><a href="/api-reference/" data-vi="API" data-en="API">API</a><a href="/trust-system/" aria-current="page" data-vi="Trust System" data-en="Trust System">Trust System</a><a href="/pricing/" data-vi="Bảng giá" data-en="Pricing">Bảng giá</a><a href="/changelog/" data-vi="Nhật ký" data-en="Changelog">Nhật ký</a><a href="/support/" data-vi="Hỗ trợ" data-en="Support">Hỗ trợ</a></nav><div class="docs-lang" role="group" aria-label="Language"><button type="button" data-lang="vi" class="is-active"><span aria-hidden="true">🇻🇳</span> Tiếng Việt</button><button type="button" data-lang="en"><span aria-hidden="true">🇺🇸</span> English</button></div></div></header>
+  <main id="main" class="docs-main container stack-md">
+    <h1 data-vi="Hệ thống xác minh trust.iai.one" data-en="trust.iai.one Verification System">Hệ thống xác minh trust.iai.one</h1>
+    <p data-vi="trust.iai.one hợp nhất proof.tranhatam.com, vc.vetuonglai.com và nft.iai.one thành một hạ tầng xác minh duy nhất. Định vị là verification infrastructure, không phải nền tảng NFT, blockchain hay Web3." data-en="trust.iai.one unifies proof.tranhatam.com, vc.vetuonglai.com, and nft.iai.one into one verification infrastructure. It is positioned as verification infrastructure, not an NFT, blockchain, or Web3 platform.">trust.iai.one hợp nhất proof.tranhatam.com, vc.vetuonglai.com và nft.iai.one thành một hạ tầng xác minh duy nhất. Định vị là verification infrastructure, không phải nền tảng NFT, blockchain hay Web3.</p>
+    <section class="docs-grid"><article class="docs-card"><h2 data-vi="Proof Engine" data-en="Proof Engine">Proof Engine</h2><p data-vi="Tạo hash SHA-256, timestamp và verify URL để chứng minh dữ liệu đã tồn tại tại một thời điểm." data-en="Creates SHA-256 hashes, timestamps, and verify URLs to prove data existed at a point in time.">Tạo hash SHA-256, timestamp và verify URL để chứng minh dữ liệu đã tồn tại tại một thời điểm.</p></article><article class="docs-card"><h2 data-vi="Credential Engine" data-en="Credential Engine">Credential Engine</h2><p data-vi="Phát hành, hết hạn, thu hồi và xác minh credential gắn với cá nhân, tổ chức hoặc thành quả học tập." data-en="Issues, expires, revokes, and verifies credentials linked to people, organizations, or learning outcomes.">Phát hành, hết hạn, thu hồi và xác minh credential gắn với cá nhân, tổ chức hoặc thành quả học tập.</p></article><article class="docs-card"><h2 data-vi="Asset Engine" data-en="Asset Engine">Asset Engine</h2><p data-vi="Ghi nhận quyền sở hữu và lịch sử chuyển giao tài sản số khi credential hoặc metadata cần lớp ownership." data-en="Records ownership and transfer history when a credential or metadata needs an ownership layer.">Ghi nhận quyền sở hữu và lịch sử chuyển giao tài sản số khi credential hoặc metadata cần lớp ownership.</p></article></section>
+    <section class="surface stack-sm"><h2 data-vi="Luồng lõi" data-en="Core Flow">Luồng lõi</h2><p><code>Upload -> Proof -> Credential -> Asset optional -> Verify Link</code></p><p data-vi="Verify link là điểm chạm công khai. Người xem không cần tài khoản, chỉ cần mở link để biết trạng thái valid, revoked, expired hoặc invalid." data-en="The verify link is the public touchpoint. Viewers need no account; they open the link to see valid, revoked, expired, or invalid status.">Verify link là điểm chạm công khai. Người xem không cần tài khoản, chỉ cần mở link để biết trạng thái valid, revoked, expired hoặc invalid.</p></section>
+    <h2 data-vi="Dashboard" data-en="Dashboard">Dashboard</h2>
+    <p data-vi="Dashboard là trung tâm sản phẩm, gồm Overview, Proof, Credentials, Assets, Verify, API và Billing. Không tách thành ba sản phẩm rời rạc." data-en="The dashboard is the product center: Overview, Proof, Credentials, Assets, Verify, API, and Billing. It is not split into three disconnected products.">Dashboard là trung tâm sản phẩm, gồm Overview, Proof, Credentials, Assets, Verify, API và Billing. Không tách thành ba sản phẩm rời rạc.</p>
+    <h2 data-vi="Gói sử dụng" data-en="Plans">Gói sử dụng</h2>
+    <p data-vi="Free dùng để thử proof. Pro mở credential. Business mở asset và API nghiêm túc. Enterprise mở tuỳ chỉnh, SLA và white-label." data-en="Free is for trying proofs. Pro unlocks credentials. Business unlocks assets and serious API usage. Enterprise adds customization, SLA, and white-label deployment.">Free dùng để thử proof. Pro mở credential. Business mở asset và API nghiêm túc. Enterprise mở tuỳ chỉnh, SLA và white-label.</p>
+    <h2 data-vi="Roadmap" data-en="Roadmap">Roadmap</h2>
+    <table class="docs-table"><tbody><tr><th>Phase</th><th data-vi="Trọng tâm" data-en="Focus">Trọng tâm</th><th data-vi="Kết quả" data-en="Outcome">Kết quả</th></tr><tr><td>1</td><td>Proof + login + billing</td><td data-vi="Người dùng tạo proof và verify link." data-en="Users create proofs and verify links.">Người dùng tạo proof và verify link.</td></tr><tr><td>2</td><td>Credential + dashboard</td><td data-vi="Tổ chức phát hành và thu hồi credential." data-en="Organizations issue and revoke credentials.">Tổ chức phát hành và thu hồi credential.</td></tr><tr><td>3</td><td>Asset + public API + SDK</td><td data-vi="Doanh nghiệp tích hợp qua API." data-en="Businesses integrate through the API.">Doanh nghiệp tích hợp qua API.</td></tr></tbody></table>
+    <section class="surface"><p data-vi="Tài liệu kỹ thuật đầy đủ nằm trong thư mục docs/trust-system của repository: master spec, database schema, OpenAPI, dashboard flow và deployment guide." data-en="Full technical documents live in the repository under docs/trust-system: master spec, database schema, OpenAPI, dashboard flow, and deployment guide.">Tài liệu kỹ thuật đầy đủ nằm trong thư mục docs/trust-system của repository: master spec, database schema, OpenAPI, dashboard flow và deployment guide.</p></section>
+  </main>
+  <footer class="docs-footer"><div class="container"><p data-vi="© 2026 Về Tương Lai. Mọi quyền được bảo lưu." data-en="© 2026 Vetuonglai. All rights reserved.">© 2026 Về Tương Lai. Mọi quyền được bảo lưu.</p><nav><a href="/legal/" data-vi="Pháp lý" data-en="Legal">Pháp lý</a> · <a href="https://vetuonglai.com" data-vi="Trang chủ" data-en="Home">Trang chủ</a></nav></div></footer>
+  <script src="/assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tham chiếu API | DOCS Về Tương Lai</title>
+  <meta name="description" content="Tham chiếu API cho trust.iai.one: xác thực, proof, credential, asset, verify, billing và giới hạn tốc độ." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://docs.vetuonglai.com/api-reference/" />
+  <link rel="alternate" hreflang="vi-VN" href="https://docs.vetuonglai.com/api-reference/" />
+  <link rel="alternate" hreflang="en-US" href="https://docs.vetuonglai.com/api-reference/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.vetuonglai.com/api-reference/" />
+  <meta property="og:title" content="Tham chiếu API | DOCS Về Tương Lai" />
+  <meta property="og:description" content="API cho hạ tầng xác minh trust.iai.one." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://docs.vetuonglai.com/api-reference/" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <link rel="stylesheet" href="/assets/docs.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Tới nội dung</a>
+  <header class="docs-header"><div class="container"><a class="docs-brand" href="/" data-vi="DOCS" data-en="DOCS">DOCS</a><nav class="docs-nav-top" aria-label="Docs primary"><a href="/getting-started/" data-vi="Bắt đầu" data-en="Get started">Bắt đầu</a><a href="/api-reference/" aria-current="page" data-vi="API" data-en="API">API</a><a href="/trust-system/" data-vi="Trust System" data-en="Trust System">Trust System</a><a href="/pricing/" data-vi="Bảng giá" data-en="Pricing">Bảng giá</a><a href="/changelog/" data-vi="Nhật ký" data-en="Changelog">Nhật ký</a><a href="/support/" data-vi="Hỗ trợ" data-en="Support">Hỗ trợ</a></nav><div class="docs-lang" role="group" aria-label="Language"><button type="button" data-lang="vi" class="is-active"><span aria-hidden="true">🇻🇳</span> Tiếng Việt</button><button type="button" data-lang="en"><span aria-hidden="true">🇺🇸</span> English</button></div></div></header>
+  <main id="main" class="docs-main container stack-md">
+    <h1 data-vi="Tham chiếu API" data-en="API Reference">Tham chiếu API</h1>
+    <p data-vi="API của trust.iai.one phục vụ một mục tiêu: xác minh bằng chứng dữ liệu, chứng chỉ và quyền sở hữu tài sản số qua một lớp verify thống nhất." data-en="The trust.iai.one API has one purpose: verify data proofs, credentials, and digital asset ownership through one universal verification layer.">API của trust.iai.one phục vụ một mục tiêu: xác minh bằng chứng dữ liệu, chứng chỉ và quyền sở hữu tài sản số qua một lớp verify thống nhất.</p>
+    <section class="surface stack-sm"><h2 data-vi="Base URL" data-en="Base URL">Base URL</h2><div class="docs-code"><pre><code>https://trust.iai.one/api</code></pre></div></section>
+    <section class="stack-sm"><h2 data-vi="Xác thực" data-en="Authentication">Xác thực</h2><p data-vi="Endpoint dashboard dùng JWT phiên đăng nhập. Endpoint server-to-server dùng API key trong header Authorization." data-en="Dashboard endpoints use session JWTs. Server-to-server endpoints use API keys in the Authorization header.">Endpoint dashboard dùng JWT phiên đăng nhập. Endpoint server-to-server dùng API key trong header Authorization.</p><div class="docs-code"><pre><code>Authorization: Bearer vtl_live_xxxxxxxxx</code></pre></div></section>
+    <section class="stack-sm"><h2 data-vi="Auth" data-en="Auth">Auth</h2><table class="docs-table"><tbody><tr><th>Method</th><th>Path</th><th data-vi="Mục đích" data-en="Purpose">Mục đích</th></tr><tr><td>POST</td><td>/api/auth/magic-link</td><td data-vi="Gửi link đăng nhập qua email." data-en="Send an email magic login link.">Gửi link đăng nhập qua email.</td></tr><tr><td>POST</td><td>/api/auth/verify-token</td><td data-vi="Đổi token thành phiên đăng nhập." data-en="Exchange token for a session.">Đổi token thành phiên đăng nhập.</td></tr><tr><td>GET</td><td>/api/auth/me</td><td data-vi="Lấy hồ sơ người dùng hiện tại." data-en="Return the current user profile.">Lấy hồ sơ người dùng hiện tại.</td></tr></tbody></table></section>
+    <section class="stack-sm"><h2 data-vi="Proof" data-en="Proof">Proof</h2><p data-vi="Proof là API mở trước tiên vì rủi ro thấp, giá trị rõ và là nền cho credential." data-en="Proof opens first because it has lower risk, clear value, and is the base layer for credentials.">Proof là API mở trước tiên vì rủi ro thấp, giá trị rõ và là nền cho credential.</p><table class="docs-table"><tbody><tr><th>Method</th><th>Path</th><th data-vi="Mục đích" data-en="Purpose">Mục đích</th></tr><tr><td>POST</td><td>/api/proof/create</td><td data-vi="Tạo SHA-256 hash, timestamp và verify URL." data-en="Create SHA-256 hash, timestamp, and verify URL.">Tạo SHA-256 hash, timestamp và verify URL.</td></tr><tr><td>POST</td><td>/api/proof/verify</td><td data-vi="Kiểm tra proof bằng id hoặc hash." data-en="Verify a proof by id or hash.">Kiểm tra proof bằng id hoặc hash.</td></tr><tr><td>GET</td><td>/api/proof/{id}</td><td data-vi="Lấy chi tiết proof." data-en="Get proof details.">Lấy chi tiết proof.</td></tr></tbody></table><div class="docs-code"><pre><code>curl -X POST https://trust.iai.one/api/proof/create \
+  -H "Authorization: Bearer vtl_live_xxx" \
+  -F "file=@contract.pdf" \
+  -F 'metadata={"project":"demo"}'</code></pre></div></section>
+    <section class="stack-sm"><h2 data-vi="Credentials" data-en="Credentials">Credentials</h2><table class="docs-table"><tbody><tr><th>Method</th><th>Path</th><th data-vi="Mục đích" data-en="Purpose">Mục đích</th></tr><tr><td>POST</td><td>/api/vc/issue</td><td data-vi="Phát hành credential có thể xác minh." data-en="Issue a verifiable credential.">Phát hành credential có thể xác minh.</td></tr><tr><td>GET</td><td>/api/vc/{id}</td><td data-vi="Lấy chi tiết credential." data-en="Get credential details.">Lấy chi tiết credential.</td></tr><tr><td>POST</td><td>/api/vc/{id}/revoke</td><td data-vi="Thu hồi credential." data-en="Revoke a credential.">Thu hồi credential.</td></tr></tbody></table></section>
+    <section class="stack-sm"><h2 data-vi="Assets" data-en="Assets">Assets</h2><table class="docs-table"><tbody><tr><th>Method</th><th>Path</th><th data-vi="Mục đích" data-en="Purpose">Mục đích</th></tr><tr><td>POST</td><td>/api/asset/create</td><td data-vi="Tạo bản ghi tài sản số từ credential hoặc metadata." data-en="Create a digital asset record from a credential or metadata.">Tạo bản ghi tài sản số từ credential hoặc metadata.</td></tr><tr><td>GET</td><td>/api/asset/{id}</td><td data-vi="Lấy trạng thái và lịch sử sở hữu." data-en="Return status and ownership history.">Lấy trạng thái và lịch sử sở hữu.</td></tr></tbody></table></section>
+    <section class="stack-sm"><h2 data-vi="Verify công khai" data-en="Public Verify">Verify công khai</h2><p data-vi="Verify là endpoint công khai, không cần auth, tự nhận diện proof, credential hoặc asset." data-en="Verify is public, requires no auth, and auto-detects proof, credential, or asset.">Verify là endpoint công khai, không cần auth, tự nhận diện proof, credential hoặc asset.</p><div class="docs-code"><pre><code>GET /api/verify/{id}
+
+{
+  "type": "proof",
+  "status": "valid",
+  "created_at": "2026-04-28T00:00:00Z"
+}</code></pre></div></section>
+    <section class="stack-sm"><h2 data-vi="Billing" data-en="Billing">Billing</h2><table class="docs-table"><tbody><tr><td>GET</td><td>/api/billing/plans</td><td data-vi="Danh sách gói." data-en="List plans.">Danh sách gói.</td></tr><tr><td>POST</td><td>/api/billing/checkout</td><td data-vi="Tạo phiên thanh toán." data-en="Create checkout session.">Tạo phiên thanh toán.</td></tr></tbody></table></section>
+    <section class="stack-sm"><h2 data-vi="Giới hạn tốc độ" data-en="Rate Limits">Giới hạn tốc độ</h2><table class="docs-table"><tbody><tr><th>Plan</th><th>Limit</th></tr><tr><td>Free</td><td>10/min</td></tr><tr><td>Pro</td><td>60/min</td></tr><tr><td>Business</td><td>300/min</td></tr><tr><td>Enterprise</td><td>Custom</td></tr></tbody></table></section>
+    <section class="stack-sm"><h2 data-vi="Mã lỗi" data-en="Error Codes">Mã lỗi</h2><table class="docs-table"><tbody><tr><td>400</td><td>Bad request</td></tr><tr><td>401</td><td>Unauthorized</td></tr><tr><td>403</td><td>Forbidden</td></tr><tr><td>404</td><td>Not found</td></tr><tr><td>429</td><td>Rate limited</td></tr></tbody></table></section>
+  </main>
+  <footer class="docs-footer"><div class="container"><p data-vi="© 2026 Về Tương Lai. Mọi quyền được bảo lưu." data-en="© 2026 Vetuonglai. All rights reserved.">© 2026 Về Tương Lai. Mọi quyền được bảo lưu.</p><nav><a href="/legal/" data-vi="Pháp lý" data-en="Legal">Pháp lý</a> · <a href="https://vetuonglai.com" data-vi="Trang chủ" data-en="Home">Trang chủ</a></nav></div></footer>
+  <script src="/assets/docs.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+{
+  "timestamp": "2026-04-28T05:50:19.437Z",
+  "phase": 0,
+  "liveMode": false,
+  "passed": 8,
+  "total": 8,
+  "allPass": true,
+  "results": [
+    {
+      "key": "dist_exists",
+      "pass": true,
+      "detail": "dist/read.vetuonglai.com present"
+    },
+    {
+      "key": "required_pages",
+      "pass": true,
+      "detail": "all 9 required pages present"
+    },
+    {
+      "key": "bilingual_audit",
+      "pass": true,
+      "detail": "read.vetuonglai.com: 0 bilingual issues"
+    },
+    {
+      "key": "banned_phrases",
+      "pass": true,
+      "detail": "0 banned phrases in 22 HTML files"
+    },
+    {
+      "key": "runtime_truth_stage",
+      "pass": true,
+      "detail": "read.vetuonglai.com status = \"planned_public\""
+    },
+    {
+      "key": "pages_project",
+      "pass": true,
+      "detail": "projectName = \"vetuonglai-read\""
+    },
+    {
+      "key": "apps_json",
+      "pass": true,
+      "detail": "key=read, status=\"planned\""
+    },
+    {
+      "key": "live_http",
+      "pass": true,
+      "detail": "skipped (use --live to enable)"
+    }
+  ]
+}
