@@ -112,6 +112,24 @@ Phần còn lại của Team 4 không còn được xem là blocker endpoint/dat
 - chỉ được ký hardening pass
 - không được ký promotion/live
 
+### Blocker B4 — Kids homepage lane
+
+`kids.vetuonglai.com` được mở lane riêng từ `2026-04-29`, nhưng scope active hôm nay chỉ là:
+
+- homepage `/`
+- homepage `/en/`
+- child-safe public information only
+
+Không được:
+
+- claim full launch cho parent / learn / onboarding
+- đưa `kids` vào public discovery của hub/member
+- gắn form / payment / registration lên homepage
+
+Tài liệu điều phối active:
+
+- `docs/final-lock/VTL_68_KIDS_HOMEPAGE_LAUNCH_TEAM_SPLIT_2026-04-29.md`
+
 ## 4. Team 1 — Platform / Runtime / Release Control
 
 Channel: `vtl-team1-runtime-release`
@@ -128,6 +146,7 @@ Channel: `vtl-team1-runtime-release`
 8. Chuẩn bị Wave E release skeleton, nhưng không ký release.
 9. Cập nhật board `% hoàn thành / % còn lại` sau mỗi evidence mới.
 10. Điều phối blocker giữa Ops, Team 4, Team 5.
+11. Điều phối lane `kids` theo scope `homepage only` cho tới khi Team 5 ký `verify:kids:predeploy` pass.
 
 ### Lệnh bắt buộc
 
@@ -177,6 +196,7 @@ Channel: `vtl-team2-frontend-ux-mobile`
 6. Kiểm tra mobile surface cho hub/member/edu/vc sau mỗi build lớn.
 7. Chuẩn hóa CTA planned-safe về hub/gateway/entry point hợp lệ.
 8. Chuẩn bị copy fallback cho trường hợp Wave D DNS mở từng phần.
+9. Chốt homepage `kids.vetuonglai.com` và `/en/` theo `docs/kids/11_DAY_0_LAUNCH_PLAN.md`.
 
 ### Lệnh bắt buộc
 
@@ -221,6 +241,7 @@ Channel: `vtl-team3-governance-runtime-truth`
    - business không đi vào flow cá nhân
 6. Cập nhật go/no-go note khi Team 2 hoặc Team 4 đổi surface/data.
 7. Chặn Wave E nếu Wave D chưa có DNS/deploy/live evidence.
+8. Audit child-safe / no-commerce / no-registration wording cho homepage `kids`.
 
 ### Lệnh bắt buộc
 
@@ -257,6 +278,7 @@ Channel: `vtl-team4-data-registry-forms`
 6. Bảo đảm `business` luôn `planned_internal_only` cho tới khi có signoff riêng.
 7. Phối hợp Team 5 để phân biệt lỗi verifier môi trường với lỗi data thật.
 8. Chuẩn bị data handoff cho Team 2 render UI mà không hard-code.
+9. Rà kids curriculum / api contract / lesson sample để homepage `kids` không nói quá data thật.
 
 ### Lệnh bắt buộc
 

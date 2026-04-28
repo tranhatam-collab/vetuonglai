@@ -63,9 +63,15 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - nhận đủ Pages/Workers config
   - deploy verify pass
   - có evidence runtime đúng scope
+- từ `2026-04-29`, lane `kids.vetuonglai.com` được mở như một subdomain bổ sung có điều phối riêng:
+  - scope hôm nay chỉ là `homepage public info`
+  - không phải full public launch của parent / learn / onboarding flows
+  - packet điều phối active:
+    - `docs/final-lock/VTL_68_KIDS_HOMEPAGE_LAUNCH_TEAM_SPLIT_2026-04-29.md`
 - trọng tâm active của tổng kế hoạch hiện tại là:
   - chốt signoff Wave C
   - khóa DNS/runtime publish cho Wave D
+  - chốt homepage `kids.vetuonglai.com` nếu qua predeploy gate
   - rồi mới gom Wave E — Release/QA/Ops pack toàn hệ
 
 ## Board điều phối chi tiết đang active
@@ -86,6 +92,8 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_62_COMMIT_TEST_AND_CROSS_TEAM_REMAINING_WORK_SYNC_2026-04-23.md`
 - Cloudflare account migration lock:
   - `docs/final-lock/VTL_63_CLOUDFLARE_ACCOUNT_MIGRATION_LOCK_2026-04-26.md`
+- Kids homepage launch team split:
+  - `docs/final-lock/VTL_68_KIDS_HOMEPAGE_LAUNCH_TEAM_SPLIT_2026-04-29.md`
 - release/signoff pack mới nhất của Wave C:
   - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
   - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
