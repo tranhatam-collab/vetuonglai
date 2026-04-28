@@ -7,6 +7,22 @@
 
 ---
 
+## ⚠️ Compatibility note (2026-04-28)
+
+This file governs `invest.vetuonglai.com` — the most legally sensitive surface. Read together with:
+
+- `VETUONGLAI_DEV_IMPLEMENTATION_MAPPING_LOCK.md` §8 — `invest.primaryNav = false`, no payment form, no checkout, no deal list, no waitlist.
+- `VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md` — invest pathway opens at Tier 7 (Investor-ready). Legacy "Builder (tier 4)" gate in this file is the **earning** floor, not the **invest** floor; invest requires the higher Tier 7 plus the conditions in this file.
+- `VETUONGLAI_FTC_DISCLOSURE_AND_AFFILIATE_COMPLIANCE.md` §7 — no public income/invest claims, no "Invest now" CTA, no ROI / expected returns wording.
+
+Binding rules:
+
+1. Public surface for `invest.*` is education-only.
+2. Tier 7 (Investor-ready) is **not** an automatic right to invest. Specific opportunities still pass through KYC + jurisdiction + accreditation checks per Section 3 below.
+3. Anti-MLM statement applies to any contributor-related copy that touches invest education.
+
+---
+
 ## 0. ĐIỀU KIỆN DUYỆT (CỨNG)
 
 1. ❌ **KHÔNG mở invest trước 90 ngày user gắn bó** — không exception

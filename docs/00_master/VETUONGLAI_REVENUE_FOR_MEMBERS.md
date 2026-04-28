@@ -7,6 +7,23 @@
 
 ---
 
+## ⚠️ Compatibility note (2026-04-28)
+
+This file is **member-gated content** (per `VETUONGLAI_DEV_IMPLEMENTATION_MAPPING_LOCK.md` §3.3). Do not publish income numbers, payout details, or commission tables to public surfaces.
+
+Read together with:
+
+- `VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md` — earning pathway only opens at Tier 4 (Verified Contributor); legacy "Builder" tier in this file maps to Tier 3, while earning eligibility maps to Tier 4.
+- `VETUONGLAI_FTC_DISCLOSURE_AND_AFFILIATE_COMPLIANCE.md` — public copy must use `giới thiệu minh bạch (1 cấp)` / `transparent referral (single-tier)`. Internal identifiers (`affiliate_single_tier`, `affiliate_active`, etc.) may stay in code/data only. The legal page slug is `/legal/material-connection`, not `/legal/affiliate`.
+
+Binding rules:
+
+1. Income reference numbers in this file render only behind the Income Disclaimer accept gate.
+2. `Affiliate Terms` references in this file map to the new `/legal/material-connection` page.
+3. Anti-MLM statement must accompany any UI surface derived from this file.
+
+---
+
 ## 0. ĐIỀU KIỆN DUYỆT (CỨNG — KHÔNG ĐƯỢC PHÁ)
 
 1. ❌ **KHÔNG public claim thu nhập** — mọi con số $/tháng chỉ hiện sau đăng ký, có disclaimer cứng
@@ -192,7 +209,7 @@ Tất cả điều kiện Phase 2 + thêm:
 **Điều kiện affiliate:**
 - Member tầng 3+ (Learner)
 - Verify email + phone
-- Đọc + accept Affiliate Terms
+- Đọc + accept Material Connection Disclosure (referral / contributor)
 - Cookie window: 30 ngày
 - Min payout: $25
 - Hold: 30 ngày sau referee thanh toán (xử lý refund)
@@ -818,7 +835,7 @@ Mục đích:
 
 ### V1 Day 91+ (PHASE 1 OPEN)
 
-✅ **Open: Creator Revenue Share + VC Bounties + Affiliate single-tier**
+✅ **Open: Creator Revenue Share + VC Bounties + Giới thiệu minh bạch (1 cấp, internal: `affiliate_single_tier`)**
 
 Conditions:
 - 100+ free members
@@ -893,12 +910,12 @@ Trước khi enable bất kỳ earning channel nào:
 **Legal:**
 - [ ] Independent Contractor Agreement final, lawyer-reviewed
 - [ ] Income Disclaimer in 2 languages, lawyer-reviewed
-- [ ] Affiliate Terms drafted
+- [ ] Material Connection Disclosure page drafted (`/legal/material-connection`)
 - [ ] Tax handling per jurisdiction documented
 - [ ] AML/KYC policy documented
 
 **Tech:**
-- [ ] Affiliate single-tier constraint enforced at DB level
+- [ ] Single-tier referral constraint enforced at DB level (internal: `affiliate_single_tier`; public render: "giới thiệu minh bạch (1 cấp)")
 - [ ] Code review checklist applied to all PRs
 - [ ] Wise/PayPal/Stripe integrations tested with real money (sandbox first)
 - [ ] Anti-fraud detection live

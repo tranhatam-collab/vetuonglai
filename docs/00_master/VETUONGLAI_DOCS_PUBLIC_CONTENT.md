@@ -7,6 +7,25 @@
 
 ---
 
+## ⚠️ Compatibility note (2026-04-28)
+
+This file is preserved as the founder-approved strategy. Read it together with:
+
+- `VETUONGLAI_DEV_IMPLEMENTATION_MAPPING_LOCK.md` — public/member/internal split.
+- `VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md` — 6 pathways × 7 tiers (replaces the legacy 6-tier "Free / Explorer / Learner / Builder / Contributor / Partner" model used below).
+- `VETUONGLAI_FTC_DISCLOSURE_AND_AFFILIATE_COMPLIANCE.md` — referral wording, public vocabulary, anti-MLM statement.
+
+Binding rules when implementing this file in production:
+
+1. **Tier model** — implement the 7-tier model. Public copy should follow the 3-cluster public view (Khám phá / Tạo giá trị / Cộng tác sâu) from the framework §7. Legacy → new mapping in §5.
+2. **Affiliate wording** — public render must say `giới thiệu minh bạch (1 cấp)` / `transparent referral (single-tier)`. Internal identifier `affiliate_single_tier` may stay in code/data only. The legal slug `/legal/affiliate` must be renamed to `/legal/material-connection` in V1 (alias kept for back-compat if needed).
+3. **Anti-MLM statement** — must appear on every page that mentions referral/contributor/collaboration (VI + EN, see MAPPING_LOCK §4.3).
+4. **No public income numbers** outside member-gated views.
+
+The body below is preserved. Where it conflicts with the four rules above, the four rules win.
+
+---
+
 ## 0. ĐIỀU KIỆN DUYỆT (CỨNG)
 
 1. ❌ **KHÔNG public claim thu nhập** — toàn bộ docs không có "kiếm $X/tháng" public
@@ -187,7 +206,7 @@ Cho người vừa học vừa muốn kiếm thu nhập.
 
 | Tier | Giá | Bạn nhận được |
 |------|-----|---------------|
-| Creator Free | $0 | Tham gia + chia sẻ + affiliate single-tier |
+| Creator Free | $0 | Tham gia + chia sẻ + giới thiệu minh bạch (1 cấp) |
 | Creator Pro | $9/tháng | Training Creator Skills + tools |
 | Creator Annual | $99/năm | Full creator toolkit + revenue share |
 | Partner | Mời riêng | Tier cao nhất — qua promotion |
@@ -478,20 +497,24 @@ Mỗi link được verify qua oEmbed hoặc OAuth, đưa vào hồ sơ Verified
 Bạn không kiếm tiền từ việc đăng ký. Bạn kiếm tiền từ **giá trị thật** 
 bạn tạo ra — sau khi đã có proof.
 
-## 6 Tầng Hành Trình
+## 7 Tầng Hành Trình
+
+> **Implementation rule (2026-04-28):** legacy 6-tier wording below is preserved for context. Dev must render the **7-tier model** from `VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md` §2 or the 3-cluster public view from §7. Mapping cũ→mới: Explorer → Tier 1 Free; Contributor → Tier 4 Verified Contributor; Partner → Tier 5 Paid Collaborator / Tier 6 Project Lead / Tier 7 Investor-ready theo ngữ cảnh.
 
 ```
-Tầng 1: Free Member (đăng ký free)
+Tier 1: Free (đăng ký + khám phá)
        ↓
-Tầng 2: Explorer (trải nghiệm)
+Tier 2: Learner (học có cấu trúc)
        ↓
-Tầng 3: Learner (học chương trình)
+Tier 3: Builder (có đầu ra)
        ↓
-Tầng 4: Builder (có đầu ra + proof) ← Có thể nhận microtask
+Tier 4: Verified Contributor (proof + 90 ngày) ← điểm thấp nhất earning có thể mở
        ↓
-Tầng 5: Contributor (cộng tác chính thức)
+Tier 5: Paid Collaborator (đã hoàn thành task có thanh toán)
        ↓
-Tầng 6: Partner (uy tín cao, dự án lớn)
+Tier 6: Project Lead (dẫn dắt project có team)
+       ↓
+Tier 7: Investor-ready (đủ điều kiện tiếp cận invest education + gated)
 ```
 
 ## 7 Nhóm Cộng Tác Viên
@@ -538,7 +561,7 @@ Tầng 6: Partner (uy tín cao, dự án lớn)
 ### Phase 1 — Mở sau 90 ngày platform launch
 - ✍️ Creator Revenue Share (chia sẻ doanh thu nội dung)
 - 🎯 VC Bounties (bounty có rate cố định)
-- 🔗 Affiliate Single-tier (chia sẻ 1 cấp, không đa cấp)
+- 🔗 Giới thiệu minh bạch (1 cấp) — không đa cấp
 
 ### Phase 2 — Mở khi V2 launch
 - 🎓 Coaching / Consulting Marketplace
@@ -557,9 +580,9 @@ Tầng 6: Partner (uy tín cao, dự án lớn)
 5. ✅ Đọc + accept Income Disclaimer
 6. ✅ KYC cơ bản nếu payout > $25/tháng
 
-## Affiliate — Chỉ 1 cấp
+## Giới thiệu minh bạch — Chỉ 1 cấp
 
-⚠️ **Quan trọng:** Affiliate của Về Tương Lai là **single-tier (1 cấp)**.
+⚠️ **Quan trọng:** Chương trình giới thiệu của Về Tương Lai là **single-tier (1 cấp)**.
 
 - Bạn giới thiệu A → A đăng ký + mua → bạn nhận commission
 - A giới thiệu B → bạn **KHÔNG** nhận gì từ B
@@ -765,7 +788,7 @@ Creator Program phù hợp với bạn nếu:
 
 ### Creator Free ($0)
 - Tham gia Creator community
-- Nhận affiliate single-tier link
+- Nhận mã giới thiệu minh bạch (1 cấp)
 - Đọc Creator resources cơ bản
 
 ### Creator Pro ($9/tháng)
@@ -954,7 +977,7 @@ gia có giấy phép trước khi quyết định đầu tư.
 - [Privacy Policy](/legal/privacy)
 - [Cookie Policy](/legal/cookies)
 - [Refund Policy](/legal/refund)
-- [Affiliate Terms](/legal/affiliate)
+- [Material Connection Disclosure](/legal/material-connection)
 - [Independent Contractor Agreement](/legal/contractor)
 - [Income Disclaimer](/legal/income)
 - [Investment Risk Disclosure](/legal/invest)
@@ -1304,7 +1327,7 @@ Mỗi page docs trước khi publish phải:
 - [ ] Lawyer reviewed: TOS, Privacy, Refund, Income Disclaimer, Invest Disclosure
 - [ ] No public income claims anywhere
 - [ ] No "Invest Now" CTA anywhere
-- [ ] Affiliate single-tier only language
+- [ ] Public copy uses "giới thiệu minh bạch (1 cấp)" / "transparent referral (single-tier)" — no public "affiliate" wording
 - [ ] Kids policy COPPA + GDPR-K + PDPD compliant
 - [ ] Founder signed off
 - [ ] Last reviewed date visible

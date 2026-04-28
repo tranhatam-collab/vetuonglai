@@ -7,6 +7,22 @@
 
 ---
 
+## ⚠️ Compatibility note (2026-04-28)
+
+This file is preserved as the founder-approved strategy. Read it together with:
+
+- `VETUONGLAI_DEV_IMPLEMENTATION_MAPPING_LOCK.md` — public/member/internal split, V1 domain decisions (e.g. `learn.vetuonglai.com` not created in V1; implement under `member.vetuonglai.com/app/learn/`).
+- `VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md` — 6 pathways × 7 tiers (replaces the legacy 6-tier model used here when discussing user progression).
+- `VETUONGLAI_FTC_DISCLOSURE_AND_AFFILIATE_COMPLIANCE.md` — referral wording, public vocabulary.
+
+Binding rules when implementing:
+
+1. **Tier model** — implement the 7-tier model. Where this file says `Creator Free / Creator Pro / Creator Annual / Partner` (Partner Journey table), keep these as **product tier names** (paid SKUs) but separate them from the **user progression tier** (Free/Learner/Builder/Verified Contributor/Paid Collaborator/Project Lead/Investor-ready). The two are different axes.
+2. **Affiliate wording** — public render must say `giới thiệu minh bạch (1 cấp)` / `transparent referral (single-tier)`. Internal identifier `affiliate_single_tier` may stay in code/data only.
+3. **Anti-MLM statement** required on any public page that mentions referral / contributor / collaboration.
+
+---
+
 ## 0. ĐIỀU KIỆN DUYỆT (CỨNG — KHÔNG ĐƯỢC PHÁ)
 
 Trước khi đọc tiếp, mọi người implement phải hiểu 3 điều kiện cứng:
@@ -83,7 +99,7 @@ Free → Trải nghiệm → Học → Có proof → Cộng tác → Doanh thu �
 
 | Tier | Giá | Quyền lợi |
 |------|-----|----------|
-| **Creator Free** | $0 | Tham gia + chia sẻ + nhận affiliate single-tier |
+| **Creator Free** | $0 | Tham gia + chia sẻ + nhận mã giới thiệu minh bạch (1 cấp) |
 | **Creator Pro** | $9/tháng | Training Creator Skills + ưu đãi tham gia chương trình + tools |
 | **Creator Annual** | $99/năm | Full creator toolkit + revenue share rate cao hơn (xem REVENUE_FOR_MEMBERS.md) |
 | **Partner** | Invite-only | Tier cao nhất — chỉ qua promotion từ Creator → Contributor → Partner |
@@ -655,7 +671,7 @@ Trước khi launch V1, phải pass:
 
 **Compliance:**
 - [ ] Income disclaimer ở mọi nơi nói earnings
-- [ ] Affiliate single-tier only — code review confirmed
+- [ ] Public render uses "giới thiệu minh bạch (1 cấp)" wording — single-tier only — code review confirmed
 - [ ] Invest gate đóng cứng, không có CTA "Invest"
 - [ ] Kids tier defer (không launch trong V1)
 

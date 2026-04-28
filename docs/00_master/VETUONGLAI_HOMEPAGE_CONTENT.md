@@ -7,6 +7,25 @@
 
 ---
 
+## ⚠️ Compatibility note (2026-04-28)
+
+This file is a **master strategy file** but is no longer the only source of truth for public copy. Read it together with:
+
+- `VETUONGLAI_DEV_IMPLEMENTATION_MAPPING_LOCK.md` — public/member/internal split, vocabulary rules.
+- `VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md` — 6 pathways × 7 tiers (replaces the legacy 6-tier model below).
+- `VETUONGLAI_FTC_DISCLOSURE_AND_AFFILIATE_COMPLIANCE.md` — referral wording, public vocabulary, anti-MLM statement.
+
+Binding rules when implementing this file in production:
+
+1. **Tier model** — wherever this file says "6-tier" or lists `Free / Explorer / Learner / Builder / Contributor / Partner`, dev must implement the **7-tier model** from PATHWAY_AND_TIER_FRAMEWORK §2 and may present it as the **3-cluster public view** (Khám phá / Tạo giá trị / Cộng tác sâu) from §7. Legacy → new mapping is in §5 of that file.
+2. **Affiliate wording** — wherever this file says `Affiliate single-tier`, public render must use **`Giới thiệu minh bạch (1 cấp)` / `Transparent referral (single-tier)`**. The internal identifier `affiliate_single_tier` may stay in code/data only, never in public UI.
+3. **Anti-MLM statement** — any homepage section that mentions referral / contributor / collaboration must include the VI+EN anti-MLM statement from MAPPING_LOCK §4.3.
+4. **Earning / income wording** — homepage must not show income numbers, payout details, or commission tables (already enforced by §0 of this file).
+
+The body below is preserved as the founder-approved strategy. Where it conflicts with the four rules above, the four rules win.
+
+---
+
 ## 0. ĐIỀU KIỆN DUYỆT (CỨNG)
 
 1. ❌ **KHÔNG public claim thu nhập** — homepage tuyệt đối không có "$X/tháng"
@@ -254,8 +273,8 @@ Cho người vừa học vừa muốn cộng tác.
 
 ✓ Tham gia miễn phí
 ✓ Creator Pro $9/tháng — tools đầy đủ
-✓ Affiliate single-tier (1 cấp)
-✓ Earning sau khi qualified*
+✓ Giới thiệu minh bạch (1 cấp) — không đa cấp
+✓ Cơ hội cộng tác sau khi qualified*
 
 [Khám phá Đối Tác ▶]
 
@@ -276,24 +295,23 @@ Cho người vừa học vừa muốn cộng tác.
 
 ---
 
-## 5. 6-TIER JOURNEY VISUAL TIMELINE
+## 5. JOURNEY VISUAL TIMELINE
 
-### 5.1 Visual concept
+> **Implementation rule (2026-04-28):** the legacy 6-tier wording below is preserved for context. Dev must render the **7-tier model** (Free → Learner → Builder → Verified Contributor → Paid Collaborator → Project Lead → Investor-ready) or the **3-cluster public view** (Khám phá / Tạo giá trị / Cộng tác sâu) from `VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md`.
+
+### 5.1 Visual concept (legacy reference — do not ship verbatim)
 
 ```
    ●──────●──────●──────●──────●──────●
    1      2      3      4      5      6
-  Free   Explorer Learner Builder Contributor Partner
+  Free   Learner Builder Verified Paid    Project
+                        Contrib  Collab  Lead
 
-  Đăng    Trải    Học    Có      Cộng    Uy tín
-  ký      nghiệm  ch.   đầu    tác    cao
-  miễn   sản     trình  ra +    chính   doanh
-  phí    phẩm           proof   thức    thu cao
-  
-  $0    $3-9   $29-99  Có       Có      Có
-                       earning  full    premium
-                       micro    earning earning
-                       only*
+  Đăng    Học    Có      Có      Có thù  Dẫn dắt
+  ký      có     đầu     proof   lao     dự án
+  miễn   cấu    ra      được     theo    theo
+  phí    trúc           xác      task    project
+                        minh
 ```
 
 ### 5.2 Wording bên dưới timeline
