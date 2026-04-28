@@ -377,6 +377,37 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   .docs-cards { grid-template-columns: 1fr; }
 }
 
+/* ─── Referral disclosure (FTC 16 CFR §255 component) ─── */
+.referral-disclosure {
+  border: 1px solid var(--docs-border);
+  border-left: 4px solid var(--docs-accent);
+  background: var(--docs-band);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  color: var(--docs-ink);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.referral-disclosure__text {
+  margin: 0;
+}
+
+.referral-disclosure--inline {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0 0 0.25rem;
+  font-size: 0.85rem;
+  border-left-width: 3px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .referral-disclosure {
+    background: rgba(30, 64, 175, 0.12);
+  }
+}
+
 /* ─── Print ─── */
 @media print {
   .docs-sidebar,

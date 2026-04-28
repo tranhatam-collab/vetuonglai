@@ -156,6 +156,7 @@ const requiredFiles = [
   "docs.vetuonglai.com/trust-system/index.html",
   "docs.vetuonglai.com/pricing/index.html",
   "docs.vetuonglai.com/legal/index.html",
+  "docs.vetuonglai.com/legal/material-connection/index.html",
   "docs.vetuonglai.com/changelog/index.html",
   "docs.vetuonglai.com/support/index.html",
   "docs.vetuonglai.com/assets/docs.css",
