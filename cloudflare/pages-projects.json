@@ -86,7 +86,14 @@
       "projectName": "vetuonglai-read",
       "distDir": "dist/read.vetuonglai.com",
       "customDomains": ["read.vetuonglai.com"],
-      "notes": "Phase 0 = public reading shell only (planned_public). No checkout, no payout, no creator onboarding. Phase 1+ unlocks per VTL_67 lock. DNS CNAME not yet created — must add before first deploy."
+      "notes": "Phase 0 = public reading shell only (planned_public). No checkout, no payout, no creator onboarding. Phase 1+ unlocks per VTL_67 lock. Custom domain bound 2026-04-28, DNS CNAME pending zone:write."
+    },
+    {
+      "key": "docs",
+      "projectName": "vetuonglai-docs",
+      "distDir": "dist/docs.vetuonglai.com",
+      "customDomains": ["docs.vetuonglai.com"],
+      "notes": "Technical docs shell. Custom domain bound 2026-04-28, DNS CNAME pending zone:write."
     }
   ]
 }

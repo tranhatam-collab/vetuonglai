@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "sourceDoc": "docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md",
+  "extractedAt": "2026-04-28",
+  "approvedPublicPromises": {
+    "vi": [
+      "Ai tạo ra giá trị, người đó được ghi nhận.",
+      "Mọi khoản chia doanh thu phải có công thức rõ ràng, có lịch trả rõ ràng, và có báo cáo minh bạch."
+    ],
+    "en": [
+      "Whoever creates value gets recognized.",
+      "Every revenue split must have a clear formula, a clear payout schedule, and a transparent report."
+    ]
+  },
+  "bannedPublicPhrases": [
+    "ai cũng kiếm tiền",
+    "thu nhập thụ động",
+    "đảm bảo được trả",
+    "PayOS miễn phí vĩnh viễn",
+    "platform khấu trừ đúng mọi loại thuế"
+  ],
+  "approvedPublicFraming": {
+    "roleSystem": "role-based contribution system",
+    "platformFee": "mức phí vận hành được công bố trước mỗi giao dịch",
+    "paymentProviderFee": "phí thực tế của provider tại thời điểm giao dịch",
+    "creatorShare": "70–85% tùy sản phẩm và role, hiển thị trước khi publish và trước khi bán"
+  },
+  "transparencyRules": {
+    "allowed": ["aggregate", "anonymized", "hash-based", "quarterly_no_identity"],
+    "forbidden": ["real_name", "bank_account", "cccd", "tax_id", "individual_amount_if_identifiable"]
+  },
+  "requiredPages": [
+    "/",
+    "/how-we-pay/",
+    "/transparency/",
+    "/creator/",
+    "/submit/",
+    "/review/",
+    "/stacks/",
+    "/terms/",
+    "/tax-note/"
+  ]
+}

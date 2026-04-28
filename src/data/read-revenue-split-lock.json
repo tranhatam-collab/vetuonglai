@@ -5,6 +5,8 @@
     "note": "This file defines the planned revenue split model for READ creator economy. It is NOT active in Phase 0. No public page should reference these numbers until Phase 1+ is unlocked per VTL_67."
   },
   "version": "1.0",
+  "splitVersion": "split-v1",
+  "legalSafeMode": true,
   "lockedAt": "2026-04-28",
   "lockedBy": "founder",
   "platformFeePct": 15,

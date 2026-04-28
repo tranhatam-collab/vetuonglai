@@ -121,6 +121,14 @@
         "public_transparency_mode": "principles_only",
         "lock_doc": "docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md"
       }
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com",
+      "servingModel": "pages_direct",
+      "status": "planned_public",
+      "requiredPublic": false,
+      "owner_team": "team1"
     }
   ]
 }

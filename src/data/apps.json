@@ -140,6 +140,16 @@
     "stageLabel": "PLANNED"
   },
   {
+    "key": "docs",
+    "title": "TÀI LIỆU",
+    "titleEn": "DOCS",
+    "desc": "Lớp tài liệu kỹ thuật công khai cho hệ sinh thái Về Tương Lai: API reference, trust system, pricing, legal và changelog.",
+    "descEn": "The public technical documentation layer for the Về Tương Lai ecosystem: API reference, trust system, pricing, legal, and changelog.",
+    "url": "https://docs.vetuonglai.com",
+    "status": "planned",
+    "stageLabel": "PLANNED"
+  },
+  {
     "key": "nft",
     "title": "NFT Trust Bridge",
     "titleEn": "NFT Trust Bridge",
