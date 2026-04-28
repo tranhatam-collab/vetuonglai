@@ -1,43 +1,84 @@
 {
-  "version": "1.0",
-  "sourceDoc": "docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md",
-  "extractedAt": "2026-04-28",
-  "approvedPublicPromises": {
-    "vi": [
-      "Ai tạo ra giá trị, người đó được ghi nhận.",
-      "Mọi khoản chia doanh thu phải có công thức rõ ràng, có lịch trả rõ ràng, và có báo cáo minh bạch."
-    ],
-    "en": [
-      "Whoever creates value gets recognized.",
-      "Every revenue split must have a clear formula, a clear payout schedule, and a transparent report."
-    ]
+  "version": "2026-04-28",
+  "lockedBy": "Team 4 — Data Contracts",
+  "sourceDoc": "VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28",
+  "scope": "Approved public-facing copy blocks for READ domain. Build may consume these for rendering. No copy outside this file should appear on read.vetuonglai.com without governance signoff.",
+  "corePromise": {
+    "vi": "Ai tạo ra giá trị, người đó được ghi nhận.",
+    "en": "Whoever creates value gets recognized."
   },
-  "bannedPublicPhrases": [
+  "revenuePromise": {
+    "vi": "Mọi khoản chia doanh thu phải có công thức rõ ràng, có lịch trả rõ ràng, và có báo cáo minh bạch.",
+    "en": "Every revenue split must have a clear formula, a clear payout schedule, and transparent reporting."
+  },
+  "strategicFraming": {
+    "approved": "role-based contribution system",
+    "banned": ["ai cũng kiếm tiền", "mọi người đều có thu nhập"]
+  },
+  "stageBanners": {
+    "planned_public": {
+      "vi": "Đang chuẩn bị shell — chưa bán, chưa nhận đóng góp.",
+      "en": "Shell in preparation — not selling, not accepting contributions yet."
+    },
+    "member_preview": {
+      "vi": "Đã mở mua sách. Đang chuẩn bị mở cho cộng đồng đóng góp.",
+      "en": "Book purchases open. Preparing to open for community contributions."
+    },
+    "live": {
+      "vi": "Mở cho mọi người đóng góp. Xem tier ladder tại /write/tiers/",
+      "en": "Open for all contributors. See the tier ladder at /write/tiers/"
+    }
+  },
+  "disclosurePhrases": {
+    "platformFee": {
+      "vi": "mức phí vận hành được công bố trước mỗi giao dịch",
+      "en": "the operating fee is disclosed before each transaction"
+    },
+    "paymentProviderFee": {
+      "vi": "phí thanh toán được hiển thị theo chính sách nhà cung cấp tại thời điểm giao dịch",
+      "en": "payment fees are shown per provider policy at transaction time"
+    },
+    "creatorShare": {
+      "vi": "phần của người tạo hiển thị trước khi xuất bản và trước khi bán",
+      "en": "the creator share is shown before publish and before sale"
+    }
+  },
+  "transparencyWording": {
+    "approved": {
+      "vi": ["minh bạch tổng hợp", "dữ liệu đã ẩn danh", "số liệu có thể đổi theo chính sách và quy định áp dụng"],
+      "en": ["aggregate transparency", "anonymized data", "figures may change per applicable policy and regulation"]
+    },
+    "banned": {
+      "vi": ["public ledger live đầy đủ cho mọi creator", "chúng tôi công khai toàn bộ giao dịch cá nhân"],
+      "en": ["full public ledger for every creator", "we disclose all individual transactions"]
+    }
+  },
+  "ctaLabels": {
+    "buyNow": { "vi": "Mua ngay", "en": "Buy now" }
+  },
+  "trustBadges": {
+    "trustedAuthor": {
+      "vi": "Tác giả tin cậy",
+      "en": "Trusted Author",
+      "criteria": "Tier 3: 10 essays, zero violations 6 months, lifetime revenue >= 5M VND"
+    },
+    "sponsor": {
+      "vi": "Nhà tài trợ",
+      "en": "Sponsor",
+      "criteria": "Readers who gift-purchase access for others. No monetary payout."
+    }
+  },
+  "bannedPhrases": [
     "ai cũng kiếm tiền",
     "thu nhập thụ động",
     "đảm bảo được trả",
     "PayOS miễn phí vĩnh viễn",
     "platform khấu trừ đúng mọi loại thuế"
   ],
-  "approvedPublicFraming": {
-    "roleSystem": "role-based contribution system",
-    "platformFee": "mức phí vận hành được công bố trước mỗi giao dịch",
-    "paymentProviderFee": "phí thực tế của provider tại thời điểm giao dịch",
-    "creatorShare": "70–85% tùy sản phẩm và role, hiển thị trước khi publish và trước khi bán"
-  },
-  "transparencyRules": {
-    "allowed": ["aggregate", "anonymized", "hash-based", "quarterly_no_identity"],
-    "forbidden": ["real_name", "bank_account", "cccd", "tax_id", "individual_amount_if_identifiable"]
-  },
-  "requiredPages": [
-    "/",
-    "/how-we-pay/",
-    "/transparency/",
-    "/creator/",
-    "/submit/",
-    "/review/",
-    "/stacks/",
-    "/terms/",
-    "/tax-note/"
+  "stopLines": [
+    { "phrase": "Live", "condition": "when stage is planned_public or member_preview" },
+    { "phrase": "Đang nhận đóng góp", "condition": "when live stage not signed off" },
+    { "phrase": "Trả creator", "condition": "when no real settlement run has occurred" },
+    { "phrase": "Public ledger live", "condition": "when ledger has no real entries" }
   ]
 }

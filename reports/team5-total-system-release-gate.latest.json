@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-27T21:58:10.606Z",
+  "generatedAt": "2026-04-28T06:08:53.397Z",
   "owner": "team-5-smoke-release-qa",
   "lane": "wave-e-total-system-release-gate",
   "decision": {
@@ -22,7 +22,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 3.4,
+      "durationSec": 4.3,
       "note": "",
       "outputTail": "    \"failed\": 0,\n    \"skipped\": 0\n  },\n  \"runtime_and_live\": {\n    \"total\": 4,\n    \"passed\": 2,\n    \"failed\": 0,\n    \"skipped\": 2\n  }\n}"
     },
@@ -33,7 +33,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 1.3,
+      "durationSec": 2.1,
       "note": "",
       "outputTail": "      }\n    ],\n    \"gate_rules\": [\n      \"Khong false-live claim tren domain planned-safe.\",\n      \"CTA domain planned-safe phai dan ve diem vao hop le (hub/gateway).\",\n      \"Domain gated-only co the chua public runtime, nhung phai co runtime-truth reference ro rang.\"\n    ]\n  }\n}\nPlanned-safe wave release verification passed."
     },
@@ -44,7 +44,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0,
+      "durationSec": 0.1,
       "note": "",
       "outputTail": "  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/ai.vetuonglai.com --project-name vetuonglai-ai --branch main\n\n[wave-d] business\n  project_name: vetuonglai-business\n  dist_dir: dist/business.vetuonglai.com\n  custom_domains: business.vetuonglai.com\n  notes: Business shell remains planned-safe and cannot be presented as live enterprise onboarding until DNS, Team 4 contract, and Team 5 verify all pass.\n  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/business.vetuonglai.com --project-name vetuonglai-business --branch main\n\nWave D Pages deployment plan complete."
     },
@@ -66,7 +66,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 1,
+      "durationSec": 1.3,
       "note": "",
       "outputTail": "      \"status\": 200,\n      \"note\": \"\"\n    }\n  ],\n  \"gate_rules\": [\n    \"Tat ca host Wave D phai reachable bang HTTPS.\",\n    \"Tat ca host Wave D phai tra 200 o root surface.\",\n    \"Tat ca host Wave D phai con marker planned-safe/public boundary ro rang.\"\n  ]\n}"
     }

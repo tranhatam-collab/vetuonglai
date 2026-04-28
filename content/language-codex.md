@@ -1,10 +1,10 @@
 # VETUONGLAI LANGUAGE CODEX
 
-Version: 1.0
+Version: 1.1
 Status: locked
 Owner: Founder
 Founder: Ông Trần Hà Tâm
-Last updated: 2026-04-17
+Last updated: 2026-04-28
 
 ## Purpose
 Language Codex này là chuẩn bắt buộc cho toàn bộ team DEV, Content, Design, QA và AI Code khi làm việc trong hệ `*.vetuonglai.com`.
@@ -77,6 +77,18 @@ Hệ này giúp con người sống rõ, học đúng, làm thật và có bằn
 | Rủi ro | Risk |
 
 ## Banned Terms
+
+### Internal Ops Terms (never in visible public text)
+See `src/data/banned-terms-public.json` for the machine-readable list.
+- planned-safe → đang chuẩn bị
+- CTA → nút / nút đi tiếp
+- i18n → song ngữ
+- route kỹ thuật → đường dẫn
+- runtime → hệ thống (allowed in HTML id/class)
+- deploy → triển khai
+- smoke → (remove)
+- entry point → điểm vào
+
 ### Vietnamese
 - đột phá
 - đổi đời
@@ -87,6 +99,11 @@ Hệ này giúp con người sống rõ, học đúng, làm thật và có bằn
 - thành công nhanh
 - đảm bảo
 - cơ hội có 1-0-2
+- ai cũng kiếm tiền
+- thu nhập thụ động
+- đảm bảo được trả
+- PayOS miễn phí vĩnh viễn
+- platform khấu trừ đúng mọi loại thuế
 
 ### English
 - coaching
@@ -98,6 +115,9 @@ Hệ này giúp con người sống rõ, học đúng, làm thật và có bằn
 - inspiration
 - boost
 - maximize
+- everyone can earn
+- guaranteed payout
+- free payment processing forever
 
 ## Public CTAs
 ### Vietnamese
@@ -197,6 +217,14 @@ No promised outcomes. Only structure to help people live with more clarity.
 ### EDU
 - H1: HỌC
 - Subline: Học để làm được việc, không phải để biết.
+
+### READ
+- H1: ĐỌC
+- Subline: Ai tạo ra giá trị, người đó được ghi nhận.
+
+### DOCS
+- H1: TÀI LIỆU
+- Subline: Tài liệu kỹ thuật công khai cho hệ sinh thái Về Tương Lai.
 
 ## Team Flow
 ### Content
