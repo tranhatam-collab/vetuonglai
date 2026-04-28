@@ -1,10 +1,10 @@
 # VETUONGLAI LANGUAGE CODEX
 
-Version: 1.1
+Version: 1.2
 Status: locked
 Owner: Founder
 Founder: Ông Trần Hà Tâm
-Last updated: 2026-04-28
+Last updated: 2026-04-29
 
 ## Purpose
 Language Codex này là chuẩn bắt buộc cho toàn bộ team DEV, Content, Design, QA và AI Code khi làm việc trong hệ `*.vetuonglai.com`.
@@ -119,6 +119,18 @@ See `src/data/banned-terms-public.json` for the machine-readable list.
 - guaranteed payout
 - free payment processing forever
 
+### FTC / Invest Gate Terms (public forbidden)
+- invest now
+- ROI
+- expected returns
+- guaranteed income
+- affiliate program
+- MLM
+- downline
+- commission tree
+- passive income
+- earn money fast
+
 ## Public CTAs
 ### Vietnamese
 - Khởi động đối thoại
@@ -174,6 +186,36 @@ Reject ngay nếu public page có một trong các lỗi sau:
 - bilingual duplication trên cùng một dòng
 - status badge không thuộc 4 trạng thái đã khóa
 - CTA mang giọng bán hàng hoặc thúc ép
+- dùng "Live" khi chưa có đủ `deploy evidence + domain active + QA pass`
+
+## FTC Disclosure Rule (mandatory)
+- nếu có referral/material-connection, disclosure phải đứng gần CTA hoặc link liên quan
+- disclosure không được đặt ở footer như cách thay thế cho inline disclosure
+- disclosure phải dùng ngôn ngữ thường, đọc được trên mobile, không giấu trong hashtag
+- mọi trang có referral hoặc contributor wording phải có anti-MLM statement
+- không cho public wording "invest now", "ROI", hoặc claim lợi nhuận đầu tư
+
+### Disclosure default wording
+Vietnamese:
+"Liên kết này có thể mang lại lợi ích cho người giới thiệu. Bạn không trả thêm phí khi đăng ký qua liên kết này."
+
+English:
+"This link may provide a benefit to the person who shared it. You do not pay extra when you sign up through this link."
+
+### Anti-MLM mandatory statement
+Vietnamese:
+"Đây không phải mô hình kinh doanh đa cấp và không có cấu trúc hoa hồng nhiều tầng."
+
+English:
+"This is not a multi-level marketing model and does not involve tiered commission structures."
+
+## Quarterly FTC Audit Checklist (v1)
+- [ ] Public pages không chứa các term cấm trong "FTC / Invest Gate Terms"
+- [ ] Referral CTA có disclosure đứng gần CTA/link
+- [ ] Disclosure không nằm ở footer như vị trí duy nhất
+- [ ] Trang có referral/contributor có anti-MLM statement
+- [ ] Không có "invest now", "ROI", hoặc claim lợi nhuận công khai
+- [ ] Có evidence pack: screenshot + timestamp + build hash + route scan
 
 ## Shared Positioning
 ### Vietnamese
