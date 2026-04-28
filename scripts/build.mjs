@@ -34,6 +34,7 @@ const businessDomainContract = JSON.parse(await readFile(path.join(SRC, "data", 
 const packageComparisonDemoOutput = JSON.parse(await readFile(path.join(SRC, "data", "package-comparison-demo-output.json"), "utf8"));
 const system = JSON.parse(await readFile(path.join(SRC, "data", "system.json"), "utf8"));
 const team3PolicyMatrix = JSON.parse(await readFile(path.join(SRC, "data", "team3-policy-matrix.json"), "utf8"));
+const productStrategyRegistry = JSON.parse(await readFile(path.join(SRC, "data", "product-strategy-registry.json"), "utf8"));
 const localeRegistry = JSON.parse(await readFile(path.join(ROOT, "content", "locale-registry.json"), "utf8"));
 const domainRuntimeTruth = await (async () => {
   try {
@@ -597,6 +598,11 @@ const appCatalog = apps.map((app) => {
     url: resolvedUrl,
     host: resolvedHost,
   };
+});
+
+const publicAppCatalog = appCatalog.filter((app) => {
+  const directoryEntry = ecosystemDirectoryByKey.get(app.key);
+  return !directoryEntry || isPubliclyDiscoverable(directoryEntry);
 });
 
 const specialistPacks = [
@@ -1195,6 +1201,8 @@ function buildContractsManifest(contractVersion, officialDocsLock) {
         officialDocsLockMember: `https://${domains.member}/api/official-docs-lock.json`,
         systemRegistry: `https://${domains.hub}/api/system-registry.json`,
         systemRegistryMember: `https://${domains.member}/api/system-registry.json`,
+        productStrategy: `https://${domains.hub}/api/product-strategy.json`,
+        productStrategyMember: `https://${domains.member}/api/product-strategy.json`,
       },
     },
   };
@@ -1852,7 +1860,7 @@ function renderHubPage() {
     `,
   });
 
-  const appCards = renderCards(appCatalog.map((app) => {
+  const appCards = renderCards(publicAppCatalog.map((app) => {
     const status = normalizeSurfaceStatus(app.status);
     const meta = `<span>${escapeHtml(app.url)}</span>`;
     const openLabel = status === "planned"
@@ -2244,7 +2252,7 @@ function renderHubEcosystemPage() {
     ),
   });
 
-  const matrixRows = appCatalog.map((app) => [
+  const matrixRows = publicAppCatalog.map((app) => [
     `<span class="mono">${escapeHtml(app.host || `${app.key}.vetuonglai.com`)}</span>`,
     localizedText(pair(app.title, app.titleEn)),
     `<span class="badge ${badgeTone(app.status)}">${localizedText(appStageLabel(app))}</span>`,
@@ -4498,7 +4506,9 @@ function renderMemberJourneyPage() {
     }),
   ]);
 
-  const kidsParentBridge = renderKidsParentBridgeBlock();
+  const kidsParentBridge = ecosystemDirectoryByKey.get("kids")?.publicDiscovery !== false
+    ? renderKidsParentBridgeBlock()
+    : "";
 
   return renderShell({
     currentKey: "member",
@@ -4509,13 +4519,15 @@ function renderMemberJourneyPage() {
     hero,
     sections: [
       renderSection(pair("Các giai đoạn", "Stages"), pair("Hành trình từ học đến proof", "From learning to proof"), stages),
-      renderSection(
-        pair("Phụ huynh có trẻ em", "Parents with children"),
-        pair("Hệ Kids cho trẻ em 6–17 nằm ở vùng riêng, có ranh giới bảo vệ trẻ.", "The Kids zone for ages 6–17 lives in an isolated, child-safe space."),
-        kidsParentBridge,
-        "kids-parent-bridge",
-      ),
-    ],
+      kidsParentBridge
+        ? renderSection(
+            pair("Phụ huynh có trẻ em", "Parents with children"),
+            pair("Hệ Kids cho trẻ em 6–17 nằm ở vùng riêng, có ranh giới bảo vệ trẻ.", "The Kids zone for ages 6–17 lives in an isolated, child-safe space."),
+            kidsParentBridge,
+            "kids-parent-bridge",
+          )
+        : "",
+    ].filter(Boolean),
   });
 }
 
@@ -9253,7 +9265,7 @@ async function build() {
   await writeSiteFile(domains.hub, "lien-he/index.html", renderHubContactPage());
   await writeSiteFile(domains.hub, "sitemap/index.html", renderHubSitemapPage());
   await writeSiteFile(domains.hub, "founder/index.html", renderFounderCommandPanelPage());
-  await writeSiteFile(domains.hub, "apps.json", renderStaticJson(appCatalog));
+  await writeSiteFile(domains.hub, "apps.json", renderStaticJson(publicAppCatalog));
   await writeSiteFile(domains.hub, "manifest.json", renderStaticJson(system));
   await writeSiteFile(domains.hub, "api/registry.json", renderStaticJson({
     lastUpdated: system.releaseDate || new Date().toISOString().slice(0, 10),
@@ -9310,6 +9322,7 @@ async function build() {
       sourceOwner: `https://${domains[entry.key]}/`,
     })),
   }));
+  await writeSiteFile(domains.hub, "api/product-strategy.json", renderStaticJson(productStrategyRegistry));
   await writeSiteFile(domains.hub, "api/official-docs-lock.json", renderStaticJson(officialDocsLock));
   await writeSiteFile(domains.hub, "api/policy/team3-matrix.json", renderStaticJson(team3PolicyContract));
   await writeSiteFile(domains.hub, "api/team4/package-form-registry.json", renderStaticJson(packageFormRegistry));
@@ -9326,6 +9339,7 @@ async function build() {
       "/api/team2-kickoff-output.json",
       "/api/disclosures.json",
       "/api/system-registry.json",
+      "/api/product-strategy.json",
       "/api/official-docs-lock.json",
       "/api/policy/team3-matrix.json",
       "/api/team4/package-form-registry.json",
@@ -9564,6 +9578,7 @@ async function build() {
       sourceOwner: `https://${domains[entry.key]}/`,
     })),
   }));
+  await writeSiteFile(domains.member, "api/product-strategy.json", renderStaticJson(productStrategyRegistry));
   buildLog("writing member official docs lock");
   await writeSiteFile(domains.member, "api/official-docs-lock.json", renderStaticJson(officialDocsLock));
   buildLog("writing member team3 policy matrix");
@@ -9631,6 +9646,7 @@ async function build() {
       "/api/events.json",
       "/api/submission-workflow.json",
       "/api/system-registry.json",
+      "/api/product-strategy.json",
       "/api/official-docs-lock.json",
       "/api/team3-policy-matrix.json",
       "/api/team4/package-form-registry.json",
@@ -10089,7 +10105,10 @@ function escBuildHtml(s) {
 async function renderKidsDomain() {
   const domain = domains.kids;
   await ensureDomainOgAsset(domain);
-  await copyStaticTreeForDomain(domain);
+  const sourceRoot = path.join(SRC, "static-pages", domain);
+  await writeSiteFile(domain, "index.html", await readFile(path.join(sourceRoot, "index.html"), "utf8"));
+  await copyStaticTree(path.join(sourceRoot, "en"), path.join(domain, "en"));
+  await copyStaticTree(path.join(sourceRoot, "assets"), path.join(domain, "assets"));
 
   const robots = [
     "User-agent: *",
@@ -10136,16 +10155,6 @@ async function renderKidsDomain() {
   await writeSiteFile(domain, "api/contract.json", renderStaticJson(kidsApiContract));
   await writeSiteFile(domain, "api/lessons.json", renderStaticJson(kidsLessons));
 
-  // Generate per-lesson static pages from kids-lessons.json
-  for (const mod of kidsLessons.modules || []) {
-    for (const lesson of mod.lessons || []) {
-      const slug = lesson.slug;
-      if (!slug) continue;
-      const lessonPage = renderKidsLessonPage(mod, lesson, domain);
-      await writeSiteFile(domain, `learn/lessons/${slug}/index.html`, lessonPage);
-    }
-  }
-
   const stubEndpointPaths = [];
   for (const endpoint of kidsApiContract.endpoints || []) {
     if (!endpoint?.path) continue;
@@ -10176,18 +10185,7 @@ async function renderKidsDomain() {
     host: domain,
     pages: [
       "/",
-      "/parent/onboarding/consent/",
-      "/parent/onboarding/child-profile/",
-      "/parent/dashboard/",
-      "/parent/pricing/",
-      "/parent/support/sessions/",
-      "/learn/dashboard/",
-      "/learn/lessons/",
-      "/learn/quiz/",
-      "/learn/ai-helper/",
-      "/learn/achievements/",
-      "/learn/achievements/certificates/",
-      ...(kidsLessons.modules || []).flatMap(m => (m.lessons || []).map(l => `/learn/lessons/${l.slug}/`)),
+      "/en/",
     ],
     endpoints: [
       "/api/health",

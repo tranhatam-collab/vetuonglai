@@ -36,6 +36,7 @@ const requiredFiles = [
   "vetuonglai.com/api/team2-kickoff-output.json",
   "vetuonglai.com/api/disclosures.json",
   "vetuonglai.com/api/system-registry.json",
+  "vetuonglai.com/api/product-strategy.json",
   "vetuonglai.com/api/official-docs-lock.json",
   "vetuonglai.com/api/policy/team3-matrix.json",
   "vetuonglai.com/api/team4/package-form-registry.json",
@@ -72,6 +73,7 @@ const requiredFiles = [
   "member.vetuonglai.com/api/enterprise-plans.json",
   "member.vetuonglai.com/api/events.json",
   "member.vetuonglai.com/api/system-registry.json",
+  "member.vetuonglai.com/api/product-strategy.json",
   "member.vetuonglai.com/api/official-docs-lock.json",
   "member.vetuonglai.com/api/team3-policy-matrix.json",
   "member.vetuonglai.com/api/team4/package-form-registry.json",
@@ -226,6 +228,7 @@ async function main() {
   const team2Kickoff = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "api", "team2-kickoff-output.json"), "utf8"));
   const disclosures = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "api", "disclosures.json"), "utf8"));
   const systemRegistryHub = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "api", "system-registry.json"), "utf8"));
+  const productStrategyHub = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "api", "product-strategy.json"), "utf8"));
   const officialDocsHub = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "api", "official-docs-lock.json"), "utf8"));
   const team3PolicyMatrix = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "api", "policy", "team3-matrix.json"), "utf8"));
   const team4PackageFormRegistryHub = JSON.parse(await readFile(path.join(DIST, "vetuonglai.com", "api", "team4", "package-form-registry.json"), "utf8"));
@@ -276,6 +279,7 @@ async function main() {
   const enterprisePlans = JSON.parse(await readFile(path.join(DIST, "member.vetuonglai.com", "api", "enterprise-plans.json"), "utf8"));
   const memberEvents = JSON.parse(await readFile(path.join(DIST, "member.vetuonglai.com", "api", "events.json"), "utf8"));
   const systemRegistryMember = JSON.parse(await readFile(path.join(DIST, "member.vetuonglai.com", "api", "system-registry.json"), "utf8"));
+  const productStrategyMember = JSON.parse(await readFile(path.join(DIST, "member.vetuonglai.com", "api", "product-strategy.json"), "utf8"));
   const officialDocsMember = JSON.parse(await readFile(path.join(DIST, "member.vetuonglai.com", "api", "official-docs-lock.json"), "utf8"));
   const memberTeam3PolicyMatrix = JSON.parse(await readFile(path.join(DIST, "member.vetuonglai.com", "api", "team3-policy-matrix.json"), "utf8"));
   const team4PackageFormRegistryMember = JSON.parse(await readFile(path.join(DIST, "member.vetuonglai.com", "api", "team4", "package-form-registry.json"), "utf8"));
@@ -339,8 +343,20 @@ async function main() {
     throw new Error("Hub api index contractVersion chua dong bo voi purchase hub version.");
   }
 
-  if (!hubApiIndex.endpoints.includes("/api/registry.json") || !hubApiIndex.endpoints.includes("/api/purchase-hub.json") || !hubApiIndex.endpoints.includes("/api/team2-kickoff-output.json") || !hubApiIndex.endpoints.includes("/api/disclosures.json") || !hubApiIndex.endpoints.includes("/api/system-registry.json") || !hubApiIndex.endpoints.includes("/api/policy/team3-matrix.json") || !hubApiIndex.endpoints.includes("/api/team4/package-form-registry.json") || !hubApiIndex.endpoints.includes("/api/team4/business-domain-contract.json") || !hubApiIndex.endpoints.includes("/api/team4/package-comparison-demo-output.json") || !hubApiIndex.endpoints.includes("/api/contracts.json")) {
+  if (!hubApiIndex.endpoints.includes("/api/registry.json") || !hubApiIndex.endpoints.includes("/api/purchase-hub.json") || !hubApiIndex.endpoints.includes("/api/team2-kickoff-output.json") || !hubApiIndex.endpoints.includes("/api/disclosures.json") || !hubApiIndex.endpoints.includes("/api/system-registry.json") || !hubApiIndex.endpoints.includes("/api/product-strategy.json") || !hubApiIndex.endpoints.includes("/api/policy/team3-matrix.json") || !hubApiIndex.endpoints.includes("/api/team4/package-form-registry.json") || !hubApiIndex.endpoints.includes("/api/team4/business-domain-contract.json") || !hubApiIndex.endpoints.includes("/api/team4/package-comparison-demo-output.json") || !hubApiIndex.endpoints.includes("/api/contracts.json")) {
     throw new Error("Hub api index chua expose du Team 1/2/3/4 contracts.");
+  }
+
+  if (!Array.isArray(productStrategyHub.tiers?.items) || productStrategyHub.tiers.items.length < 7) {
+    throw new Error("Product strategy hub chua khoa 7-tier model.");
+  }
+
+  if (!Array.isArray(productStrategyHub.pathways?.items) || productStrategyHub.pathways.items.length < 6) {
+    throw new Error("Product strategy hub chua khoa du 6 pathways.");
+  }
+
+  if (!Array.isArray(productStrategyHub.publicCompliance?.forbiddenPublicTerms) || productStrategyHub.publicCompliance.forbiddenPublicTerms.length < 10) {
+    throw new Error("Product strategy hub chua khoa forbidden public terms list.");
   }
 
   if (!Array.isArray(systemRegistryHub.domains) || systemRegistryHub.domains.length < 8) {
@@ -413,6 +429,10 @@ async function main() {
 
   if (!hubContracts.contracts?.governance?.systemRegistry?.includes("vetuonglai.com/api/system-registry.json") || !hubContracts.contracts?.governance?.systemRegistryMember?.includes("member.vetuonglai.com/api/system-registry.json")) {
     throw new Error("Hub contracts manifest chua map governance system-registry endpoints.");
+  }
+
+  if (!hubContracts.contracts?.governance?.productStrategy?.includes("vetuonglai.com/api/product-strategy.json") || !hubContracts.contracts?.governance?.productStrategyMember?.includes("member.vetuonglai.com/api/product-strategy.json")) {
+    throw new Error("Hub contracts manifest chua map governance product-strategy endpoints.");
   }
 
   if (!hubContracts.contracts?.team4?.packageFormRegistryHub?.includes("vetuonglai.com/api/team4/package-form-registry.json") || !hubContracts.contracts?.team4?.packageFormRegistryMember?.includes("member.vetuonglai.com/api/team4/package-form-registry.json") || !hubContracts.contracts?.team4?.businessDomainContractHub?.includes("vetuonglai.com/api/team4/business-domain-contract.json") || !hubContracts.contracts?.team4?.businessDomainContractMember?.includes("member.vetuonglai.com/api/team4/business-domain-contract.json") || !hubContracts.contracts?.team4?.packageComparisonDemoOutputHub?.includes("vetuonglai.com/api/team4/package-comparison-demo-output.json") || !hubContracts.contracts?.team4?.packageComparisonDemoOutputMember?.includes("member.vetuonglai.com/api/team4/package-comparison-demo-output.json")) {
@@ -923,8 +943,12 @@ async function main() {
     throw new Error("Member api index contractVersion chua dong bo voi access model version.");
   }
 
-  if (!memberIndex.endpoints.includes("/api/access-model.json") || !memberIndex.endpoints.includes("/api/events.json") || !memberIndex.endpoints.includes("/api/system-registry.json") || !memberIndex.endpoints.includes("/api/team3-policy-matrix.json") || !memberIndex.endpoints.includes("/api/team4/package-form-registry.json") || !memberIndex.endpoints.includes("/api/team4/business-domain-contract.json") || !memberIndex.endpoints.includes("/api/team4/package-comparison-demo-output.json") || !memberIndex.endpoints.includes("/api/contracts.json")) {
+  if (!memberIndex.endpoints.includes("/api/access-model.json") || !memberIndex.endpoints.includes("/api/events.json") || !memberIndex.endpoints.includes("/api/system-registry.json") || !memberIndex.endpoints.includes("/api/product-strategy.json") || !memberIndex.endpoints.includes("/api/team3-policy-matrix.json") || !memberIndex.endpoints.includes("/api/team4/package-form-registry.json") || !memberIndex.endpoints.includes("/api/team4/business-domain-contract.json") || !memberIndex.endpoints.includes("/api/team4/package-comparison-demo-output.json") || !memberIndex.endpoints.includes("/api/contracts.json")) {
     throw new Error("Member api index chua expose Team 1/Team 3/Team 4 contract endpoints.");
+  }
+
+  if (productStrategyMember.version !== productStrategyHub.version) {
+    throw new Error("Product strategy member/hub version mismatch.");
   }
 
   if (!memberIndex.endpoints.includes("/api/enterprise-plans.json")) {
