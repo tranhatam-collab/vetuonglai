@@ -10183,6 +10183,7 @@ async function renderKidsDomain() {
   await writeSiteFile(domain, "api/registry.json", renderStaticJson({
     name: "kids",
     host: domain,
+    releaseScope: "homepage_only_public_information",
     pages: [
       "/",
       "/en/",
