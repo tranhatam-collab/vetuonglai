@@ -1,0 +1,317 @@
+{
+  "version": "2026-04-28-v2-pathway-tier-ftc",
+  "sourceDocs": [
+    "docs/00_master/VETUONGLAI_PRODUCT_STRATEGY.md",
+    "docs/00_master/VETUONGLAI_REVENUE_FOR_MEMBERS.md",
+    "docs/00_master/VETUONGLAI_INVEST_GATING_RULES.md",
+    "docs/00_master/VETUONGLAI_DOCS_PUBLIC_CONTENT.md",
+    "docs/00_master/VETUONGLAI_HOMEPAGE_CONTENT.md",
+    "docs/00_master/VETUONGLAI_DEV_IMPLEMENTATION_MAPPING_LOCK.md",
+    "docs/00_master/VETUONGLAI_PATHWAY_AND_TIER_FRAMEWORK.md",
+    "docs/00_master/VETUONGLAI_FTC_DISCLOSURE_AND_AFFILIATE_COMPLIANCE.md"
+  ],
+  "masterPositioning": {
+    "vi": "Về Tương Lai là một hệ giúp con người học đúng, làm thật, tạo ra đầu ra có thể xác minh và từng bước mở ra cơ hội cộng tác dài hạn.",
+    "en": "Vetuonglai is a system that helps people learn correctly, produce real outputs, build verifiable proof, and gradually access meaningful collaboration opportunities.",
+    "sequence": ["learn", "build", "verify", "collaborate"]
+  },
+  "publicCompliance": {
+    "noPublicIncomeClaims": true,
+    "noPublicIncomeNumbers": true,
+    "noMultiTierReferral": true,
+    "noInvestCta": true,
+    "noChildEarning": true,
+    "mandatoryStatements": {
+      "antiMlmVi": "Đây không phải mô hình kinh doanh đa cấp và không có cấu trúc hoa hồng nhiều tầng.",
+      "antiMlmEn": "This is not a multi-level marketing model and does not involve tiered commission structures.",
+      "incomeVi": "Về Tương Lai không cam kết bất kỳ mức thu nhập cụ thể nào. Cơ hội cộng tác phụ thuộc vào kỹ năng, thời gian, chất lượng đầu ra và nhu cầu thị trường.",
+      "incomeEn": "Vetuonglai does not guarantee any specific income level. Collaboration opportunities depend on skills, time, output quality, and market demand."
+    },
+    "forbiddenPublicTerms": [
+      "earn money fast",
+      "guaranteed income",
+      "passive income",
+      "financial freedom",
+      "get rich",
+      "downline",
+      "upline",
+      "commission tree",
+      "multi-level",
+      "multi level",
+      "MLM",
+      "network marketing",
+      "invest now",
+      "ROI",
+      "expected returns",
+      "đổi đời",
+      "thu nhập đảm bảo",
+      "kiếm tiền dễ dàng",
+      "tự do tài chính",
+      "thu nhập thụ động",
+      "affiliate program",
+      "affiliate system",
+      "affiliate marketing"
+    ]
+  },
+  "pathways": {
+    "schema": "horizontal",
+    "items": [
+      { "id": "learn",  "labelVi": "Học",         "labelEn": "Learn",  "publicSafe": true },
+      { "id": "read",   "labelVi": "Đọc",         "labelEn": "Read",   "publicSafe": true },
+      { "id": "work",   "labelVi": "Làm việc",    "labelEn": "Work",   "publicSafe": true, "requiresTier": 4 },
+      { "id": "build",  "labelVi": "Tạo sản phẩm","labelEn": "Build",  "publicSafe": true },
+      { "id": "verify", "labelVi": "Xác minh",    "labelEn": "Verify", "publicSafe": true },
+      { "id": "belong", "labelVi": "Cộng đồng",   "labelEn": "Belong", "publicSafe": true }
+    ]
+  },
+  "tiers": {
+    "schema": "vertical_seven",
+    "items": [
+      { "id": 1, "key": "free",                 "labelVi": "Khám phá",            "labelEn": "Free",                 "earningAllowed": false, "projectLeadAllowed": false, "investAllowed": false },
+      { "id": 2, "key": "learner",              "labelVi": "Người học",           "labelEn": "Learner",              "earningAllowed": false, "projectLeadAllowed": false, "investAllowed": false },
+      { "id": 3, "key": "builder",              "labelVi": "Người tạo",           "labelEn": "Builder",              "earningAllowed": false, "projectLeadAllowed": false, "investAllowed": false, "trainingTaskAllowed": true },
+      { "id": 4, "key": "verified_contributor", "labelVi": "Cộng tác có xác minh","labelEn": "Verified Contributor", "earningAllowed": true,  "projectLeadAllowed": false, "investAllowed": false, "requires90Days": true, "requiresProof": true },
+      { "id": 5, "key": "paid_collaborator",    "labelVi": "Cộng tác có thù lao", "labelEn": "Paid Collaborator",    "earningAllowed": true,  "projectLeadAllowed": false, "investAllowed": false },
+      { "id": 6, "key": "project_lead",         "labelVi": "Trưởng dự án",        "labelEn": "Project Lead",         "earningAllowed": true,  "projectLeadAllowed": true,  "investAllowed": false },
+      { "id": 7, "key": "investor_ready",       "labelVi": "Đủ điều kiện đầu tư", "labelEn": "Investor-ready",       "earningAllowed": true,  "projectLeadAllowed": true,  "investAllowed": "education_and_gated_only" }
+    ],
+    "publicClusters": [
+      { "id": "discover",      "labelVi": "Khám phá",      "labelEn": "Discover",            "tiers": [1, 2] },
+      { "id": "create_value",  "labelVi": "Tạo giá trị",   "labelEn": "Create value",        "tiers": [3, 4] },
+      { "id": "deep_collab",   "labelVi": "Cộng tác sâu",  "labelEn": "Deep collaboration",  "tiers": [5, 6, 7] }
+    ],
+    "hardGates": {
+      "earningMinTier": 4,
+      "projectLeadMinTier": 5,
+      "investMinTier": 7,
+      "noTierSkipping": true,
+      "noTierPurchase": true,
+      "kidsTierCap": 2
+    },
+    "legacyToNewMapping": {
+      "free":        { "newTier": 1 },
+      "explorer":    { "newTier": 1, "note": "Folded into Free as onboarding state, not a tier" },
+      "learner":     { "newTier": 2 },
+      "builder":     { "newTier": 3 },
+      "contributor": { "newTier": 4, "newKey": "verified_contributor" },
+      "partner": {
+        "splitByContext": [
+          { "context": "creator_free_or_pro", "newTier": 4, "or": 5 },
+          { "context": "leads_a_project",     "newTier": 6 },
+          { "context": "invest_eligible",     "newTier": 7 }
+        ]
+      }
+    },
+    "crossMapping": {
+      "learn":  ["preview", "full", "full", "full", "full", "full", "full"],
+      "read":   ["full", "full", "full", "full", "full", "full", "full"],
+      "build":  ["preview", "guided", "full", "full", "full", "full", "full"],
+      "verify": [null, "preview", "full_submit", "full", "full", "full", "full"],
+      "work":   [null, null, "training_only", "paid_task_gated", "paid_task", "lead_project", "lead_project"],
+      "belong": ["view", "join_circles", "join_post", "mentor_pipeline", "mentor", "facilitator", "facilitator"]
+    }
+  },
+  "referralVocab": {
+    "publicNotAllowed": [
+      "affiliate",
+      "affiliate program",
+      "affiliate system",
+      "affiliate marketing",
+      "MLM",
+      "multi-level",
+      "downline",
+      "upline",
+      "commission tree"
+    ],
+    "publicAllowed": [
+      "contributor program",
+      "giới thiệu minh bạch",
+      "transparent referral",
+      "single-tier referral",
+      "revenue share",
+      "material connection disclosure"
+    ],
+    "internalIdentifiersAllowed": [
+      "affiliate_single_tier",
+      "affiliate_candidate",
+      "affiliate_active",
+      "affiliate_id",
+      "referral_commission",
+      "partner_access"
+    ],
+    "renderRule": "Internal identifiers above must never render to public UI. The render layer must substitute publicAllowed wording.",
+    "disclosure": {
+      "vi": "Liên kết này có thể mang lại lợi ích cho người giới thiệu. Bạn không trả thêm phí khi đăng ký qua liên kết này.",
+      "en": "This link may provide a benefit to the person who shared it. You do not pay extra when you sign up through this link.",
+      "viShort": "Có hoa hồng giới thiệu — không phát sinh phí cho bạn.",
+      "enShort": "Referral benefit applies — no extra cost to you.",
+      "placement": {
+        "mustBeNearLink": true,
+        "mustBeBeforeOrWithCta": true,
+        "forbiddenIn": ["footer_only", "terms_only", "privacy_only", "below_see_more"],
+        "minBodyTextSize": true,
+        "videoOnscreenSeconds": 3,
+        "videoVoiceOverIfPresent": true
+      },
+      "socialMediaRules": {
+        "tiktok": "Caption phải có disclosure ngay đầu hoặc cuối; #ad đứng một mình không đủ.",
+        "youtube": "On-screen text + lời nhắc trong intro; description phải có disclosure ở dòng đầu.",
+        "facebook_instagram": "Caption phía trước nút 'see more'; story và reel phải có overlay text suốt thời gian link xuất hiện.",
+        "x": "Trong tweet kèm link.",
+        "linkedin": "Trong post chính, không phải comment."
+      },
+      "componentContract": {
+        "componentName": "ReferralDisclosure",
+        "wrapsEveryReferralLink": true,
+        "apiResponseField": "disclosure_text",
+        "noRawUrlWithoutDisclosure": true
+      }
+    },
+    "compliance": {
+      "ftc": "16 CFR §255",
+      "eu": "Platform Work Directive 2024/2831",
+      "vietnam": "Nghị định 40/2018 (single-tier only, anti-MLM mandatory statement)",
+      "auditCadence": "quarterly"
+    }
+  },
+  "masterPasses": [
+    {
+      "id": "personal_journey",
+      "nameVi": "Hành Trình Cá Nhân",
+      "nameEn": "Personal Journey",
+      "publicVisible": true,
+      "publicSummaryVi": "Cho cá nhân muốn học, làm, xây hồ sơ và tạo đầu ra có thể xác minh.",
+      "publicSummaryEn": "For individuals who want to learn, build a profile, and create verifiable outputs.",
+      "tiers": [
+        { "id": "free", "priceUsd": 0, "billing": "none" },
+        { "id": "mini", "priceUsdRange": "3-9", "billing": "one_time" },
+        { "id": "annual", "priceUsd": 99, "billing": "annual" },
+        { "id": "annual_loyalty", "priceUsd": 99, "billing": "annual_capped_from_year_9" }
+      ]
+    },
+    {
+      "id": "family_journey",
+      "nameVi": "Hành Trình Gia Đình",
+      "nameEn": "Family Journey",
+      "publicVisible": true,
+      "publicSummaryVi": "Cho phụ huynh và gia đình muốn bắt đầu lộ trình học an toàn, có người lớn đồng hành.",
+      "publicSummaryEn": "For parents and families who want a safe learning journey with adult guidance.",
+      "kidsRestrictions": ["no_earning", "no_public_profile", "no_referral", "no_leaderboard", "parent_managed"],
+      "tiers": [
+        { "id": "family_free", "priceUsd": 0, "billing": "none", "members": 2 },
+        { "id": "family_starter", "priceUsdMonthly": 9, "priceUsdAnnual": 89, "members": 2 },
+        { "id": "family_plus", "priceUsdMonthly": 19, "priceUsdAnnual": 189, "members": 4 }
+      ]
+    },
+    {
+      "id": "partner_journey",
+      "nameVi": "Hành Trình Đối Tác",
+      "nameEn": "Partner Journey",
+      "publicVisible": true,
+      "publicSummaryVi": "Cho người muốn từng bước mở cơ hội cộng tác sau khi có đầu ra và bằng chứng.",
+      "publicSummaryEn": "For people who want to gradually access collaboration opportunities after building outputs and proof.",
+      "requiresProof": true,
+      "requires90Days": true,
+      "memberGatedDetails": true,
+      "forbiddenPublicTerms": ["earning", "affiliate", "commission", "payout"],
+      "tiers": [
+        { "id": "partner_free", "priceUsd": 0, "billing": "none", "publicLabelVi": "Cộng tác có điều kiện" },
+        { "id": "partner_pro", "priceUsdMonthly": 9, "billing": "monthly", "memberGated": true },
+        { "id": "partner_annual", "priceUsd": 99, "billing": "annual", "memberGated": true },
+        { "id": "partner", "priceUsd": null, "billing": "invite_only", "memberGated": true }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": "member_passport",
+      "phase": "V1",
+      "host": "member.vetuonglai.com",
+      "publicVisible": true,
+      "memberGated": false,
+      "internalOnly": false,
+      "requiresProof": false,
+      "requires90Days": false,
+      "allowedPublicCtas": ["Đăng ký miễn phí", "Start Free"],
+      "tiers": ["free", "verified", "pro", "business"]
+    },
+    {
+      "id": "edu_foundation",
+      "phase": "V1",
+      "host": "edu.vetuonglai.com",
+      "publicVisible": true,
+      "memberGated": false,
+      "requiresProof": false,
+      "tiers": ["free_lesson", "mini_topic", "program", "cohort", "annual"]
+    },
+    {
+      "id": "personal_learning_os",
+      "phase": "V1",
+      "host": "member.vetuonglai.com",
+      "path": "/app/learn/",
+      "reservedFutureHost": "learn.vetuonglai.com",
+      "publicVisible": false,
+      "memberGated": true,
+      "decision": "Do not create learn.vetuonglai.com in V1; implement under member dashboard."
+    },
+    {
+      "id": "vc_proof_infrastructure",
+      "phase": "V1",
+      "host": "vc.vetuonglai.com",
+      "publicVisible": true,
+      "memberGated": false,
+      "requiresProof": false,
+      "allowedPublicCtas": ["Xem hồ sơ mẫu", "Verify sample"]
+    },
+    {
+      "id": "work_light",
+      "phase": "V1",
+      "host": "work.vetuonglai.com",
+      "publicVisible": true,
+      "memberGated": true,
+      "requiresProof": true,
+      "requires90Days": true,
+      "publicSummaryVi": "Xem brief mẫu và hiểu cách cơ hội cộng tác mở dần sau khi có đầu ra được xác minh.",
+      "publicSummaryEn": "Preview sample briefs and understand how collaboration opportunities unlock after verified outputs."
+    },
+    {
+      "id": "read_future",
+      "phase": "V2",
+      "host": "read.vetuonglai.com",
+      "publicVisible": true,
+      "memberGated": false,
+      "creatorEconomyPublic": false
+    },
+    {
+      "id": "kids_future",
+      "phase": "V2",
+      "host": "kids.vetuonglai.com",
+      "publicVisible": false,
+      "parentManaged": true,
+      "kidsRestrictions": ["no_earning", "no_public_profile", "no_referral", "no_leaderboard"]
+    },
+    {
+      "id": "investment_gate",
+      "phase": "V3",
+      "host": "invest.vetuonglai.com",
+      "publicVisible": false,
+      "educationOnly": true,
+      "requiresProof": true,
+      "requires90Days": true,
+      "requiresKyc": true,
+      "allowedPublicCtas": [],
+      "forbiddenPublicTerms": ["invest now", "ROI", "expected returns", "opportunity", "waitlist"]
+    }
+  ],
+  "discountLogic": {
+    "baseAnnualUsd": 99,
+    "commitmentMonthsPerYear": {
+      "1": 12,
+      "2": 11,
+      "3": 10,
+      "5": 9
+    },
+    "loyaltyCapFromYear": 9,
+    "loyaltyAnnualUsd": 99
+  }
+}
