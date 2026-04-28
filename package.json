@@ -38,6 +38,7 @@
     "verify:kids:predeploy": "npm run build && npm run audit:bilingual && npm run smoke:kids:worker",
     "preview:kids": "python3 -m http.server 4180 --directory dist/kids.vetuonglai.com",
     "cloudflare:smoke:endpoints": "node scripts/smoke-endpoints.mjs",
+    "smoke:email-forms": "node scripts/smoke-email-forms.mjs",
     "ops:wave-d:dns": "node scripts/ops-setup-wave-d-dns.mjs",
     "ops:wave-d:dns:dry-run": "node scripts/ops-setup-wave-d-dns.mjs --dry-run",
     "ops:zone:verify": "node scripts/ops-verify-zone-activation.mjs",

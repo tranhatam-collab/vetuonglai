@@ -377,6 +377,84 @@ function detectEntryFromHostname() {
   return "hub";
 }
 
+function setEmailFormStatus(form, copy, tone = "info") {
+  const status = form.querySelector(".vtl-form-status");
+  if (!status) return;
+  status.dataset.tone = tone;
+  status.setAttribute("data-text-vi", copy.vi);
+  status.setAttribute("data-text-en", copy.en);
+  status.textContent = copy[currentLanguage()] || copy.vi;
+}
+
+async function handleEmailFormSubmit(event) {
+  const form = event.target instanceof Element
+    ? event.target.closest("[data-vtl-email-form]")
+    : null;
+  if (!(form instanceof HTMLFormElement)) return;
+
+  event.preventDefault();
+
+  const submitButton = form.querySelector("button[type='submit']");
+  const originalDisabled = submitButton?.disabled || false;
+  if (submitButton) submitButton.disabled = true;
+
+  setEmailFormStatus(form, {
+    vi: "Đang gửi yêu cầu...",
+    en: "Sending your request...",
+  }, "info");
+
+  const formData = new FormData(form);
+  formData.set("locale", currentLanguage());
+  formData.set("page_url", window.location.href);
+
+  const payload = {};
+  for (const [key, value] of formData.entries()) {
+    payload[key] = typeof value === "string" ? value : value.name;
+  }
+
+  try {
+    const response = await fetch(form.getAttribute("action") || "/api/email/forms/submit", {
+      method: form.getAttribute("method") || "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || result.ok === false) {
+      setEmailFormStatus(form, {
+        vi: "Chưa gửi được. Vui lòng kiểm tra email và nội dung rồi thử lại.",
+        en: "Could not send yet. Please check your email and message, then try again.",
+      }, "error");
+      return;
+    }
+
+    const queued = result.status === "queued_without_delivery";
+    setEmailFormStatus(form, queued ? {
+      vi: "Đã nhận yêu cầu. Hệ thống mail đang chờ cấu hình runtime để gửi tự động.",
+      en: "Request received. The mail runtime still needs configuration before automated delivery.",
+    } : {
+      vi: "Đã gửi. Về Tương Lai sẽ phản hồi theo đúng mục đích bạn chọn.",
+      en: "Sent. Vetuonglai will reply according to the purpose you selected.",
+    }, queued ? "warning" : "success");
+
+    window.vetuonglaiTrack("email_form_submitted", {
+      form_key: payload.form_key || "",
+      purpose: payload.purpose || "",
+      status: result.status || "accepted",
+      submission_id: result.submission_id || "",
+    });
+
+    form.reset();
+  } catch {
+    setEmailFormStatus(form, {
+      vi: "Không kết nối được endpoint gửi form. Vui lòng thử lại sau.",
+      en: "Could not reach the form endpoint. Please try again later.",
+    }, "error");
+  } finally {
+    if (submitButton) submitButton.disabled = originalDisabled;
+  }
+}
+
 function initScrollAnimations() {
   if (typeof window.IntersectionObserver === 'undefined') return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -430,6 +508,7 @@ function initScrollAnimations() {
 }
 
 document.addEventListener("click", handleCtaClick);
+document.addEventListener("submit", handleEmailFormSubmit);
 
 // Expose cho các surface khác dùng programmatically
 window.vetuonglaiBuildPurchaseHubUrl = buildPurchaseHubUrl;

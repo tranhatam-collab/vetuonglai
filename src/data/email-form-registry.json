@@ -1,0 +1,167 @@
+{
+  "version": "2026-04-29-vetuonglai-email-form-system-v1",
+  "owner": "team-email-forms-vetuonglai",
+  "status": "repo_ready_runtime_gated",
+  "domain": "vetuonglai.com",
+  "allowedHosts": [
+    "vetuonglai.com",
+    "www.vetuonglai.com"
+  ],
+  "mailApiContract": {
+    "baseUrlEnv": "MAIL_API_BASE_URL",
+    "apiKeyEnv": "MAIL_API_KEY",
+    "workspaceIdEnv": "MAIL_API_WORKSPACE_ID",
+    "sendPath": "/send",
+    "canonicalBaseUrl": "https://api.mail.iai.one/v1",
+    "deliveryGate": "A form is live-delivered only when MAIL_API_BASE_URL, MAIL_API_KEY, and MAIL_API_WORKSPACE_ID are present in the Worker runtime."
+  },
+  "senderPolicy": {
+    "from": "noreply@vetuonglai.com",
+    "replyTo": "submitted_email",
+    "auditBccEnv": "VTL_EMAIL_AUDIT_BCC",
+    "founderPersonalMailboxProofAllowed": false
+  },
+  "forms": [
+    {
+      "formKey": "vetuonglai_contact_intake_v1",
+      "surface": "hub_contact",
+      "endpoint": "/api/email/forms/submit",
+      "method": "POST",
+      "languages": [
+        "vi",
+        "en"
+      ],
+      "requiredFields": [
+        "purpose",
+        "name",
+        "email",
+        "message"
+      ],
+      "optionalFields": [
+        "phone",
+        "source",
+        "page_url",
+        "locale"
+      ],
+      "honeypotField": "company_website",
+      "privacyNote": {
+        "vi": "Thông tin chỉ dùng để phản hồi đúng mục đích, không bán dữ liệu và không tự thêm vào danh sách marketing.",
+        "en": "Information is used only to respond to the stated purpose, never sold, and not automatically added to marketing lists."
+      }
+    }
+  ],
+  "purposeRoutes": [
+    {
+      "key": "general",
+      "labelVi": "Câu hỏi chung",
+      "labelEn": "General question",
+      "to": "support@vetuonglai.com",
+      "slaVi": "Phản hồi trong 2-3 ngày làm việc.",
+      "slaEn": "Reply within 2-3 business days."
+    },
+    {
+      "key": "member_support",
+      "labelVi": "Hỗ trợ thành viên",
+      "labelEn": "Member support",
+      "to": "support@vetuonglai.com",
+      "slaVi": "Ưu tiên kiểm tra tài khoản, quyền truy cập và hành trình thành viên.",
+      "slaEn": "Prioritized for account, access, and member journey issues."
+    },
+    {
+      "key": "payment_access",
+      "labelVi": "Thanh toán / mở quyền truy cập",
+      "labelEn": "Payment / access unlock",
+      "to": "billing@vetuonglai.com",
+      "slaVi": "Ưu tiên khi có mã giao dịch, email thanh toán hoặc lỗi mở quyền.",
+      "slaEn": "Prioritized when a transaction ID, billing email, or unlock issue is provided."
+    },
+    {
+      "key": "partnership",
+      "labelVi": "Hợp tác / đối tác",
+      "labelEn": "Partnership",
+      "to": "partner@vetuonglai.com",
+      "slaVi": "Chuyển đến nhóm partnership để rà soát ngữ cảnh hợp tác.",
+      "slaEn": "Routed to the partnership team for context review."
+    },
+    {
+      "key": "content_media",
+      "labelVi": "Nội dung / truyền thông",
+      "labelEn": "Content / media",
+      "to": "content@vetuonglai.com",
+      "slaVi": "Dùng cho bài viết, truyền thông, chỉnh sửa nội dung hoặc yêu cầu báo chí.",
+      "slaEn": "Use for writing, media, editorial, or press-related requests."
+    },
+    {
+      "key": "creator_read",
+      "labelVi": "Tác giả / READ",
+      "labelEn": "Creator / READ",
+      "to": "creator@vetuonglai.com",
+      "slaVi": "Dùng cho tác giả, bài dài, đề xuất xuất bản và câu hỏi chia doanh thu READ.",
+      "slaEn": "Use for creators, long-form submissions, publishing proposals, and READ revenue-share questions."
+    },
+    {
+      "key": "enterprise_business",
+      "labelVi": "Doanh nghiệp / triển khai",
+      "labelEn": "Enterprise / implementation",
+      "to": "enterprise@vetuonglai.com",
+      "slaVi": "Dùng cho tổ chức muốn trao đổi triển khai, tích hợp hoặc gói doanh nghiệp.",
+      "slaEn": "Use for organizations discussing implementation, integration, or enterprise packages."
+    },
+    {
+      "key": "safety_privacy",
+      "labelVi": "An toàn / quyền riêng tư",
+      "labelEn": "Safety / privacy",
+      "to": "privacy@vetuonglai.com",
+      "slaVi": "Dùng cho yêu cầu dữ liệu, quyền riêng tư, an toàn trẻ em hoặc báo cáo rủi ro.",
+      "slaEn": "Use for data rights, privacy, child safety, or risk reports."
+    }
+  ],
+  "templates": {
+    "internalNotification": {
+      "subject": {
+        "vi": "[Về Tương Lai] Yêu cầu mới: {{purpose_label}}",
+        "en": "[Vetuonglai] New request: {{purpose_label}}"
+      },
+      "bodyText": {
+        "vi": "Có yêu cầu mới từ website Về Tương Lai.\n\nMã yêu cầu: {{submission_id}}\nMục đích: {{purpose_label}}\nTên: {{name}}\nEmail: {{email}}\nĐiện thoại: {{phone}}\nNguồn: {{source}}\nTrang gửi: {{page_url}}\nNgôn ngữ: {{locale}}\n\nNội dung:\n{{message}}\n\nGhi chú vận hành: trả lời trực tiếp email người gửi nếu cần thêm thông tin.",
+        "en": "A new request was submitted on the Vetuonglai website.\n\nSubmission ID: {{submission_id}}\nPurpose: {{purpose_label}}\nName: {{name}}\nEmail: {{email}}\nPhone: {{phone}}\nSource: {{source}}\nPage URL: {{page_url}}\nLocale: {{locale}}\n\nMessage:\n{{message}}\n\nOps note: reply directly to the sender if more context is needed."
+      }
+    },
+    "submitterAcknowledgement": {
+      "subject": {
+        "vi": "Về Tương Lai đã nhận yêu cầu của bạn",
+        "en": "Vetuonglai received your request"
+      },
+      "bodyText": {
+        "vi": "Chào {{name}},\n\nVề Tương Lai đã nhận yêu cầu của bạn.\n\nMã yêu cầu: {{submission_id}}\nMục đích: {{purpose_label}}\n\nChúng tôi sẽ đọc đúng ngữ cảnh và phản hồi theo kênh phù hợp. Nếu nội dung liên quan thanh toán hoặc quyền truy cập, vui lòng giữ lại mã giao dịch/email thanh toán để đối chiếu.\n\nCảm ơn bạn,\nVề Tương Lai",
+        "en": "Hi {{name}},\n\nVetuonglai has received your request.\n\nSubmission ID: {{submission_id}}\nPurpose: {{purpose_label}}\n\nWe will review it in context and respond through the appropriate channel. If this relates to payment or access, please keep your transaction ID/payment email for reference.\n\nThank you,\nVetuonglai"
+      }
+    }
+  },
+  "liveReadiness": {
+    "requiredRuntimeSecrets": [
+      "MAIL_API_KEY"
+    ],
+    "requiredRuntimeVars": [
+      "MAIL_API_BASE_URL",
+      "MAIL_API_WORKSPACE_ID"
+    ],
+    "requiredMailboxTruth": [
+      "noreply@vetuonglai.com",
+      "support@vetuonglai.com",
+      "billing@vetuonglai.com",
+      "partner@vetuonglai.com",
+      "content@vetuonglai.com",
+      "creator@vetuonglai.com",
+      "enterprise@vetuonglai.com",
+      "privacy@vetuonglai.com"
+    ],
+    "requiredProof": [
+      "POST /api/email/forms/submit returns 202",
+      "mail.iai.one /v1/send returns message_id",
+      "internal mailbox receives the routed notification",
+      "submitter acknowledgement reaches Gmail/Outlook proof inbox",
+      "audit BCC is enabled only after proof passes"
+    ]
+  }
+}

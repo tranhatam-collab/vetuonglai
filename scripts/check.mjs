@@ -39,6 +39,7 @@ const requiredFiles = [
   "vetuonglai.com/api/official-docs-lock.json",
   "vetuonglai.com/api/policy/team3-matrix.json",
   "vetuonglai.com/api/team4/package-form-registry.json",
+  "vetuonglai.com/api/email/forms/registry.json",
   "vetuonglai.com/api/team4/business-domain-contract.json",
   "vetuonglai.com/api/team4/package-comparison-demo-output.json",
   "vetuonglai.com/api/contracts.json",

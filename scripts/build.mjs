@@ -29,6 +29,7 @@ const founderActionRegistry = JSON.parse(await readFile(path.join(SRC, "data", "
 const founderAutopilotSeeds = JSON.parse(await readFile(path.join(SRC, "data", "founder-autopilot-seeds.json"), "utf8"));
 const founderCommandPanel = JSON.parse(await readFile(path.join(SRC, "data", "founder-command-panel.json"), "utf8"));
 const packageFormRegistry = JSON.parse(await readFile(path.join(SRC, "data", "package-form-registry.json"), "utf8"));
+const emailFormRegistry = JSON.parse(await readFile(path.join(SRC, "data", "email-form-registry.json"), "utf8"));
 const businessDomainContract = JSON.parse(await readFile(path.join(SRC, "data", "business-domain-contract.json"), "utf8"));
 const packageComparisonDemoOutput = JSON.parse(await readFile(path.join(SRC, "data", "package-comparison-demo-output.json"), "utf8"));
 const system = JSON.parse(await readFile(path.join(SRC, "data", "system.json"), "utf8"));
@@ -2382,8 +2383,14 @@ function renderHubNewsPage() {
 }
 
 function renderHubContactPage() {
+  const contactForm = (emailFormRegistry.forms || [])[0] || {};
+  const purposeOptions = (emailFormRegistry.purposeRoutes || [])
+    .map((route) => `
+      <option value="${escapeHtml(route.key)}" data-text-vi="${escapeHtml(route.labelVi)}" data-text-en="${escapeHtml(route.labelEn)}">${escapeHtml(route.labelVi)}</option>
+    `)
+    .join("");
   const contact = `
-    <article class="card">
+    <article class="card" data-animate="fade-up">
       <div class="card-body stack">
         ${cardTitle(pair("Liên hệ", "Contact"))}
         ${cardText(pair("Bạn có thể liên hệ theo mục đích cụ thể để nhận phản hồi đúng người phụ trách.", "Use purpose-based contact paths to reach the right owner."), "body-copy")}
@@ -2391,8 +2398,65 @@ function renderHubContactPage() {
           pair("Hợp tác / đối tác: partner@vetuonglai.com", "Partnerships: partner@vetuonglai.com"),
           pair("Nội dung / truyền thông: content@vetuonglai.com", "Content and media: content@vetuonglai.com"),
           pair("Hỗ trợ thành viên: support@vetuonglai.com", "Member support: support@vetuonglai.com"),
+          pair("Thanh toán / mở quyền: billing@vetuonglai.com", "Payment / access: billing@vetuonglai.com"),
+          pair("An toàn / quyền riêng tư: privacy@vetuonglai.com", "Safety / privacy: privacy@vetuonglai.com"),
         ])}
       </div>
+    </article>
+    <article class="card vtl-form-card" data-animate="fade-up">
+      <form
+        class="vtl-form stack"
+        method="post"
+        action="/api/email/forms/submit"
+        data-vtl-email-form="true"
+        novalidate
+      >
+        <input type="hidden" name="form_key" value="${escapeHtml(contactForm.formKey || "vetuonglai_contact_intake_v1")}">
+        <input type="hidden" name="source" value="hub_contact_page">
+        <input type="hidden" name="page_url" value="https://${domains.hub}/lien-he/">
+        <div class="vtl-form-honeypot" aria-hidden="true">
+          <label>Company website <input type="text" name="${escapeHtml(contactForm.honeypotField || "company_website")}" tabindex="-1" autocomplete="off"></label>
+        </div>
+        <div class="card-body stack">
+          ${cardTitle(pair("Gửi yêu cầu", "Send a request"))}
+          ${cardText(pair(
+            "Form này tự phân tuyến theo mục đích và gửi qua mail.iai.one khi runtime mail đã được cấu hình.",
+            "This form routes by purpose and sends through mail.iai.one when the mail runtime is configured.",
+          ), "body-copy")}
+          <div class="vtl-form-grid">
+            <label class="vtl-field">
+              ${localizedText(pair("Mục đích", "Purpose"), "span", { class: "vtl-label" })}
+              <select name="purpose" required>
+                ${purposeOptions}
+              </select>
+            </label>
+            <label class="vtl-field">
+              ${localizedText(pair("Tên của bạn", "Your name"), "span", { class: "vtl-label" })}
+              <input type="text" name="name" autocomplete="name" required maxlength="160">
+            </label>
+            <label class="vtl-field">
+              ${localizedText(pair("Email phản hồi", "Reply email"), "span", { class: "vtl-label" })}
+              <input type="email" name="email" autocomplete="email" required maxlength="320">
+            </label>
+            <label class="vtl-field">
+              ${localizedText(pair("Số điện thoại (không bắt buộc)", "Phone (optional)"), "span", { class: "vtl-label" })}
+              <input type="text" name="phone" autocomplete="tel" maxlength="80">
+            </label>
+          </div>
+          <label class="vtl-field">
+            ${localizedText(pair("Nội dung", "Message"), "span", { class: "vtl-label" })}
+            <textarea name="message" rows="7" required minlength="8" maxlength="5000"></textarea>
+          </label>
+          ${localizedText(pair(
+            contactForm.privacyNote?.vi || "Thông tin chỉ dùng để phản hồi đúng mục đích.",
+            contactForm.privacyNote?.en || "Information is used only to respond to the stated purpose.",
+          ), "p", { class: "subtle" })}
+          <div class="cluster">
+            <button class="button primary" type="submit" data-text-vi="Gửi yêu cầu" data-text-en="Send request">Gửi yêu cầu</button>
+            <span class="vtl-form-status subtle" role="status" aria-live="polite"></span>
+          </div>
+        </div>
+      </form>
     </article>
   `;
 
@@ -9249,6 +9313,7 @@ async function build() {
   await writeSiteFile(domains.hub, "api/official-docs-lock.json", renderStaticJson(officialDocsLock));
   await writeSiteFile(domains.hub, "api/policy/team3-matrix.json", renderStaticJson(team3PolicyContract));
   await writeSiteFile(domains.hub, "api/team4/package-form-registry.json", renderStaticJson(packageFormRegistry));
+  await writeSiteFile(domains.hub, "api/email/forms/registry.json", renderStaticJson(emailFormRegistry));
   await writeSiteFile(domains.hub, "api/team4/business-domain-contract.json", renderStaticJson(businessDomainContract));
   await writeSiteFile(domains.hub, "api/team4/package-comparison-demo-output.json", renderStaticJson(packageComparisonDemoOutput));
   await writeSiteFile(domains.hub, "api/contracts.json", renderStaticJson(buildContractsManifest(accessModel.version, officialDocsLock)));
@@ -9264,6 +9329,8 @@ async function build() {
       "/api/official-docs-lock.json",
       "/api/policy/team3-matrix.json",
       "/api/team4/package-form-registry.json",
+      "/api/email/forms/registry.json",
+      "/api/email/forms/submit",
       "/api/team4/business-domain-contract.json",
       "/api/team4/package-comparison-demo-output.json",
       "/api/contracts.json",

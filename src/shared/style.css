@@ -177,6 +177,87 @@ input {
 .animate-stagger > *:nth-child(4) { animation-delay: 0.3s; }
 .animate-stagger > *:nth-child(5) { animation-delay: 0.4s; }
 
+.vtl-form-card {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+}
+
+.vtl-form {
+  margin: 0;
+}
+
+.vtl-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.vtl-field {
+  display: grid;
+  gap: 7px;
+}
+
+.vtl-label {
+  color: var(--text);
+  font-size: 0.92rem;
+  font-weight: 750;
+}
+
+.vtl-field input,
+.vtl-field select,
+.vtl-field textarea {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--text);
+  font: inherit;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.vtl-field textarea {
+  min-height: 156px;
+  resize: vertical;
+}
+
+.vtl-field input:focus,
+.vtl-field select:focus,
+.vtl-field textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+  background: #fff;
+}
+
+.vtl-form-status {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+}
+
+.vtl-form-status[data-tone="success"] {
+  color: var(--success);
+  font-weight: 700;
+}
+
+.vtl-form-status[data-tone="warning"] {
+  color: var(--warning);
+  font-weight: 700;
+}
+
+.vtl-form-status[data-tone="error"] {
+  color: var(--danger);
+  font-weight: 700;
+}
+
+.vtl-form-honeypot {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .shell {
   max-width: 1220px;
   margin: 0 auto;
@@ -1242,6 +1323,7 @@ input {
   }
 
   .command-input-form,
+  .vtl-form-grid,
   .command-summary-metrics {
     grid-template-columns: 1fr;
   }
