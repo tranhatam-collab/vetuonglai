@@ -51,6 +51,22 @@ const gateSteps = [
     requiredForSystemSignoff: true,
   },
   {
+    key: "session_contract_smoke",
+    label: "Session runtime contract + onboarding goal smoke",
+    cmd: "npm",
+    args: ["run", "smoke:access-runtime"],
+    requiredForBaseline: true,
+    requiredForSystemSignoff: true,
+  },
+  {
+    key: "member_auth_flow",
+    label: "Member auth-flow verification gate",
+    cmd: "npm",
+    args: ["run", "verify:member:auth-flow"],
+    requiredForBaseline: true,
+    requiredForSystemSignoff: true,
+  },
+  {
     key: "wave_d_public_publish_self_test",
     label: "Wave D live publish verifier self-test",
     cmd: "node",
@@ -219,6 +235,10 @@ function runSelfTest() {
   const decision = buildDecision([
     { key: "team5_full_pack", ok: true },
     { key: "planned_safe_wave_release", ok: true },
+    { key: "team3_referral_disclosure_audit", ok: true },
+    { key: "team3_parity", ok: true },
+    { key: "session_contract_smoke", ok: true },
+    { key: "member_auth_flow", ok: true },
     { key: "wave_d_deploy_plan", ok: true },
     { key: "wave_d_public_publish_self_test", ok: true },
     { key: "wave_d_public_publish_live", ok: false },
