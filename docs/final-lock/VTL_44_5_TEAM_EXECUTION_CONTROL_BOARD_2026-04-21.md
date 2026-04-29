@@ -142,6 +142,13 @@ Ghi chú:
 - chốt parity cuối sau promote member:
   - verdict `go`
   - không còn stop-line mở trong scope parity hiện tại
+- bổ sung closure `2026-04-29` cho scope compliance/policy:
+  - đóng parity gate member cutover bằng runtime truth + system registry trạng thái `member=live`
+  - chạy audit disclosure toàn bộ referral points ngoài docs:
+    - `npm run verify:team3:referral-disclosure` -> pass (`Findings: 0`)
+  - rerun release gate chính thức (skip-heavy) với timeout đủ dài:
+    - `node scripts/verify-total-system-release-gate.mjs --skip-heavy --timeout-ms 180000`
+    - kết quả: `baseline_ready=true`, `system_signoff_ready=true`, `wave_e_allowed=true`, `publish_ready=true`
 
 Còn lại:
 
@@ -262,6 +269,7 @@ Tài liệu dùng cho gate này:
   - `scripts/smoke-founder-panel-runtime.mjs`
   - `scripts/check-founder-panel-contract.mjs`
   - `scripts/verify-team3-parity.mjs`
+  - `scripts/verify-referral-disclosure-placement.mjs`
 - UI shell:
   - `scripts/build.mjs`
   - `dist/vetuonglai.com/founder/index.html`
@@ -273,6 +281,7 @@ Tài liệu dùng cho gate này:
 - runtime truth / parity:
   - `cloudflare/domain-runtime-truth.json`
   - `reports/team3-parity.latest.json`
+  - `reports/team5-total-system-release-gate.latest.json`
 
 ---
 
