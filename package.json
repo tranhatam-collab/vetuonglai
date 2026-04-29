@@ -80,8 +80,9 @@
     "verify:responsive": "node scripts/verify-responsive.mjs",
     "verify:i18n": "node scripts/verify-i18n.mjs",
     "verify:compliance": "node scripts/verify-compliance.mjs",
+    "verify:member:auth-flow": "node scripts/verify-member-auth-flow.mjs",
     "verify:read:phase0": "node scripts/verify-read-phase0.mjs",
     "verify:read:phase0:live": "node scripts/verify-read-phase0.mjs --live",
-    "verify:qa": "npm run verify:links && npm run verify:responsive && npm run verify:i18n && npm run verify:compliance"
+    "verify:qa": "npm run verify:links && npm run verify:responsive && npm run verify:i18n && npm run verify:compliance && npm run verify:member:auth-flow"
   }
 }
