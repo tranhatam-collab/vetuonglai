@@ -7,11 +7,75 @@
     return localStorage.getItem("docs-lang") === "en" ? "en" : "vi";
   }
 
+  function applyBilingualText(lang) {
+    document.querySelectorAll("[data-vi][data-en]").forEach(function (el) {
+      var value = el.getAttribute(lang === "en" ? "data-en" : "data-vi");
+      if (value) el.textContent = value;
+    });
+  }
+
   function applyDocsLang(lang) {
     document.documentElement.setAttribute("data-lang", lang);
     localStorage.setItem("docs-lang", lang);
     document.querySelectorAll(".docs-lang button[data-lang]").forEach(function (btn) {
       btn.classList.toggle("is-active", btn.getAttribute("data-lang") === lang);
+    });
+    applyBilingualText(lang);
+  }
+
+  /* --- Referral disclosure helper --- */
+  var DEFAULT_REFERRAL_DISCLOSURE = {
+    vi: "Lien ket nay co the mang lai loi ich cho nguoi gioi thieu. Ban khong tra them phi khi dang ky qua lien ket nay.",
+    en: "This link may provide a benefit to the person who shared it. You do not pay extra when you sign up through this link."
+  };
+
+  function createReferralDisclosure(options) {
+    var opts = options || {};
+    var lang = opts.lang === "en" ? "en" : getDocsLang();
+    var viText = opts.viText || DEFAULT_REFERRAL_DISCLOSURE.vi;
+    var enText = opts.enText || DEFAULT_REFERRAL_DISCLOSURE.en;
+
+    var wrapper = document.createElement("div");
+    wrapper.className = "referral-disclosure" + (opts.inline ? " referral-disclosure--inline" : "");
+    wrapper.setAttribute("role", "note");
+    wrapper.setAttribute("aria-label", opts.ariaLabel || "Referral disclosure");
+
+    var text = document.createElement("p");
+    text.className = "referral-disclosure__text";
+    text.setAttribute("data-vi", viText);
+    text.setAttribute("data-en", enText);
+    text.textContent = lang === "en" ? enText : viText;
+
+    wrapper.appendChild(text);
+    return wrapper;
+  }
+
+  function mountReferralDisclosure(target, options) {
+    if (!target || !target.parentNode) return null;
+    var disclosure = createReferralDisclosure(options);
+    target.parentNode.insertBefore(disclosure, target.nextSibling);
+    return disclosure;
+  }
+
+  function initReferralDisclosure() {
+    document.querySelectorAll("[data-referral-disclosure]").forEach(function (slot) {
+      if (slot.querySelector(".referral-disclosure__text")) return;
+      var disclosure = createReferralDisclosure({
+        viText: slot.getAttribute("data-vi") || DEFAULT_REFERRAL_DISCLOSURE.vi,
+        enText: slot.getAttribute("data-en") || DEFAULT_REFERRAL_DISCLOSURE.en,
+        inline: slot.getAttribute("data-inline") === "true"
+      });
+      slot.replaceWith(disclosure);
+    });
+
+    document.querySelectorAll("a[data-referral-link]").forEach(function (link) {
+      var next = link.nextElementSibling;
+      if (next && next.classList.contains("referral-disclosure")) return;
+      mountReferralDisclosure(link, {
+        viText: link.getAttribute("data-disclosure-vi") || DEFAULT_REFERRAL_DISCLOSURE.vi,
+        enText: link.getAttribute("data-disclosure-en") || DEFAULT_REFERRAL_DISCLOSURE.en,
+        inline: link.getAttribute("data-disclosure-inline") !== "false"
+      });
     });
   }
 
@@ -82,9 +146,15 @@
         applyDocsLang(btn.getAttribute("data-lang"));
       });
     });
+    initReferralDisclosure();
     initSidebar();
     initToc();
     initCopyCode();
+
+    window.DocsReferralDisclosure = {
+      create: createReferralDisclosure,
+      mount: mountReferralDisclosure
+    };
   }
 
   if (document.readyState === "loading") {

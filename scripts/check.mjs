@@ -58,6 +58,8 @@ const requiredFiles = [
   "edu.vetuonglai.com/api/health",
   "edu.vetuonglai.com/api/catalog.json",
   "member.vetuonglai.com/index.html",
+  "member.vetuonglai.com/signup/index.html",
+  "member.vetuonglai.com/onboarding/step-2-goals/index.html",
   "member.vetuonglai.com/journey/index.html",
   "member.vetuonglai.com/app/index.html",
   "member.vetuonglai.com/app/offline/index.html",
@@ -243,6 +245,8 @@ async function main() {
   const hubStartHtml = await readFile(path.join(DIST, "vetuonglai.com", "bat-dau", "index.html"), "utf8");
   const vcIssuersHtml = await readFile(path.join(DIST, "vc.vetuonglai.com", "issuers", "index.html"), "utf8");
   const memberHtml = await readFile(path.join(DIST, "member.vetuonglai.com", "index.html"), "utf8");
+  const memberSignupHtml = await readFile(path.join(DIST, "member.vetuonglai.com", "signup", "index.html"), "utf8");
+  const memberOnboardingGoalsHtml = await readFile(path.join(DIST, "member.vetuonglai.com", "onboarding", "step-2-goals", "index.html"), "utf8");
   const memberJourneyHtml = await readFile(path.join(DIST, "member.vetuonglai.com", "journey", "index.html"), "utf8");
   const memberAppHtml = await readFile(path.join(DIST, "member.vetuonglai.com", "app", "index.html"), "utf8");
   const memberAppOfflineHtml = await readFile(path.join(DIST, "member.vetuonglai.com", "app", "offline", "index.html"), "utf8");
@@ -748,6 +752,8 @@ async function main() {
     ["AI", aiHtml],
     ["BUSINESS", businessHtml],
     ["MEMBER", memberHtml],
+    ["MEMBER SIGNUP", memberSignupHtml],
+    ["MEMBER ONBOARDING", memberOnboardingGoalsHtml],
     ["MEMBER JOURNEY", memberJourneyHtml],
     ["MEMBER APP", memberAppHtml],
   ]) {
@@ -835,6 +841,18 @@ async function main() {
 
   if (countOccurrences(memberHtml, 'data-disclosure-kind="public-note"') < 3) {
     throw new Error("Trang member chua render du public disclosure blocks.");
+  }
+
+  if (!memberSignupHtml.includes("Đăng ký miễn phí") || !memberSignupHtml.includes("Start free")) {
+    throw new Error("Trang member signup chua co CTA copy Đăng ký miễn phí / Start free.");
+  }
+
+  if (!memberSignupHtml.includes("Không cam kết thu nhập") || !memberSignupHtml.includes("No income guarantees")) {
+    throw new Error("Trang member signup chua render trust line no-income-guarantee.");
+  }
+
+  if (!memberSignupHtml.includes("/onboarding/step-2-goals/") || !memberOnboardingGoalsHtml.includes("Bước 2: Chọn mục tiêu gần nhất")) {
+    throw new Error("Flow signup -> onboarding step 2 chua duoc render day du.");
   }
 
   if (!memberJourneyHtml.includes('data-disclosure-kind="public-note"')) {
