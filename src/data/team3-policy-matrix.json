@@ -162,7 +162,23 @@
         "mandatoryDisclosure": "activation_state_changes_and_payout_decisions_must_be_auditable",
         "enforcementPoint": "reporting_pipeline_and_weekly_compliance_log"
       }
-    ]
+    ],
+    "incomeReferencePolicy": {
+      "rule": "login_plus_accepted_disclaimer_only",
+      "allowedPublicMentions": [
+        "no_income_guarantee_only"
+      ],
+      "requires": {
+        "authenticatedSession": true,
+        "acceptedDisclaimerEvent": "income_disclaimer_accepted",
+        "acceptedDisclaimerRuntimeEvent": "disclosure_acknowledged"
+      },
+      "enforcementPoints": [
+        "member_journey_and_affiliate_surfaces",
+        "referral_or_affiliate_touchpoints_outside_docs"
+      ],
+      "runtimeFallback": "deny_income_reference_render"
+    }
   },
   "reporting": {
     "kpis": [
@@ -239,7 +255,8 @@
       "payout_cycle_opened",
       "payout_cycle_closed",
       "compliance_flag_raised",
-      "disclosure_acknowledged"
+      "disclosure_acknowledged",
+      "income_disclaimer_accepted"
     ]
   },
   "launchGate": {
@@ -248,6 +265,7 @@
       "annual_and_pack_layers_separated_in_eligibility_logic",
       "vc_rules_enforce_required_anchors_and_controlled_statuses",
       "disclosure_blocks_present_at_required_affiliate_and_proof_touchpoints",
+      "income_references_render_only_after_login_and_disclaimer_ack",
       "kpi_events_emitted_named_consistently_and_mapped_to_owners",
       "payout_logic_gated_by_compliance_state_and_audit_logs",
       "execution_board_stop_rules_tested_and_documented"
@@ -428,6 +446,10 @@
         },
         {
           "policyEventKey": "disclosure_acknowledged",
+          "runtimeEventKey": "disclosure_acknowledged"
+        },
+        {
+          "policyEventKey": "income_disclaimer_accepted",
           "runtimeEventKey": "disclosure_acknowledged"
         }
       ],
@@ -670,6 +692,16 @@
           "requiredProperties": [
             "surface_key",
             "member_state",
+            "timestamp"
+          ]
+        },
+        {
+          "eventKey": "income_disclaimer_accepted",
+          "trigger": "income_reference_disclaimer_confirmed",
+          "requiredProperties": [
+            "surface_key",
+            "member_state",
+            "disclaimer_version",
             "timestamp"
           ]
         }

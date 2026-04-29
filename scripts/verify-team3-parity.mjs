@@ -514,7 +514,7 @@ function auditPolicyMatrix(team3PolicyMatrix) {
     }));
   }
 
-  for (const eventKey of ["affiliate_activation_approved", "affiliate_activation_rejected", "vc_record_status_changed", "disclosure_acknowledged"]) {
+  for (const eventKey of ["affiliate_activation_approved", "affiliate_activation_rejected", "vc_record_status_changed", "disclosure_acknowledged", "income_disclaimer_accepted"]) {
     if (!requiredEvents.has(eventKey)) {
       findings.push(makeFinding({
         key: `policy_matrix_missing_event_${eventKey}`,
@@ -527,6 +527,23 @@ function auditPolicyMatrix(team3PolicyMatrix) {
         evidence: [TEAM3_POLICY_MATRIX_PATH],
       }));
     }
+  }
+
+  const incomeReferencePolicy = team3PolicyMatrix.disclosureAndCompliance?.incomeReferencePolicy || {};
+  if (incomeReferencePolicy.rule !== "login_plus_accepted_disclaimer_only"
+    || incomeReferencePolicy.requires?.authenticatedSession !== true
+    || incomeReferencePolicy.requires?.acceptedDisclaimerEvent !== "income_disclaimer_accepted"
+    || incomeReferencePolicy.requires?.acceptedDisclaimerRuntimeEvent !== "disclosure_acknowledged") {
+    findings.push(makeFinding({
+      key: "policy_matrix_income_reference_policy_drift",
+      title: "Team 3 income-reference policy mapping is incomplete",
+      severity: "P1",
+      owner: "Team 3 + Team 1",
+      stopLine: true,
+      summaryVi: "Policy matrix chưa khóa đúng mapping 'income references only after login + accepted disclaimer'.",
+      summaryEn: "The policy matrix does not fully lock the 'income references only after login + accepted disclaimer' mapping.",
+      evidence: [TEAM3_POLICY_MATRIX_PATH],
+    }));
   }
 
   if (!Array.isArray(team3PolicyMatrix.launchGate?.checks) || team3PolicyMatrix.launchGate.checks.length < 6) {

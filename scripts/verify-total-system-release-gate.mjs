@@ -27,6 +27,22 @@ const gateSteps = [
     requiredForSystemSignoff: true,
   },
   {
+    key: "team3_referral_disclosure_audit",
+    label: "Team 3 referral disclosure placement audit",
+    cmd: "npm",
+    args: ["run", "verify:team3:referral-disclosure"],
+    requiredForBaseline: true,
+    requiredForSystemSignoff: true,
+  },
+  {
+    key: "team3_parity",
+    label: "Team 3 parity gate",
+    cmd: "npm",
+    args: ["run", "verify:team3:parity"],
+    requiredForBaseline: true,
+    requiredForSystemSignoff: true,
+  },
+  {
     key: "wave_d_deploy_plan",
     label: "Wave D Pages deploy dry-run",
     cmd: "node",
@@ -269,10 +285,11 @@ async function main() {
     rows: compactRows(rows),
     gateRules: [
       "Wave E chi duoc ky khi Team 5 full pack xanh.",
-      "Wave D planned-safe pack va deploy dry-run phai xanh.",
-      "Wave D public publish live verify phai xanh truoc khi system_signoff_ready=true.",
-      "Neu Wave D con DNS/runtime publish fail thi publish_ready=false va wave_e_allowed=false.",
-    ],
+    "Wave D planned-safe pack va deploy dry-run phai xanh.",
+    "Team 3 referral disclosure audit + Team 3 parity phai xanh trong release gate chinh.",
+    "Wave D public publish live verify phai xanh truoc khi system_signoff_ready=true.",
+    "Neu Wave D con DNS/runtime publish fail thi publish_ready=false va wave_e_allowed=false.",
+  ],
   };
 
   await mkdir(REPORT_DIR, { recursive: true });

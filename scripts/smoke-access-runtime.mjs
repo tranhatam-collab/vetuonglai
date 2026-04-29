@@ -70,6 +70,9 @@ async function testSessionFlow() {
   const currentBody = await readJson(current);
   assert.equal(currentBody.status, "session_active");
   assert.equal(currentBody.authenticated, true);
+  assert.equal(currentBody.contract.endpoint, "/api/access/session/current");
+  assert.equal(currentBody.contract.onboarding_goal_endpoint, "/api/access/onboarding/goal");
+  assert.equal(currentBody.session.refresh_disabled, false);
   assert.equal(currentBody.member_state, "annual_active");
   assert.deepEqual(currentBody.entitlements, [
     "public_basics",
@@ -141,6 +144,70 @@ async function testFreeAccountFromHomepage() {
   assert.equal(deniedHost.status, 403);
   const deniedPayload = await readJson(deniedHost);
   assert.equal(deniedPayload.status, "free_account_host_not_allowed");
+
+  const noCookie = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/session/current"), env);
+  assert(noCookie);
+  assert.equal(noCookie.status, 401);
+  const noCookiePayload = await readJson(noCookie);
+  assert.equal(noCookiePayload.error_code, "SESSION_MISSING_COOKIE");
+}
+
+async function testOnboardingGoalPersistence() {
+  const env = {
+    VTL_ENV: "development",
+    SESSION_COOKIE_SECRET: "smoke-session-secret",
+    MAGIC_LINK_SIGNING_KEY: "smoke-magic-secret",
+  };
+
+  const request = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/session/magic-link/request", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify({
+      candidate_email: "onboarding-goal@vetuonglai.com",
+      entry: "member",
+      intent: "specialist-pack",
+      member_state: "pending_member",
+      lang: "vi",
+      return_to: "/onboarding/step-2-goals/",
+    }),
+  }), env);
+  assert(request);
+  const requestPayload = await readJson(request);
+
+  const consumed = await maybeHandleAccessRuntime(new Request(requestPayload.magicLink.magicLinkUrl), env);
+  assert(consumed);
+  const cookie = getCookie(consumed);
+
+  const persist = await maybeHandleAccessRuntime(new Request("https://member.vetuonglai.com/api/access/onboarding/goal", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      cookie,
+    },
+    body: JSON.stringify({
+      pathway: "learn",
+      selection_method: "manual",
+      note: "focus on structured learning",
+    }),
+  }), env);
+  assert(persist);
+  assert.equal(persist.status, 200);
+  const persistPayload = await readJson(persist);
+  assert.equal(persistPayload.status, "onboarding_goal_saved");
+  assert.equal(persistPayload.selected_goal, "learn");
+
+  const current = await maybeHandleAccessRuntime(new Request("https://member.vetuonglai.com/api/access/session/current?refresh=off", {
+    headers: {
+      cookie,
+    },
+  }), env);
+  assert(current);
+  assert.equal(current.status, 200);
+  const currentPayload = await readJson(current);
+  assert.equal(currentPayload.onboarding.selected_goal, "learn");
+  assert.equal(currentPayload.session.refresh_disabled, true);
 }
 
 async function testBypassAndDedupe() {
@@ -851,9 +918,67 @@ async function testWaveDEntryNormalization() {
   assert.equal(interestData.normalized.intent, "interest");
 }
 
+async function testSessionRuntimeContractAndOnboardingGoalPersist() {
+  const env = {
+    VTL_ENV: "development",
+    SESSION_COOKIE_SECRET: "smoke-session-secret",
+    MAGIC_LINK_SIGNING_KEY: "smoke-magic-secret",
+  };
+
+  const requested = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/session/magic-link/request", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      candidate_email: "smoke-goal@vetuonglai.com",
+      member_state: "annual_active",
+      intent: "annual-access",
+      entry: "hub",
+    }),
+  }), env);
+  assert(requested);
+  assert.equal(requested.status, 202);
+  const requestedBody = await readJson(requested);
+
+  const consumed = await maybeHandleAccessRuntime(new Request(requestedBody.magicLink.magicLinkUrl), env);
+  assert(consumed);
+  assert.equal(consumed.status, 200);
+  const cookie = getCookie(consumed);
+  assert(cookie.includes("vtl_session="));
+
+  const saveGoal = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/onboarding/goal", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      cookie,
+    },
+    body: JSON.stringify({
+      pathway: "learn",
+      selection_method: "smoke_test",
+    }),
+  }), env);
+  assert(saveGoal);
+  assert.equal(saveGoal.status, 200);
+  const saveGoalBody = await readJson(saveGoal);
+  assert.equal(saveGoalBody.status, "onboarding_goal_saved");
+  assert.equal(saveGoalBody.selected_goal, "learn");
+
+  const current = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/session/current", {
+    headers: { cookie },
+  }), env);
+  assert(current);
+  assert.equal(current.status, 200);
+  const currentBody = await readJson(current);
+  assert(currentBody.contract?.refresh_policy?.ttl_seconds > 0);
+  assert(Array.isArray(currentBody.contract?.error_codes));
+  assert.equal(currentBody.onboarding?.selected_goal, "learn");
+  assert.equal(currentBody.onboarding?.pathway_gate?.pathway, "learn");
+  assert.equal(currentBody.tier?.id, 2);
+}
+
 async function main() {
   await testSessionFlow();
   await testFreeAccountFromHomepage();
+  await testOnboardingGoalPersistence();
   await testBypassAndDedupe();
   await testRuntimeStateSyncAfterPurchase();
   await testPostbackVerification();
@@ -863,6 +988,7 @@ async function main() {
   await testKvPersistenceMode();
   await testRouteNormalizationAndPolicyBindings();
   await testWaveDEntryNormalization();
+  await testSessionRuntimeContractAndOnboardingGoalPersist();
   console.log("smoke-access-runtime: ok");
 }
 

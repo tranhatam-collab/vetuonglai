@@ -550,8 +550,17 @@ async function main() {
   }
 
   const requiredEvents = team3PolicyMatrix.reporting?.requiredEvents || [];
-  if (!requiredEvents.includes("affiliate_activation_approved") || !requiredEvents.includes("affiliate_activation_rejected") || !requiredEvents.includes("vc_record_status_changed") || !requiredEvents.includes("disclosure_acknowledged")) {
+  if (!requiredEvents.includes("affiliate_activation_approved") || !requiredEvents.includes("affiliate_activation_rejected") || !requiredEvents.includes("vc_record_status_changed") || !requiredEvents.includes("disclosure_acknowledged") || !requiredEvents.includes("income_disclaimer_accepted")) {
     throw new Error("Team 3 reporting matrix chua khoa required launch events.");
+  }
+
+  const incomeReferencePolicy = team3PolicyMatrix.disclosureAndCompliance?.incomeReferencePolicy || {};
+  if (incomeReferencePolicy.rule !== "login_plus_accepted_disclaimer_only") {
+    throw new Error("Team 3 incomeReferencePolicy chua khoa rule login_plus_accepted_disclaimer_only.");
+  }
+
+  if (incomeReferencePolicy.requires?.authenticatedSession !== true || incomeReferencePolicy.requires?.acceptedDisclaimerEvent !== "income_disclaimer_accepted" || incomeReferencePolicy.requires?.acceptedDisclaimerRuntimeEvent !== "disclosure_acknowledged") {
+    throw new Error("Team 3 incomeReferencePolicy chua khoa mapping authenticatedSession + accepted disclaimer event.");
   }
 
   if (!Array.isArray(team3PolicyMatrix.disclosureAndCompliance?.requirements) || team3PolicyMatrix.disclosureAndCompliance.requirements.length < 6) {
@@ -843,8 +852,8 @@ async function main() {
     throw new Error("Trang member chua render du public disclosure blocks.");
   }
 
-  if (!memberSignupHtml.includes("Đăng ký miễn phí") || !memberSignupHtml.includes("Start free")) {
-    throw new Error("Trang member signup chua co CTA copy Đăng ký miễn phí / Start free.");
+  if (!memberSignupHtml.includes("Tiếp tục bước bắt đầu") || !memberSignupHtml.includes("Continue start step")) {
+    throw new Error("Trang member signup chua co CTA copy Tiếp tục bước bắt đầu / Continue start step.");
   }
 
   if (!memberSignupHtml.includes("Không cam kết thu nhập") || !memberSignupHtml.includes("No income guarantees")) {

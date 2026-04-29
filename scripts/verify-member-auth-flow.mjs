@@ -37,8 +37,8 @@ async function main() {
     "/api/access/session/current",
     "mock_member_state",
     "vtl.member.mock_state",
-    "Đăng ký miễn phí",
-    "Continue journey",
+    "Đăng ký thành viên",
+    "Open journey",
   ]);
 
   assertIncludesAll(signup, "member signup", [
@@ -58,6 +58,7 @@ async function main() {
     "onboarding-journey-cta",
     "data-onboarding-auth-required=\"true\"",
     "mock_member_state",
+    "Quay lại bước bắt đầu",
   ]);
 
   const onboardingAuthGateCount = countOccurrences(onboardingGoals, 'data-onboarding-auth-required="true"');

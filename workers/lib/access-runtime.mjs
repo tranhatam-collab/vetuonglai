@@ -1,5 +1,7 @@
 import accessModel from "../../src/data/access-model.json" with { type: "json" };
 import courses from "../../src/data/courses.json" with { type: "json" };
+import packageFormRegistry from "../../src/data/package-form-registry.json" with { type: "json" };
+import productStrategyRegistry from "../../src/data/product-strategy-registry.json" with { type: "json" };
 import team3PolicyMatrix from "../../src/data/team3-policy-matrix.json" with { type: "json" };
 import runtimeTruth from "../../cloudflare/domain-runtime-truth.json" with { type: "json" };
 import { createAccessStore } from "./access-state.mjs";
@@ -8,6 +10,7 @@ const ACCESS_BASE = "/api/access";
 const SESSION_COOKIE_NAME = "vtl_session";
 const MAGIC_LINK_TTL_SECONDS = 15 * 60;
 const SESSION_TTL_SECONDS = 30 * 24 * 60 * 60;
+const SESSION_REFRESH_THRESHOLD_SECONDS = 24 * 60 * 60;
 const DEFAULT_COOKIE_DOMAIN = ".vetuonglai.com";
 const DEFAULT_MEMBER_SCRIPT = "vetuonglai-member";
 const FREE_ACCOUNT_HOSTS = new Set(["vetuonglai.com", "www.vetuonglai.com"]);
@@ -41,6 +44,11 @@ const workflowReviewerStates = new Set(
 const workflowRequiredApprovedSubmissions = Array.isArray(submissionWorkflow.vcCandidateRules?.requiredApprovedSubmissions)
   ? submissionWorkflow.vcCandidateRules.requiredApprovedSubmissions.map((entry) => String(entry || ""))
   : ["action_proof", "project_output", "reflection"];
+const subdomainFormRegistry = Array.isArray(packageFormRegistry.subdomainFormRegistry)
+  ? packageFormRegistry.subdomainFormRegistry
+  : [];
+const memberSurfaceContract = subdomainFormRegistry.find((entry) => entry.surfaceKey === "member") || null;
+const pathwayIds = new Set(((productStrategyRegistry.pathways?.items) || []).map((entry) => String(entry.id || "")).filter(Boolean));
 
 const plannedDomains = new Set(
   (runtimeTruth.domains || [])
@@ -240,6 +248,34 @@ async function verifyToken(secret, token) {
   return payload;
 }
 
+async function verifyTokenDetailed(secret, token) {
+  const [encodedPayload, signature] = String(token || "").split(".");
+  if (!encodedPayload || !signature) {
+    return { ok: false, code: "SESSION_TOKEN_MALFORMED", reason: "token_missing_segments" };
+  }
+  const expected = await signValue(secret, encodedPayload);
+  if (!safeEqual(expected, signature)) {
+    return { ok: false, code: "SESSION_SIGNATURE_INVALID", reason: "signature_mismatch" };
+  }
+  const payload = safeJsonParse(new TextDecoder().decode(fromBase64Url(encodedPayload)), null);
+  if (!payload || typeof payload !== "object") {
+    return { ok: false, code: "SESSION_PAYLOAD_INVALID", reason: "payload_decode_failed" };
+  }
+  const exp = Number(payload.exp || 0);
+  if (!Number.isFinite(exp) || exp <= 0) {
+    return { ok: false, code: "SESSION_EXP_INVALID", reason: "exp_missing_or_invalid" };
+  }
+  if (exp < currentUnixSeconds()) {
+    return {
+      ok: false,
+      code: "SESSION_EXPIRED",
+      reason: "token_expired",
+      expired_at_unix: exp,
+    };
+  }
+  return { ok: true, payload };
+}
+
 function parseCookies(headerValue = "") {
   const entries = String(headerValue || "")
     .split(";")
@@ -437,6 +473,142 @@ function annualAccessStatusForMemberState(memberState) {
     default:
       return "none";
   }
+}
+
+function tierIdForMemberState(memberState) {
+  switch (ensureMemberState(memberState)) {
+    case "annual_active":
+      return 2;
+    case "pack_owner":
+      return 4;
+    case "program_user":
+      return 5;
+    case "partner":
+      return 6;
+    case "pending_member":
+      return 1;
+    default:
+      return 1;
+  }
+}
+
+function tierMeta(tierId) {
+  const item = Array.isArray(productStrategyRegistry.tiers?.items)
+    ? productStrategyRegistry.tiers.items.find((entry) => Number(entry.id) === Number(tierId))
+    : null;
+  if (!item) return null;
+  return {
+    id: Number(item.id),
+    key: String(item.key || ""),
+    label_vi: String(item.labelVi || ""),
+    label_en: String(item.labelEn || ""),
+    earning_allowed: Boolean(item.earningAllowed),
+    invest_allowed: item.investAllowed,
+  };
+}
+
+function pathwayGateForGoal(goalPathway, tierId) {
+  const matrix = productStrategyRegistry.tiers?.crossMapping || {};
+  const current = matrix?.[goalPathway];
+  if (!Array.isArray(current)) return { pathway: goalPathway || null, state: null };
+  const index = Math.max(0, Math.min(current.length - 1, Number(tierId) - 1));
+  return {
+    pathway: goalPathway || null,
+    state: current[index] || null,
+  };
+}
+
+function onboardingAllowedForSession(session) {
+  const currentTier = Number(session?.tier_id || 1);
+  const maxKidsTier = Number(productStrategyRegistry.tiers?.hardGates?.kidsTierCap || 2);
+  const memberContractState = String(memberSurfaceContract?.contractState || "ready");
+  const blockedByKidsCap = currentTier <= maxKidsTier && session?.member_state === "visitor";
+
+  return {
+    allowed: !blockedByKidsCap && (memberContractState === "ready" || memberContractState === "active"),
+    reason: blockedByKidsCap ? "tier_or_state_not_eligible" : "ok",
+    contract_state: memberContractState,
+    required_entry_layer: memberSurfaceContract?.entryLayerRequirement || "free_member_or_future_access_pass",
+    recommended_layers: Array.isArray(memberSurfaceContract?.defaultRecommendationLayers)
+      ? memberSurfaceContract.defaultRecommendationLayers
+      : ["foundation", "applied"],
+  };
+}
+
+function normalizeGoalInput(input = {}) {
+  const pathway = String(input.pathway || input.goal_primary || "").trim().toLowerCase();
+  const selection_method = String(input.selection_method || "manual").trim().toLowerCase();
+  const note = String(input.note || "").trim().slice(0, 500);
+  return {
+    pathway,
+    selection_method,
+    note,
+  };
+}
+
+async function readOnboardingState(env, candidateEmail) {
+  const store = accessStore(env);
+  const state = await store.get("member_onboarding_state", candidateEmail);
+  return state && typeof state === "object" ? state : null;
+}
+
+async function writeOnboardingState(env, candidateEmail, nextState) {
+  const store = accessStore(env);
+  await store.put("member_onboarding_state", candidateEmail, nextState, {
+    ttlSeconds: SESSION_TTL_SECONDS,
+  });
+}
+
+function sessionRuntimeContractPayload() {
+  return {
+    endpoint: `${ACCESS_BASE}/session/current`,
+    onboarding_goal_endpoint: `${ACCESS_BASE}/onboarding/goal`,
+    states: ["session_active", "session_missing", "session_expiring", "session_refreshed"],
+    error_codes: [
+      "SESSION_MISSING",
+      "SESSION_EXPIRED",
+      "SESSION_INVALID",
+      "SESSION_REFRESH_FAILED",
+      "SESSION_MISSING_COOKIE",
+      "SESSION_TOKEN_MALFORMED",
+      "SESSION_SIGNATURE_INVALID",
+      "SESSION_PAYLOAD_INVALID",
+      "SESSION_EXP_INVALID",
+    ],
+    error_code_http_status: {
+      SESSION_MISSING: 401,
+      SESSION_MISSING_COOKIE: 401,
+      SESSION_TOKEN_MALFORMED: 401,
+      SESSION_SIGNATURE_INVALID: 401,
+      SESSION_PAYLOAD_INVALID: 401,
+      SESSION_EXP_INVALID: 401,
+      SESSION_EXPIRED: 401,
+      SESSION_INVALID: 401,
+      SESSION_REFRESH_FAILED: 503,
+    },
+    refresh_policy: {
+      ttl_seconds: SESSION_TTL_SECONDS,
+      refresh_threshold_seconds: SESSION_REFRESH_THRESHOLD_SECONDS,
+      behavior: "refresh_cookie_on_active_session_near_expiry",
+      query_control: {
+        refresh: ["auto", "off"],
+      },
+    },
+  };
+}
+
+function sessionErrorResponse(code, reason, { expiredAtUnix = null, detail = "", httpStatus = 401 } = {}) {
+  return jsonResponse({
+    status: code === "SESSION_EXPIRED" ? "session_expired" : "session_missing",
+    authenticated: false,
+    error_code: code,
+    error_reason: reason,
+    detail,
+    ...(Number.isFinite(expiredAtUnix) ? { expired_at_unix: expiredAtUnix } : {}),
+    contract: sessionRuntimeContractPayload(),
+  }, {
+    status: httpStatus,
+  });
 }
 
 function isoNow() {
@@ -1291,12 +1463,21 @@ async function handleMagicLinkConsume(request, env) {
   });
 }
 
-async function readSessionFromRequest(request, env) {
+async function readSessionEnvelopeFromRequest(request, env) {
   const cookies = parseCookies(request.headers.get("cookie") || "");
   const token = cookies[SESSION_COOKIE_NAME];
-  if (!token) return null;
+  if (!token) return {
+    ok: false,
+    code: "SESSION_MISSING_COOKIE",
+    reason: "cookie_absent",
+  };
   const sessionSecret = getEnvString(env, "SESSION_COOKIE_SECRET") || "debug-session-secret";
-  return verifyToken(sessionSecret, token);
+  return verifyTokenDetailed(sessionSecret, token);
+}
+
+async function readSessionFromRequest(request, env) {
+  const envelope = await readSessionEnvelopeFromRequest(request, env);
+  return envelope.ok ? envelope.payload : null;
 }
 
 async function resolveEffectiveSession(request, env) {
@@ -1310,11 +1491,13 @@ async function resolveEffectiveSession(request, env) {
     const store = accessStore(env);
     const runtimeState = await store.get("member_runtime_state", candidateEmail);
     const learningSummary = await readLearningSummary(env, candidateEmail);
+    const onboardingState = await readOnboardingState(env, candidateEmail);
     const accessSnapshot = effectiveAccessSnapshot(session, runtimeState, learningSummary);
     effectiveSession = {
       ...session,
       candidate_email: candidateEmail,
       ...accessSnapshot,
+      onboarding_state: onboardingState,
     };
   }
 
@@ -1322,21 +1505,71 @@ async function resolveEffectiveSession(request, env) {
 }
 
 async function handleSessionCurrent(request, env) {
+  const envelope = await readSessionEnvelopeFromRequest(request, env);
+  if (!envelope.ok) {
+    await logSessionAudit(env, "session_missing", {
+      reason: envelope.reason || "missing_or_invalid_cookie",
+      error_code: envelope.code || "SESSION_INVALID",
+    });
+    return sessionErrorResponse(
+      envelope.code || "SESSION_INVALID",
+      envelope.reason || "missing_or_invalid_cookie",
+      {
+        expiredAtUnix: envelope.expired_at_unix,
+      },
+    );
+  }
+
   const effectiveSession = await resolveEffectiveSession(request, env);
   if (!effectiveSession) {
-    await logSessionAudit(env, "session_missing", {
-      reason: "missing_or_invalid_cookie",
-    });
-    return jsonResponse({
-      status: "session_missing",
-      authenticated: false,
-    }, {
-      status: 401,
+    return sessionErrorResponse("SESSION_INVALID", "effective_session_resolution_failed", {
+      detail: "Session payload exists but effective runtime session resolution failed.",
     });
   }
 
+  const now = currentUnixSeconds();
+  const exp = Number(effectiveSession.exp || 0);
+  const expiresInSeconds = Number.isFinite(exp) && exp > now ? exp - now : 0;
+  const refreshParam = String(new URL(request.url).searchParams.get("refresh") || "").trim().toLowerCase();
+  const refreshDisabled = refreshParam === "off";
+  const shouldRefresh = !refreshDisabled && expiresInSeconds > 0 && expiresInSeconds <= SESSION_REFRESH_THRESHOLD_SECONDS;
+  let refreshed = false;
+  let responseHeaders = undefined;
+
+  if (shouldRefresh) {
+    const sessionSecret = getEnvString(env, "SESSION_COOKIE_SECRET") || "debug-session-secret";
+    const refreshedPayload = {
+      ...effectiveSession,
+      exp: now + SESSION_TTL_SECONDS,
+    };
+    try {
+      const refreshedToken = await signToken(sessionSecret, refreshedPayload);
+      refreshed = true;
+      responseHeaders = {
+        "set-cookie": buildSessionCookie(refreshedToken, env),
+      };
+    } catch {
+      return jsonResponse({
+        status: "session_refresh_failed",
+        authenticated: false,
+        error_code: "SESSION_REFRESH_FAILED",
+        contract: sessionRuntimeContractPayload(),
+      }, {
+        status: 503,
+      });
+    }
+  }
+
+  const tierId = tierIdForMemberState(effectiveSession.member_state);
+  const onboardingGate = onboardingAllowedForSession({
+    ...effectiveSession,
+    tier_id: tierId,
+  });
+  const selectedGoal = effectiveSession.onboarding_state?.selected_goal || "";
+  const pathwayGate = pathwayGateForGoal(selectedGoal, tierId);
+
   return jsonResponse({
-    status: "session_active",
+    status: refreshed ? "session_refreshed" : (shouldRefresh ? "session_expiring" : "session_active"),
     authenticated: true,
     member_state: effectiveSession.member_state,
     annual_access_status: effectiveSession.annual_access_status,
@@ -1344,6 +1577,98 @@ async function handleSessionCurrent(request, env) {
     entitlements: effectiveSession.entitlements,
     entitlement_groups: groupEntitlements(effectiveSession.entitlements),
     learning_summary: effectiveSession.learning_summary || null,
+    onboarding: {
+      gate: onboardingGate,
+      selected_goal: effectiveSession.onboarding_state?.selected_goal || null,
+      selected_goal_at: effectiveSession.onboarding_state?.selected_goal_at || null,
+      selected_goal_source: effectiveSession.onboarding_state?.selection_method || null,
+      pathway_gate: pathwayGate,
+    },
+    tier: tierMeta(tierId),
+    session: {
+      expires_at_unix: Number.isFinite(exp) ? exp : null,
+      expires_in_seconds: expiresInSeconds,
+      refreshed,
+      refresh_disabled: refreshDisabled,
+      refresh_threshold_seconds: SESSION_REFRESH_THRESHOLD_SECONDS,
+      ttl_seconds: SESSION_TTL_SECONDS,
+    },
+    contract: sessionRuntimeContractPayload(),
+  }, responseHeaders ? { headers: responseHeaders } : undefined);
+}
+
+async function handleOnboardingGoalPersist(request, env) {
+  const envelope = await readSessionEnvelopeFromRequest(request, env);
+  if (!envelope.ok) {
+    return sessionErrorResponse(
+      envelope.code || "SESSION_INVALID",
+      envelope.reason || "missing_or_invalid_cookie",
+      {
+        expiredAtUnix: envelope.expired_at_unix,
+      },
+    );
+  }
+
+  const effectiveSession = await resolveEffectiveSession(request, env);
+  if (!effectiveSession) {
+    return sessionErrorResponse("SESSION_INVALID", "effective_session_resolution_failed", {
+      detail: "Session payload exists but effective runtime session resolution failed.",
+    });
+  }
+
+  const gate = onboardingAllowedForSession({
+    ...effectiveSession,
+    tier_id: tierIdForMemberState(effectiveSession.member_state),
+  });
+  if (!gate.allowed) {
+    return jsonResponse({
+      status: "onboarding_goal_forbidden",
+      authenticated: true,
+      error_code: "ONBOARDING_GATE_FORBIDDEN",
+      gate,
+    }, {
+      status: 403,
+    });
+  }
+
+  const input = normalizeGoalInput(await readRequestJson(request));
+  if (!pathwayIds.has(input.pathway)) {
+    return jsonResponse({
+      status: "onboarding_goal_invalid",
+      authenticated: true,
+      error_code: "ONBOARDING_GOAL_INVALID",
+      detail: "pathway must be one of allowed product-strategy pathways.",
+      allowed_pathways: [...pathwayIds],
+    }, {
+      status: 422,
+    });
+  }
+
+  const candidateEmail = normalizeCandidateEmail(effectiveSession.candidate_email);
+  const nextState = {
+    candidate_email: candidateEmail,
+    selected_goal: input.pathway,
+    selection_method: input.selection_method || "manual",
+    note: input.note,
+    selected_goal_at: isoNow(),
+    updated_at: isoNow(),
+    source: "member_onboarding_step_2",
+  };
+
+  await writeOnboardingState(env, candidateEmail, nextState);
+  await logSessionAudit(env, "onboarding_goal_saved", {
+    candidate_email: candidateEmail,
+    selected_goal: nextState.selected_goal,
+    selection_method: nextState.selection_method,
+  });
+
+  return jsonResponse({
+    status: "onboarding_goal_saved",
+    authenticated: true,
+    selected_goal: nextState.selected_goal,
+    selected_goal_at: nextState.selected_goal_at,
+    selection_method: nextState.selection_method,
+    gate,
   });
 }
 
@@ -1984,6 +2309,10 @@ export async function maybeHandleAccessRuntime(request, env = {}) {
 
   if (request.method === "GET" && url.pathname === `${ACCESS_BASE}/session/current`) {
     return handleSessionCurrent(request, env);
+  }
+
+  if (request.method === "POST" && url.pathname === `${ACCESS_BASE}/onboarding/goal`) {
+    return handleOnboardingGoalPersist(request, env);
   }
 
   if (request.method === "POST" && url.pathname === `${ACCESS_BASE}/session/logout`) {

@@ -2335,6 +2335,58 @@ function renderHubMemberPage() {
     ],
   );
 
+  const inlineScript = `
+(() => {
+  const endpoint = "/api/access/session/current";
+  const mockKey = "vtl.member.mock_state";
+  const allowedStates = new Set(["visitor", "pending_member", "annual_active", "pack_owner", "partner"]);
+
+  function isLoggedInState(state) {
+    return state && state !== "visitor" && state !== "unknown" && state !== "offline";
+  }
+
+  function readMockState() {
+    try {
+      const fromQuery = new URLSearchParams(window.location.search).get("mock_member_state");
+      if (fromQuery && allowedStates.has(fromQuery)) {
+        window.localStorage.setItem(mockKey, fromQuery);
+        return fromQuery;
+      }
+      const fromStorage = window.localStorage.getItem(mockKey);
+      if (fromStorage && allowedStates.has(fromStorage)) return fromStorage;
+    } catch (_) {}
+    return null;
+  }
+
+  function applyAuthGate(isLoggedIn) {
+    document.querySelectorAll("[data-auth-gate='logged-out']").forEach((node) => {
+      node.hidden = isLoggedIn;
+    });
+    document.querySelectorAll("[data-auth-gate='logged-in']").forEach((node) => {
+      node.hidden = !isLoggedIn;
+    });
+  }
+
+  async function run() {
+    const mockState = readMockState();
+    if (mockState) {
+      applyAuthGate(isLoggedInState(mockState));
+      return;
+    }
+
+    try {
+      const response = await fetch(endpoint, { credentials: "include" });
+      const payload = await response.json().catch(() => ({}));
+      applyAuthGate(Boolean(response.ok && payload.authenticated === true));
+    } catch (_) {
+      applyAuthGate(false);
+    }
+  }
+
+  run();
+})();
+`;
+
   return renderShell({
     currentKey: "hub",
     pathname: "/thanh-vien/",
@@ -2346,11 +2398,16 @@ function renderHubMemberPage() {
       eyebrow: pair("Member system", "Member system"),
       title: pair("Level không chỉ là tiền", "Level is not only about payment"),
       description: pair("Mỗi level phản ánh payment, activity, proof và contribution.", "Each level reflects payment, activity, proof, and contribution."),
-      actions: gatewayCtaButton(purchaseHubUrl({ entry: "hub", pack: "g1", intent: "annual" })),
+      actions: [
+        button(`https://${domains.member}/signup/`, pair("Đăng ký thành viên", "Start membership"), "primary", { "data-auth-gate": "logged-out" }),
+        button(`https://${domains.member}/journey/`, pair("Mở hành trình", "Open journey"), "primary", { "data-auth-gate": "logged-in", hidden: "hidden" }),
+        gatewayCtaButton(purchaseHubUrl({ entry: "hub", pack: "g1", intent: "annual" }), "ghost"),
+      ].join(""),
     }),
     sections: [
       renderSection(pair("Các level", "Levels"), pair("4 level cốt lõi của hệ", "The 4 core levels"), table),
     ],
+    inlineScript,
   });
 }
 
@@ -4369,8 +4426,8 @@ function renderMemberHome() {
       "The member layer keeps profile, access, progress, and proof in one shared entry point.",
     ),
     actions: [
-      button(`https://${domains.member}/signup/`, pair("Đăng ký miễn phí", "Start free"), "primary", { "data-auth-gate": "logged-out" }),
-      button(`https://${domains.member}/journey/`, pair("Vào dashboard", "Continue journey"), "primary", { "data-auth-gate": "logged-in", hidden: "hidden" }),
+      button(`https://${domains.member}/signup/`, pair("Đăng ký thành viên", "Start membership"), "primary", { "data-auth-gate": "logged-out" }),
+      button(`https://${domains.member}/journey/`, pair("Mở hành trình", "Open journey"), "primary", { "data-auth-gate": "logged-in", hidden: "hidden" }),
       button(`https://${domains.hub}/thanh-vien/`, pair("Xem quyền lợi", "View membership"), "ghost"),
       gatewayCtaButton(deepCta, "ghost"),
     ].join(""),
@@ -4577,9 +4634,9 @@ function renderMemberSignupPage() {
             "Bằng cách đăng ký, bạn đồng ý với Terms và Privacy.",
             "By signing up, you agree to the Terms and Privacy.",
           ), "p", { class: "subtle" })}
-          <p id="member-signup-auth-note" class="subtle" data-text-vi="Bạn đang ở chế độ đăng xuất. Hoàn tất bước này để vào onboarding mục tiêu." data-text-en="You are currently signed out. Complete this step to continue to goal onboarding.">Bạn đang ở chế độ đăng xuất. Hoàn tất bước này để vào onboarding mục tiêu.</p>
-          <div class="cluster">
-            <button class="button primary" type="submit" data-text-vi="Đăng ký miễn phí" data-text-en="Start free">Đăng ký miễn phí</button>
+            <p id="member-signup-auth-note" class="subtle" data-text-vi="Bạn đang ở chế độ đăng xuất. Hoàn tất bước bắt đầu để vào onboarding mục tiêu." data-text-en="You are currently signed out. Complete this start step to continue to goal onboarding.">Bạn đang ở chế độ đăng xuất. Hoàn tất bước bắt đầu để vào onboarding mục tiêu.</p>
+            <div class="cluster">
+            <button class="button primary" type="submit" data-text-vi="Tiếp tục bước bắt đầu" data-text-en="Continue start step">Tiếp tục bước bắt đầu</button>
             ${button(`https://${domains.docs}/legal/`, pair("Xem pháp lý", "View legal"), "ghost")}
           </div>
         </div>
@@ -4591,9 +4648,9 @@ function renderMemberSignupPage() {
     <article class="card" id="member-signup-signed-in" hidden>
       <div class="card-body stack">
         ${cardTitle(pair("Bạn đã đăng nhập", "You are already signed in"))}
-        ${cardText(pair("Bạn có thể bỏ qua bước đăng ký và đi thẳng vào hành trình.", "You can skip sign-up and continue directly to your journey."), "body-copy")}
+        ${cardText(pair("Bạn đã có phiên hợp lệ. Bỏ qua bước đăng ký và đi thẳng vào hành trình.", "You already have a valid session. Skip sign-up and continue directly to your journey."), "body-copy")}
         <div class="cluster">
-          ${button(`https://${domains.member}/journey/`, pair("Vào dashboard", "Continue journey"))}
+          ${button(`https://${domains.member}/journey/`, pair("Mở hành trình", "Open journey"))}
           ${button(`https://${domains.member}/`, pair("Về Member", "Back to member"), "ghost")}
         </div>
       </div>
@@ -4639,7 +4696,7 @@ function renderMemberSignupPage() {
           ? "Mock gate: bạn đang ở trạng thái đã đăng nhập."
           : "Bạn đã đăng nhập. Có thể đi tiếp vào dashboard ngay.";
       } else {
-        note.textContent = "Bạn đang ở chế độ đăng xuất. Hoàn tất bước này để vào onboarding mục tiêu.";
+        note.textContent = "Bạn đang ở chế độ đăng xuất. Hoàn tất bước bắt đầu để vào onboarding mục tiêu.";
       }
     }
   }
@@ -4672,14 +4729,14 @@ function renderMemberSignupPage() {
     currentKey: "member",
     pathname: "/signup/",
     title: pair("Đăng ký thành viên", "Member sign up"),
-    description: pair("Đăng ký miễn phí để vào hành trình thành viên theo hướng học đúng, làm thật và có bằng chứng.", "Start free and enter the member journey for correct learning, real work, and verifiable proof."),
+    description: pair("Bước bắt đầu thành viên để vào onboarding mục tiêu và hành trình cá nhân theo trạng thái thật.", "Member start step to enter goal onboarding and your personal journey by real state."),
     navItems: ecosystemNav("member"),
     hero: renderHero({
       eyebrow: pair("Bắt đầu thành viên", "Member onboarding"),
-      title: pair("Đăng ký miễn phí", "Start free"),
+      title: pair("Bắt đầu thành viên", "Start membership"),
       description: pair(
-        "Bắt đầu miễn phí. Không cam kết thu nhập. Không có checkout ở bước này.",
-        "Free to start. No income guarantees. No checkout at this step.",
+        "Đây là bước khởi động phiên. Không cam kết thu nhập. Không có checkout ở bước này.",
+        "This is a session-start step. No income guarantees. No checkout at this step.",
       ),
       afterActions: renderDisclosureStack(["DPM-004"]),
     }),
@@ -4697,17 +4754,26 @@ function renderMemberOnboardingGoalsPage() {
     renderCard({
       title: cardTitle(pair("Học có cấu trúc", "Structured learning")),
       body: cardText(pair("Đi theo lộ trình rõ và tạo đầu ra có thể kiểm tra.", "Follow a clear path and produce checkable outputs.")),
-      actions: button(`https://${domains.edu}/`, pair("Mở EDU", "Open EDU"), "ghost", { "data-onboarding-auth-required": "true" }),
+      actions: button(`https://${domains.edu}/`, pair("Mở EDU", "Open EDU"), "ghost", {
+        "data-onboarding-auth-required": "true",
+        "data-onboarding-goal": "learn",
+      }),
     }),
     renderCard({
       title: cardTitle(pair("Xây hồ sơ có bằng chứng", "Build proof-backed profile")),
       body: cardText(pair("Nối đầu ra của bạn sang lớp xác minh khi đủ điều kiện.", "Bridge your outputs to the verification layer when eligible.")),
-      actions: button(`https://${domains.vc}/`, pair("Mở VC", "Open VC"), "ghost", { "data-onboarding-auth-required": "true" }),
+      actions: button(`https://${domains.vc}/`, pair("Mở VC", "Open VC"), "ghost", {
+        "data-onboarding-auth-required": "true",
+        "data-onboarding-goal": "verify",
+      }),
     }),
     renderCard({
       title: cardTitle(pair("Đi tiếp theo trạng thái", "Progress by state")),
       body: cardText(pair("Bạn đi từng bước theo trạng thái thật, không bỏ qua tầng.", "Move step by step by real state, with no tier skipping.")),
-      actions: button(`https://${domains.member}/journey/`, pair("Xem hành trình", "Open journey"), "ghost", { "data-onboarding-auth-required": "true" }),
+      actions: button(`https://${domains.member}/journey/`, pair("Xem hành trình", "Open journey"), "ghost", {
+        "data-onboarding-auth-required": "true",
+        "data-onboarding-goal": "belong",
+      }),
     }),
   ]);
 
@@ -4717,7 +4783,7 @@ function renderMemberOnboardingGoalsPage() {
         ${cardTitle(pair("Trạng thái truy cập", "Access state"))}
         <p id="onboarding-auth-state" class="body-copy subtle" data-text-vi="Đang kiểm tra phiên đăng nhập..." data-text-en="Checking session state...">Đang kiểm tra phiên đăng nhập...</p>
         <div class="cluster">
-          <a class="button" id="onboarding-signup-cta" href="/signup/" hidden data-text-vi="Quay lại đăng ký" data-text-en="Back to sign up">Quay lại đăng ký</a>
+          <a class="button" id="onboarding-signup-cta" href="/signup/" hidden data-text-vi="Quay lại bước bắt đầu" data-text-en="Back to start step">Quay lại bước bắt đầu</a>
           <a class="button ghost" id="onboarding-journey-cta" href="/journey/" data-text-vi="Mở hành trình" data-text-en="Open journey">Mở hành trình</a>
         </div>
       </div>
@@ -4743,7 +4809,10 @@ function renderMemberOnboardingGoalsPage() {
     return null;
   }
 
+  let isAuthed = false;
+
   function applyAuthState(isLoggedIn, source) {
+    isAuthed = Boolean(isLoggedIn);
     const note = document.getElementById("onboarding-auth-state");
     const signupCta = document.getElementById("onboarding-signup-cta");
     const journeyCta = document.getElementById("onboarding-journey-cta");
@@ -4767,8 +4836,27 @@ function renderMemberOnboardingGoalsPage() {
           ? "Mock gate: trạng thái đã đăng nhập, có thể tiếp tục onboarding."
           : "Phiên đăng nhập hợp lệ. Bạn có thể tiếp tục onboarding và vào journey.";
       } else {
-        note.textContent = "Bạn chưa đăng nhập. Vui lòng quay lại trang đăng ký để mở onboarding đầy đủ.";
+        note.textContent = "Bạn chưa đăng nhập. Vui lòng quay lại bước bắt đầu để mở onboarding đầy đủ.";
       }
+    }
+  }
+
+  async function persistGoal(pathway) {
+    if (!pathway || !isAuthed) return;
+    try {
+      await fetch("/api/access/onboarding/goal", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          pathway,
+          selection_method: "step2_goal_click",
+        }),
+      });
+    } catch (_) {
+      // non-blocking; UX still continues to target surface
     }
   }
 
@@ -4787,6 +4875,17 @@ function renderMemberOnboardingGoalsPage() {
       applyAuthState(false, "fallback");
     }
   }
+
+  document.querySelectorAll("[data-onboarding-auth-required='true'][data-onboarding-goal]").forEach((node) => {
+    node.addEventListener("click", async (event) => {
+      if (!isAuthed) return;
+      event.preventDefault();
+      const pathway = node.getAttribute("data-onboarding-goal") || "";
+      await persistGoal(pathway);
+      const href = node.getAttribute("href") || "/journey/";
+      window.location.assign(href);
+    });
+  });
 
   run();
 })();
