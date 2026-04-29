@@ -1,19 +1,17 @@
 {
-  "generatedAt": "2026-04-29T05:45:01.732Z",
+  "generatedAt": "2026-04-29T07:02:32.320Z",
   "owner": "team-5-smoke-release-qa",
   "lane": "wave-e-total-system-release-gate",
   "decision": {
-    "baseline_ready": false,
-    "system_signoff_ready": false,
-    "wave_e_allowed": false,
+    "baseline_ready": true,
+    "system_signoff_ready": true,
+    "wave_e_allowed": true,
     "publish_ready": true,
-    "blockers": [
-      "team3_parity"
-    ],
+    "blockers": [],
     "summary": {
       "total": 8,
-      "passed": 7,
-      "failed": 1
+      "passed": 8,
+      "failed": 0
     }
   },
   "rows": [
@@ -24,7 +22,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 2.7,
+      "durationSec": 1.8,
       "note": "",
       "outputTail": "      }\n    ],\n    \"gate_rules\": [\n      \"Khong false-live claim tren domain planned-safe.\",\n      \"CTA domain planned-safe phai dan ve diem vao hop le (hub/gateway).\",\n      \"Domain gated-only co the chua public runtime, nhung phai co runtime-truth reference ro rang.\"\n    ]\n  }\n}\nPlanned-safe wave release verification passed."
     },
@@ -35,7 +33,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.3,
+      "durationSec": 0.4,
       "note": "",
       "outputTail": "> vetuonglai-system@1.0.0 verify:team3:referral-disclosure\n> node scripts/verify-referral-disclosure-placement.mjs\n\nTeam 3 — Referral Disclosure Placement Audit\n============================================\n\nReferral touchpoints outside docs: 2\nFindings: 0\n\nPASS — Disclosure placement is valid for non-doc referral touchpoints."
     },
@@ -43,12 +41,12 @@
       "key": "team3_parity",
       "label": "Team 3 parity gate",
       "command": "npm run verify:team3:parity",
-      "ok": false,
-      "code": 1,
+      "ok": true,
+      "code": 0,
       "timedOut": false,
-      "durationSec": 5,
+      "durationSec": 3.7,
       "note": "",
-      "outputTail": "    \"severity\": \"P1\",\n    \"owner\": \"Team 1 + Ops\",\n    \"stopLine\": true,\n    \"summaryVi\": \"Runtime truth vẫn ghi member là `member_preview` với `requiredPublic=true`, nên Team 3 phải giữ verdict ở mức hold/no-go cho cutover công khai.\",\n    \"summaryEn\": \"Runtime truth still records member as `member_preview` with `requiredPublic=true`, so Team 3 must keep the verdict at hold/no-go for public cutover.\",\n    \"evidence\": [\n      \"/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/cloudflare/domain-runtime-truth.json\"\n    ]\n  }\n]"
+      "outputTail": "    \"total\": 6,\n    \"passed\": 6,\n    \"failed\": 0\n  }\n}\nTeam 3 parity note\n{\n  \"vi\": \"Team 3 pass: không còn stop-line đang mở trong scope local parity hiện tại.\",\n  \"en\": \"Team 3 pass: there are no open stop-lines in the current local parity scope.\"\n}"
     },
     {
       "key": "wave_d_deploy_plan",
@@ -57,7 +55,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.2,
+      "durationSec": 0.1,
       "note": "",
       "outputTail": "  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/ai.vetuonglai.com --project-name vetuonglai-ai --branch main\n\n[wave-d] business\n  project_name: vetuonglai-business\n  dist_dir: dist/business.vetuonglai.com\n  custom_domains: business.vetuonglai.com\n  notes: Business shell remains planned-safe and cannot be presented as live enterprise onboarding until DNS, Team 4 contract, and Team 5 verify all pass.\n  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/business.vetuonglai.com --project-name vetuonglai-business --branch main\n\nWave D Pages deployment plan complete."
     },
@@ -68,7 +66,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.7,
+      "durationSec": 0.6,
       "note": "",
       "outputTail": "> vetuonglai-system@1.0.0 smoke:access-runtime\n> node scripts/smoke-access-runtime.mjs\n\nsmoke-access-runtime: ok"
     },
@@ -90,7 +88,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.1,
+      "durationSec": 0,
       "note": "",
       "outputTail": "Wave D public publish self-test passed."
     },
@@ -101,7 +99,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 1.7,
+      "durationSec": 1.6,
       "note": "",
       "outputTail": "      \"status\": 200,\n      \"note\": \"\"\n    }\n  ],\n  \"gate_rules\": [\n    \"Tat ca host Wave D phai reachable bang HTTPS.\",\n    \"Tat ca host Wave D phai tra 200 o root surface.\",\n    \"Tat ca host Wave D phai con marker planned-safe/public boundary ro rang.\"\n  ]\n}"
     }

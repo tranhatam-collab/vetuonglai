@@ -12,9 +12,9 @@
       "host": "member.vetuonglai.com",
       "url": "https://member.vetuonglai.com",
       "servingModel": "worker_fronted",
-      "status": "member_preview",
+      "status": "live",
       "requiredPublic": true,
-      "updatedAt": "2026-04-21"
+      "updatedAt": "2026-04-29"
     },
     {
       "host": "vc.vetuonglai.com",

@@ -1,11 +1,11 @@
 {
   "summary": {
-    "recommendation": "hold",
-    "stopLineOpen": true,
-    "highestSeverity": "P1",
-    "startedAt": "2026-04-29T02:52:39.592Z",
-    "endedAt": "2026-04-29T02:52:41.904Z",
-    "durationMs": 2311,
+    "recommendation": "go",
+    "stopLineOpen": false,
+    "highestSeverity": "P3",
+    "startedAt": "2026-04-29T07:02:26.353Z",
+    "endedAt": "2026-04-29T07:02:29.759Z",
+    "durationMs": 3398,
     "suite": {
       "total": 6,
       "passed": 6,
@@ -13,12 +13,12 @@
     }
   },
   "note": {
-    "vi": "Team 3 hold: Runtime truth vẫn ghi member là `member_preview` với `requiredPublic=true`, nên Team 3 phải giữ verdict ở mức hold/no-go cho cutover công khai.",
-    "en": "Team 3 hold: Runtime truth still records member as `member_preview` with `requiredPublic=true`, so Team 3 must keep the verdict at hold/no-go for public cutover."
+    "vi": "Team 3 pass: không còn stop-line đang mở trong scope local parity hiện tại.",
+    "en": "Team 3 pass: there are no open stop-lines in the current local parity scope."
   },
   "memberCutover": {
     "runtimeTruth": {
-      "status": "member_preview",
+      "status": "live",
       "requiredPublic": true,
       "servingModel": "worker_fronted"
     },
@@ -159,10 +159,10 @@
     "waveNotes": [
       {
         "wave": "A",
-        "recommendation": "hold",
+        "recommendation": "go",
         "note": {
-          "vi": "Wave A không thể chốt go vì core parity hiện tại chưa sạch hoàn toàn.",
-          "en": "Wave A cannot be closed as go because current core parity is not fully clean."
+          "vi": "Wave A go: core live stabilization vẫn xanh theo verify hiện tại của Team 3.",
+          "en": "Wave A go: core live stabilization stays green under the current Team 3 verification set."
         }
       },
       {
@@ -204,9 +204,9 @@
       "key": "build",
       "label": "Build static system",
       "command": "npm run build",
-      "startedAt": "2026-04-29T02:52:39.593Z",
-      "endedAt": "2026-04-29T02:52:40.168Z",
-      "durationMs": 575,
+      "startedAt": "2026-04-29T07:02:26.361Z",
+      "endedAt": "2026-04-29T07:02:27.584Z",
+      "durationMs": 1223,
       "timeoutMs": 720000,
       "timedOut": false,
       "ok": true,
@@ -218,9 +218,9 @@
       "key": "check",
       "label": "Validate dist outputs",
       "command": "npm run check",
-      "startedAt": "2026-04-29T02:52:40.169Z",
-      "endedAt": "2026-04-29T02:52:40.407Z",
-      "durationMs": 238,
+      "startedAt": "2026-04-29T07:02:27.589Z",
+      "endedAt": "2026-04-29T07:02:28.403Z",
+      "durationMs": 814,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -232,9 +232,9 @@
       "key": "smoke_access",
       "label": "Smoke access runtime",
       "command": "npm run smoke:access-runtime",
-      "startedAt": "2026-04-29T02:52:40.407Z",
-      "endedAt": "2026-04-29T02:52:40.656Z",
-      "durationMs": 249,
+      "startedAt": "2026-04-29T07:02:28.403Z",
+      "endedAt": "2026-04-29T07:02:28.864Z",
+      "durationMs": 461,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -246,9 +246,9 @@
       "key": "smoke_vc",
       "label": "Smoke VC ownership runtime",
       "command": "npm run smoke:vc-ownership-runtime",
-      "startedAt": "2026-04-29T02:52:40.656Z",
-      "endedAt": "2026-04-29T02:52:40.947Z",
-      "durationMs": 291,
+      "startedAt": "2026-04-29T07:02:28.864Z",
+      "endedAt": "2026-04-29T07:02:29.177Z",
+      "durationMs": 313,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -260,9 +260,9 @@
       "key": "smoke_mobile",
       "label": "Smoke mobile PWA",
       "command": "npm run smoke:mobile-pwa",
-      "startedAt": "2026-04-29T02:52:40.948Z",
-      "endedAt": "2026-04-29T02:52:41.466Z",
-      "durationMs": 518,
+      "startedAt": "2026-04-29T07:02:29.177Z",
+      "endedAt": "2026-04-29T07:02:29.457Z",
+      "durationMs": 280,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -274,9 +274,9 @@
       "key": "verify_founder_panel_local",
       "label": "Verify founder panel local contract",
       "command": "npm run verify:founder-panel:local",
-      "startedAt": "2026-04-29T02:52:41.466Z",
-      "endedAt": "2026-04-29T02:52:41.883Z",
-      "durationMs": 417,
+      "startedAt": "2026-04-29T07:02:29.458Z",
+      "endedAt": "2026-04-29T07:02:29.738Z",
+      "durationMs": 280,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -285,18 +285,5 @@
       "error": ""
     }
   ],
-  "findings": [
-    {
-      "key": "member_cutover_not_live_yet",
-      "title": "Member cutover is still not release-ready",
-      "severity": "P1",
-      "owner": "Team 1 + Ops",
-      "stopLine": true,
-      "summaryVi": "Runtime truth vẫn ghi member là `member_preview` với `requiredPublic=true`, nên Team 3 phải giữ verdict ở mức hold/no-go cho cutover công khai.",
-      "summaryEn": "Runtime truth still records member as `member_preview` with `requiredPublic=true`, so Team 3 must keep the verdict at hold/no-go for public cutover.",
-      "evidence": [
-        "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/cloudflare/domain-runtime-truth.json"
-      ]
-    }
-  ]
+  "findings": []
 }

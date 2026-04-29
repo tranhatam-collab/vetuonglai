@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hệ xác minh | DOCS Về Tương Lai</title>
+  <meta name="description" content="Hạ tầng xác minh trust.iai.one: dữ liệu, danh tính, credential và tài sản số. Kiến trúc, luồng và tích hợp." />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="https://docs.vetuonglai.com/verification/" />
+  <link rel="alternate" hreflang="vi-VN" href="https://docs.vetuonglai.com/verification/" />
+  <link rel="alternate" hreflang="en-US" href="https://docs.vetuonglai.com/verification/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://docs.vetuonglai.com/verification/" />
+  <meta property="og:title" content="Hệ xác minh | DOCS Về Tương Lai" />
+  <meta property="og:description" content="trust.iai.one — hạ tầng xác minh cho dữ liệu, danh tính, credential và tài sản số." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://docs.vetuonglai.com/verification/" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <link rel="stylesheet" href="/assets/docs.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Tới nội dung</a>
+  <header class="docs-header"><div class="container"><a class="docs-brand" href="/" data-vi="DOCS" data-en="DOCS">DOCS</a><nav class="docs-nav-top" aria-label="Docs primary"><a href="/getting-started/" data-vi="Bắt đầu" data-en="Get started">Bắt đầu</a><a href="/api-reference/" data-vi="API" data-en="API">API</a><a href="/trust-system/" data-vi="Trust System" data-en="Trust System">Trust System</a><a href="/pricing/" data-vi="Bảng giá" data-en="Pricing">Bảng giá</a><a href="/changelog/" data-vi="Nhật ký" data-en="Changelog">Nhật ký</a><a href="/support/" data-vi="Hỗ trợ" data-en="Support">Hỗ trợ</a></nav><div class="docs-lang" role="group" aria-label="Language"><button type="button" data-lang="vi" class="is-active"><span aria-hidden="true">🇻🇳</span> Tiếng Việt</button><button type="button" data-lang="en"><span aria-hidden="true">🇺🇸</span> English</button></div></div></header>
+  <main id="main" class="docs-main container stack-md">
+    <h1 data-vi="Hệ xác minh — trust.iai.one" data-en="Verification System — trust.iai.one">Hệ xác minh — trust.iai.one</h1>
+    <p data-vi="trust.iai.one là hạ tầng xác minh cho dữ liệu, danh tính, credential và tài sản số. Đây là sản phẩm độc lập, nhận đầu ra từ hệ web Về Tương Lai khi cần proof, credential, asset hoặc verify link." data-en="trust.iai.one is verification infrastructure for data, identity, credentials, and digital assets. It's a standalone product that receives outputs from the Vetuonglai web ecosystem when proof, credential, asset, or verify links are needed.">trust.iai.one là hạ tầng xác minh cho dữ liệu, danh tính, credential và tài sản số. Đây là sản phẩm độc lập, nhận đầu ra từ hệ web Về Tương Lai khi cần proof, credential, asset hoặc verify link.</p>
+
+    <section class="stack-sm">
+      <h2 data-vi="Kiến trúc luồng xác minh" data-en="Verification Flow Architecture">Kiến trúc luồng xác minh</h2>
+      <div class="docs-code"><pre><code>Vetuonglai ecosystem (edu/vc/member/work)
+  └─> Output (learning record, contribution, identity proof)
+       └─> trust.iai.one
+            ├─> Proof    — bằng chứng xác minh
+            ├─> Credential — chứng nhận kỹ thuật số
+            ├─> Asset    — tài sản số (optional)
+            ├─> Verify URL — link kiểm tra công khai
+            └─> API/Billing — tích hợp và thanh toán</code></pre></div>
+    </section>
+
+    <section class="stack-sm">
+      <h2 data-vi="4 lớp xác minh" data-en="4 Verification Layers">4 lớp xác minh</h2>
+      <table class="docs-table">
+        <thead><tr><th data-vi="Lớp" data-en="Layer">Lớp</th><th data-vi="Mô tả" data-en="Description">Mô tả</th><th data-vi="Ví dụ" data-en="Example">Ví dụ</th></tr></thead>
+        <tbody>
+          <tr><td data-vi="Dữ liệu" data-en="Data">Dữ liệu</td><td data-vi="Xác minh tính toàn vẹn và nguồn gốc dữ liệu" data-en="Verify data integrity and provenance">Xác minh tính toàn vẹn và nguồn gốc dữ liệu</td><td data-vi="Hash proof, timestamp" data-en="Hash proof, timestamp">Hash proof, timestamp</td></tr>
+          <tr><td data-vi="Danh tính" data-en="Identity">Danh tính</td><td data-vi="Xác minh danh tính cá nhân hoặc tổ chức" data-en="Verify individual or organization identity">Xác minh danh tính cá nhân hoặc tổ chức</td><td data-vi="KYC flow, org verification" data-en="KYC flow, org verification">KYC flow, org verification</td></tr>
+          <tr><td>Credential</td><td data-vi="Chứng nhận kỹ thuật số có thể kiểm tra" data-en="Verifiable digital credentials">Chứng nhận kỹ thuật số có thể kiểm tra</td><td data-vi="Học tập, đóng góp, kỹ năng" data-en="Learning, contribution, skill">Học tập, đóng góp, kỹ năng</td></tr>
+          <tr><td data-vi="Tài sản số" data-en="Digital Asset">Tài sản số</td><td data-vi="Bản ghi tài sản số có xác minh nguồn gốc" data-en="Digital asset records with verified provenance">Bản ghi tài sản số có xác minh nguồn gốc</td><td data-vi="Tác phẩm, bằng sáng chế số" data-en="Creative works, digital patents">Tác phẩm, bằng sáng chế số</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="stack-sm">
+      <h2 data-vi="Định vị sản phẩm" data-en="Product Positioning">Định vị sản phẩm</h2>
+      <ul>
+        <li data-vi="trust.iai.one là hạ tầng xác minh, không phải nền tảng blockchain hay Web3." data-en="trust.iai.one is verification infrastructure, not a blockchain or Web3 platform.">trust.iai.one là hạ tầng xác minh, không phải nền tảng blockchain hay Web3.</li>
+        <li data-vi="nft.iai.one là bridge kỹ thuật cho bản ghi tài sản số — không phải trọng tâm thương hiệu." data-en="nft.iai.one is a technical bridge for digital-asset records — not the brand focus.">nft.iai.one là bridge kỹ thuật cho bản ghi tài sản số — không phải trọng tâm thương hiệu.</li>
+        <li data-vi="Mọi verify URL đều kiểm tra được công khai, không cần tài khoản." data-en="All verify URLs are publicly checkable without needing an account.">Mọi verify URL đều kiểm tra được công khai, không cần tài khoản.</li>
+      </ul>
+    </section>
+
+    <section class="surface stack-sm"><h2 data-vi="Tiếp theo" data-en="Next">Tiếp theo</h2><p><a href="/trust-system/" data-vi="Trust System chi tiết" data-en="Trust System details">Trust System chi tiết</a> · <a href="/api-reference/" data-vi="API Reference" data-en="API Reference">API Reference</a> · <a href="/products/" data-vi="Hệ sinh thái" data-en="Product ecosystem">Hệ sinh thái</a></p></section>
+  </main>
+  <footer class="docs-footer"><div class="container"><p data-vi="© 2026 Về Tương Lai. Mọi quyền được bảo lưu." data-en="© 2026 Vetuonglai. All rights reserved.">© 2026 Về Tương Lai. Mọi quyền được bảo lưu.</p><nav><a href="/legal/" data-vi="Pháp lý" data-en="Legal">Pháp lý</a> · <a href="https://vetuonglai.com" data-vi="Trang chủ" data-en="Home">Trang chủ</a></nav></div></footer>
+  <script src="/assets/docs.js"></script>
+</body>
+</html>
