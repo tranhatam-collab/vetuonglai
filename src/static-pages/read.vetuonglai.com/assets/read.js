@@ -17,6 +17,20 @@ function applyReadLanguage(language) {
     if (value !== null) node.textContent = value;
   });
 
+  // Swap document title if bilingual variants are provided on <title>
+  const titleEl = document.querySelector("title[data-vi-title][data-en-title]");
+  if (titleEl) {
+    const titleValue = titleEl.getAttribute(language === "en" ? "data-en-title" : "data-vi-title");
+    if (titleValue) document.title = titleValue;
+  }
+
+  // Swap meta description if bilingual variants are provided
+  const descEl = document.querySelector('meta[name="description"][data-vi-content][data-en-content]');
+  if (descEl) {
+    const descValue = descEl.getAttribute(language === "en" ? "data-en-content" : "data-vi-content");
+    if (descValue) descEl.setAttribute("content", descValue);
+  }
+
   // Sync lang switch buttons
   document.querySelectorAll(".read-lang button[data-lang]").forEach((btn) => {
     btn.classList.toggle("is-active", btn.getAttribute("data-lang") === language);
