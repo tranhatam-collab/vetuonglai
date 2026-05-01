@@ -4315,17 +4315,17 @@ function renderVcIssuerPage() {
     {
       key: "edu",
       domain: domains.edu,
-      role: pair("Micro-credential hoc tap", "Learning micro-credentials"),
+      role: pair("Micro-credential học tập", "Learning micro-credentials"),
     },
     {
       key: "green",
       domain: domains.green,
-      role: pair("Impact proof", "Impact proof"),
+      role: pair("Bằng chứng tác động", "Impact proof"),
     },
     {
       key: "finance",
       domain: domains.finance,
-      role: pair("Sprint certificate", "Sprint certificate"),
+      role: pair("Chứng nhận sprint", "Sprint certificate"),
     },
     {
       key: "life",
@@ -4335,12 +4335,12 @@ function renderVcIssuerPage() {
     {
       key: "invest",
       domain: domains.invest,
-      role: pair("Blueprint due diligence", "Due diligence blueprint"),
+      role: pair("Khung tự thẩm định", "Due diligence blueprint"),
     },
     {
       key: "work",
       domain: domains.work,
-      role: pair("Work deliverables", "Work deliverables"),
+      role: pair("Đầu ra công việc", "Work deliverables"),
     },
   ].map((row) => {
     const surface = resolveSurfacePublicMeta(row.key);
@@ -4364,11 +4364,11 @@ function renderVcIssuerPage() {
     currentKey: "vc",
     pathname: "/issuers/",
     title: pair("Nguồn phát hành VC", "VC issuing sources"),
-    description: pair("Danh sách domain có thể phát hành VC và quy ước proof.", "A directory of VC issuing domains and proof expectations."),
+    description: pair("Danh sách domain có thể phát hành VC và quy ước bằng chứng.", "A directory of VC issuing domains and proof expectations."),
     navItems: ecosystemNav("vc"),
     hero,
     sections: [
-      renderSection(pair("Danh sách nguồn phát hành", "Issuing directory"), pair("Phân định rõ nguồn phát hành và phạm vi proof", "Clear issuer ownership and proof scope"), issuerTable),
+      renderSection(pair("Danh sách nguồn phát hành", "Issuing directory"), pair("Phân định rõ nguồn phát hành và phạm vi bằng chứng", "Clear issuer ownership and proof scope"), issuerTable),
     ],
   });
 }
@@ -4389,15 +4389,15 @@ function renderVcMethodsPage() {
 
   const methods = renderCards([
     renderCard({
-      title: cardTitle(pair("Anchor content", "Content anchors")),
-      body: cardText(pair("Su dung content hash va metadata de doi chieu doc lap.", "Use content hashes and metadata for independent verification.")),
+      title: cardTitle(pair("Neo nội dung", "Content anchors")),
+      body: cardText(pair("Sử dụng hash nội dung và metadata để đối chiếu độc lập.", "Use content hashes and metadata for independent verification.")),
     }),
     renderCard({
-      title: cardTitle(pair("Issuer boundary", "Issuer boundary")),
-      body: cardText(pair("Moi ban ghi tro nguon phat hanh va pham vi cong bo ro rang.", "Every record points to its issuer and clear disclosure scope.")),
+      title: cardTitle(pair("Ranh giới nguồn phát hành", "Issuer boundary")),
+      body: cardText(pair("Mỗi bản ghi trỏ về nguồn phát hành và phạm vi công bố rõ ràng.", "Every record points to its issuer and clear disclosure scope.")),
     }),
     renderCard({
-      title: cardTitle(pair("Review status", "Review status")),
+      title: cardTitle(pair("Trạng thái rà soát", "Review status")),
       body: cardText(pair("Trạng thái đang rà soát không đồng nghĩa đã xác minh.", "Reviewing status is not the same as verified.")),
     }),
   ]);
@@ -4406,7 +4406,7 @@ function renderVcMethodsPage() {
     currentKey: "vc",
     pathname: "/methods/",
     title: pair("Phương pháp xác minh", "Verification methods"),
-    description: pair("Nguyên tắc và method để VC giữ trust layer độc lập.", "Principles and methods that keep VC an independent trust layer."),
+    description: pair("Nguyên tắc và phương pháp để VC giữ lớp tin cậy độc lập.", "Principles and methods that keep VC an independent trust layer."),
     navItems: ecosystemNav("vc"),
     hero,
     sections: [
@@ -4685,6 +4685,7 @@ function renderMemberSignupPage() {
     const signupFormSection = document.getElementById("signup-form");
     const oauthSection = document.getElementById("signup-oauth");
     const note = document.getElementById("member-signup-auth-note");
+    const lang = document.documentElement.getAttribute("data-lang") === "en" ? "en" : "vi";
 
     if (signedInPanel) signedInPanel.hidden = !isLoggedIn;
     if (signupFormSection) signupFormSection.hidden = isLoggedIn;
@@ -4693,10 +4694,12 @@ function renderMemberSignupPage() {
     if (note) {
       if (isLoggedIn) {
         note.textContent = source === "mock"
-          ? "Mock gate: bạn đang ở trạng thái đã đăng nhập."
-          : "Bạn đã đăng nhập. Có thể đi tiếp vào dashboard ngay.";
+          ? (lang === "en" ? "Mock gate: you are signed in." : "Mock gate: bạn đang ở trạng thái đã đăng nhập.")
+          : (lang === "en" ? "You are signed in. You can continue to the dashboard." : "Bạn đã đăng nhập. Có thể đi tiếp vào dashboard ngay.");
       } else {
-        note.textContent = "Bạn đang ở chế độ đăng xuất. Hoàn tất bước bắt đầu để vào onboarding mục tiêu.";
+        note.textContent = lang === "en"
+          ? "You are signed out. Complete the start step to open goal onboarding."
+          : "Bạn đang ở chế độ đăng xuất. Hoàn tất bước bắt đầu để vào onboarding mục tiêu.";
       }
     }
   }
@@ -4816,6 +4819,7 @@ function renderMemberOnboardingGoalsPage() {
     const note = document.getElementById("onboarding-auth-state");
     const signupCta = document.getElementById("onboarding-signup-cta");
     const journeyCta = document.getElementById("onboarding-journey-cta");
+    const lang = document.documentElement.getAttribute("data-lang") === "en" ? "en" : "vi";
 
     document.querySelectorAll("[data-onboarding-auth-required='true']").forEach((node) => {
       node.classList.toggle("is-disabled", !isLoggedIn);
@@ -4833,10 +4837,12 @@ function renderMemberOnboardingGoalsPage() {
     if (note) {
       if (isLoggedIn) {
         note.textContent = source === "mock"
-          ? "Mock gate: trạng thái đã đăng nhập, có thể tiếp tục onboarding."
-          : "Phiên đăng nhập hợp lệ. Bạn có thể tiếp tục onboarding và vào journey.";
+          ? (lang === "en" ? "Mock gate: signed-in state, onboarding can continue." : "Mock gate: trạng thái đã đăng nhập, có thể tiếp tục onboarding.")
+          : (lang === "en" ? "Valid signed-in session. You can continue onboarding and open your journey." : "Phiên đăng nhập hợp lệ. Bạn có thể tiếp tục onboarding và vào journey.");
       } else {
-        note.textContent = "Bạn chưa đăng nhập. Vui lòng quay lại bước bắt đầu để mở onboarding đầy đủ.";
+        note.textContent = lang === "en"
+          ? "You are not signed in. Go back to the start step to open full onboarding."
+          : "Bạn chưa đăng nhập. Vui lòng quay lại bước bắt đầu để mở onboarding đầy đủ.";
       }
     }
   }
@@ -5015,17 +5021,19 @@ function renderKidsParentBridgeBlock() {
         var box = card.querySelector('[data-kids-parent-revealed]');
         if (!btn || !box) return;
         try {
+          var lang = document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'vi';
           if (localStorage.getItem('vtl.kids.parentSelfAttest') === '1') {
             box.hidden = false;
             btn.disabled = true;
-            btn.textContent = 'Đã xác nhận';
+            btn.textContent = lang === 'en' ? 'Confirmed' : 'Đã xác nhận';
           }
         } catch (_) {}
         btn.addEventListener('click', function () {
           try { localStorage.setItem('vtl.kids.parentSelfAttest', '1'); } catch (_) {}
           box.hidden = false;
           btn.disabled = true;
-          btn.textContent = 'Đã xác nhận';
+          var lang = document.documentElement.getAttribute('data-lang') === 'en' ? 'en' : 'vi';
+          btn.textContent = lang === 'en' ? 'Confirmed' : 'Đã xác nhận';
         });
       })();
     </script>
@@ -6992,7 +7000,7 @@ function renderWorkHome() {
       title: cardTitle(pair("Demo brief 03", "Demo brief 03")),
       badge: statusBadge(surfaceBadgeClass(workSurface.status), appStageLabel(workSurface)),
       body: cardText(pair(
-        "Bản demo này giúp người xem hiểu cách một brief được viết, không biến trang thành một job board giả.",
+        "Bản minh họa này giúp người xem hiểu cách một bản mô tả nhiệm vụ được viết, không biến trang thành một bảng tuyển dụng giả.",
         "This demo helps viewers understand how a brief is written without turning the page into a fake job board.",
       )),
       actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
@@ -7003,37 +7011,37 @@ function renderWorkHome() {
     currentKey: "work",
     deepCta,
     notes: [
-      pair("Hub là điểm đi tiếp chung cho các bước sâu hơn liên quan tới WORK, không phải chính trang WORK này.", "The hub is the shared continuation point for deeper WORK steps, not this WORK page itself."),
-      pair("Các bước nhạy cảm như ứng tuyển thật hoặc mở gói chuyên sâu đều đi qua hub.", "Sensitive steps such as real applications or pack access all go through the hub."),
+      pair("Trang chủ là điểm đi tiếp chung cho các bước sâu hơn liên quan tới WORK, không phải chính trang WORK này.", "The hub is the shared continuation point for deeper WORK steps, not this WORK page itself."),
+      pair("Các bước nhạy cảm như ứng tuyển thật hoặc mở gói chuyên sâu đều đi qua trang chủ.", "Sensitive steps such as real applications or pack access all go through the hub."),
     ],
     disclosureIds: ["DPM-008", "DPM-021"],
-    secondaryActions: `${button(`https://${domains.work}/brief/`, pair("Xem brief mẫu", "Open sample brief"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
+    secondaryActions: `${button(`https://${domains.work}/brief/`, pair("Xem bản mô tả mẫu", "Open sample brief"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "work",
     extraItems: [
-      pair("WORK hiện ở trạng thái Planned. Trang này chưa phải job board đang hoạt động và chưa nhận ứng tuyển trực tiếp.", "WORK is currently in Planned status. This page is not a live job board and it does not accept direct applications."),
-      pair("Mọi ngân sách, mốc thời gian hoặc đầu ra xuất hiện ở đây phải được đọc như brief mẫu, không phải tin đang mở.", "Any budget, timing, or output shown here must be read as a sample brief, not an active listing."),
+      pair("WORK hiện đang chuẩn bị. Trang này chưa phải bảng tuyển dụng đang hoạt động và chưa nhận ứng tuyển trực tiếp.", "WORK is currently in Planned status. This page is not a live job board and it does not accept direct applications."),
+      pair("Mọi ngân sách, mốc thời gian hoặc đầu ra xuất hiện ở đây phải được đọc như bản mô tả mẫu, không phải tin đang mở.", "Any budget, timing, or output shown here must be read as a sample brief, not an active listing."),
       pair("Ranh giới bằng chứng luôn được nói rõ trước khi nhắc tới đường tạo thu nhập.", "The proof boundary is made clear before any earning path is mentioned."),
     ],
     disclosureIds: ["DPM-008", "DPM-021"],
-    actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.work}/brief/`, pair("Mở brief mẫu", "Open sample brief"), "ghost")}`,
+    actions: `${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")} ${button(`https://${domains.work}/brief/`, pair("Mở bản mô tả mẫu", "Open sample brief"), "ghost")}`,
   });
 
   return renderShell({
     currentKey: "work",
     pathname: "/",
-    title: pair("WORK mission", "WORK mission"),
+    title: pair("WORK | Sứ mệnh công việc", "WORK mission"),
     description: pair(
-      "WORK là lớp công khai ở trạng thái Planned để mở brief mẫu, khung bằng chứng và đường đi tiếp về hub.",
+      "WORK là lớp công khai đang chuẩn bị để mở bản mô tả công việc mẫu, khung bằng chứng và đường đi tiếp về trang chủ.",
       "WORK is a public layer in Planned status for sample briefs, proof framing, and a clear path back to the hub.",
     ),
     navItems: ecosystemNav("work"),
     hero,
     sections: [
-      renderSection(pair("Public value", "Public value"), pair("WORK giúp người xem hiểu logic proof-first trước khi có bất kỳ action sâu nào.", "WORK helps people understand the proof-first logic before any deeper action exists."), pillars, "public-value"),
-      renderSection(pair("Demo", "Demo"), pair("Các brief mẫu này cho thấy cách WORK sẽ mở cơ hội mà không giả vờ là đã có tin đang hoạt động.", "These sample briefs show how WORK will open opportunities without pretending an active listing already exists."), demoCards, "demo"),
+      renderSection(pair("Giá trị công khai", "Public value"), pair("WORK giúp người xem hiểu logic bằng-chứng-trước trước khi có bất kỳ hành động sâu nào.", "WORK helps people understand the proof-first logic before any deeper action exists."), pillars, "public-value"),
+      renderSection(pair("Minh họa", "Demo"), pair("Các bản mô tả mẫu này cho thấy cách WORK sẽ mở cơ hội mà không giả vờ là đã có tin đang hoạt động.", "These sample briefs show how WORK will open opportunities without pretending an active listing already exists."), demoCards, "demo"),
       gatewaySection,
       trustStatusSection,
     ],
@@ -7043,10 +7051,10 @@ function renderWorkHome() {
 function renderWorkBriefPage() {
   const deepCta = deepContentHubCta("work", "brief", "work-brief");
   const hero = renderHero({
-    eyebrow: pair("Work brief", "Work brief"),
-    title: pair("Brief tuyển chọn", "Work brief"),
+    eyebrow: pair("Bản mô tả công việc", "Work brief"),
+    title: pair("Bản mô tả tuyển chọn", "Work brief"),
     description: pair(
-      "Mô tả phạm vi công việc, proof cần có, và kênh xác minh.",
+      "Mô tả phạm vi công việc, bằng chứng cần có và kênh xác minh.",
       "Describe scope, required proof, and verification channels.",
     ),
     actions: [
@@ -7057,16 +7065,16 @@ function renderWorkBriefPage() {
   });
 
   const checklist = renderList([
-    pair("Mô tả rõ output và tiêu chí đánh giá.", "Define output and evaluation criteria."),
-    pair("Yêu cầu VC nếu công việc cần trust.", "Require VC for trust-sensitive work."),
-    pair("Nếu chưa có proof, gom data cho pilot.", "If no proof yet, collect data for pilot."),
+    pair("Mô tả rõ đầu ra và tiêu chí đánh giá.", "Define output and evaluation criteria."),
+    pair("Yêu cầu VC nếu công việc cần mức tin cậy cao.", "Require VC for trust-sensitive work."),
+    pair("Nếu chưa có bằng chứng, thu thập dữ liệu cho bản thử nghiệm.", "If no proof yet, collect data for pilot."),
   ]);
 
   return renderShell({
     currentKey: "work",
     pathname: "/brief/",
-    title: pair("Work brief", "Work brief"),
-    description: pair("Template brief cho việc có output và proof.", "Work brief template for outputs and proof."),
+    title: pair("Bản mô tả công việc", "Work brief"),
+    description: pair("Mẫu mô tả công việc có đầu ra và bằng chứng.", "Work brief template for outputs and proof."),
     navItems: ecosystemNav("work"),
     hero,
     sections: [
@@ -7087,7 +7095,7 @@ function renderMarketHome() {
     ),
     actions: [
       gatewayCtaButton(deepCta, "primary"),
-      button(`https://${domains.market}/rules/`, pair("Xem rule sample", "Open rule sample"), "ghost"),
+      button(`https://${domains.market}/rules/`, pair("Xem quy tắc mẫu", "Open rule sample"), "ghost"),
     ].join(""),
     afterActions: renderDisclosureStack(["DPM-010"]),
   });
@@ -7109,30 +7117,30 @@ function renderMarketHome() {
 
   const demoCards = renderCards([
     renderCard({
-      title: cardTitle(pair("Sample asset 01", "Sample asset 01")),
+      title: cardTitle(pair("Tài sản mẫu 01", "Sample asset 01")),
       badge: statusBadge(surfaceBadgeClass(marketSurface.status), appStageLabel(marketSurface)),
       body: cardText(pair(
         "Bộ mẫu CV + hóa đơn: lớp công khai chỉ cho xem cách trình bày, ghi chú tin cậy và ranh giới của người tạo; chưa mở mua trực tiếp tại trang này.",
         "CV + invoice sample set: the public layer shows framing, trust notes, and creator boundaries without opening direct purchase on this page.",
       )),
-      actions: button(`https://${domains.market}/rules/`, pair("Xem rule", "Open rules"), "ghost"),
+      actions: button(`https://${domains.market}/rules/`, pair("Xem quy tắc", "Open rules"), "ghost"),
     }),
     renderCard({
-      title: cardTitle(pair("Xem trước gian trưng bày", "creator storefront preview")),
+      title: cardTitle(pair("Xem trước gian trưng bày", "Creator storefront preview")),
       badge: statusBadge(surfaceBadgeClass(marketSurface.status), appStageLabel(marketSurface)),
       body: cardText(pair(
-        "Bản xem trước này chỉ cho thấy cách asset, proof và disclosure nằm cùng nhau. Nó không phải cửa hàng đang mở.",
+        "Bản xem trước này chỉ cho thấy cách tài sản, bằng chứng và công bố minh bạch nằm cùng nhau. Nó không phải cửa hàng đang mở.",
         "The storefront preview exists to show how assets, proof, and disclosures fit together. It is not a live store.",
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Luồng giao dịch cần trust", "Trust-sensitive flow")),
+      title: cardTitle(pair("Luồng giao dịch cần mức tin cậy cao", "Trust-sensitive flow")),
       badge: statusBadge(surfaceBadgeClass(marketSurface.status), appStageLabel(marketSurface)),
       body: cardText(pair(
-        "Nếu người dùng muốn đi sâu hơn tới giao dịch, hệ sẽ đưa họ về hub để giữ cùng một điểm vào.",
+        "Nếu người dùng muốn đi sâu hơn tới giao dịch, hệ sẽ đưa họ về trang chủ để giữ cùng một điểm vào.",
         "If people want to move into a deeper transaction, the system returns them to the hub to keep one shared entry point.",
       )),
-      actions: button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost"),
+      actions: button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost"),
     }),
   ]);
 
@@ -7140,37 +7148,37 @@ function renderMarketHome() {
     currentKey: "market",
     deepCta,
     notes: [
-      pair("Hub giữ một điểm đi tiếp thống nhất cho gói truy cập, quyền năm và các bước sâu hơn liên quan tới MARKET.", "The hub keeps one consistent continuation point for packs, annual access, and deeper MARKET steps."),
-      pair("MARKET hiện chỉ mở tài sản mẫu và cách đọc mức độ tin cậy ở lớp public.", "MARKET currently opens only sample assets and a trust-reading layer in public."),
+      pair("Trang chủ giữ một điểm đi tiếp thống nhất cho gói truy cập, quyền năm và các bước sâu hơn liên quan tới MARKET.", "The hub keeps one consistent continuation point for packs, annual access, and deeper MARKET steps."),
+      pair("MARKET hiện chỉ mở tài sản mẫu và cách đọc mức độ tin cậy ở lớp công khai.", "MARKET currently opens only sample assets and a trust-reading layer in public."),
     ],
     disclosureIds: ["DPM-010", "DPM-011", "DPM-021"],
-    secondaryActions: `${button(`https://${domains.market}/rules/`, pair("Xem rules", "Open rules"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
+    secondaryActions: `${button(`https://${domains.market}/rules/`, pair("Xem quy tắc", "Open rules"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "market",
     extraItems: [
-      pair("MARKET đang ở trạng thái Planned. Không có gian hàng đang hoạt động, không có giỏ hàng và không có bước thanh toán riêng tại đây.", "MARKET is currently in Planned status. There is no active storefront, no cart, and no separate payment step here."),
-      pair("Tài sản mẫu chỉ dùng để giải thích cấu trúc, bằng chứng của người tạo và ranh giới disclosure.", "Sample assets are used only to explain structure, creator proof, and disclosure boundaries."),
-      pair("Mọi mô tả về giao dịch, doanh thu hay thu nhập của người tạo đều phải được gắn nhãn mẫu hoặc đưa người dùng quay về hub.", "Any description of transactions, revenue, or creator earnings must be labeled as sample content or routed back to the hub."),
+      pair("MARKET đang chuẩn bị. Không có gian hàng đang hoạt động, không có giỏ hàng và không có bước thanh toán riêng tại đây.", "MARKET is currently in Planned status. There is no active storefront, no cart, and no separate payment step here."),
+      pair("Tài sản mẫu chỉ dùng để giải thích cấu trúc, bằng chứng của người tạo và ranh giới công bố minh bạch.", "Sample assets are used only to explain structure, creator proof, and disclosure boundaries."),
+      pair("Mọi mô tả về giao dịch, doanh thu hay thu nhập của người tạo đều phải được gắn nhãn mẫu hoặc đưa người dùng quay về trang chủ.", "Any description of transactions, revenue, or creator earnings must be labeled as sample content or routed back to the hub."),
     ],
     disclosureIds: ["DPM-010", "DPM-011", "DPM-021"],
-    actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.market}/rules/`, pair("Mở rules", "Open rules"), "ghost")}`,
+    actions: `${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")} ${button(`https://${domains.market}/rules/`, pair("Mở quy tắc", "Open rules"), "ghost")}`,
   });
 
   return renderShell({
     currentKey: "market",
     pathname: "/",
-    title: pair("MARKET pilot", "MARKET pilot"),
+    title: pair("MARKET | Bản thử nghiệm an toàn", "MARKET pilot"),
     description: pair(
-      "MARKET là lớp công khai ở trạng thái Planned cho tài sản mẫu, xem trước gian trưng bày và cách đọc mức độ tin cậy trước khi giao dịch hoạt động.",
+      "MARKET là lớp công khai đang chuẩn bị cho tài sản mẫu, xem trước gian trưng bày và cách đọc mức độ tin cậy trước khi giao dịch hoạt động.",
       "MARKET is a public layer in Planned status for sample assets, storefront previews, and trust framing before commerce goes live.",
     ),
     navItems: ecosystemNav("market"),
     hero,
     sections: [
-      renderSection(pair("Public value", "Public value"), pair("MARKET giải thích vì sao giao dịch cần bằng chứng, disclosure và trust boundary trước khi nói tới mua bán.", "MARKET explains why commerce needs proof, disclosures, and trust boundaries before talking about transactions."), rules, "public-value"),
-      renderSection(pair("Demo", "Demo"), pair("Các preview này cho thấy cấu trúc và cách đọc mức độ tin cậy mà không giả vờ phần giao dịch đã mở.", "These previews show structure and trust framing without pretending that live commerce already exists."), demoCards, "demo"),
+      renderSection(pair("Giá trị công khai", "Public value"), pair("MARKET giải thích vì sao giao dịch cần bằng chứng, công bố minh bạch và ranh giới tin cậy trước khi nói tới mua bán.", "MARKET explains why commerce needs proof, disclosures, and trust boundaries before talking about transactions."), rules, "public-value"),
+      renderSection(pair("Minh họa", "Demo"), pair("Các bản xem trước này cho thấy cấu trúc và cách đọc mức độ tin cậy mà không giả vờ phần giao dịch đã mở.", "These previews show structure and trust framing without pretending that live commerce already exists."), demoCards, "demo"),
       gatewaySection,
       trustStatusSection,
     ],
@@ -7180,21 +7188,21 @@ function renderMarketHome() {
 function renderMarketRulesPage() {
   const deepCta = deepContentHubCta("market", "market-rules", "market-rules");
   const hero = renderHero({
-    eyebrow: pair("Market rules", "Market rules"),
+    eyebrow: pair("Quy tắc MARKET", "Market rules"),
     title: pair("Quy ước giao dịch", "Transaction rules"),
     description: pair(
       "Quy ước minh bạch và chống lời hứa ảo.",
       "Transparency rules that prevent fake promises.",
     ),
     actions: [
-      button(`https://${domains.market}/`, pair("Về Market", "Back to Market")),
+      button(`https://${domains.market}/`, pair("Về MARKET", "Back to Market")),
       gatewayCtaButton(deepCta, "ghost"),
     ].join(""),
     afterActions: renderDisclosureStack(["DPM-011"]),
   });
 
   const rules = renderList([
-    pair("Hiển thị phạm vi deliverable và budget rõ ràng.", "Show deliverable scope and budget clearly."),
+    pair("Hiển thị phạm vi đầu ra và ngân sách rõ ràng.", "Show deliverable scope and budget clearly."),
     pair("Nếu có liên quan kết quả, bắt buộc VC hoặc proof kèm theo.", "If outcomes are promised, VC or proof is required."),
     pair("Không được quảng cáo thu nhập cụ thể.", "Do not advertise specific income outcomes."),
   ]);
@@ -7202,8 +7210,8 @@ function renderMarketRulesPage() {
   return renderShell({
     currentKey: "market",
     pathname: "/rules/",
-    title: pair("Market rules", "Market rules"),
-    description: pair("Quy ước minh bạch và proof trong Market.", "Transparency and proof rules in Market."),
+    title: pair("Quy tắc MARKET", "Market rules"),
+    description: pair("Quy ước minh bạch và bằng chứng trong MARKET.", "Transparency and proof rules in Market."),
     navItems: ecosystemNav("market"),
     hero,
     sections: [
@@ -7217,9 +7225,9 @@ function renderCommunityHome() {
   const communitySurface = resolveSurfacePublicMeta("community");
   const hero = renderHero({
     eyebrow: pair("COMMUNITY công khai", "COMMUNITY public"),
-    title: pair("COMMUNITY<br><span class=\"accent\">preview cohort trước, mở vòng thực hành sau</span>", "COMMUNITY<br><span class=\"accent\">cohort preview first, deeper practice later</span>"),
+    title: pair("COMMUNITY<br><span class=\"accent\">xem trước nhóm thực hành, mở vòng sâu hơn sau</span>", "COMMUNITY<br><span class=\"accent\">cohort preview first, deeper practice later</span>"),
     description: pair(
-      "COMMUNITY hiện mở lớp giới thiệu để cho thấy cohort, circle và cách tham gia an toàn. Nó chưa được trình bày như một cộng đồng đã vận hành công khai.",
+      "COMMUNITY hiện mở lớp giới thiệu để cho thấy nhóm thực hành, vòng trao đổi và cách tham gia an toàn. Nó chưa được trình bày như một cộng đồng đã vận hành công khai.",
       "COMMUNITY currently opens an introductory layer for cohorts, circles, and safe participation. It is not presented as an already open public community.",
     ),
     actions: [
@@ -7231,15 +7239,15 @@ function renderCommunityHome() {
 
   const publicValue = renderCards([
     renderCard({
-      title: cardTitle(pair("Bản xem trước cohort", "Cohort preview")),
+      title: cardTitle(pair("Bản xem trước nhóm thực hành", "Cohort preview")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "Lớp công khai cho thấy cách cohort được tổ chức, không biến trang này thành bảng tin cộng đồng đã chạy thật.",
+        "Lớp công khai cho thấy cách nhóm thực hành được tổ chức, không biến trang này thành bảng tin cộng đồng đã chạy thật.",
         "The public layer shows how a cohort is structured without turning the page into a live activity stream.",
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Peer support", "Peer support")),
+      title: cardTitle(pair("Hỗ trợ ngang hàng", "Peer support")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
         "COMMUNITY chỉ mở các nguyên tắc hỗ trợ ngang hàng, ranh giới rõ và hướng đi tiếp về hub.",
@@ -7258,10 +7266,10 @@ function renderCommunityHome() {
 
   const demo = renderCards([
     renderCard({
-      title: cardTitle(pair("Circle sample", "Circle sample")),
+      title: cardTitle(pair("Mẫu vòng thực hành", "Circle sample")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "Mẫu circle này chỉ cho thấy cấu trúc vòng thực hành, nhịp gặp và nguyên tắc giữ chất lượng trao đổi.",
+        "Mẫu vòng này chỉ cho thấy cấu trúc thực hành, nhịp gặp và nguyên tắc giữ chất lượng trao đổi.",
         "This sample circle shows only the practice structure, rhythm, and principles that protect quality conversations.",
       )),
     }),
@@ -7269,7 +7277,7 @@ function renderCommunityHome() {
       title: cardTitle(pair("Nhịp tham gia", "Participation rhythm")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "Preview public nêu rõ tần suất, vai trò người điều phối và cách review tiến trình mà không mở đăng ký live.",
+        "Bản xem trước công khai nêu rõ tần suất, vai trò người điều phối và cách rà soát tiến trình mà không mở đăng ký thật.",
         "The public preview explains cadence, facilitator roles, and progress review without opening live registration.",
       )),
       actions: button(`https://${domains.community}/principles/`, pair("Mở nguyên tắc", "Open principles"), "ghost"),
@@ -7278,10 +7286,10 @@ function renderCommunityHome() {
       title: cardTitle(pair("Điểm vào tiếp theo", "Next valid entry")),
       badge: statusBadge(surfaceBadgeClass(communitySurface.status), appStageLabel(communitySurface)),
       body: cardText(pair(
-        "Nếu cần đi sâu hơn, hệ đưa người dùng về hub để giữ đúng điểm vào công khai.",
+        "Nếu cần đi sâu hơn, hệ đưa người dùng về trang chủ để giữ đúng điểm vào công khai.",
         "If deeper access is needed, the system routes people back to the hub so the public entry point stays consistent.",
       )),
-      actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.community}/principles/`, pair("Mở nguyên tắc", "Open principles"), "ghost")}`,
+      actions: `${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")} ${button(`https://${domains.community}/principles/`, pair("Mở nguyên tắc", "Open principles"), "ghost")}`,
     }),
   ]);
 
@@ -7289,22 +7297,22 @@ function renderCommunityHome() {
     currentKey: "community",
     deepCta,
     notes: [
-      pair("COMMUNITY hiện chỉ mở bản xem trước an toàn cho cohort, nguyên tắc tham gia và điểm đi tiếp hợp lệ.", "COMMUNITY currently opens only a safe preview for cohorts, participation principles, and valid next-step routes."),
-      pair("Không có đăng ký cohort, không có bảng tin cộng đồng và không có lời hứa kết quả cộng đồng tại trang này.", "There is no cohort registration, no community feed, and no community outcome promise on this page."),
+      pair("COMMUNITY hiện chỉ mở bản xem trước an toàn cho nhóm thực hành, nguyên tắc tham gia và điểm đi tiếp hợp lệ.", "COMMUNITY currently opens only a safe preview for cohorts, participation principles, and valid next-step routes."),
+      pair("Không có đăng ký nhóm thực hành, không có bảng tin cộng đồng và không có lời hứa kết quả cộng đồng tại trang này.", "There is no cohort registration, no community feed, and no community outcome promise on this page."),
     ],
     disclosureIds: ["DPM-021"],
-    secondaryActions: `${button(`https://${domains.community}/principles/`, pair("Xem nguyên tắc", "Open principles"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
+    secondaryActions: `${button(`https://${domains.community}/principles/`, pair("Xem nguyên tắc", "Open principles"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")}`,
   });
 
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "community",
     extraItems: [
-      pair("COMMUNITY đang ở trạng thái Planned. Trang này chưa phải community live và chưa mở tương tác thời gian thực.", "COMMUNITY is currently in Planned status. This page is not a live community and it does not open real-time interaction yet."),
-      pair("Mọi nút đi sâu hơn phải quay về hub để giữ một điểm vào nhất quán và rõ ràng.", "Every deeper action must return to the hub to keep one clear and consistent entry point."),
+      pair("COMMUNITY đang chuẩn bị. Trang này chưa phải cộng đồng đang hoạt động và chưa mở tương tác thời gian thực.", "COMMUNITY is currently in Planned status. This page is not a live community and it does not open real-time interaction yet."),
+      pair("Mọi nút đi sâu hơn phải quay về trang chủ để giữ một điểm vào nhất quán và rõ ràng.", "Every deeper action must return to the hub to keep one clear and consistent entry point."),
       pair("Không dùng lời chứng thực hoặc áp lực cộng đồng để kéo người xem vào bản xem trước COMMUNITY.", "No testimonial marketing or social pressure is used to pull people into the community preview."),
     ],
     disclosureIds: ["DPM-021"],
-    actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.community}/principles/`, pair("Mở nguyên tắc", "Open principles"), "ghost")}`,
+    actions: `${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")} ${button(`https://${domains.community}/principles/`, pair("Mở nguyên tắc", "Open principles"), "ghost")}`,
   });
 
   return renderShell({
@@ -7312,14 +7320,14 @@ function renderCommunityHome() {
     pathname: "/",
     title: pair("COMMUNITY bản xem trước", "COMMUNITY preview"),
     description: pair(
-      "COMMUNITY là lớp công khai ở trạng thái Planned để mở bản xem trước cohort, nguyên tắc tham gia và điểm vào hợp lệ.",
+      "COMMUNITY là lớp công khai đang chuẩn bị để mở bản xem trước nhóm thực hành, nguyên tắc tham gia và điểm vào hợp lệ.",
       "COMMUNITY is a public layer in Planned status for cohort previews, participation principles, and valid entry points.",
     ),
     navItems: ecosystemNav("community"),
     hero,
     sections: [
-      renderSection(pair("Public value", "Public value"), pair("COMMUNITY giúp người xem hiểu logic cohort và peer support trước khi có bất kỳ tương tác live nào.", "COMMUNITY helps people understand cohort and peer-support logic before any live interaction exists."), publicValue, "public-value"),
-      renderSection(pair("Demo", "Demo"), pair("Các bản xem trước này cho thấy cấu trúc tham gia mà không giả vờ community đã mở công khai.", "These previews show the participation structure without pretending the community is already publicly open."), demo, "demo"),
+      renderSection(pair("Giá trị công khai", "Public value"), pair("COMMUNITY giúp người xem hiểu logic nhóm thực hành và hỗ trợ ngang hàng trước khi có bất kỳ tương tác thật nào.", "COMMUNITY helps people understand cohort and peer-support logic before any live interaction exists."), publicValue, "public-value"),
+      renderSection(pair("Minh họa", "Demo"), pair("Các bản xem trước này cho thấy cấu trúc tham gia mà không giả vờ cộng đồng đã mở công khai.", "These previews show the participation structure without pretending the community is already publicly open."), demo, "demo"),
       gatewaySection,
       trustStatusSection,
     ],
@@ -7329,10 +7337,10 @@ function renderCommunityHome() {
 function renderCommunityPrinciplesPage() {
   const deepCta = deepContentHubCta("community", "community-principles", "community-principles");
   const hero = renderHero({
-    eyebrow: pair("Community principles", "Community principles"),
+    eyebrow: pair("Nguyên tắc cộng đồng", "Community principles"),
     title: pair("Nguyên tắc tham gia", "Participation principles"),
     description: pair(
-      "Boundary công khai cho cohort, peer support và cách giữ chất lượng trao đổi trước khi mở community sâu hơn.",
+      "Ranh giới công khai cho nhóm thực hành, hỗ trợ ngang hàng và cách giữ chất lượng trao đổi trước khi mở cộng đồng sâu hơn.",
       "A public boundary for cohorts, peer support, and quality conversations before deeper community layers are opened.",
     ),
     actions: [
@@ -7344,14 +7352,14 @@ function renderCommunityPrinciplesPage() {
 
   const principles = renderList([
     pair("Không biến COMMUNITY thành bảng tin cộng đồng ồn ào.", "Do not turn COMMUNITY into a noisy community feed."),
-    pair("Mọi vòng thực hành phải có người điều phối, mục tiêu rõ và review rõ.", "Every practice loop needs a facilitator, a clear goal, and a clear review step."),
-    pair("Không claim network, job hay earning outcome khi chưa có bằng chứng xác thực.", "Do not claim network, job, or earning outcomes without verified evidence."),
+    pair("Mọi vòng thực hành phải có người điều phối, mục tiêu rõ và bước rà soát rõ.", "Every practice loop needs a facilitator, a clear goal, and a clear review step."),
+    pair("Không tuyên bố về mạng lưới, việc làm hay kết quả thu nhập khi chưa có bằng chứng xác thực.", "Do not claim network, job, or earning outcomes without verified evidence."),
   ]);
 
   return renderShell({
     currentKey: "community",
     pathname: "/principles/",
-    title: pair("Community principles", "Community principles"),
+    title: pair("Nguyên tắc cộng đồng", "Community principles"),
     description: pair("Nguyên tắc công khai cho COMMUNITY đang chuẩn bị.", "Public principles for COMMUNITY in preparation."),
     navItems: ecosystemNav("community"),
     hero,
@@ -7366,14 +7374,14 @@ function renderAiHome() {
   const aiSurface = resolveSurfacePublicMeta("ai");
   const hero = renderHero({
     eyebrow: pair("AI công khai", "AI public"),
-    title: pair("AI<br><span class=\"accent\">use-case thật trước, công cụ sâu hơn sau</span>", "AI<br><span class=\"accent\">real use cases first, deeper tools later</span>"),
+    title: pair("AI<br><span class=\"accent\">tình huống thật trước, công cụ sâu hơn sau</span>", "AI<br><span class=\"accent\">real use cases first, deeper tools later</span>"),
     description: pair(
       "AI hiện mở lớp giới thiệu cho tình huống mẫu, nguyên tắc dùng AI đúng chỗ và bản xem trước an toàn. Nó chưa được trình bày như một bộ công cụ AI đã mở chính thức.",
       "AI currently opens an introductory layer for sample use cases, safe AI boundaries, and guided previews. It is not presented as a production-ready tool suite.",
     ),
     actions: [
       gatewayCtaButton(deepCta, "primary"),
-      button(`https://${domains.ai}/use-cases/`, pair("Xem use-case mẫu", "Open sample use cases"), "ghost"),
+      button(`https://${domains.ai}/use-cases/`, pair("Xem tình huống mẫu", "Open sample use cases"), "ghost"),
     ].join(""),
     afterActions: renderDisclosureStack(["DPM-021"]),
   });
@@ -7383,7 +7391,7 @@ function renderAiHome() {
       title: cardTitle(pair("AI đúng chỗ", "AI in the right place")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
-        "AI chỉ hữu ích khi nó nối với workflow thật, output thật và ranh giới trách nhiệm rõ ràng.",
+        "AI chỉ hữu ích khi nó nối với quy trình thật, đầu ra thật và ranh giới trách nhiệm rõ ràng.",
         "AI is useful only when it connects to a real workflow, a real output, and a clear responsibility boundary.",
       )),
     }),
@@ -7391,7 +7399,7 @@ function renderAiHome() {
       title: cardTitle(pair("Bản xem trước trợ giúp", "Guided preview")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
-        "Trang public chỉ cho xem cách AI helper có thể hỗ trợ học, soát và gợi ý bước tiếp theo mà không giả tool đã live.",
+        "Trang công khai chỉ cho xem cách trợ lý AI có thể hỗ trợ học, soát và gợi ý bước tiếp theo mà không giả như công cụ đã mở thật.",
         "The public page only shows how guided AI support can assist learning, review, and next-step guidance without pretending the tools are already live.",
       )),
     }),
@@ -7407,30 +7415,30 @@ function renderAiHome() {
 
   const demo = renderCards([
     renderCard({
-      title: cardTitle(pair("Tutor helper sample", "Tutor helper sample")),
+      title: cardTitle(pair("Mẫu trợ lý học", "Tutor helper sample")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
-        "Ví dụ này cho thấy AI giải thích bài học, tóm tắt context và gợi ý hành động nhỏ ngay sau khi học.",
+        "Ví dụ này cho thấy AI giải thích bài học, tóm tắt bối cảnh và gợi ý hành động nhỏ ngay sau khi học.",
         "This example shows AI explaining a lesson, summarizing context, and suggesting one small action after learning.",
       )),
     }),
     renderCard({
-      title: cardTitle(pair("Review helper sample", "Review helper sample")),
+      title: cardTitle(pair("Mẫu trợ lý rà soát", "Review helper sample")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
         "Trợ giúp rà soát chỉ được mô tả như demo. Nó chưa phải trợ lý đã mở chính thức ở trang này.",
         "The review helper is described only as a demo flow. It is not an officially open assistant on this domain yet.",
       )),
-      actions: button(`https://${domains.ai}/use-cases/`, pair("Mở use-case", "Open use cases"), "ghost"),
+      actions: button(`https://${domains.ai}/use-cases/`, pair("Mở tình huống", "Open use cases"), "ghost"),
     }),
     renderCard({
       title: cardTitle(pair("Điểm vào hợp lệ", "Valid next step")),
       badge: statusBadge(surfaceBadgeClass(aiSurface.status), appStageLabel(aiSurface)),
       body: cardText(pair(
-        "Mọi bước đi tiếp vẫn quay về hub để giữ đúng điểm vào và không tạo cảm giác tool đã mở thật.",
+        "Mọi bước đi tiếp vẫn quay về trang chủ để giữ đúng điểm vào và không tạo cảm giác công cụ đã mở thật.",
         "Every next step still returns to the hub to keep the right entry point and avoid implying the tools are fully open.",
       )),
-      actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.ai}/use-cases/`, pair("Mở tình huống mẫu", "Open sample uses"), "ghost")}`,
+      actions: `${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")} ${button(`https://${domains.ai}/use-cases/`, pair("Mở tình huống mẫu", "Open sample uses"), "ghost")}`,
     }),
   ]);
 
@@ -7438,8 +7446,8 @@ function renderAiHome() {
     currentKey: "ai",
     deepCta,
     notes: [
-      pair("AI hiện chỉ mở bản xem trước tình huống, demo trợ giúp và nguyên tắc dùng AI đúng vai.", "AI currently opens only sample-use previews, guided demos, and correct-role usage principles."),
-      pair("Không có trợ lý mở hoàn chỉnh, không có tuyên bố công cụ đã live và không có bước thanh toán tại trang này.", "There is no fully open assistant, no claim that tools are live, and no payment step on this page."),
+      pair("AI hiện chỉ mở bản xem trước tình huống, minh họa trợ giúp và nguyên tắc dùng AI đúng vai.", "AI currently opens only sample-use previews, guided demos, and correct-role usage principles."),
+      pair("Không có trợ lý mở hoàn chỉnh, không có tuyên bố công cụ đã hoạt động chính thức và không có bước thanh toán tại trang này.", "There is no fully open assistant, no claim that tools are live, and no payment step on this page."),
     ],
     disclosureIds: ["DPM-021"],
     secondaryActions: `${button(`https://${domains.ai}/use-cases/`, pair("Xem tình huống mẫu", "Open sample uses"), "ghost")} ${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")}`,
@@ -7448,12 +7456,12 @@ function renderAiHome() {
   const trustStatusSection = renderSurfaceTrustStatusSection({
     currentKey: "ai",
     extraItems: [
-      pair("AI đang ở trạng thái Planned. Trang này chưa dùng để tuyên bố bộ công cụ đã mở chính thức.", "AI is currently in Planned status. This page is not used to claim a fully open tool suite yet."),
+      pair("AI đang chuẩn bị. Trang này chưa dùng để tuyên bố bộ công cụ đã mở chính thức.", "AI is currently in Planned status. This page is not used to claim a fully open tool suite yet."),
       pair("Nội dung công khai phải nói rõ đây là bản xem trước trợ giúp, bản xem trước tình huống và bản xem trước ranh giới an toàn.", "Public copy must make it clear that this is a guided preview, a sample-use preview, and a safety-boundary preview."),
       pair("Nếu người xem cần đi sâu hơn, hệ sẽ trả về hub thay vì mở một luồng AI độc lập ngay tại đây.", "If people need to go deeper, the system returns them to the hub instead of opening an isolated AI flow here."),
     ],
     disclosureIds: ["DPM-021"],
-    actions: `${button(`https://${domains.hub}/`, pair("Về hub", "Back to hub"), "ghost")} ${button(`https://${domains.ai}/use-cases/`, pair("Mở use-case", "Open use cases"), "ghost")}`,
+    actions: `${button(`https://${domains.hub}/`, pair("Về trang chủ", "Back to hub"), "ghost")} ${button(`https://${domains.ai}/use-cases/`, pair("Mở tình huống", "Open use cases"), "ghost")}`,
   });
 
   return renderShell({
@@ -7461,14 +7469,14 @@ function renderAiHome() {
     pathname: "/",
     title: pair("AI bản xem trước", "AI preview"),
     description: pair(
-      "AI là lớp công khai ở trạng thái Planned cho bản xem trước tình huống, demo trợ giúp và ranh giới dùng AI đúng chỗ.",
+      "AI là lớp công khai đang chuẩn bị cho bản xem trước tình huống, minh họa trợ giúp và ranh giới dùng AI đúng chỗ.",
       "AI is a public layer in Planned status for sample-use previews, guided demos, and safe AI boundaries.",
     ),
     navItems: ecosystemNav("ai"),
     hero,
     sections: [
-      renderSection(pair("Public value", "Public value"), pair("AI giải thích vai trò, ranh giới và tình huống mẫu trước khi có bất kỳ tuyên bố công cụ production nào.", "AI explains role, boundaries, and sample uses before any production-tool claim exists."), publicValue, "public-value"),
-      renderSection(pair("Demo", "Demo"), pair("Các bản xem trước này cho thấy AI có thể hỗ trợ ở đâu mà không giả vờ công cụ đã mở chính thức.", "These previews show where AI can help without pretending the tools are already fully open."), demo, "demo"),
+      renderSection(pair("Giá trị công khai", "Public value"), pair("AI giải thích vai trò, ranh giới và tình huống mẫu trước khi có bất kỳ tuyên bố công cụ chính thức nào.", "AI explains role, boundaries, and sample uses before any production-tool claim exists."), publicValue, "public-value"),
+      renderSection(pair("Minh họa", "Demo"), pair("Các bản xem trước này cho thấy AI có thể hỗ trợ ở đâu mà không giả vờ công cụ đã mở chính thức.", "These previews show where AI can help without pretending the tools are already fully open."), demo, "demo"),
       gatewaySection,
       trustStatusSection,
     ],
@@ -7493,7 +7501,7 @@ function renderAiUseCasesPage() {
 
   const useCases = renderList([
     pair("Giải thích bài học theo bối cảnh của người học.", "Explain a lesson in a learner's context."),
-    pair("Soát output mẫu trước khi nộp review.", "Review a sample output before it enters review."),
+    pair("Soát đầu ra mẫu trước khi nộp rà soát.", "Review a sample output before it enters review."),
     pair("Gợi ý bước tiếp theo mà không tự mở quyền truy cập sâu hơn.", "Suggest the next step without unlocking deeper access on its own."),
   ]);
 

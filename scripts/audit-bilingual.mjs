@@ -370,9 +370,10 @@ async function auditFile(file) {
   let imgWithEmptyAlt = 0;
   while ((imgM = imgRe.exec(html)) !== null) {
     const attrs = imgM[1];
+    const decorative = /\baria-hidden=["']true["']/.test(attrs) || /\brole=["']presentation["']/.test(attrs);
     const altMatch = attrs.match(/\balt=["']([^"']*)["']/);
     if (!altMatch) imgWithoutAlt++;
-    else if (altMatch[1].trim() === "") imgWithEmptyAlt++;
+    else if (altMatch[1].trim() === "" && !decorative) imgWithEmptyAlt++;
   }
   if (imgWithoutAlt > 0) {
     issues.push({ severity: "high", code: "image-missing-alt", detail: `${imgWithoutAlt} <img> without alt attribute` });

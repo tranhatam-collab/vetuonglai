@@ -90,7 +90,7 @@
     "life": {
       "seo": {
         "title": "LIFE | Ổn định nhịp sống trước khi tối ưu",
-        "description": "LIFE giúp ổn định nhịp sống, giữ năng lượng và tạo kỷ luật nền bằng baseline, review tuần và dữ liệu thật."
+        "description": "LIFE giúp ổn định nhịp sống, giữ năng lượng và tạo kỷ luật nền bằng mốc nền, rà soát hằng tuần và dữ liệu thật."
       },
       "hero": {
         "eyebrow": "Lớp đời sống",
@@ -149,20 +149,20 @@
     },
     "work": {
       "seo": {
-        "title": "WORK | Proof trước, apply sau",
-        "description": "WORK là lớp công khai ở trạng thái Planned để mở brief mẫu, khung bằng chứng và đường đi tiếp về hub."
+        "title": "WORK | Bằng chứng trước, ứng tuyển sau",
+        "description": "WORK là lớp công khai đang chuẩn bị để mở bản mô tả công việc mẫu, khung bằng chứng và đường đi tiếp về trang chủ."
       },
       "hero": {
         "eyebrow": "WORK công khai",
         "title": "VIỆC LÀM",
-        "subline": "Bạn có kỹ năng nhưng người đối diện chưa thấy đủ bằng chứng để chọn bạn. WORK mở lớp công khai với brief mẫu và hướng đi tiếp rõ ràng.",
-        "primary_cta": "Xem brief mẫu"
+        "subline": "Bạn có kỹ năng nhưng người đối diện chưa thấy đủ bằng chứng để chọn bạn. WORK mở lớp công khai với bản mô tả công việc mẫu và hướng đi tiếp rõ ràng.",
+        "primary_cta": "Xem bản mô tả mẫu"
       }
     },
     "market": {
       "seo": {
         "title": "MARKET | Tài sản mẫu trước, giao dịch sau",
-        "description": "MARKET là lớp công khai ở trạng thái Planned cho tài sản mẫu, xem trước gian trưng bày và cách đọc mức độ tin cậy trước khi giao dịch hoạt động."
+        "description": "MARKET là lớp công khai đang chuẩn bị cho tài sản mẫu, xem trước gian trưng bày và cách đọc mức độ tin cậy trước khi giao dịch hoạt động."
       },
       "hero": {
         "eyebrow": "MARKET công khai",
@@ -173,20 +173,20 @@
     },
     "community": {
       "seo": {
-        "title": "COMMUNITY | Bản xem trước cohort và cộng đồng",
-        "description": "COMMUNITY là lớp công khai ở trạng thái Planned để mở bản xem trước cohort, nguyên tắc tham gia và điểm vào hợp lệ."
+        "title": "COMMUNITY | Bản xem trước cộng đồng",
+        "description": "COMMUNITY là lớp công khai đang chuẩn bị để mở bản xem trước nhóm thực hành, nguyên tắc tham gia và điểm vào hợp lệ."
       },
       "hero": {
         "eyebrow": "COMMUNITY công khai",
         "title": "CỘNG ĐỒNG",
-        "subline": "COMMUNITY hiện mở lớp xem trước để giới thiệu cohort, circle và cách tham gia an toàn.",
+        "subline": "COMMUNITY hiện mở lớp xem trước để giới thiệu nhóm thực hành, vòng trao đổi và cách tham gia an toàn.",
         "primary_cta": "Xem bản xem trước"
       }
     },
     "ai": {
       "seo": {
         "title": "AI | Bản xem trước tình huống và ranh giới dùng AI",
-        "description": "AI là lớp công khai ở trạng thái Planned cho bản xem trước tình huống, demo trợ giúp và ranh giới dùng AI đúng chỗ."
+        "description": "AI là lớp công khai đang chuẩn bị cho bản xem trước tình huống, bản minh họa trợ giúp và ranh giới dùng AI đúng chỗ."
       },
       "hero": {
         "eyebrow": "AI công khai",
@@ -198,7 +198,7 @@
     "business": {
       "seo": {
         "title": "BUSINESS | Định hướng doanh nghiệp trước khi triển khai",
-        "description": "Lớp BUSINESS đang ở trạng thái Planned để mở trao đổi doanh nghiệp, so sánh lộ trình và gợi ý bước tiếp theo."
+        "description": "Lớp BUSINESS đang chuẩn bị để mở trao đổi doanh nghiệp, so sánh lộ trình và gợi ý bước tiếp theo."
       },
       "hero": {
         "eyebrow": "BUSINESS doanh nghiệp",
@@ -222,12 +222,12 @@
     "read": {
       "seo": {
         "title": "READ | Lớp tri thức dài hạn",
-        "description": "Lớp tri thức dài hạn với essay và sách điện tử về tương lai. Đang ở Phase 0: mở lớp đọc công khai, chưa mở checkout và payout."
+        "description": "Lớp tri thức dài hạn với bài luận và sách điện tử về tương lai. Đang ở giai đoạn 0: mở lớp đọc công khai, chưa mở thanh toán và chi trả."
       },
       "hero": {
         "eyebrow": "Lớp tri thức",
         "title": "ĐỌC",
-        "subline": "Lớp tri thức dài hạn — essay, sách và bài viết sâu về tương lai.",
+        "subline": "Lớp tri thức dài hạn — bài luận, sách và bài viết sâu về tương lai.",
         "primary_cta": "Xem cam kết minh bạch"
       }
     },
