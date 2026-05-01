@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-04-28T06:08:44Z",
-  "commit": "84ac7c697d571c00bae9e6b3d96d3f80c7c593a8",
+  "generatedAt": "2026-04-29T12:35:00Z",
+  "commit": "e6ea76b",
   "gates": {
     "build": "PASS",
     "check": "PASS",
-    "verifyReadPhase0": "PASS (8/8)",
+    "verifyReadPhase0": "PASS (13/13)",
     "releaseGate": "PASS (publish_ready=true)"
   },
   "distStats": {
-    "readFiles": 27,
-    "docsFiles": 13,
-    "totalHtmlPages": 92,
-    "totalJsonEndpoints": 108
+    "readFiles": 68,
+    "docsFiles": 28,
+    "totalHtmlPages": 496,
+    "totalJsonEndpoints": 669
   },
   "deployments": {
     "read": "https://vetuonglai-read.pages.dev",
     "docs": "https://vetuonglai-docs.pages.dev",
-    "readCustomDomain": "read.vetuonglai.com (CNAME pending)",
+    "readCustomDomain": "read.vetuonglai.com (deployed)",
     "docsCustomDomain": "docs.vetuonglai.com (CNAME pending)"
   },
   "bannedTermScan": {
