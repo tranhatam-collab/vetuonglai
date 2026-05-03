@@ -1,0 +1,43 @@
+{
+  "version": "2026-05-03",
+  "books": [
+    {
+      "id": "tan-cung-mot-cuoc-song",
+      "title": {
+        "vi": "Tận cùng một cuộc sống",
+        "en": "To The End Of A Life"
+      },
+      "author": "Tran Ha Tam",
+      "source_site": "tranhatam.com",
+      "external_url": "https://tranhatam.com/books/tan-cung-mot-cuoc-song/",
+      "stages": {
+        "public_sample_pct": 10,
+        "member_preview_pct": 20,
+        "protected_paid_pct": 70
+      },
+      "public": {
+        "path": "/books/tan-cung-mot-cuoc-song/",
+        "demo_path": "/books/tan-cung-mot-cuoc-song/demo/",
+        "sitemap_included": true,
+        "show_price_public": false,
+        "public_kdp_exposure": false
+      },
+      "access_rules": {
+        "public": {
+          "visible_pct": 10,
+          "show_full_chapters": false
+        },
+        "registered_member": {
+          "visible_pct": 30,
+          "requires_registration": true
+        },
+        "paid_reader": {
+          "visible_pct": 100,
+          "requires_purchase": true
+        }
+      },
+      "notes": "Layered access: 10% homepage public teaser, 20% free registered preview after signup, 70% protected paid content. No public full chapter or downloadable source exposed.",
+      "published": true
+    }
+  ]
+}
