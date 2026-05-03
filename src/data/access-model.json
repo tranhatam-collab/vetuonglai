@@ -329,6 +329,12 @@
       "scope": "permission to submit a verification-ready claim after qualifying completion or review states"
     },
     {
+      "key": "book_purchased",
+      "label": "Book Purchased",
+      "category": "payment",
+      "scope": "grants access to the protected 70% layer of one or more READ books that the candidate_email has purchased; per-book gating is enforced via /api/access/books/check"
+    },
+    {
       "key": "vc_claim_reviewed",
       "label": "VC Claim Reviewed",
       "category": "proof",

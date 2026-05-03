@@ -4,6 +4,7 @@ import packageFormRegistry from "../../src/data/package-form-registry.json" with
 import productStrategyRegistry from "../../src/data/product-strategy-registry.json" with { type: "json" };
 import team3PolicyMatrix from "../../src/data/team3-policy-matrix.json" with { type: "json" };
 import runtimeTruth from "../../cloudflare/domain-runtime-truth.json" with { type: "json" };
+import readBooksRegistry from "../../src/data/read-books.json" with { type: "json" };
 import { createAccessStore } from "./access-state.mjs";
 
 const ACCESS_BASE = "/api/access";
@@ -49,6 +50,11 @@ const subdomainFormRegistry = Array.isArray(packageFormRegistry.subdomainFormReg
   : [];
 const memberSurfaceContract = subdomainFormRegistry.find((entry) => entry.surfaceKey === "member") || null;
 const pathwayIds = new Set(((productStrategyRegistry.pathways?.items) || []).map((entry) => String(entry.id || "")).filter(Boolean));
+const knownBookSlugs = new Set(
+  (Array.isArray(readBooksRegistry?.books) ? readBooksRegistry.books : [])
+    .map((entry) => String(entry?.slug || "").trim().toLowerCase())
+    .filter(Boolean),
+);
 
 const plannedDomains = new Set(
   (runtimeTruth.domains || [])
@@ -563,6 +569,8 @@ function sessionRuntimeContractPayload() {
   return {
     endpoint: `${ACCESS_BASE}/session/current`,
     onboarding_goal_endpoint: `${ACCESS_BASE}/onboarding/goal`,
+    book_entitlements_endpoint: `${ACCESS_BASE}/books/entitlements`,
+    book_check_endpoint: `${ACCESS_BASE}/books/check`,
     states: ["session_active", "session_missing", "session_expiring", "session_refreshed"],
     error_codes: [
       "SESSION_MISSING",
@@ -804,7 +812,143 @@ function ensureMemberState(value) {
   return knownIdentityStates.has(value) ? value : "visitor";
 }
 
-function effectiveAccessSnapshot(session = {}, runtimeState = {}, learningSummary = null) {
+function normalizeBookSlug(value) {
+  const slug = String(value || "").trim().toLowerCase();
+  return knownBookSlugs.has(slug) ? slug : "";
+}
+
+function normalizeOwnedBooks(value) {
+  if (!Array.isArray(value)) return [];
+  return Array.from(
+    new Set(
+      value
+        .map((entry) => normalizeBookSlug(entry))
+        .filter(Boolean),
+    ),
+  );
+}
+
+function mergeOwnedBooks(...lists) {
+  return Array.from(
+    new Set(
+      lists
+        .flat()
+        .map((entry) => normalizeBookSlug(entry))
+        .filter(Boolean),
+    ),
+  );
+}
+
+function extractBookSlugFromPayload(payload = {}) {
+  const candidates = [
+    payload?.book_slug,
+    payload?.book,
+    payload?.metadata?.book_slug,
+    payload?.metadata?.book,
+    payload?.resource?.custom_id,
+    payload?.data?.object?.metadata?.book_slug,
+    payload?.data?.object?.metadata?.book,
+  ];
+  for (const candidate of candidates) {
+    const slug = normalizeBookSlug(candidate);
+    if (slug) return slug;
+  }
+  return "";
+}
+
+async function readBookEntitlements(env, candidateEmail) {
+  if (!isValidEmail(candidateEmail)) {
+    return { candidate_email: "", books: {} };
+  }
+  const store = accessStore(env);
+  const raw = await store.get("book_entitlements", candidateEmail);
+  if (!raw || typeof raw !== "object") {
+    return { candidate_email: candidateEmail, books: {} };
+  }
+  const books = raw.books && typeof raw.books === "object" && !Array.isArray(raw.books)
+    ? raw.books
+    : {};
+  return {
+    candidate_email: candidateEmail,
+    books,
+  };
+}
+
+async function writeBookEntitlements(env, candidateEmail, record) {
+  const store = accessStore(env);
+  await store.put("book_entitlements", candidateEmail, record, {
+    ttlSeconds: SESSION_TTL_SECONDS,
+  });
+}
+
+async function grantBookEntitlement(env, candidateEmail, bookSlug, source = {}) {
+  const slug = normalizeBookSlug(bookSlug);
+  const email = normalizeCandidateEmail(candidateEmail);
+  if (!slug || !isValidEmail(email)) {
+    return { ok: false, reason: !slug ? "invalid_book_slug" : "invalid_candidate_email" };
+  }
+  const current = await readBookEntitlements(env, email);
+  const existing = current.books[slug] || null;
+  const grantRecord = {
+    granted_at: existing?.granted_at || isoNow(),
+    last_event_at: isoNow(),
+    runtime_event: String(source.runtime_event || existing?.runtime_event || "manual_grant"),
+    order_id: String(source.order_id || existing?.order_id || ""),
+    provider: String(source.provider || existing?.provider || ""),
+    pack_key: normalizePackKey(source.pack_key || existing?.pack_key || ""),
+  };
+  const next = {
+    candidate_email: email,
+    books: {
+      ...current.books,
+      [slug]: grantRecord,
+    },
+    updated_at: isoNow(),
+  };
+  await writeBookEntitlements(env, email, next);
+  await logSessionAudit(env, "book_entitlement_granted", {
+    candidate_email: email,
+    book_slug: slug,
+    runtime_event: grantRecord.runtime_event,
+    order_id: grantRecord.order_id,
+  });
+  return { ok: true, slug, granted: grantRecord };
+}
+
+async function revokeBookEntitlement(env, candidateEmail, bookSlug, source = {}) {
+  const slug = normalizeBookSlug(bookSlug);
+  const email = normalizeCandidateEmail(candidateEmail);
+  if (!slug || !isValidEmail(email)) {
+    return { ok: false, reason: !slug ? "invalid_book_slug" : "invalid_candidate_email" };
+  }
+  const current = await readBookEntitlements(env, email);
+  if (!current.books[slug]) {
+    return { ok: true, slug, revoked: false };
+  }
+  const { [slug]: removed, ...remaining } = current.books;
+  const next = {
+    candidate_email: email,
+    books: remaining,
+    updated_at: isoNow(),
+  };
+  await writeBookEntitlements(env, email, next);
+  await logSessionAudit(env, "book_entitlement_revoked", {
+    candidate_email: email,
+    book_slug: slug,
+    runtime_event: String(source.runtime_event || "manual_revoke"),
+    order_id: String(source.order_id || ""),
+  });
+  return { ok: true, slug, revoked: true, prior: removed };
+}
+
+function hasBookEntitlement(session, bookSlug) {
+  const slug = normalizeBookSlug(bookSlug);
+  if (!slug) return false;
+  const owned = Array.isArray(session?.owned_books) ? session.owned_books : [];
+  return owned.includes(slug);
+}
+
+function effectiveAccessSnapshot(session = {}, runtimeState = {}, learningSummary = null, bookEntitlements = null) {
   const ownedPacks = mergeOwnedPacks(
     Array.isArray(session?.owned_packs) ? session.owned_packs : [],
     session?.pack_key ? [session.pack_key] : [],
@@ -820,14 +964,27 @@ function effectiveAccessSnapshot(session = {}, runtimeState = {}, learningSummar
     annualAccessStatusForMemberState(memberState),
   );
 
+  const ownedBooks = mergeOwnedBooks(
+    Array.isArray(session?.owned_books) ? session.owned_books : [],
+    bookEntitlements && typeof bookEntitlements === "object" && bookEntitlements.books
+      ? Object.keys(bookEntitlements.books)
+      : [],
+  );
+
+  const baseEntitlements = mergeEntitlementKeys(
+    grantsForState(memberState),
+    learningEntitlementsFromSummary(learningSummary),
+  );
+  const entitlements = ownedBooks.length > 0
+    ? mergeEntitlementKeys(baseEntitlements, ["book_purchased"])
+    : baseEntitlements;
+
   return {
     member_state: memberState,
     annual_access_status: annualAccessStatus,
     owned_packs: ownedPacks,
-    entitlements: mergeEntitlementKeys(
-      grantsForState(memberState),
-      learningEntitlementsFromSummary(learningSummary),
-    ),
+    owned_books: ownedBooks,
+    entitlements,
     learning_summary: learningSummary || null,
   };
 }
@@ -1241,6 +1398,43 @@ async function upsertRuntimeMemberState(env, runtimeEvent, payload = {}) {
   await store.put("member_runtime_state", candidateEmail, snapshot, {
     ttlSeconds: SESSION_TTL_SECONDS,
   });
+
+  // Book entitlement auto-grant/revoke when payload carries a known book_slug
+  const bookSlug = extractBookSlugFromPayload(payload);
+  if (bookSlug) {
+    const orderId = String(
+      payload?.order_id
+      || payload?.id
+      || payload?.event_id
+      || payload?.resource?.id
+      || payload?.data?.object?.id
+      || "",
+    );
+    const provider = String(
+      payload?.provider
+      || (payload?.event_type?.startsWith?.("subscription.") || payload?.event_type?.startsWith?.("order.")
+        ? "pay_iai_one"
+        : payload?.type?.startsWith?.("checkout.") || payload?.type?.startsWith?.("invoice.") || payload?.type?.startsWith?.("charge.")
+          ? "stripe"
+          : payload?.event_type?.startsWith?.("PAYMENT.") || payload?.event_type?.startsWith?.("BILLING.")
+            ? "paypal"
+            : ""),
+    );
+    if (runtimeEvent === "pack.order.captured" || runtimeEvent === "annual.subscription.activated") {
+      await grantBookEntitlement(env, candidateEmail, bookSlug, {
+        runtime_event: runtimeEvent,
+        order_id: orderId,
+        provider,
+        pack_key: snapshot.pack_key,
+      });
+    } else if (runtimeEvent === "pack.order.refunded") {
+      await revokeBookEntitlement(env, candidateEmail, bookSlug, {
+        runtime_event: runtimeEvent,
+        order_id: orderId,
+      });
+    }
+  }
+
   return snapshot;
 }
 
@@ -1492,12 +1686,14 @@ async function resolveEffectiveSession(request, env) {
     const runtimeState = await store.get("member_runtime_state", candidateEmail);
     const learningSummary = await readLearningSummary(env, candidateEmail);
     const onboardingState = await readOnboardingState(env, candidateEmail);
-    const accessSnapshot = effectiveAccessSnapshot(session, runtimeState, learningSummary);
+    const bookEntitlements = await readBookEntitlements(env, candidateEmail);
+    const accessSnapshot = effectiveAccessSnapshot(session, runtimeState, learningSummary, bookEntitlements);
     effectiveSession = {
       ...session,
       candidate_email: candidateEmail,
       ...accessSnapshot,
       onboarding_state: onboardingState,
+      book_entitlements: bookEntitlements,
     };
   }
 
@@ -1574,6 +1770,7 @@ async function handleSessionCurrent(request, env) {
     member_state: effectiveSession.member_state,
     annual_access_status: effectiveSession.annual_access_status,
     owned_packs: effectiveSession.owned_packs || [],
+    owned_books: effectiveSession.owned_books || [],
     entitlements: effectiveSession.entitlements,
     entitlement_groups: groupEntitlements(effectiveSession.entitlements),
     learning_summary: effectiveSession.learning_summary || null,
@@ -1688,6 +1885,7 @@ async function handleEntitlementsCurrent(request, env) {
     member_state: effectiveSession.member_state,
     annual_access_status: effectiveSession.annual_access_status,
     owned_packs: effectiveSession.owned_packs || [],
+    owned_books: effectiveSession.owned_books || [],
     ...entitlementCatalogPayload(effectiveSession.entitlements),
     learning_summary: effectiveSession.learning_summary || null,
   });
@@ -2289,6 +2487,145 @@ function handleRoutingContract() {
   });
 }
 
+async function handleBooksEntitlements(request, env) {
+  const envelope = await readSessionEnvelopeFromRequest(request, env);
+  if (!envelope.ok) {
+    return sessionErrorResponse(
+      envelope.code || "SESSION_INVALID",
+      envelope.reason || "missing_or_invalid_cookie",
+      { expiredAtUnix: envelope.expired_at_unix },
+    );
+  }
+  const effectiveSession = await resolveEffectiveSession(request, env);
+  if (!effectiveSession) {
+    return sessionErrorResponse("SESSION_INVALID", "effective_session_resolution_failed");
+  }
+  return jsonResponse({
+    status: "book_entitlements",
+    authenticated: true,
+    candidate_email: effectiveSession.candidate_email,
+    member_state: effectiveSession.member_state,
+    owned_books: effectiveSession.owned_books || [],
+    book_purchased: hasBookEntitlement(effectiveSession, ""),
+    catalog: {
+      version: readBooksRegistry.version || null,
+      known_book_slugs: [...knownBookSlugs],
+    },
+    grants: effectiveSession.book_entitlements?.books || {},
+  });
+}
+
+async function handleBookCheck(request, env) {
+  const url = new URL(request.url);
+  const requestedSlug = String(url.searchParams.get("slug") || "").trim().toLowerCase();
+  const slug = normalizeBookSlug(requestedSlug);
+
+  if (!slug) {
+    return jsonResponse({
+      status: "book_slug_invalid",
+      authenticated: false,
+      authorized: false,
+      requested_slug: requestedSlug,
+      known_book_slugs: [...knownBookSlugs],
+      error_code: "BOOK_SLUG_INVALID",
+      detail: "slug must match a known read-books.json entry.",
+    }, { status: 422 });
+  }
+
+  const envelope = await readSessionEnvelopeFromRequest(request, env);
+  if (!envelope.ok) {
+    return jsonResponse({
+      status: "book_check_session_missing",
+      authenticated: false,
+      authorized: false,
+      slug,
+      error_code: envelope.code || "SESSION_INVALID",
+      contract: sessionRuntimeContractPayload(),
+    }, { status: 401 });
+  }
+
+  const effectiveSession = await resolveEffectiveSession(request, env);
+  if (!effectiveSession) {
+    return jsonResponse({
+      status: "book_check_session_invalid",
+      authenticated: false,
+      authorized: false,
+      slug,
+      error_code: "SESSION_INVALID",
+    }, { status: 401 });
+  }
+
+  const authorized = hasBookEntitlement(effectiveSession, slug);
+  return jsonResponse({
+    status: authorized ? "book_check_authorized" : "book_check_forbidden",
+    authenticated: true,
+    authorized,
+    slug,
+    member_state: effectiveSession.member_state,
+    owned_books: effectiveSession.owned_books || [],
+    grant: effectiveSession.book_entitlements?.books?.[slug] || null,
+  }, {
+    status: authorized ? 200 : 403,
+  });
+}
+
+async function handleBookGrantInternal(request, env) {
+  const adminSecret = getEnvString(env, "ACCESS_ADMIN_SECRET");
+  if (!adminSecret) {
+    return jsonResponse({
+      status: "admin_secret_missing",
+      detail: "ACCESS_ADMIN_SECRET must be set before /books/grant can be called.",
+    }, { status: 503 });
+  }
+  const provided = request.headers.get("x-admin-secret") || "";
+  if (!safeEqual(provided, adminSecret)) {
+    return jsonResponse({
+      status: "admin_secret_invalid",
+    }, { status: 401 });
+  }
+
+  const input = await readRequestJson(request);
+  const candidateEmail = normalizeCandidateEmail(input.candidate_email);
+  const bookSlug = normalizeBookSlug(input.book_slug || input.slug);
+  const action = String(input.action || "grant").toLowerCase();
+
+  if (!isValidEmail(candidateEmail)) {
+    return jsonResponse({
+      status: "candidate_email_invalid",
+      error_code: "CANDIDATE_EMAIL_INVALID",
+    }, { status: 422 });
+  }
+  if (!bookSlug) {
+    return jsonResponse({
+      status: "book_slug_invalid",
+      error_code: "BOOK_SLUG_INVALID",
+      known_book_slugs: [...knownBookSlugs],
+    }, { status: 422 });
+  }
+
+  if (action === "revoke") {
+    const result = await revokeBookEntitlement(env, candidateEmail, bookSlug, {
+      runtime_event: "admin_revoke",
+      order_id: String(input.order_id || ""),
+    });
+    return jsonResponse({
+      status: "book_entitlement_revoke_evaluated",
+      ...result,
+    });
+  }
+
+  const result = await grantBookEntitlement(env, candidateEmail, bookSlug, {
+    runtime_event: "admin_grant",
+    order_id: String(input.order_id || ""),
+    provider: String(input.provider || "admin"),
+    pack_key: normalizePackKey(input.pack_key || ""),
+  });
+  return jsonResponse({
+    status: "book_entitlement_grant_evaluated",
+    ...result,
+  });
+}
+
 export async function maybeHandleAccessRuntime(request, env = {}) {
   const url = new URL(request.url);
   if (!url.pathname.startsWith(ACCESS_BASE)) {
@@ -2345,6 +2682,18 @@ export async function maybeHandleAccessRuntime(request, env = {}) {
 
   if (request.method === "GET" && url.pathname === `${ACCESS_BASE}/entitlements.json`) {
     return handleEntitlementsCurrent(request, env);
+  }
+
+  if (request.method === "GET" && url.pathname === `${ACCESS_BASE}/books/entitlements`) {
+    return handleBooksEntitlements(request, env);
+  }
+
+  if (request.method === "GET" && url.pathname === `${ACCESS_BASE}/books/check`) {
+    return handleBookCheck(request, env);
+  }
+
+  if (request.method === "POST" && url.pathname === `${ACCESS_BASE}/books/grant`) {
+    return handleBookGrantInternal(request, env);
   }
 
   if (request.method === "GET" && url.pathname === `${ACCESS_BASE}/learning/state`) {

@@ -1,0 +1,101 @@
+{
+  "timestamp": "2026-05-03T09:15:07.308Z",
+  "gate": "read-book-publish-gate",
+  "model": "VTL_71_10_20_70",
+  "passed": 15,
+  "total": 15,
+  "allPass": true,
+  "book_count": 1,
+  "results": [
+    {
+      "book": "",
+      "key": "registry_present",
+      "pass": true,
+      "detail": "src/data/read-books.json loaded"
+    },
+    {
+      "book": "",
+      "key": "books_array_present",
+      "pass": true,
+      "detail": "1 book(s) declared"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "schema_completeness",
+      "pass": true,
+      "detail": "all required keys present (incl. bilingual title)"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "access_rules_layers",
+      "pass": true,
+      "detail": "all 3 layers (public, registered_member, paid_reader) declared"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "routes_keys",
+      "pass": true,
+      "detail": "public + demo routes declared"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "public_page_present",
+      "pass": true,
+      "detail": "books/tan-cung-mot-cuoc-song/index.html exists"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "demo_page_present",
+      "pass": true,
+      "detail": "books/tan-cung-mot-cuoc-song/demo/index.html exists"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "demo_noindex",
+      "pass": true,
+      "detail": "noindex,nofollow meta present"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "demo_gating_markers",
+      "pass": true,
+      "detail": "data-requires-auth or data-gated marker present"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "no_price_in_public",
+      "pass": true,
+      "detail": "no price markers in public page"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "layered_banner_present",
+      "pass": true,
+      "detail": "10/20/70 banner markers present"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "dual_publish_license_present",
+      "pass": true,
+      "detail": "dual_publish_license or external_origin declared"
+    },
+    {
+      "book": "",
+      "key": "no_protected_uri_leak",
+      "pass": true,
+      "detail": "0 files leak \"internal://read/protected/\""
+    },
+    {
+      "book": "",
+      "key": "no_full_chapter_leak",
+      "pass": true,
+      "detail": "no full-chapter article/body markers in public or demo pages"
+    },
+    {
+      "book": "",
+      "key": "no_downloadable_files",
+      "pass": true,
+      "detail": "no .pdf/.epub/.docx/.mobi/.azw3 files in dist"
+    }
+  ]
+}

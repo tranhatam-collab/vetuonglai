@@ -3,9 +3,9 @@
     "recommendation": "go",
     "stopLineOpen": false,
     "highestSeverity": "P3",
-    "startedAt": "2026-04-29T07:02:26.353Z",
-    "endedAt": "2026-04-29T07:02:29.759Z",
-    "durationMs": 3398,
+    "startedAt": "2026-05-03T09:15:05.496Z",
+    "endedAt": "2026-05-03T09:15:06.755Z",
+    "durationMs": 1258,
     "suite": {
       "total": 6,
       "passed": 6,
@@ -72,12 +72,43 @@
     },
     "plannedSafe": {
       "scope": "local_wording_only",
-      "recommendation": "go",
+      "recommendation": "no_go",
       "note": {
-        "vi": "Wave D local wording pass: work/market/community/ai/business đang giữ planned-safe wording đúng và shell hiện hành đã đủ để Team 3 audit tiếp.",
-        "en": "Wave D local wording pass: WORK, MARKET, COMMUNITY, AI, and BUSINESS keep the right planned-safe wording, and the current shells are present for Team 3 audits."
+        "vi": "Wave D local wording no-go: WORK brief route đang thiếu câu scope/proof/verification channel.",
+        "en": "Wave D local wording no-go: The WORK brief route is missing the scope/proof/verification-channel disclosure."
       },
-      "findings": [],
+      "findings": [
+        {
+          "key": "work_brief_missing_scope_and_proof",
+          "title": "WORK brief route is missing required Team 3 wording",
+          "severity": "P1",
+          "owner": "Team 2 + Team 3",
+          "stopLine": false,
+          "summaryVi": "WORK brief route đang thiếu câu scope/proof/verification channel.",
+          "summaryEn": "The WORK brief route is missing the scope/proof/verification-channel disclosure.",
+          "evidence": [
+            "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/work.vetuonglai.com/brief/index.html"
+          ],
+          "wave": "D",
+          "surfaceKey": "work_brief",
+          "scope": "continuation"
+        },
+        {
+          "key": "market_home_missing_sample_asset_boundary",
+          "title": "MARKET home is missing required Team 3 wording",
+          "severity": "P1",
+          "owner": "Team 2 + Team 3",
+          "stopLine": false,
+          "summaryVi": "MARKET home đang thiếu câu khóa sample-asset boundary.",
+          "summaryEn": "The MARKET home is missing the sample-asset boundary disclosure.",
+          "evidence": [
+            "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/market.vetuonglai.com/index.html"
+          ],
+          "wave": "D",
+          "surfaceKey": "market_home",
+          "scope": "continuation"
+        }
+      ],
       "auditedSurfaces": [
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/work.vetuonglai.com/index.html",
         "/Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/work.vetuonglai.com/brief/index.html",
@@ -185,8 +216,8 @@
         "wave": "D",
         "recommendation": "no_go",
         "note": {
-          "vi": "Wave D no-go: planned-safe wording local đã sạch, nhưng public rollout vẫn bị chặn bởi DNS/runtime publish theo board active.",
-          "en": "Wave D no-go: the local planned-safe wording is clean, but the public rollout remains blocked by DNS/runtime publish in the active board."
+          "vi": "Wave D local wording no-go: WORK brief route đang thiếu câu scope/proof/verification channel.",
+          "en": "Wave D local wording no-go: The WORK brief route is missing the scope/proof/verification-channel disclosure."
         }
       },
       {
@@ -204,9 +235,9 @@
       "key": "build",
       "label": "Build static system",
       "command": "npm run build",
-      "startedAt": "2026-04-29T07:02:26.361Z",
-      "endedAt": "2026-04-29T07:02:27.584Z",
-      "durationMs": 1223,
+      "startedAt": "2026-05-03T09:15:05.497Z",
+      "endedAt": "2026-05-03T09:15:05.899Z",
+      "durationMs": 402,
       "timeoutMs": 720000,
       "timedOut": false,
       "ok": true,
@@ -218,9 +249,9 @@
       "key": "check",
       "label": "Validate dist outputs",
       "command": "npm run check",
-      "startedAt": "2026-04-29T07:02:27.589Z",
-      "endedAt": "2026-04-29T07:02:28.403Z",
-      "durationMs": 814,
+      "startedAt": "2026-05-03T09:15:05.899Z",
+      "endedAt": "2026-05-03T09:15:06.062Z",
+      "durationMs": 163,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -232,9 +263,9 @@
       "key": "smoke_access",
       "label": "Smoke access runtime",
       "command": "npm run smoke:access-runtime",
-      "startedAt": "2026-04-29T07:02:28.403Z",
-      "endedAt": "2026-04-29T07:02:28.864Z",
-      "durationMs": 461,
+      "startedAt": "2026-05-03T09:15:06.062Z",
+      "endedAt": "2026-05-03T09:15:06.230Z",
+      "durationMs": 168,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -246,9 +277,9 @@
       "key": "smoke_vc",
       "label": "Smoke VC ownership runtime",
       "command": "npm run smoke:vc-ownership-runtime",
-      "startedAt": "2026-04-29T07:02:28.864Z",
-      "endedAt": "2026-04-29T07:02:29.177Z",
-      "durationMs": 313,
+      "startedAt": "2026-05-03T09:15:06.230Z",
+      "endedAt": "2026-05-03T09:15:06.413Z",
+      "durationMs": 183,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -260,9 +291,9 @@
       "key": "smoke_mobile",
       "label": "Smoke mobile PWA",
       "command": "npm run smoke:mobile-pwa",
-      "startedAt": "2026-04-29T07:02:29.177Z",
-      "endedAt": "2026-04-29T07:02:29.457Z",
-      "durationMs": 280,
+      "startedAt": "2026-05-03T09:15:06.413Z",
+      "endedAt": "2026-05-03T09:15:06.578Z",
+      "durationMs": 165,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,
@@ -274,9 +305,9 @@
       "key": "verify_founder_panel_local",
       "label": "Verify founder panel local contract",
       "command": "npm run verify:founder-panel:local",
-      "startedAt": "2026-04-29T07:02:29.458Z",
-      "endedAt": "2026-04-29T07:02:29.738Z",
-      "durationMs": 280,
+      "startedAt": "2026-05-03T09:15:06.578Z",
+      "endedAt": "2026-05-03T09:15:06.742Z",
+      "durationMs": 164,
       "timeoutMs": 180000,
       "timedOut": false,
       "ok": true,

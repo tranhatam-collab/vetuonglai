@@ -84,6 +84,7 @@
     "verify:member:auth-flow": "node scripts/verify-member-auth-flow.mjs",
     "verify:read:phase0": "node scripts/verify-read-phase0.mjs",
     "verify:read:phase0:live": "node scripts/verify-read-phase0.mjs --live",
+    "verify:read:book-publish-gate": "node scripts/verify-read-book-publish-gate.mjs",
     "verify:qa": "npm run verify:links && npm run verify:responsive && npm run verify:i18n && npm run verify:compliance && npm run verify:member:auth-flow"
   }
 }

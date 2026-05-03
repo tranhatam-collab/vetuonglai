@@ -975,6 +975,162 @@ async function testSessionRuntimeContractAndOnboardingGoalPersist() {
   assert.equal(currentBody.tier?.id, 2);
 }
 
+async function testBookPurchasedCapability() {
+  const env = {
+    VTL_ENV: "development",
+    SESSION_COOKIE_SECRET: "smoke-session-secret",
+    MAGIC_LINK_SIGNING_KEY: "smoke-magic-secret",
+    ACCESS_ADMIN_SECRET: "smoke-admin-secret",
+  };
+
+  // 1. Issue session via magic link for a fresh candidate
+  const requestRes = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/session/magic-link/request", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      candidate_email: "book-buyer@vetuonglai.com",
+      entry: "hub",
+      intent: "specialist-pack",
+      member_state: "pending_member",
+      lang: "vi",
+      return_to: "/books/tan-cung-mot-cuoc-song/",
+    }),
+  }), env);
+  assert.equal(requestRes.status, 202);
+  const requestPayload = await readJson(requestRes);
+  const consumed = await maybeHandleAccessRuntime(new Request(requestPayload.magicLink.magicLinkUrl), env);
+  assert.equal(consumed.status, 200);
+  const cookie = getCookie(consumed);
+  assert(cookie.includes("vtl_session="));
+
+  // 2. Pre-grant: /books/check must return 403 for the unowned book
+  const preCheck = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/check?slug=tan-cung-mot-cuoc-song",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(preCheck.status, 403);
+  const preCheckBody = await readJson(preCheck);
+  assert.equal(preCheckBody.authorized, false);
+  assert.equal(preCheckBody.slug, "tan-cung-mot-cuoc-song");
+
+  // 3. Pre-grant: /books/entitlements returns empty owned_books
+  const preList = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/entitlements",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(preList.status, 200);
+  const preListBody = await readJson(preList);
+  assert.deepEqual(preListBody.owned_books, []);
+  assert(preListBody.catalog.known_book_slugs.includes("tan-cung-mot-cuoc-song"));
+
+  // 4. Webhook with book_slug in metadata grants entitlement automatically
+  const webhook = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/webhooks/paypal/orders", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      event_type: "PAYMENT.CAPTURE.COMPLETED",
+      event_id: "evt_book_buy_smoke_1",
+      candidate_email: "book-buyer@vetuonglai.com",
+      pack_key: "g1",
+      metadata: {
+        book_slug: "tan-cung-mot-cuoc-song",
+        order_id: "order_book_smoke_1",
+      },
+    }),
+  }), env);
+  assert.equal(webhook.status, 202);
+
+  // 5. /books/check now returns 200 + authorized
+  const postCheck = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/check?slug=tan-cung-mot-cuoc-song",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(postCheck.status, 200);
+  const postCheckBody = await readJson(postCheck);
+  assert.equal(postCheckBody.authorized, true);
+  assert.deepEqual(postCheckBody.owned_books, ["tan-cung-mot-cuoc-song"]);
+  assert.equal(postCheckBody.grant?.runtime_event, "pack.order.captured");
+
+  // 6. /session/current surfaces owned_books and book_purchased entitlement
+  const current = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/session/current",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(current.status, 200);
+  const currentBody = await readJson(current);
+  assert.deepEqual(currentBody.owned_books, ["tan-cung-mot-cuoc-song"]);
+  assert(currentBody.entitlements.includes("book_purchased"));
+  assert.equal(currentBody.contract?.book_check_endpoint, "/api/access/books/check");
+
+  // 7. Unknown book slug yields 422
+  const unknownSlug = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/check?slug=unknown-book-xyz",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(unknownSlug.status, 422);
+  const unknownBody = await readJson(unknownSlug);
+  assert.equal(unknownBody.error_code, "BOOK_SLUG_INVALID");
+
+  // 8. Admin-grant endpoint requires secret + works
+  const adminUnauthorized = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/grant",
+    {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        candidate_email: "admin-grant@vetuonglai.com",
+        book_slug: "tan-cung-mot-cuoc-song",
+      }),
+    },
+  ), env);
+  assert.equal(adminUnauthorized.status, 401);
+
+  const adminGrant = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/grant",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-admin-secret": "smoke-admin-secret",
+      },
+      body: JSON.stringify({
+        candidate_email: "admin-grant@vetuonglai.com",
+        book_slug: "tan-cung-mot-cuoc-song",
+        order_id: "admin_order_1",
+        provider: "comp",
+      }),
+    },
+  ), env);
+  assert.equal(adminGrant.status, 200);
+  const adminGrantBody = await readJson(adminGrant);
+  assert.equal(adminGrantBody.ok, true);
+  assert.equal(adminGrantBody.slug, "tan-cung-mot-cuoc-song");
+
+  // 9. Refund webhook revokes book entitlement
+  const refund = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/webhooks/paypal/orders", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      event_type: "PAYMENT.CAPTURE.REFUNDED",
+      event_id: "evt_book_refund_smoke_1",
+      candidate_email: "book-buyer@vetuonglai.com",
+      metadata: {
+        book_slug: "tan-cung-mot-cuoc-song",
+      },
+    }),
+  }), env);
+  assert.equal(refund.status, 202);
+
+  const postRefundCheck = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/check?slug=tan-cung-mot-cuoc-song",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(postRefundCheck.status, 403);
+  const postRefundBody = await readJson(postRefundCheck);
+  assert.equal(postRefundBody.authorized, false);
+  assert.deepEqual(postRefundBody.owned_books, []);
+}
+
 async function main() {
   await testSessionFlow();
   await testFreeAccountFromHomepage();
@@ -989,6 +1145,7 @@ async function main() {
   await testRouteNormalizationAndPolicyBindings();
   await testWaveDEntryNormalization();
   await testSessionRuntimeContractAndOnboardingGoalPersist();
+  await testBookPurchasedCapability();
   console.log("smoke-access-runtime: ok");
 }
 

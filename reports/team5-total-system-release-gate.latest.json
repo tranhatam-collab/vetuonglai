@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-29T07:02:32.320Z",
+  "generatedAt": "2026-05-03T09:15:10.233Z",
   "owner": "team-5-smoke-release-qa",
   "lane": "wave-e-total-system-release-gate",
   "decision": {
@@ -9,12 +9,23 @@
     "publish_ready": true,
     "blockers": [],
     "summary": {
-      "total": 8,
-      "passed": 8,
+      "total": 10,
+      "passed": 10,
       "failed": 0
     }
   },
   "rows": [
+    {
+      "key": "team5_full_pack",
+      "label": "Team 5 full smoke/strict pack",
+      "command": "npm run verify:team5:pack",
+      "ok": true,
+      "code": 0,
+      "timedOut": false,
+      "durationSec": 8.4,
+      "note": "",
+      "outputTail": "    \"failed\": 0,\n    \"skipped\": 0\n  },\n  \"runtime_and_live\": {\n    \"total\": 4,\n    \"passed\": 2,\n    \"failed\": 0,\n    \"skipped\": 2\n  }\n}"
+    },
     {
       "key": "planned_safe_wave_release",
       "label": "Wave D planned-safe release pack",
@@ -22,7 +33,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 1.8,
+      "durationSec": 4.7,
       "note": "",
       "outputTail": "      }\n    ],\n    \"gate_rules\": [\n      \"Khong false-live claim tren domain planned-safe.\",\n      \"CTA domain planned-safe phai dan ve diem vao hop le (hub/gateway).\",\n      \"Domain gated-only co the chua public runtime, nhung phai co runtime-truth reference ro rang.\"\n    ]\n  }\n}\nPlanned-safe wave release verification passed."
     },
@@ -33,7 +44,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.4,
+      "durationSec": 0.3,
       "note": "",
       "outputTail": "> vetuonglai-system@1.0.0 verify:team3:referral-disclosure\n> node scripts/verify-referral-disclosure-placement.mjs\n\nTeam 3 — Referral Disclosure Placement Audit\n============================================\n\nReferral touchpoints outside docs: 2\nFindings: 0\n\nPASS — Disclosure placement is valid for non-doc referral touchpoints."
     },
@@ -44,7 +55,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 3.7,
+      "durationSec": 1.4,
       "note": "",
       "outputTail": "    \"total\": 6,\n    \"passed\": 6,\n    \"failed\": 0\n  }\n}\nTeam 3 parity note\n{\n  \"vi\": \"Team 3 pass: không còn stop-line đang mở trong scope local parity hiện tại.\",\n  \"en\": \"Team 3 pass: there are no open stop-lines in the current local parity scope.\"\n}"
     },
@@ -55,7 +66,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.1,
+      "durationSec": 0,
       "note": "",
       "outputTail": "  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/ai.vetuonglai.com --project-name vetuonglai-ai --branch main\n\n[wave-d] business\n  project_name: vetuonglai-business\n  dist_dir: dist/business.vetuonglai.com\n  custom_domains: business.vetuonglai.com\n  notes: Business shell remains planned-safe and cannot be presented as live enterprise onboarding until DNS, Team 4 contract, and Team 5 verify all pass.\n  command: wrangler pages deploy /Users/tranhatam/Documents/Devnewproject/vetuonglai-system/dist/business.vetuonglai.com --project-name vetuonglai-business --branch main\n\nWave D Pages deployment plan complete."
     },
@@ -66,7 +77,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.6,
+      "durationSec": 0.2,
       "note": "",
       "outputTail": "> vetuonglai-system@1.0.0 smoke:access-runtime\n> node scripts/smoke-access-runtime.mjs\n\nsmoke-access-runtime: ok"
     },
@@ -77,9 +88,20 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 0.3,
+      "durationSec": 0.1,
       "note": "",
       "outputTail": "> node scripts/verify-member-auth-flow.mjs\n\nTeam 5 — Member Auth Flow Audit\n================================\n\nChecked pages: 3\nAuth-required actions on onboarding page: 3\nSession endpoint references: 3\n\n✅ PASS — Member auth-aware signup/onboarding flow is wired correctly."
+    },
+    {
+      "key": "read_book_publish_gate",
+      "label": "READ book publish gate (VTL_71 10/20/70 enforcement)",
+      "command": "npm run verify:read:book-publish-gate",
+      "ok": true,
+      "code": 0,
+      "timedOut": false,
+      "durationSec": 0.1,
+      "note": "",
+      "outputTail": "  ✓ [tan-cung-mot-cuoc-song] no_price_in_public: no price markers in public page\n  ✓ [tan-cung-mot-cuoc-song] layered_banner_present: 10/20/70 banner markers present\n  ✓ [tan-cung-mot-cuoc-song] dual_publish_license_present: dual_publish_license or external_origin declared\n  ✓ no_protected_uri_leak: 0 files leak \"internal://read/protected/\"\n  ✓ no_full_chapter_leak: no full-chapter article/body markers in public or demo pages\n  ✓ no_downloadable_files: no .pdf/.epub/.docx/.mobi/.azw3 files in dist\n\n✅ 15/15 checks passed\n\nReport: reports/read-book-publish-gate.latest.json"
     },
     {
       "key": "wave_d_public_publish_self_test",
@@ -99,7 +121,7 @@
       "ok": true,
       "code": 0,
       "timedOut": false,
-      "durationSec": 1.6,
+      "durationSec": 2.9,
       "note": "",
       "outputTail": "      \"status\": 200,\n      \"note\": \"\"\n    }\n  ],\n  \"gate_rules\": [\n    \"Tat ca host Wave D phai reachable bang HTTPS.\",\n    \"Tat ca host Wave D phai tra 200 o root surface.\",\n    \"Tat ca host Wave D phai con marker planned-safe/public boundary ro rang.\"\n  ]\n}"
     }
