@@ -700,6 +700,23 @@ async function main() {
     throw new Error("Hub HTML chua co bo chuyen ngon ngu.");
   }
 
+  assertIncludesAll(hubHtml, "Hub homepage spec sections (Batch 1D)", [
+    'data-compliance="trust-line"',
+    'data-product="personal"',
+    'data-product="family"',
+    'data-product="partner"',
+    'data-tiers="6"',
+    'id="vietnam-advantage"',
+    'data-region="signup"',
+    'data-compliance="earning-gate"',
+    'data-compliance="income-disclaimer"',
+  ]);
+
+  const hubShortDisclaimerCount = (hubHtml.match(/data-compliance="income-disclaimer-short"/g) || []).length;
+  if (hubShortDisclaimerCount < 2) {
+    throw new Error(`Hub HTML thieu income-disclaimer-short (can >=2, co ${hubShortDisclaimerCount}).`);
+  }
+
   assertIncludesAll(founderHtml, "Founder panel", [
     'id="founder-command-form"',
     'id="founder-actions"',

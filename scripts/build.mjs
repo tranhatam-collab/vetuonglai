@@ -1806,6 +1806,15 @@ ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
         <span>© <span data-year></span> Vetuonglai System</span>
         ${localizedText(brandPromiseCopy, "span", { class: "subtle" })}
         ${renderEcosystemBacklinks(currentKey)}
+        ${localizedText(
+          codexPair(
+            "shared.compliance.income_disclaimer",
+            "Về Tương Lai không cam kết bất kỳ mức thu nhập cụ thể nào. Cơ hội cộng tác phụ thuộc vào kỹ năng, thời gian, chất lượng đầu ra và nhu cầu thị trường.",
+            "Vetuonglai does not guarantee any specific income level. Collaboration opportunities depend on skills, time, output quality, and market demand.",
+          ),
+          "p",
+          { class: "footer-disclaimer subtle small-print", "data-compliance": "income-disclaimer" },
+        )}
       </div>
     </footer>
   </main>
@@ -1832,6 +1841,14 @@ function renderHubPage() {
       button("#journey-entry", codexPair("sites.hub.hero.primary_cta", "Xem điểm vào", "View entry point")),
       button("#ecosystem-map", codexPair("shared.cta.explore_related_layer", "Xem lớp liên quan", "Explore related layer"), "ghost"),
     ].join(""),
+    afterActions: localizedText(
+      pair(
+        "Bắt đầu miễn phí. Không cam kết thu nhập. Không bán hàng hóa.",
+        "Free to start. No income guarantees. No physical goods.",
+      ),
+      "p",
+      { class: "hero-trust-line subtle small-print", "data-compliance": "trust-line" },
+    ),
     aside: `
       <div class="hub-hero-aside stack" data-animate-stagger>
         ${renderMetrics([
@@ -2173,6 +2190,169 @@ function renderHubPage() {
     }),
   ]);
 
+  // —— HOMEPAGE_CONTENT.md §10: short income disclaimer (cards / sections) ——
+  const incomeDisclaimerShort = localizedText(
+    pair(
+      "Mức thu nhập tham khảo, không cam kết. Phụ thuộc kỹ năng, thời gian, chất lượng đóng góp và nhu cầu thị trường.",
+      "Income references are illustrative, not guarantees. Depends on skills, time, contribution quality, and market demand.",
+    ),
+    "p",
+    { class: "small-print subtle", "data-compliance": "income-disclaimer-short" },
+  );
+
+  // —— HOMEPAGE_CONTENT.md §4: 3 Product Cards (Cá Nhân / Gia Đình / Đối Tác) ——
+  const productCards = `
+    <div class="grid-3 product-cards">
+      <article class="card product-card" data-product="personal">
+        <div class="card-body stack">
+          <p class="eyebrow"><span aria-hidden="true">🌱</span> ${localizedText(pair("Hành Trình Cá Nhân", "Personal Journey"), "span")}</p>
+          ${cardTitle(pair("Cá Nhân", "Personal"))}
+          ${cardText(pair(
+            "Cho cá nhân muốn học, làm và xây hồ sơ có thể xác minh.",
+            "For individuals who want to learn, work, and build a verifiable profile.",
+          ))}
+          ${renderList([
+            pair("Hồ sơ miễn phí + cộng đồng", "Free profile + community"),
+            pair("Chuyên môn sâu chỉ $3–$9", "Specialist depth from $3–$9"),
+            pair("Annual $99/năm — toàn quyền truy cập", "Annual $99/year — full access"),
+            pair("Loyalty cap năm 9 — giá không tăng", "Loyalty cap year 9 — price locked"),
+          ])}
+          ${button("https://docs.vetuonglai.com/products#personal", pair("Khám phá Cá Nhân", "Explore Personal"), "ghost")}
+        </div>
+      </article>
+      <article class="card product-card" data-product="family">
+        <div class="card-body stack">
+          <p class="eyebrow"><span aria-hidden="true">🏠</span> ${localizedText(pair("Hành Trình Gia Đình", "Family Journey"), "span")}</p>
+          ${cardTitle(pair("Gia Đình", "Family"))}
+          ${cardText(pair(
+            "Cho phụ huynh, con và người thân.",
+            "For parents, children, and relatives.",
+          ))}
+          ${renderList([
+            pair("Phụ huynh quản lý 100%", "Parent-controlled 100%"),
+            pair("Kids tuân COPPA + GDPR-K + PDPD", "Kids compliant with COPPA + GDPR-K + PDPD"),
+            pair("Family Starter $9/tháng (2 người)", "Family Starter $9/month (2 people)"),
+            pair("Family Plus $19/tháng (4 người)", "Family Plus $19/month (4 people)"),
+          ])}
+          ${button("https://docs.vetuonglai.com/products#family", pair("Khám phá Gia Đình", "Explore Family"), "ghost")}
+        </div>
+      </article>
+      <article class="card product-card" data-product="partner">
+        <div class="card-body stack">
+          <p class="eyebrow"><span aria-hidden="true">🤝</span> ${localizedText(pair("Hành Trình Đối Tác", "Partner Journey"), "span")}</p>
+          ${cardTitle(pair("Đối Tác", "Partner"))}
+          ${cardText(pair(
+            "Cho người vừa học vừa muốn cộng tác.",
+            "For people who learn and want to contribute.",
+          ))}
+          ${renderList([
+            pair("Tham gia miễn phí", "Free to join"),
+            pair("Creator Pro $9/tháng — đầy đủ tools", "Creator Pro $9/month — full toolkit"),
+            pair("Affiliate single-tier (1 cấp)", "Single-tier affiliate (1 level)"),
+            pair("Earning sau khi đủ điều kiện*", "Earning after qualification*"),
+          ])}
+          ${button("https://docs.vetuonglai.com/products#partner", pair("Khám phá Đối Tác", "Explore Partner"), "ghost")}
+          ${incomeDisclaimerShort}
+        </div>
+      </article>
+    </div>
+  `;
+
+  // —— HOMEPAGE_CONTENT.md §5: 6-tier Journey Timeline ——
+  const journeyTiers = `
+    <ol class="grid-3 journey-tiers" data-tiers="6">
+      <li class="surface stack-sm" data-tier="1">
+        <p class="eyebrow">${localizedText(pair("Tầng 1", "Tier 1"), "span")}</p>
+        ${cardTitle(pair("Free", "Free"))}
+        ${cardText(pair("Đăng ký miễn phí — bước đầu vào hệ.", "Free signup — first step into the system."))}
+        <p class="mono subtle">$0</p>
+      </li>
+      <li class="surface stack-sm" data-tier="2">
+        <p class="eyebrow">${localizedText(pair("Tầng 2", "Tier 2"), "span")}</p>
+        ${cardTitle(pair("Explorer", "Explorer"))}
+        ${cardText(pair("Trải sản phẩm, chọn hướng đi.", "Sample products, choose a direction."))}
+        <p class="mono subtle">$3–$9</p>
+      </li>
+      <li class="surface stack-sm" data-tier="3">
+        <p class="eyebrow">${localizedText(pair("Tầng 3", "Tier 3"), "span")}</p>
+        ${cardTitle(pair("Learner", "Learner"))}
+        ${cardText(pair("Học chương trình + nộp đầu ra.", "Take programs + submit output."))}
+        <p class="mono subtle">$29–$99</p>
+      </li>
+      <li class="surface stack-sm" data-tier="4">
+        <p class="eyebrow">${localizedText(pair("Tầng 4", "Tier 4"), "span")}</p>
+        ${cardTitle(pair("Builder", "Builder"))}
+        ${cardText(pair("Có đầu ra + bằng chứng. Earning bắt đầu mở (micro).", "Real output + evidence. Earning begins (micro)."))}
+        <p class="mono subtle">${localizedText(pair("Earning micro mở", "Micro earning unlocked"), "span")}</p>
+      </li>
+      <li class="surface stack-sm" data-tier="5">
+        <p class="eyebrow">${localizedText(pair("Tầng 5", "Tier 5"), "span")}</p>
+        ${cardTitle(pair("Contributor", "Contributor"))}
+        ${cardText(pair("Cộng tác chính thức trong hệ.", "Official contributor in the system."))}
+        <p class="mono subtle">${localizedText(pair("Earning đầy đủ", "Full earning"), "span")}</p>
+      </li>
+      <li class="surface stack-sm" data-tier="6">
+        <p class="eyebrow">${localizedText(pair("Tầng 6", "Tier 6"), "span")}</p>
+        ${cardTitle(pair("Partner", "Partner"))}
+        ${cardText(pair("Uy tín cao, doanh thu cao.", "High trust, high revenue."))}
+        <p class="mono subtle">${localizedText(pair("Earning premium", "Premium earning"), "span")}</p>
+      </li>
+    </ol>
+    <p class="body-copy">${localizedText(pair(
+      "Bạn đi từ trái sang phải, từng bước. Mỗi tầng có quyền lợi riêng. Không skip tầng. Không shortcut.",
+      "You progress left to right, step by step. Each tier has its own benefits. No skipping. No shortcuts.",
+    ), "span")}</p>
+    <p class="small-print subtle" data-compliance="earning-gate">${localizedText(pair(
+      "Earning chỉ mở sau khi đạt tầng 4 (Builder) + 90 ngày + đủ điều kiện. Mức thu nhập là khả năng tham khảo, không cam kết.",
+      "Earning unlocks only at Tier 4 (Builder) + 90 days + eligibility. Income references are illustrative, not guarantees.",
+    ), "span")}</p>
+    <p>${button("https://docs.vetuonglai.com/contributor", pair("Xem chi tiết 6 tầng", "See full 6-tier guide"), "ghost")}</p>
+  `;
+
+  // —— HOMEPAGE_CONTENT.md §9: Vietnam Advantage ——
+  const vietnamAdvantage = `
+    <div class="stack">
+      ${cardText(pair(
+        "Tận dụng lợi thế Việt Nam — chi phí cạnh tranh, talent trẻ chất lượng cao, văn hóa làm việc đã được chứng minh — để tạo ra giá trị verifiable có thể export ra thị trường global.",
+        "Leveraging Vietnam's competitive cost, young high-quality talent, and proven work culture to create verifiable value that exports to global markets.",
+      ), "body-copy")}
+      <div class="grid-3 vietnam-advantage-grid">
+        <div class="surface stack-sm">
+          <p class="eyebrow"><span aria-hidden="true">⏰</span> ${localizedText(pair("Múi giờ APAC", "APAC timezone"), "span")}</p>
+          ${cardText(pair("Thuận lợi cho remote work với khách hàng Á–Mỹ.", "Convenient for remote work with Asia–US clients."))}
+        </div>
+        <div class="surface stack-sm">
+          <p class="eyebrow"><span aria-hidden="true">🤖</span> ${localizedText(pair("AI Made in Vietnam", "AI Made in Vietnam"), "span")}</p>
+          ${cardText(pair("Tận dụng FPT AI, VinAI ecosystem.", "Powered by FPT AI, VinAI ecosystem."))}
+        </div>
+        <div class="surface stack-sm">
+          <p class="eyebrow"><span aria-hidden="true">📚</span> ${localizedText(pair("Chất lượng đã chứng minh", "Proven quality"), "span")}</p>
+          ${cardText(pair("FPT, VNG, CMC outsource toàn cầu.", "FPT, VNG, CMC trusted by global brands."))}
+        </div>
+      </div>
+      ${incomeDisclaimerShort}
+    </div>
+  `;
+
+  // —— HOMEPAGE_CONTENT.md §6: Inline Signup CTA (UI placeholder; runtime owned by member.vetuonglai.com) ——
+  const signupCta = `
+    <div class="surface stack signup-cta" data-region="signup">
+      ${cardTitle(pair("Sẵn sàng bắt đầu hành trình của bạn?", "Ready to start your journey?"))}
+      ${cardText(pair(
+        "Đăng ký miễn phí trong vài giây. Không yêu cầu thông tin tài chính. Không cam kết thu nhập.",
+        "Sign up free in seconds. No financial information required. No income guarantees.",
+      ), "body-copy")}
+      <div class="cluster">
+        ${button("https://member.vetuonglai.com/signup", pair("Đăng ký miễn phí", "Start Free"))}
+        ${button("https://docs.vetuonglai.com", pair("Tìm hiểu thêm", "Learn More"), "ghost")}
+      </div>
+      <p class="small-print subtle">${localizedText(pair(
+        "Bằng cách đăng ký, bạn đồng ý với Terms và Privacy.",
+        "By signing up, you agree to the Terms and Privacy Policy.",
+      ), "span")}</p>
+    </div>
+  `;
+
   return renderShell({
     currentKey: "hub",
     pathname: "/",
@@ -2192,6 +2372,10 @@ function renderHubPage() {
       renderSection(pair("Cách hệ hoạt động", "How the system works"), pair("Học đúng, làm thật, tạo giá trị và xác minh bằng bằng chứng.", "Learn correctly, do real work, create value, and verify it through evidence."), `${startHere}${rollout}`, "start-here"),
       renderSection(pair("Lớp truy cập và chiều sâu", "Access and depth"), pair("Giữ đúng lớp nền, rồi mới mở chiều sâu khi thật sự cần.", "Keep the foundation clear, then open depth only when it is truly needed."), `${purchaseHubDisclosure}${entryCards}${packageChooserDisclosure}${packageChooser}`, "purchase-hub"),
       renderSection(pair("Trust và bằng chứng", "Trust and evidence"), pair("Niềm tin tốt hơn khi có thể kiểm tra.", "Trust improves when it can be checked."), `${stories}${trustFlow}${trustReferenceDisclosure}`),
+      renderSection(pair("Ba hành trình sản phẩm", "Three product journeys"), pair("Cá Nhân, Gia Đình và Đối Tác — chọn hành trình phù hợp với trạng thái của bạn.", "Personal, Family, and Partner — choose the journey that fits your current state."), productCards, "products"),
+      renderSection(pair("Sáu tầng hành trình", "Six-tier journey"), pair("Đi từng bước từ Free đến Partner. Earning chỉ mở từ tầng 4 trở lên.", "Step by step from Free to Partner. Earning unlocks only from tier 4 onward."), journeyTiers, "journey-tiers"),
+      renderSection(pair("Việt Nam Advantage", "Vietnam Advantage"), pair("Xây từ Việt Nam, hướng toàn cầu.", "Built from Vietnam, for the world."), vietnamAdvantage, "vietnam-advantage"),
+      renderSection(pair("Bắt đầu miễn phí", "Start free"), pair("Một bước nhỏ để vào hệ. Không yêu cầu thông tin tài chính.", "A small step into the system. No financial information required."), signupCta, "signup"),
       renderSection(pair("Khóa triển khai hiện tại", "Current implementation lock"), pair("Phiên bản đang chạy phải bám đúng vai trò hub.", "The running version must stay faithful to the hub role."), v1),
     ],
   });
