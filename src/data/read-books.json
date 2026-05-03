@@ -1,31 +1,146 @@
 {
-  "version": "2026-05-03",
+  "schemaVersion": "2026.05.03",
+  "lockedBy": "Founder + Team 4",
+  "authority": "VTL_71_READ_LAYERED_BOOK_PUBLISH_MODEL_2026-05-03",
+  "model": {
+    "key": "10_20_70",
+    "layers": {
+      "public": {
+        "pct": 10,
+        "audience": "everyone",
+        "auth_required": false,
+        "allowed": [
+          "back_cover_excerpt",
+          "short_intro_excerpt",
+          "chapter_titles_only",
+          "reading_orientation_framing"
+        ],
+        "blocked": [
+          "full_chapter_body",
+          "final_distillation",
+          "final_white_page_body",
+          "private_reflection_prompts",
+          "kdp_metadata",
+          "raw_manuscript",
+          "downloadable_files",
+          "price"
+        ]
+      },
+      "member_preview": {
+        "pct": 20,
+        "audience": "registered_member",
+        "auth_required": true,
+        "member_states_allowed": [
+          "pending_member",
+          "annual_active",
+          "pack_owner",
+          "program_user",
+          "partner"
+        ],
+        "allowed": [
+          "full_introduction",
+          "full_reading_orientation",
+          "selected_chapter_1_section_1_slice",
+          "one_private_reflection_prompt"
+        ]
+      },
+      "protected_paid": {
+        "pct": 70,
+        "audience": "paid_reader",
+        "auth_required": true,
+        "purchase_required": true,
+        "composition": {
+          "full_chapters_pct": 40,
+          "practice_pct": 20,
+          "experience_or_action_plan_pct": 10,
+          "ai_study_guide_pct": 10
+        },
+        "community_overlay": {
+          "enabled": false,
+          "requires_team3_signoff": true
+        }
+      }
+    }
+  },
   "books": [
     {
-      "id": "tan-cung-mot-cuoc-song",
+      "id": "book_tan_cung_mot_cuoc_song",
+      "sequence": 2,
+      "slug": "tan-cung-mot-cuoc-song",
+      "status": "ready_for_publish_layered",
+      "published": true,
       "title": {
-        "vi": "Tận cùng một cuộc sống",
-        "en": "To The End Of A Life"
+        "vi": "Tận Cùng Một Cuộc Sống",
+        "en": "The Depth of a Single Life"
       },
-      "author": "Tran Ha Tam",
-      "source_site": "tranhatam.com",
-      "external_url": "https://tranhatam.com/books/tan-cung-mot-cuoc-song/",
-      "stages": {
-        "public_sample_pct": 10,
-        "member_preview_pct": 20,
-        "protected_paid_pct": 70
+      "subtitle": {
+        "vi": "Một dòng sống đi đến tận cùng của việc trở thành",
+        "en": "A life stream reaching the end of becoming"
       },
-      "public": {
-        "path": "/books/tan-cung-mot-cuoc-song/",
-        "demo_path": "/books/tan-cung-mot-cuoc-song/demo/",
-        "sitemap_included": true,
-        "show_price_public": false,
-        "public_kdp_exposure": false
+      "author": {
+        "name": "Trần Hà Tâm",
+        "slug": "tran-ha-tam"
+      },
+      "editorial_north_star": {
+        "vi": "Cuốn sách đọc một lần. Mỗi chương đóng lại mà không dạy. Người đọc rời đi mà không bị sửa.",
+        "en": "A book read once. Each chapter closes without teaching. The reader leaves without being corrected."
+      },
+      "back_cover": {
+        "vi": "Đây không phải là cuốn sách để giúp bạn trở thành một phiên bản tốt hơn. Tận Cùng Một Cuộc Sống không thêm một mục tiêu mới, không tạo thêm áp lực để bạn phải hoàn thiện. Nó mở ra một không gian rất lặng, nơi những vai diễn từng được gọi là 'tôi' bắt đầu rơi xuống, nơi quá khứ có thể được nhìn lại mà không cần kết án, và nơi rời không còn đồng nghĩa với mất. Nếu bạn đang mệt vì phải sống như một ai đó, cuốn sách này không bảo bạn phải làm gì. Nó chỉ ngồi xuống cùng bạn.",
+        "en": "This is not a book that helps you become a better version of yourself. The Depth of a Single Life adds no new destination and creates no further pressure to improve. It opens a quiet space where the roles once called 'I' begin to fall, where the past can be seen without judgment, and where letting go no longer means losing. If you are tired of living as someone, this book does not tell you what to do. It simply sits beside you."
+      },
+      "tagline": {
+        "vi": "Đọc ít. Dừng lâu. Sống trọn.",
+        "en": "Read less. Pause longer. Live fully."
+      },
+      "categories": [
+        "philosophy_existentialism",
+        "personal_growth_contemplative",
+        "spirituality_general"
+      ],
+      "languages": ["vi", "en"],
+      "chapter_count": 9,
+      "section_count": 90,
+      "chapters": [
+        { "n": 1, "slug": "duoc-sinh-ra-ma-khong-hoi-truoc", "title_vi": "Được sinh ra mà không hỏi trước", "title_en": "Born Without Being Asked" },
+        { "n": 2, "slug": "nhung-cuoc-lua-chon-khong-tu-do", "title_vi": "Những cuộc lựa chọn không tự do", "title_en": "Choices Without Freedom" },
+        { "n": 3, "slug": "moi-thu-tung-la-toi-deu-tan-ra", "title_vi": "Mọi thứ từng là tôi đều tan rã", "title_en": "Everything That Once Was Me Falls Away" },
+        { "n": 4, "slug": "nhin-lai-mot-doi-ma-khong-phan-xet", "title_vi": "Nhìn lại một đời mà không phán xét", "title_en": "Looking Back Without Judgment" },
+        { "n": 5, "slug": "roi-ma-khong-mat", "title_vi": "Rời mà không mất", "title_en": "Leaving Without Loss" },
+        { "n": 6, "slug": "toi-da-song-xong-ma-van-con-day", "title_vi": "Tôi đã sống xong mà vẫn còn đây", "title_en": "I've Lived It All And Yet I'm Still Here" },
+        { "n": 7, "slug": "tu-do-khong-co-nguoi-so-huu", "title_vi": "Tự do không có người sở hữu", "title_en": "Freedom Without An Owner" },
+        { "n": 8, "slug": "noi-toi-tro-ve-ma-khong-can-den", "title_vi": "Nơi tôi trở về mà không cần đến", "title_en": "Where I Return Without Going" },
+        { "n": 9, "slug": "tan-cung-mot-cuoc-song", "title_vi": "Tận cùng một cuộc sống", "title_en": "The Depth of a Single Life" }
+      ],
+      "public_sample": {
+        "intro_excerpt_vi": "Cuốn này không hỏi bạn thay đổi. Không yêu cầu bạn rút ra điều gì. Đọc xong một chương, gấp lại. Đọc lại nếu một câu vẫn còn đứng đó.",
+        "intro_excerpt_en": "This book does not ask you to change. It does not require you to draw any conclusion. When you finish a chapter, close the book. Read again only if a sentence still stands there.",
+        "framing_vi": "Cuốn sách đi từ sự sinh ra không lựa chọn, qua những tự do từng bị hiểu lầm, đến một khoảng trắng cuối cùng — nơi không cần viết tiếp, không cần chứng minh, không cần trở thành.",
+        "framing_en": "The book moves from being born without choice, through misunderstood freedom, toward a final white space — where nothing more needs to be written, proven, or become."
+      },
+      "member_preview": {
+        "introduction_vi": "Phần giới thiệu đầy đủ chỉ hiển thị sau khi bạn đăng nhập. Đây là không gian đọc chậm, không có nhiệm vụ, không có điểm số.",
+        "introduction_en": "The full introduction is shown only after you sign in. This is a slow reading space, with no tasks and no scores.",
+        "reading_orientation_vi": "Cuốn này không hỏi bạn thay đổi. Không yêu cầu bạn rút ra điều gì. Đọc xong một chương, gấp lại. Đọc lại nếu một câu vẫn còn đứng đó.",
+        "reading_orientation_en": "This book does not ask you to change. It does not require you to draw any conclusion. When you finish a chapter, close the book. Read again only if a sentence still stands there.",
+        "chapter_1_slice_vi": "Bạn được sinh ra mà không ai hỏi trước. Có thể bạn từng cố giải thích sự sống của mình bằng những cái tên, vai diễn, lý do. Cuốn sách bắt đầu trước khi những lời giải thích đó kịp đến.",
+        "chapter_1_slice_en": "You were born without being asked. You may have tried to explain your life with names, roles, and reasons. This book begins before those explanations have time to arrive.",
+        "private_prompt_vi": "Đâu là phần của bạn đã có trước khi bạn kịp chọn?",
+        "private_prompt_en": "What part of you was already there before you could choose?"
+      },
+      "protected_paid": {
+        "full_chapters_uri": "internal://read/protected/tan-cung-mot-cuoc-song/chapters",
+        "practice_map_uri": "internal://read/protected/tan-cung-mot-cuoc-song/practice",
+        "experience_plan_uri": "internal://read/protected/tan-cung-mot-cuoc-song/experience-plan",
+        "ai_study_guide_uri": "internal://read/protected/tan-cung-mot-cuoc-song/ai-guide",
+        "purchase_required": true,
+        "downloadable_public": false
       },
       "access_rules": {
         "public": {
           "visible_pct": 10,
-          "show_full_chapters": false
+          "show_full_chapters": false,
+          "show_price": false
         },
         "registered_member": {
           "visible_pct": 30,
@@ -36,8 +151,24 @@
           "requires_purchase": true
         }
       },
-      "notes": "Layered access: 10% homepage public teaser, 20% free registered preview after signup, 70% protected paid content. No public full chapter or downloadable source exposed.",
-      "published": true
+      "routes": {
+        "public": "/books/tan-cung-mot-cuoc-song/",
+        "demo": "/books/tan-cung-mot-cuoc-song/demo/",
+        "purchase": "/books/tan-cung-mot-cuoc-song/access/"
+      },
+      "external_origin": {
+        "site": "tranhatam.com",
+        "url": "https://tranhatam.com/books/tan-cung-mot-cuoc-song/",
+        "license": "author_owned_dual_publish_allowed"
+      },
+      "claims_to_avoid": [
+        "therapy_outcome",
+        "healing_guarantee",
+        "spiritual_authority",
+        "religious_doctrine",
+        "medical_treatment",
+        "guaranteed_transformation"
+      ]
     }
   ]
 }

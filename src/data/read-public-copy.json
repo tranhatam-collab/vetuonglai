@@ -1,7 +1,20 @@
 {
-  "version": "2026-04-28",
+  "version": "2026-05-03",
   "lockedBy": "Team 4 — Data Contracts",
-  "sourceDoc": "VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28",
+  "sourceDoc": "VTL_71_READ_LAYERED_BOOK_PUBLISH_MODEL_2026-05-03 (supersedes VTL_67 for layered book publish)",
+  "layeredBookModel": {
+    "key": "10_20_70",
+    "publicPct": 10,
+    "memberPreviewPct": 20,
+    "protectedPaidPct": 70,
+    "protectedComposition": {
+      "fullChaptersPct": 40,
+      "practicePct": 20,
+      "experienceOrActionPlanPct": 10,
+      "aiStudyGuidePct": 10
+    },
+    "communityOverlayDefault": "off"
+  },
   "scope": "Approved public-facing copy blocks for READ domain. Build may consume these for rendering. No copy outside this file should appear on read.vetuonglai.com without governance signoff.",
   "corePromise": {
     "vi": "Ai tạo ra giá trị, người đó được ghi nhận.",

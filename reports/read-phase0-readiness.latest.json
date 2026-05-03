@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-04-28T18:15:21.148Z",
+  "timestamp": "2026-05-03T08:48:18.937Z",
   "phase": 0,
-  "liveMode": true,
+  "liveMode": false,
   "passed": 8,
   "total": 8,
   "allPass": true,
@@ -24,7 +24,7 @@
     {
       "key": "banned_phrases",
       "pass": true,
-      "detail": "0 banned phrases in 22 HTML files"
+      "detail": "0 banned phrases in 24 HTML files"
     },
     {
       "key": "runtime_truth_stage",
@@ -44,7 +44,7 @@
     {
       "key": "live_http",
       "pass": true,
-      "detail": "all 9 pages return 200"
+      "detail": "skipped (use --live to enable)"
     }
   ]
 }
