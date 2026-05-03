@@ -1825,8 +1825,8 @@ function renderHubPage() {
     title: codexPair("sites.hub.hero.title", "VỀ TƯƠNG LAI", "VETUONGLAI"),
     description: codexPair(
       "sites.hub.hero.subline",
-      "Một hệ sống để hiểu mình, học đúng và tạo ra giá trị kiểm chứng được.",
-      "A life system to understand yourself, learn correctly, and produce verifiable value.",
+      "Hệ sống, học, làm việc và tạo giá trị có thể xác minh.",
+      "An ecosystem to live, learn, work, and create verifiable value.",
     ),
     actions: [
       button("#journey-entry", codexPair("sites.hub.hero.primary_cta", "Xem điểm vào", "View entry point")),
