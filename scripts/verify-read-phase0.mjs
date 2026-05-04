@@ -202,6 +202,54 @@ async function checkAppsJson() {
 }
 
 // ── 7. Live HTTP probe (optional) ──
+async function probeOnce(url) {
+  let status = null;
+  let fetchErr = null;
+  try {
+    const res = await fetch(url, {
+      redirect: "follow",
+      signal: AbortSignal.timeout(10000),
+    });
+    status = res.status;
+  } catch (e) {
+    fetchErr = e;
+  }
+  if (status === 200) return { ok: true, status, via: "fetch" };
+
+  try {
+    const { stdout } = await execFileAsync("curl", [
+      "-sS",
+      "-L",
+      "--max-time",
+      "10",
+      "--retry",
+      "2",
+      "--retry-delay",
+      "1",
+      "-o",
+      "/dev/null",
+      "-w",
+      "%{http_code}",
+      url,
+    ]);
+    const curlStatus = Number(String(stdout || "").trim());
+    if (curlStatus === 200) return { ok: true, status: curlStatus, via: "curl" };
+    return {
+      ok: false,
+      status: curlStatus,
+      reason: `${status ?? fetchErr?.message ?? "probe_failed"} (curl=${
+        Number.isFinite(curlStatus) ? curlStatus : "n/a"
+      })`,
+    };
+  } catch (curlErr) {
+    return {
+      ok: false,
+      status: null,
+      reason: `${status ?? fetchErr?.message ?? "probe_failed"}; curl_error=${curlErr.message}`,
+    };
+  }
+}
+
 async function checkLiveHttp() {
   if (!LIVE) {
     check("live_http", true, "skipped (use --live to enable)");
@@ -211,40 +259,16 @@ async function checkLiveHttp() {
   const failures = [];
   for (const pg of pages) {
     const url = `https://read.vetuonglai.com${pg}`;
-    let status = null;
-    let fetchErr = null;
-    try {
-      const res = await fetch(url, {
-        redirect: "follow",
-        signal: AbortSignal.timeout(10000),
-      });
-      status = res.status;
-    } catch (e) {
-      fetchErr = e;
-    }
-
-    if (status === 200) continue;
-
-    try {
-      const { stdout } = await execFileAsync("curl", [
-        "-sS",
-        "-L",
-        "--max-time",
-        "10",
-        "-o",
-        "/dev/null",
-        "-w",
-        "%{http_code}",
-        url,
-      ]);
-      const curlStatus = Number(String(stdout || "").trim());
-      if (curlStatus !== 200) {
-        const reason = status ?? fetchErr?.message ?? "probe_failed";
-        failures.push(`${pg} → ${reason} (curl=${Number.isFinite(curlStatus) ? curlStatus : "n/a"})`);
+    // Retry once on transient DNS/network flake before declaring failure.
+    let result = await probeOnce(url);
+    if (!result.ok) {
+      await new Promise((r) => setTimeout(r, 1500));
+      const retry = await probeOnce(url);
+      if (retry.ok) {
+        result = retry;
+      } else {
+        failures.push(`${pg} → ${result.reason}; retry: ${retry.reason}`);
       }
-    } catch (curlErr) {
-      const reason = status ?? fetchErr?.message ?? "probe_failed";
-      failures.push(`${pg} → ${reason}; curl_error=${curlErr.message}`);
     }
   }
   check(
