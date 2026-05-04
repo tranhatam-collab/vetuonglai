@@ -35,6 +35,9 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const READ_DIST = path.join(ROOT, "dist/read.vetuonglai.com");
 const REGISTRY_PATH = path.join(ROOT, "src/data/read-books.json");
+const DIST_ROOT = path.join(ROOT, "dist");
+const PROTECTED_ROOT = path.join(ROOT, "protected/read-books");
+const PROTECTED_MANIFEST = path.join(PROTECTED_ROOT, "manifest.json");
 
 const REQUIRED_BOOK_KEYS = [
   "slug",
@@ -64,10 +67,11 @@ const LAYERED_BANNER_MARKERS_VI = [
 
 const results = [];
 
-function record(book, key, pass, detail) {
-  const entry = { book, key, pass, detail };
+function record(book, key, pass, detail, status) {
+  const finalStatus = status || (pass ? "passed" : "failed");
+  const entry = { book, key, pass, detail, status: finalStatus };
   results.push(entry);
-  const icon = pass ? "✓" : "✗";
+  const icon = finalStatus === "skipped" ? "⊘" : (pass ? "✓" : "✗");
   const scope = book ? `[${book}] ` : "";
   console.log(`  ${icon} ${scope}${key}: ${detail}`);
 }
@@ -243,6 +247,165 @@ async function checkGlobalLeaks(books) {
     allFiles.length === 0
       ? `no ${DOWNLOAD_EXTENSIONS.join("/")} files in dist`
       : `found: ${allFiles.map((f) => path.relative(READ_DIST, f)).slice(0, 5).join("; ")}`);
+}
+
+async function checkProtectedContentPerBook(books) {
+  // 16. protected_content_per_book_present
+  let manifest = null;
+  if (await fileExists(PROTECTED_MANIFEST)) {
+    try {
+      manifest = await readJson(PROTECTED_MANIFEST);
+    } catch {
+      manifest = null;
+    }
+  }
+  const manifestSlugs = new Set(
+    Array.isArray(manifest?.books) ? manifest.books.map((b) => b.slug) : []
+  );
+
+  const requiredChapterFields = ["n", "slug", "title_vi", "title_en", "body_vi", "body_en"];
+
+  for (const book of books) {
+    const slug = String(book.slug || "");
+    if (!book.routes?.public) continue;
+    const failures = [];
+    const contentPath = path.join(PROTECTED_ROOT, slug, "content.json");
+    if (!(await fileExists(contentPath))) {
+      record(slug, "protected_content_per_book_present", false,
+        `missing protected/read-books/${slug}/content.json`);
+      continue;
+    }
+    let content;
+    try {
+      content = await readJson(contentPath);
+    } catch (e) {
+      record(slug, "protected_content_per_book_present", false,
+        `invalid JSON in protected/read-books/${slug}/content.json: ${e.message}`);
+      continue;
+    }
+
+    if (!Array.isArray(content.chapters) || content.chapters.length < 1) {
+      failures.push("chapters[] missing or empty");
+    } else {
+      content.chapters.forEach((ch, i) => {
+        for (const f of requiredChapterFields) {
+          const v = ch[f];
+          if (f === "n") {
+            if (typeof v !== "number") failures.push(`chapters[${i}].n not a number`);
+          } else {
+            if (typeof v !== "string" || v.length === 0) failures.push(`chapters[${i}].${f} missing/empty`);
+          }
+        }
+      });
+    }
+
+    if (!Array.isArray(content.practice_map)) failures.push("practice_map[] missing (must be array)");
+    for (const f of ["experience_plan", "ai_study_guide", "final_distillation", "final_white_page"]) {
+      if (content[f] === undefined || content[f] === null) failures.push(`${f} missing`);
+    }
+
+    if (content.license !== "owner_only_dual_publish") {
+      failures.push(`license must be "owner_only_dual_publish" (got: ${JSON.stringify(content.license)})`);
+    }
+
+    if (!manifestSlugs.has(slug)) {
+      failures.push(`slug "${slug}" not in protected/read-books/manifest.json books[].slug`);
+    }
+
+    record(slug, "protected_content_per_book_present", failures.length === 0,
+      failures.length === 0
+        ? `protected content valid (${content.chapters.length} chapters)`
+        : `failures: ${failures.slice(0, 6).join("; ")}`);
+  }
+}
+
+async function checkProtectedNoLeakInDist(books) {
+  // 17. protected_no_leak_in_dist
+  if (!(await fileExists(READ_DIST))) {
+    record("", "protected_no_leak_in_dist", true, "dist not built", "skipped");
+    return;
+  }
+
+  const stringsToCheck = [];
+  function pushStr(slug, field, str) {
+    if (typeof str === "string" && str.length >= 40) {
+      stringsToCheck.push({ slug, field, str });
+    }
+  }
+
+  for (const book of books) {
+    const slug = String(book.slug || "");
+    if (!book.routes?.public) continue;
+    const contentPath = path.join(PROTECTED_ROOT, slug, "content.json");
+    if (!(await fileExists(contentPath))) continue;
+    let content;
+    try {
+      content = await readJson(contentPath);
+    } catch {
+      continue;
+    }
+    const chapters = Array.isArray(content.chapters) ? content.chapters : [];
+    chapters.forEach((ch, i) => {
+      pushStr(slug, `chapters[${i}].body_vi`, ch.body_vi);
+      pushStr(slug, `chapters[${i}].body_en`, ch.body_en);
+      pushStr(slug, `chapters[${i}].closing_silence_vi`, ch.closing_silence_vi);
+      pushStr(slug, `chapters[${i}].closing_silence_en`, ch.closing_silence_en);
+    });
+    for (const block of ["experience_plan", "ai_study_guide", "final_distillation", "final_white_page"]) {
+      const obj = content[block];
+      if (obj && typeof obj === "object") {
+        for (const [k, v] of Object.entries(obj)) {
+          if (typeof v === "string") pushStr(slug, `${block}.${k}`, v);
+        }
+      }
+    }
+  }
+
+  const htmlFiles = await collectAll(READ_DIST, (f) => f.endsWith(".html"));
+  const leaks = [];
+  for (const f of htmlFiles) {
+    const html = await readFile(f, "utf8");
+    for (const item of stringsToCheck) {
+      if (html.includes(item.str)) {
+        leaks.push({
+          file: path.relative(READ_DIST, f),
+          slug: item.slug,
+          field: item.field,
+          excerpt: item.str.slice(0, 60),
+        });
+      }
+    }
+  }
+
+  record("", "protected_no_leak_in_dist", leaks.length === 0,
+    leaks.length === 0
+      ? `0 protected strings leaked (checked ${stringsToCheck.length} string(s) across ${htmlFiles.length} html file(s))`
+      : `${leaks.length} leak(s): ${leaks.slice(0, 5).map((l) => `${l.file} <- ${l.slug}/${l.field} ("${l.excerpt}...")`).join("; ")}`);
+}
+
+async function checkProtectedDirAbsentInDist() {
+  // 18. protected_dir_absent_in_dist
+  if (!(await fileExists(DIST_ROOT))) {
+    record("", "protected_dir_absent_in_dist", true, "dist not built", "skipped");
+    return;
+  }
+  const all = await collectAll(DIST_ROOT, () => true);
+  const offenders = [];
+  for (const f of all) {
+    const rel = path.relative(DIST_ROOT, f);
+    const segments = rel.split(path.sep);
+    if (segments.includes("protected")) {
+      offenders.push(rel);
+      continue;
+    }
+    if (rel.startsWith(`protected${path.sep}read-books`) || rel.startsWith("protected/read-books")) {
+      offenders.push(rel);
+    }
+  }
+  record("", "protected_dir_absent_in_dist", offenders.length === 0,
+    offenders.length === 0
+      ? "no `protected` segments under dist/"
+      : `found ${offenders.length} offender(s): ${offenders.slice(0, 5).join("; ")}`);
 }
 
 async function main() {

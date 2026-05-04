@@ -1,0 +1,182 @@
+{
+  "book_slug": "tan-cung-mot-cuoc-song",
+  "version": "2026-05-03_placeholder_v1",
+  "license": "owner_only_dual_publish",
+  "license_note": "Author Trần Hà Tâm holds dual-publish rights for tranhatam.com and vetuonglai.com READ. This file is the source of truth for the 70% protected layer served only to candidate_emails with the book_purchased capability. NEVER commit to dist/.",
+  "editorial_north_star_vi": "Cuốn sách đọc một lần. Mỗi chương đóng lại mà không dạy. Người đọc rời đi mà không bị sửa.",
+  "editorial_north_star_en": "A book read once. Each chapter closes without teaching. The reader leaves without being corrected.",
+  "_placeholder_notice": "Placeholder body — replace via admin endpoint or by editing this file before public revenue launch. Each chapter body below is intentionally short to prove the runtime gate end-to-end. Real manuscript edits happen in a later content lane.",
+  "chapters": [
+    {
+      "n": 1,
+      "slug": "duoc-sinh-ra-ma-khong-hoi-truoc",
+      "title_vi": "Được sinh ra mà không hỏi trước",
+      "title_en": "Born Without Being Asked",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 1 mở ra với một câu hỏi không có người hỏi: bạn đã ở đây trước khi kịp đồng ý. Phần còn lại của chương sẽ được biên tập đầy đủ trước khi mở bán doanh thu. Trong giai đoạn này, đây là điểm neo runtime để kiểm tra capability book_purchased và route /books/<slug>/read/.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 1 opens with a question that has no asker: you were already here before you could consent. The rest of this chapter will be fully edited before the revenue launch. For now, this is the runtime anchor to verify the book_purchased capability and the /books/<slug>/read/ route.",
+      "closing_silence_vi": "Chương đóng lại. Không có bài tập.",
+      "closing_silence_en": "The chapter closes. No exercise."
+    },
+    {
+      "n": 2,
+      "slug": "nhung-cuoc-lua-chon-khong-tu-do",
+      "title_vi": "Những cuộc lựa chọn không tự do",
+      "title_en": "Choices Without Freedom",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 2 nhìn vào những lúc bạn tưởng đang chọn nhưng thực ra đang bị chọn. Body sẽ thay bằng manuscript thật.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 2 looks at moments you thought were choices but were chosen for you. Body will be replaced with the real manuscript.",
+      "closing_silence_vi": "Chương đóng lại. Không cần kết luận.",
+      "closing_silence_en": "The chapter closes. No conclusion needed."
+    },
+    {
+      "n": 3,
+      "slug": "moi-thu-tung-la-toi-deu-tan-ra",
+      "title_vi": "Mọi thứ từng là tôi đều tan rã",
+      "title_en": "Everything That Once Was Me Falls Away",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 3 đi qua sự tan rã của những vai diễn từng được gọi là 'tôi'.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 3 walks through the dissolution of roles once called 'I'.",
+      "closing_silence_vi": "Tan rã không phải mất.",
+      "closing_silence_en": "Falling away is not losing."
+    },
+    {
+      "n": 4,
+      "slug": "nhin-lai-mot-doi-ma-khong-phan-xet",
+      "title_vi": "Nhìn lại một đời mà không phán xét",
+      "title_en": "Looking Back Without Judgment",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 4 nhìn lại một đời đã qua mà không kết án nó. Không sửa. Không phân loại đúng sai.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 4 looks back over a life already lived without sentencing it. Nothing is corrected. Nothing is sorted into right or wrong.",
+      "closing_silence_vi": "Quá khứ không cần được sửa.",
+      "closing_silence_en": "The past does not need correcting."
+    },
+    {
+      "n": 5,
+      "slug": "roi-ma-khong-mat",
+      "title_vi": "Rời mà không mất",
+      "title_en": "Leaving Without Loss",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 5 chạm vào những gì có thể được rời đi mà không trở thành mất mát.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 5 touches what can be left without becoming a loss.",
+      "closing_silence_vi": "Rời không đồng nghĩa với mất.",
+      "closing_silence_en": "Leaving is not losing."
+    },
+    {
+      "n": 6,
+      "slug": "toi-da-song-xong-ma-van-con-day",
+      "title_vi": "Tôi đã sống xong mà vẫn còn đây",
+      "title_en": "I've Lived It All And Yet I'm Still Here",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 6 đến chỗ mà cuộc đời đã được sống xong, nhưng có người còn lại.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 6 arrives where the life is already lived, yet someone remains.",
+      "closing_silence_vi": "Sống xong không phải kết thúc.",
+      "closing_silence_en": "Lived through is not ended."
+    },
+    {
+      "n": 7,
+      "slug": "tu-do-khong-co-nguoi-so-huu",
+      "title_vi": "Tự do không có người sở hữu",
+      "title_en": "Freedom Without An Owner",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 7 nói về tự do không có chủ thể.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 7 speaks of freedom without a subject.",
+      "closing_silence_vi": "Tự do không thuộc về ai.",
+      "closing_silence_en": "Freedom belongs to no one."
+    },
+    {
+      "n": 8,
+      "slug": "noi-toi-tro-ve-ma-khong-can-den",
+      "title_vi": "Nơi tôi trở về mà không cần đến",
+      "title_en": "Where I Return Without Going",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 8 mở ra một sự trở về không cần khoảng cách.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 8 opens a return that needs no distance.",
+      "closing_silence_vi": "Trở về không phải đi đến.",
+      "closing_silence_en": "Returning is not going."
+    },
+    {
+      "n": 9,
+      "slug": "tan-cung-mot-cuoc-song",
+      "title_vi": "Tận cùng một cuộc sống",
+      "title_en": "The Depth of a Single Life",
+      "body_vi": "[PROTECTED PLACEHOLDER] Chương 9 đến tận cùng. Sau đó là khoảng trắng.",
+      "body_en": "[PROTECTED PLACEHOLDER] Chapter 9 reaches the depth. After it, white space.",
+      "closing_silence_vi": "Không có gì cần được nói thêm.",
+      "closing_silence_en": "Nothing more needs to be said."
+    }
+  ],
+  "practice_map": [
+    {
+      "chapter": 1,
+      "title_vi": "Mở mắt mà không cần lý do",
+      "title_en": "Opening Eyes Without A Reason",
+      "prompts_vi": ["Đâu là phần của bạn đã có trước khi bạn kịp chọn?"],
+      "prompts_en": ["What part of you was already there before you could choose?"]
+    },
+    {
+      "chapter": 2,
+      "title_vi": "Quan sát một lựa chọn không tự do",
+      "title_en": "Observe One Unfree Choice",
+      "prompts_vi": ["Lựa chọn nào trong tuần qua thật ra không phải là lựa chọn?"],
+      "prompts_en": ["Which choice this week was not actually a choice?"]
+    },
+    {
+      "chapter": 3,
+      "title_vi": "Để một vai diễn rơi xuống",
+      "title_en": "Let One Role Fall",
+      "prompts_vi": ["Vai diễn nào bạn có thể đặt xuống một giờ?"],
+      "prompts_en": ["Which role can you set down for one hour?"]
+    },
+    {
+      "chapter": 4,
+      "title_vi": "Nhìn lại không phán xét",
+      "title_en": "Look Back Without Judgment",
+      "prompts_vi": ["Một sự kiện 5 năm trước. Mô tả mà không kết án."],
+      "prompts_en": ["One event from 5 years ago. Describe without sentencing."]
+    },
+    {
+      "chapter": 5,
+      "title_vi": "Rời một thứ nhỏ",
+      "title_en": "Leave Something Small",
+      "prompts_vi": ["Một vật bạn có thể rời đi mà không thấy mất."],
+      "prompts_en": ["One object you can leave without losing."]
+    },
+    {
+      "chapter": 6,
+      "title_vi": "Còn đây là gì?",
+      "title_en": "What Is Still Here?",
+      "prompts_vi": ["Sau khi mọi sự kiện đã xong, điều gì vẫn còn?"],
+      "prompts_en": ["After every event ended, what remains?"]
+    },
+    {
+      "chapter": 7,
+      "title_vi": "Tự do không sở hữu",
+      "title_en": "Freedom Without Owning",
+      "prompts_vi": ["Một sự tự do bạn không cần giữ lại."],
+      "prompts_en": ["One freedom you do not need to keep."]
+    },
+    {
+      "chapter": 8,
+      "title_vi": "Trở về không khoảng cách",
+      "title_en": "Return Without Distance",
+      "prompts_vi": ["Bạn đã ở nhà chưa, mà chưa biết?"],
+      "prompts_en": ["Were you already home without knowing?"]
+    },
+    {
+      "chapter": 9,
+      "title_vi": "Tận cùng — không bài tập",
+      "title_en": "The Depth — No Exercise",
+      "prompts_vi": ["Không gì cần được làm."],
+      "prompts_en": ["Nothing needs to be done."]
+    }
+  ],
+  "experience_plan": {
+    "vi": "[PROTECTED PLACEHOLDER] Kế hoạch trải nghiệm 30 ngày — không phải kế hoạch hành động. Mỗi tuần đọc lại một chương đã rơi xuống. Không ghi chú. Không mục tiêu. Khoảng giữa các lần đọc chính là kế hoạch.",
+    "en": "[PROTECTED PLACEHOLDER] 30-day experience plan — not an action plan. Each week, re-read one chapter that has fallen away. No notes. No goals. The space between readings is the plan."
+  },
+  "ai_study_guide": {
+    "vi": "[PROTECTED PLACEHOLDER] Hướng dẫn đọc cùng AI — chỉ ba lời nhắc: hỏi AI nhắc lại một câu trong chương vừa đọc; hỏi AI im lặng nếu bạn muốn ngồi với câu đó; không hỏi AI tóm tắt. Cuốn sách không thuộc về sự tóm tắt.",
+    "en": "[PROTECTED PLACEHOLDER] AI study guide — only three prompts: ask AI to repeat one sentence from the chapter; ask AI to be silent if you want to sit with it; do not ask AI to summarize. This book does not belong to summary."
+  },
+  "final_distillation": {
+    "vi": "[PROTECTED PLACEHOLDER] Không có chưng cất cuối cùng. Cuốn sách không cần chưng cất.",
+    "en": "[PROTECTED PLACEHOLDER] There is no final distillation. The book does not need one."
+  },
+  "final_white_page": {
+    "vi": "",
+    "en": ""
+  }
+}

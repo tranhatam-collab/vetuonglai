@@ -1131,6 +1131,187 @@ async function testBookPurchasedCapability() {
   assert.deepEqual(postRefundBody.owned_books, []);
 }
 
+async function testBookContentEndpoint() {
+  const env = {
+    VTL_ENV: "development",
+    SESSION_COOKIE_SECRET: "smoke-session-secret",
+    MAGIC_LINK_SIGNING_KEY: "smoke-magic-secret",
+    ACCESS_ADMIN_SECRET: "smoke-admin-secret",
+  };
+
+  const slug = "tan-cung-mot-cuoc-song";
+
+  // 1. No session cookie -> 401 book_content_session_missing
+  const noCookie = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=chapters`,
+  ), env);
+  assert.equal(noCookie.status, 401);
+  const noCookieBody = await readJson(noCookie);
+  assert.equal(noCookieBody.status, "book_content_session_missing");
+  assert.equal(noCookieBody.error_code, "SESSION_MISSING_COOKIE");
+
+  // Issue session for a fresh candidate (book content reader)
+  const requestRes = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/session/magic-link/request", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      candidate_email: "book-content-reader@vetuonglai.com",
+      entry: "hub",
+      intent: "specialist-pack",
+      member_state: "pending_member",
+      lang: "vi",
+      return_to: `/books/${slug}/`,
+    }),
+  }), env);
+  assert.equal(requestRes.status, 202);
+  const requestPayload = await readJson(requestRes);
+  const consumed = await maybeHandleAccessRuntime(new Request(requestPayload.magicLink.magicLinkUrl), env);
+  assert.equal(consumed.status, 200);
+  const cookie = getCookie(consumed);
+  assert(cookie.includes("vtl_session="));
+
+  // 2. Invalid (empty) slug -> 422 book_slug_invalid
+  const emptySlug = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/content?slug=&section=chapters",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(emptySlug.status, 422);
+  const emptySlugBody = await readJson(emptySlug);
+  assert.equal(emptySlugBody.status, "book_slug_invalid");
+  assert.equal(emptySlugBody.error_code, "BOOK_SLUG_INVALID");
+
+  // 3. Unknown slug -> 422 book_slug_invalid (normalizeBookSlug returns "" for unknown)
+  const unknownSlug = await maybeHandleAccessRuntime(new Request(
+    "https://member.vetuonglai.com/api/access/books/content?slug=no-such-book&section=chapters",
+    { headers: { cookie } },
+  ), env);
+  assert.equal(unknownSlug.status, 422);
+  const unknownSlugBody = await readJson(unknownSlug);
+  assert.equal(unknownSlugBody.status, "book_slug_invalid");
+  assert.equal(unknownSlugBody.error_code, "BOOK_SLUG_INVALID");
+
+  // 4. Valid slug + invalid section -> 422 book_section_invalid
+  const badSection = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=garbage`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(badSection.status, 422);
+  const badSectionBody = await readJson(badSection);
+  assert.equal(badSectionBody.status, "book_section_invalid");
+  assert.equal(badSectionBody.error_code, "BOOK_SECTION_INVALID");
+
+  // 5. Valid slug + valid section but no entitlement -> 403 book_content_forbidden
+  const forbidden = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=chapters`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(forbidden.status, 403);
+  const forbiddenBody = await readJson(forbidden);
+  assert.equal(forbiddenBody.status, "book_content_forbidden");
+  assert.equal(forbiddenBody.error_code, "BOOK_PURCHASED_REQUIRED");
+
+  // Grant entitlement via webhook auto-grant (same pattern as testBookPurchasedCapability)
+  const webhook = await maybeHandleAccessRuntime(new Request("https://vetuonglai.com/api/access/webhooks/paypal/orders", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      event_type: "PAYMENT.CAPTURE.COMPLETED",
+      event_id: "evt_book_content_smoke_1",
+      candidate_email: "book-content-reader@vetuonglai.com",
+      pack_key: "g1",
+      metadata: {
+        book_slug: slug,
+        order_id: "order_book_content_smoke_1",
+      },
+    }),
+  }), env);
+  assert.equal(webhook.status, 202);
+
+  // 6. section=chapters -> 200 array length >= 9 with required keys
+  const chapters = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=chapters`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(chapters.status, 200);
+  const chaptersBody = await readJson(chapters);
+  assert.equal(chaptersBody.status, "book_content_served");
+  assert(Array.isArray(chaptersBody.payload));
+  assert(chaptersBody.payload.length >= 9);
+  for (const chapter of chaptersBody.payload) {
+    assert(typeof chapter.n === "number");
+    assert(typeof chapter.slug === "string");
+    assert(typeof chapter.title_vi === "string");
+    assert(typeof chapter.title_en === "string");
+    assert(typeof chapter.body_vi === "string");
+    assert(typeof chapter.body_en === "string");
+  }
+
+  // 7. section=practice -> 200 array length >= 9
+  const practice = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=practice`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(practice.status, 200);
+  const practiceBody = await readJson(practice);
+  assert.equal(practiceBody.status, "book_content_served");
+  assert(Array.isArray(practiceBody.payload));
+  assert(practiceBody.payload.length >= 9);
+
+  // 8. section=experience -> 200 object (not null)
+  const experience = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=experience`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(experience.status, 200);
+  const experienceBody = await readJson(experience);
+  assert.equal(experienceBody.status, "book_content_served");
+  assert(experienceBody.payload && typeof experienceBody.payload === "object");
+
+  // 9. section=ai-guide -> 200 object (not null)
+  const aiGuide = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=ai-guide`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(aiGuide.status, 200);
+  const aiGuideBody = await readJson(aiGuide);
+  assert.equal(aiGuideBody.status, "book_content_served");
+  assert(aiGuideBody.payload && typeof aiGuideBody.payload === "object");
+
+  // 10. section=final -> 200 with final_distillation + final_white_page keys
+  const finalRes = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=final`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(finalRes.status, 200);
+  const finalBody = await readJson(finalRes);
+  assert.equal(finalBody.status, "book_content_served");
+  assert(finalBody.payload && typeof finalBody.payload === "object");
+  assert("final_distillation" in finalBody.payload);
+  assert("final_white_page" in finalBody.payload);
+
+  // 11. section=chapters&chapter=1 -> 200 single chapter object with n=1
+  const oneChapter = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=chapters&chapter=1`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(oneChapter.status, 200);
+  const oneChapterBody = await readJson(oneChapter);
+  assert.equal(oneChapterBody.status, "book_content_served");
+  assert(oneChapterBody.payload && typeof oneChapterBody.payload === "object");
+  assert(!Array.isArray(oneChapterBody.payload));
+  assert.equal(Number(oneChapterBody.payload.n), 1);
+
+  // 12. section=chapters&chapter=999 -> 404 book_chapter_not_found
+  const missingChapter = await maybeHandleAccessRuntime(new Request(
+    `https://member.vetuonglai.com/api/access/books/content?slug=${slug}&section=chapters&chapter=999`,
+    { headers: { cookie } },
+  ), env);
+  assert.equal(missingChapter.status, 404);
+  const missingChapterBody = await readJson(missingChapter);
+  assert.equal(missingChapterBody.status, "book_chapter_not_found");
+  assert.equal(missingChapterBody.error_code, "BOOK_CHAPTER_NOT_FOUND");
+}
+
 async function main() {
   await testSessionFlow();
   await testFreeAccountFromHomepage();
@@ -1146,6 +1327,7 @@ async function main() {
   await testWaveDEntryNormalization();
   await testSessionRuntimeContractAndOnboardingGoalPersist();
   await testBookPurchasedCapability();
+  await testBookContentEndpoint();
   console.log("smoke-access-runtime: ok");
 }
 

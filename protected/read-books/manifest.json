@@ -1,0 +1,13 @@
+{
+  "version": "2026-05-03",
+  "license": "owner_only_dual_publish",
+  "_warning": "This directory holds the 70% paid layer for READ books. NEVER include in dist/. Served only via /api/access/books/content after book_purchased capability check.",
+  "books": [
+    {
+      "slug": "tan-cung-mot-cuoc-song",
+      "content_path": "tan-cung-mot-cuoc-song/content.json",
+      "status": "placeholder_v1"
+    }
+  ],
+  "valid_sections": ["chapters", "practice", "experience", "ai-guide", "final"]
+}

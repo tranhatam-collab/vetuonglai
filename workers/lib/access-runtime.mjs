@@ -5,6 +5,8 @@ import productStrategyRegistry from "../../src/data/product-strategy-registry.js
 import team3PolicyMatrix from "../../src/data/team3-policy-matrix.json" with { type: "json" };
 import runtimeTruth from "../../cloudflare/domain-runtime-truth.json" with { type: "json" };
 import readBooksRegistry from "../../src/data/read-books.json" with { type: "json" };
+import protectedManifest from "../../protected/read-books/manifest.json" with { type: "json" };
+import protectedTanCung from "../../protected/read-books/tan-cung-mot-cuoc-song/content.json" with { type: "json" };
 import { createAccessStore } from "./access-state.mjs";
 
 const ACCESS_BASE = "/api/access";
@@ -52,6 +54,22 @@ const memberSurfaceContract = subdomainFormRegistry.find((entry) => entry.surfac
 const pathwayIds = new Set(((productStrategyRegistry.pathways?.items) || []).map((entry) => String(entry.id || "")).filter(Boolean));
 const knownBookSlugs = new Set(
   (Array.isArray(readBooksRegistry?.books) ? readBooksRegistry.books : [])
+    .map((entry) => String(entry?.slug || "").trim().toLowerCase())
+    .filter(Boolean),
+);
+
+const PROTECTED_BOOK_CONTENT = {
+  "tan-cung-mot-cuoc-song": protectedTanCung,
+};
+
+const VALID_BOOK_CONTENT_SECTIONS = new Set(
+  Array.isArray(protectedManifest?.valid_sections) && protectedManifest.valid_sections.length > 0
+    ? protectedManifest.valid_sections
+    : ["chapters", "practice", "experience", "ai-guide", "final"],
+);
+
+const PROTECTED_BOOKS_IN_MANIFEST = new Set(
+  (Array.isArray(protectedManifest?.books) ? protectedManifest.books : [])
     .map((entry) => String(entry?.slug || "").trim().toLowerCase())
     .filter(Boolean),
 );
@@ -571,6 +589,7 @@ function sessionRuntimeContractPayload() {
     onboarding_goal_endpoint: `${ACCESS_BASE}/onboarding/goal`,
     book_entitlements_endpoint: `${ACCESS_BASE}/books/entitlements`,
     book_check_endpoint: `${ACCESS_BASE}/books/check`,
+    book_content_endpoint: `${ACCESS_BASE}/books/content`,
     states: ["session_active", "session_missing", "session_expiring", "session_refreshed"],
     error_codes: [
       "SESSION_MISSING",
@@ -946,6 +965,40 @@ function hasBookEntitlement(session, bookSlug) {
   if (!slug) return false;
   const owned = Array.isArray(session?.owned_books) ? session.owned_books : [];
   return owned.includes(slug);
+}
+
+function normalizeBookContentSection(value) {
+  const section = String(value || "").trim().toLowerCase();
+  return VALID_BOOK_CONTENT_SECTIONS.has(section) ? section : "";
+}
+
+function getProtectedBookContent(slug) {
+  const normalizedSlug = normalizeBookSlug(slug);
+  if (!normalizedSlug) return null;
+  if (!PROTECTED_BOOKS_IN_MANIFEST.has(normalizedSlug)) return null;
+  const content = PROTECTED_BOOK_CONTENT[normalizedSlug];
+  return content && typeof content === "object" ? content : null;
+}
+
+function selectBookContentSection(content, section) {
+  if (!content || typeof content !== "object") return null;
+  switch (section) {
+    case "chapters":
+      return Array.isArray(content.chapters) ? content.chapters : [];
+    case "practice":
+      return Array.isArray(content.practice_map) ? content.practice_map : [];
+    case "experience":
+      return content.experience_plan || null;
+    case "ai-guide":
+      return content.ai_study_guide || null;
+    case "final":
+      return {
+        final_distillation: content.final_distillation || null,
+        final_white_page: content.final_white_page || null,
+      };
+    default:
+      return null;
+  }
 }
 
 function effectiveAccessSnapshot(session = {}, runtimeState = {}, learningSummary = null, bookEntitlements = null) {
@@ -2626,6 +2679,138 @@ async function handleBookGrantInternal(request, env) {
   });
 }
 
+async function handleBookContent(request, env) {
+  const url = new URL(request.url);
+  const requestedSlug = String(url.searchParams.get("slug") || "").trim().toLowerCase();
+  const requestedSection = String(url.searchParams.get("section") || "chapters").trim().toLowerCase();
+  const requestedChapterParam = String(url.searchParams.get("chapter") || "").trim();
+  const slug = normalizeBookSlug(requestedSlug);
+  const section = normalizeBookContentSection(requestedSection);
+
+  if (!slug) {
+    return jsonResponse({
+      status: "book_slug_invalid",
+      authenticated: false,
+      authorized: false,
+      requested_slug: requestedSlug,
+      known_book_slugs: [...knownBookSlugs],
+      error_code: "BOOK_SLUG_INVALID",
+    }, { status: 422 });
+  }
+  if (!section) {
+    return jsonResponse({
+      status: "book_section_invalid",
+      authenticated: false,
+      authorized: false,
+      slug,
+      requested_section: requestedSection,
+      valid_sections: [...VALID_BOOK_CONTENT_SECTIONS],
+      error_code: "BOOK_SECTION_INVALID",
+    }, { status: 422 });
+  }
+
+  const envelope = await readSessionEnvelopeFromRequest(request, env);
+  if (!envelope.ok) {
+    return jsonResponse({
+      status: "book_content_session_missing",
+      authenticated: false,
+      authorized: false,
+      slug,
+      section,
+      error_code: envelope.code || "SESSION_INVALID",
+      contract: sessionRuntimeContractPayload(),
+    }, { status: 401 });
+  }
+
+  const effectiveSession = await resolveEffectiveSession(request, env);
+  if (!effectiveSession) {
+    return jsonResponse({
+      status: "book_content_session_invalid",
+      authenticated: false,
+      authorized: false,
+      slug,
+      section,
+      error_code: "SESSION_INVALID",
+    }, { status: 401 });
+  }
+
+  if (!hasBookEntitlement(effectiveSession, slug)) {
+    await logSessionAudit(env, "book_content_forbidden", {
+      candidate_email: effectiveSession.candidate_email,
+      slug,
+      section,
+    });
+    return jsonResponse({
+      status: "book_content_forbidden",
+      authenticated: true,
+      authorized: false,
+      slug,
+      section,
+      error_code: "BOOK_PURCHASED_REQUIRED",
+      detail: "Session does not hold the book_purchased capability for this slug.",
+      member_state: effectiveSession.member_state,
+      owned_books: effectiveSession.owned_books || [],
+    }, { status: 403 });
+  }
+
+  const content = getProtectedBookContent(slug);
+  if (!content) {
+    return jsonResponse({
+      status: "book_content_not_provisioned",
+      authenticated: true,
+      authorized: true,
+      slug,
+      section,
+      error_code: "BOOK_CONTENT_NOT_PROVISIONED",
+      detail: "Slug is in registry but no protected content is provisioned yet.",
+    }, { status: 404 });
+  }
+
+  let payload = selectBookContentSection(content, section);
+
+  // Optional per-chapter slice
+  if (section === "chapters" && requestedChapterParam) {
+    const chapterNumber = Number.parseInt(requestedChapterParam, 10);
+    if (Number.isFinite(chapterNumber)) {
+      payload = (payload || []).find((c) => Number(c.n) === chapterNumber) || null;
+      if (!payload) {
+        return jsonResponse({
+          status: "book_chapter_not_found",
+          authenticated: true,
+          authorized: true,
+          slug,
+          section,
+          requested_chapter: chapterNumber,
+          error_code: "BOOK_CHAPTER_NOT_FOUND",
+        }, { status: 404 });
+      }
+    }
+  }
+
+  await logSessionAudit(env, "book_content_served", {
+    candidate_email: effectiveSession.candidate_email,
+    slug,
+    section,
+    requested_chapter: requestedChapterParam || null,
+  });
+
+  return jsonResponse({
+    status: "book_content_served",
+    authenticated: true,
+    authorized: true,
+    slug,
+    section,
+    book: {
+      slug,
+      version: content.version || null,
+      license: content.license || null,
+      editorial_north_star_vi: content.editorial_north_star_vi || null,
+      editorial_north_star_en: content.editorial_north_star_en || null,
+    },
+    payload,
+  });
+}
+
 export async function maybeHandleAccessRuntime(request, env = {}) {
   const url = new URL(request.url);
   if (!url.pathname.startsWith(ACCESS_BASE)) {
@@ -2694,6 +2879,10 @@ export async function maybeHandleAccessRuntime(request, env = {}) {
 
   if (request.method === "POST" && url.pathname === `${ACCESS_BASE}/books/grant`) {
     return handleBookGrantInternal(request, env);
+  }
+
+  if (request.method === "GET" && url.pathname === `${ACCESS_BASE}/books/content`) {
+    return handleBookContent(request, env);
   }
 
   if (request.method === "GET" && url.pathname === `${ACCESS_BASE}/learning/state`) {
