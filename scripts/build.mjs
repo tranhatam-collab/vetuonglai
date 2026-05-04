@@ -2322,7 +2322,7 @@ function renderHubPage() {
           ${cardText(pair("Thuận lợi cho remote work với khách hàng Á–Mỹ.", "Convenient for remote work with Asia–US clients."))}
         </div>
         <div class="surface stack-sm">
-          <p class="eyebrow"><span aria-hidden="true">🤖</span> ${localizedText(pair("AI Made in Vietnam", "AI Made in Vietnam"), "span")}</p>
+          <p class="eyebrow"><span aria-hidden="true">🤖</span> ${localizedText(pair("AI sản xuất tại Việt Nam", "AI made in Vietnam"), "span")}</p>
           ${cardText(pair("Tận dụng FPT AI, VinAI ecosystem.", "Powered by FPT AI, VinAI ecosystem."))}
         </div>
         <div class="surface stack-sm">
