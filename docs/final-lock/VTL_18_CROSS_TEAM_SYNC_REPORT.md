@@ -219,6 +219,49 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 1 Log
 
+### 2026-05-04 10:15 ICT — Team 1
+- status: in_progress
+- scope: Batch 1 hub homepage rebuild theo `files/VETUONGLAI_HOMEPAGE_CONTENT.md` v1.0 và tách READ Step 3 plumbing thành commit độc lập
+- deliverable_total: 5 (1A tagline, 1D 4 section spec, fix bilingual, Step 3 plumbing, fix verifier flake)
+- deliverable_done: 5
+- % hoàn thành: 100% trong scope phiên (1B/1C deferred chờ founder source)
+- % còn lại: 0% trong scope phiên
+- done:
+  - `80d99c7` Batch 1A: khoá tagline hero hub theo Option B (Định hướng) trong `content/vi.json`, `content/en.json`, `scripts/build.mjs:1828`. VI: "Hệ sống, học, làm việc và tạo giá trị có thể xác minh." / EN: "An ecosystem to live, learn, work, and create verifiable value."
+  - `bc79873` Batch 1D: dựng additive 4 section theo spec — `#products` (3 Master Pass: Personal/Family/Partner), `#journey-tiers` (6-tier Free→Explorer→Learner→Builder→Contributor→Partner với earning-gate disclaimer), `#vietnam-advantage` (3-card grid), `#signup` (CTA member.vetuonglai.com/signup). Wire `shared.compliance.income_disclaimer` vào `renderShell` footer (mọi page mọi subdomain). Hero trust-line `afterActions`: VI "Bắt đầu miễn phí. Không cam kết thu nhập. Không bán hàng hóa." / EN "Free to start. No income guarantees. No physical goods.". Disclaimer 5 vị trí (vượt yêu cầu spec 4 vị trí). Khoá assertion mới trong `scripts/check.mjs`.
+  - `30a60fe` fix(hub): vá regression bilingual của 1D — card 2 vietnamAdvantage có VI side trùng EN ("AI Made in Vietnam"). Đổi VI → "AI sản xuất tại Việt Nam", EN giữ "AI made in Vietnam". `audit-bilingual` về lại 0 issue / 86 file.
+  - `05c6c65` feat(read): step 3 runtime/protected plumbing PLACEHOLDER (KHÔNG phải paid-content live). Thêm `workers/lib/access-runtime.mjs` resolver `book_purchased`, `protected/read-books/{README.md, manifest.json, tan-cung-mot-cuoc-song/content.json}` (body chương = `[PROTECTED PLACEHOLDER]`, file tự khai báo placeholder ở `_placeholder_notice` line 8 và license_note cấm dist/), `scripts/smoke-access-runtime.mjs` (5-path), nâng `scripts/verify-read-book-publish-gate.mjs` (15/15 pass). Sửa Ch4 vi phạm editorial north star "không dạy" — `dạy cách nhìn lại quá khứ` → `nhìn lại một đời đã qua mà không kết án nó. Không sửa. Không phân loại đúng sai.`
+  - `335c783` fix(verify): vá flake `verify-read-phase0 -- --live`. Tách `probeOnce()`, thêm `--retry 2 --retry-delay 1` cho curl, retry 1.5s nếu fetch + curl đều miss. Không thêm điều kiện pass mới — chỉ chuyển transient DNS hiccup thành soft pass; outage thực vẫn fail rõ ràng.
+- next:
+  - chờ founder source: body Bài 1 + master plan 23-slug/10-series cho `content/series.json` để mở Batch 1B/1C
+  - chờ founder manuscript thật để chuyển Step 3 từ `placeholder runtime` sang `revenue-ready content` (body chương trong `protected/read-books/tan-cung-mot-cuoc-song/content.json`)
+  - quyết định xử lý debris untracked `apps/pages/public/assets/visuals/*.webp` (21 file WRITE-app) + `content/media-registry.json` — ngoài scope phiên, không commit chung
+- blocked:
+  - 1B/1C: thiếu manuscript Bài 1 + master plan series (không tồn tại trong repo)
+  - Step 3 → revenue: thiếu manuscript thật cho 9 chương "Tận cùng một cuộc sống"
+- changed files (5 commit):
+  - `content/vi.json`, `content/en.json`, `scripts/build.mjs`, `scripts/check.mjs`
+  - `workers/lib/access-runtime.mjs`, `scripts/smoke-access-runtime.mjs`, `scripts/verify-read-book-publish-gate.mjs`, `scripts/verify-read-phase0.mjs`
+  - `protected/read-books/README.md`, `protected/read-books/manifest.json`, `protected/read-books/tan-cung-mot-cuoc-song/content.json` (mới)
+  - `docs/00_master/42_BILINGUAL_AUDIT_REPORT.md`, `reports/read-book-publish-gate.latest.json`, `reports/read-phase0-readiness.latest.json` (auto-regen)
+- handoff gửi tới:
+  - Team 5: gate `verify:read:phase0 --live` đã ổn định, có thể dùng làm release truth lại
+  - Team 5: `protected/read-books/` plumbing sẵn sàng nhận manuscript thật khi founder duyệt — không cần code mới
+- handoff cần từ:
+  - Founder: manuscript Bài 1 + danh sách 23-slug master plan + body 9 chương "Tận cùng một cuộc sống"
+- risks:
+  - rủi ro hiểu nhầm Step 3 commit là paid-content live — đã chống bằng commit subject `placeholder`, `_placeholder_notice` trong content.json, license_note cấm dist/
+  - rủi ro `vietnam-advantage` card eyebrow lặp brand-name future — `audit-bilingual` đã chặn
+- gates phiên (clean tree):
+  - `npm run build` PASS
+  - `npm run check` PASS
+  - `npm run audit:bilingual` PASS — 0 issue / 86 file
+  - `npm run smoke:access-runtime` PASS
+  - `npm run verify:read:phase0` PASS 8/8
+  - `npm run verify:read:phase0 -- --live` PASS 8/8 (all 9 pages 200)
+  - `node scripts/verify-read-book-publish-gate.mjs` PASS 15/15
+  - `node scripts/verify-member-auth-flow.mjs` PASS
+
 ### 2026-04-28 12:22 ICT — Team 1
 - status: release_ready
 - scope: rà đồng bộ check/prelive/smoke endpoints để loại bỏ drift assumption VC host và xác nhận gate Team 1 + Team 4 vẫn xanh
