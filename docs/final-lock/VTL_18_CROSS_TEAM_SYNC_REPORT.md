@@ -219,6 +219,47 @@ Mọi cập nhật mới phải được thêm đúng section, với bản mới
 
 ## Team 1 Log
 
+### 2026-05-05 10:25 ICT — Team 1
+- status: in_progress
+- scope: xây hệ thống auto-dev-loop chạy 9 phút/lần qua launchd, theo yêu cầu founder "Tạo kế hoạch lịch tự động 9 phút 1 lần"
+- deliverable_total: 8 (state model, entry script, 3 handler, plist, stop/arm script, smoke test, doc)
+- deliverable_done: 8
+- % hoàn thành: 100% trong scope phiên (armed but stopped, chưa load launchd)
+- % còn lại: 0% trong scope phiên
+- done:
+  - `fad1d8f` feat(auto-dev): scaffolding khung hành động — `scripts/auto-dev-loop.mjs` (entry 1 tick), `.autodev/state.json` (counter), `.autodev/backlog.json` (5 task ban đầu), 3 handler (verifier-flake, auto-assertion-lock, scaffold-only), `.autodev/com.vetuonglai.autodev.plist` (StartInterval 540s), `stop.sh`, README quy tắc an toàn cứng
+  - `9f6adc6` [auto-dev-loop] commit đầu tiên tự động: scaffold `content/essays/bai-1-vi-sao-toi-viet-series-nay.json` với `status="awaiting_founder_manuscript"`, `blocks_build=true`, body=null. Loop ĐÃ KHÔNG fabricate body — đúng quy tắc
+  - `5a8e2e5` fix: persist state/backlog cùng commit task; reset noise files (audit timestamp, reports/*.latest.json) trước khi pick task
+  - `bbaaa35` fix: housekeeping commit khi tick xanh không có task, giữ working tree clean cho tick kế
+  - `4d5805b` fix: idempotent stopped_at; commit state khi STOP để working tree không bị dirty sau unload launchd
+  - `134fb80` reset state cho lifecycle test
+  - `e0a4363`, `fbff100`, `b7ddea7`: 3 commit do loop tự tạo trong full-cycle test (tick 1 housekeeping, tick 2 housekeeping, tick 2 STOP)
+  - `0c6c2f6` (đang chuẩn bị): feat(auto-dev): arm.sh để kích hoạt lại loop sau STOP
+- next:
+  - founder quyết định khi nào load launchd. Cách nhanh: `bash .autodev/arm.sh --load`
+  - nếu founder cấp manuscript Bài 1: loại `awaiting_founder_manuscript` khỏi `content/essays/bai-1-*.json` để unblock build
+  - quyết định xử lý `docs/final-lock/VTL_72_*` và debris `apps/`, `content/media-registry.json` (untracked, ngoài scope phiên)
+- blocked:
+  - 1B/1C content thay vì scaffold-only: thếu manuscript founder
+  - Step 3 → revenue: thếu manuscript 9 chương
+- changed files:
+  - new: `scripts/auto-dev-loop.mjs`, `.autodev/{README.md,state.json,backlog.json,stop.sh,arm.sh,com.vetuonglai.autodev.plist}`, `.autodev/handlers/{verifier-flake,auto-assertion-lock,scaffold-only,bilingual}.mjs`, `content/essays/bai-1-vi-sao-toi-viet-series-nay.json` (do loop tạo, body=null)
+  - modified: `.gitignore` (thêm `.autodev/logs/`, `STOP`, `proposals/`)
+- handoff gửi tới:
+  - All teams: mọi commit do loop tạo có prefix `[auto-dev-loop]` → dễ revert hàng loạt bằng `git log --grep="auto-dev-loop"`
+  - Team 5: có thể nhìn `.autodev/logs/YYYY-MM-DD.jsonl` để audit hiệu quả loop
+- handoff cần từ:
+  - Founder: xác nhận timing load launchd (Option A: armed but stopped, chờ founder bật)
+- risks:
+  - rủi ro loop tự fabricate content founder voice → đã chặn bằng quy tắc cứng + scaffold-only handler chỉ tạo file rỗng
+  - rủi ro working tree dirty → đã chặn bằng `gitWorkingTreeClean()` ABORT + `resetLoopNoise()` + housekeeping commit
+  - rủi ro commit kiểu "vòng véo" → đã chặn bằng `consecutive_clean_ticks >= 2 → STOP + unloadLaunchd`
+- gates phiên (sau lifecycle test, working tree sau khi pop VTL_72):
+  - `npm run build` PASS
+  - `npm run check` PASS
+  - `npm run audit:bilingual` PASS — 0 issue / 86 file
+  - lifecycle test 3 tick: tick 1 (no work, streak=1), tick 2 (no work, streak=2 → STOP), tick 3 (exit ngay) — working tree sau mỗi tick đều clean
+
 ### 2026-05-04 10:15 ICT — Team 1
 - status: in_progress
 - scope: Batch 1 hub homepage rebuild theo `files/VETUONGLAI_HOMEPAGE_CONTENT.md` v1.0 và tách READ Step 3 plumbing thành commit độc lập
