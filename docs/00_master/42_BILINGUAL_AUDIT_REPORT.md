@@ -1,6 +1,6 @@
 # 42 — Bilingual Audit Report
 
-Generated: 2026-05-04 (informational; not a build gate)
+Generated: 2026-05-05 (informational; not a build gate)
 
 Scope: `dist/` (86 HTML files across 16 hosts)
 

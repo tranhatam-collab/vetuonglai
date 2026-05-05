@@ -249,6 +249,21 @@ async function checkGlobalLeaks(books) {
       : `found: ${allFiles.map((f) => path.relative(READ_DIST, f)).slice(0, 5).join("; ")}`);
 }
 
+async function resolveProtectedContentPath(slug) {
+  // Founder order 2026-05-05: content.json is gitignored. Prefer content.json
+  // when present; otherwise fall back to the tracked content.placeholder.json
+  // baseline so the verifier still works on a fresh clone.
+  const liveCandidate = path.join(PROTECTED_ROOT, slug, "content.json");
+  if (await fileExists(liveCandidate)) {
+    return { resolvedPath: liveCandidate, source: "content.json" };
+  }
+  const placeholderCandidate = path.join(PROTECTED_ROOT, slug, "content.placeholder.json");
+  if (await fileExists(placeholderCandidate)) {
+    return { resolvedPath: placeholderCandidate, source: "content.placeholder.json (fallback)" };
+  }
+  return { resolvedPath: null, source: null };
+}
+
 async function checkProtectedContentPerBook(books) {
   // 16. protected_content_per_book_present
   let manifest = null;
@@ -260,7 +275,7 @@ async function checkProtectedContentPerBook(books) {
     }
   }
   const manifestSlugs = new Set(
-    Array.isArray(manifest?.books) ? manifest.books.map((b) => b.slug) : []
+    Array.isArray(manifest?.books) ? manifest.books.map((b) => String(b.slug || "").toLowerCase()) : []
   );
 
   const requiredChapterFields = ["n", "slug", "title_vi", "title_en", "body_vi", "body_en"];
@@ -269,18 +284,18 @@ async function checkProtectedContentPerBook(books) {
     const slug = String(book.slug || "");
     if (!book.routes?.public) continue;
     const failures = [];
-    const contentPath = path.join(PROTECTED_ROOT, slug, "content.json");
-    if (!(await fileExists(contentPath))) {
+    const { resolvedPath, source } = await resolveProtectedContentPath(slug);
+    if (!resolvedPath) {
       record(slug, "protected_content_per_book_present", false,
-        `missing protected/read-books/${slug}/content.json`);
+        `missing both protected/read-books/${slug}/content.json and content.placeholder.json`);
       continue;
     }
     let content;
     try {
-      content = await readJson(contentPath);
+      content = await readJson(resolvedPath);
     } catch (e) {
       record(slug, "protected_content_per_book_present", false,
-        `invalid JSON in protected/read-books/${slug}/content.json: ${e.message}`);
+        `invalid JSON in protected/read-books/${slug}/${path.basename(resolvedPath)}: ${e.message}`);
       continue;
     }
 
@@ -308,14 +323,15 @@ async function checkProtectedContentPerBook(books) {
       failures.push(`license must be "owner_only_dual_publish" (got: ${JSON.stringify(content.license)})`);
     }
 
-    if (!manifestSlugs.has(slug)) {
-      failures.push(`slug "${slug}" not in protected/read-books/manifest.json books[].slug`);
+    if (!manifestSlugs.has(slug.toLowerCase())) {
+      failures.push(`slug "${slug}" not in protected/read-books/manifest.json books[].slug (case-insensitive)`);
     }
 
+    const chapterCount = Array.isArray(content.chapters) ? content.chapters.length : 0;
     record(slug, "protected_content_per_book_present", failures.length === 0,
       failures.length === 0
-        ? `protected content valid (${content.chapters.length} chapters)`
-        : `failures: ${failures.slice(0, 6).join("; ")}`);
+        ? `protected content valid (${chapterCount} chapters, source=${source})`
+        : `[source=${source}] failures: ${failures.slice(0, 6).join("; ")}`);
   }
 }
 
@@ -326,24 +342,35 @@ async function checkProtectedNoLeakInDist(books) {
     return;
   }
 
+  const PLACEHOLDER_PREFIX = "[PROTECTED PLACEHOLDER] ";
   const stringsToCheck = [];
   function pushStr(slug, field, str) {
-    if (typeof str === "string" && str.length >= 40) {
-      stringsToCheck.push({ slug, field, str });
+    if (typeof str !== "string") return;
+    // Strip the placeholder prefix so we still detect leaks of the real text
+    // that follows the marker. If the post-prefix substring is < 40 chars,
+    // skip the snippet (it's too short to be a meaningful leak signal).
+    let candidate = str;
+    if (candidate.startsWith(PLACEHOLDER_PREFIX)) {
+      candidate = candidate.slice(PLACEHOLDER_PREFIX.length);
+    }
+    if (candidate.length >= 40) {
+      stringsToCheck.push({ slug, field, str: candidate });
     }
   }
 
+  const sources = [];
   for (const book of books) {
     const slug = String(book.slug || "");
     if (!book.routes?.public) continue;
-    const contentPath = path.join(PROTECTED_ROOT, slug, "content.json");
-    if (!(await fileExists(contentPath))) continue;
+    const { resolvedPath, source } = await resolveProtectedContentPath(slug);
+    if (!resolvedPath) continue;
     let content;
     try {
-      content = await readJson(contentPath);
+      content = await readJson(resolvedPath);
     } catch {
       continue;
     }
+    sources.push(`${slug}=${source}`);
     const chapters = Array.isArray(content.chapters) ? content.chapters : [];
     chapters.forEach((ch, i) => {
       pushStr(slug, `chapters[${i}].body_vi`, ch.body_vi);
@@ -377,10 +404,11 @@ async function checkProtectedNoLeakInDist(books) {
     }
   }
 
+  const sourcesNote = sources.length ? ` [sources: ${sources.join(", ")}]` : "";
   record("", "protected_no_leak_in_dist", leaks.length === 0,
     leaks.length === 0
-      ? `0 protected strings leaked (checked ${stringsToCheck.length} string(s) across ${htmlFiles.length} html file(s))`
-      : `${leaks.length} leak(s): ${leaks.slice(0, 5).map((l) => `${l.file} <- ${l.slug}/${l.field} ("${l.excerpt}...")`).join("; ")}`);
+      ? `0 protected strings leaked (checked ${stringsToCheck.length} string(s) across ${htmlFiles.length} html file(s))${sourcesNote}`
+      : `${leaks.length} leak(s)${sourcesNote}: ${leaks.slice(0, 5).map((l) => `${l.file} <- ${l.slug}/${l.field} ("${l.excerpt}...")`).join("; ")}`);
 }
 
 async function checkProtectedDirAbsentInDist() {
@@ -426,20 +454,28 @@ async function main() {
     await checkBook(book);
   }
   await checkGlobalLeaks(books);
+  await checkProtectedContentPerBook(books);
+  await checkProtectedNoLeakInDist(books);
+  await checkProtectedDirAbsentInDist();
 
   const passed = results.filter((r) => r.pass).length;
+  const failed = results.filter((r) => !r.pass && r.status !== "skipped").length;
+  const skipped = results.filter((r) => r.status === "skipped").length;
   const total = results.length;
-  const allPass = results.every((r) => r.pass);
+  const allPass = failed === 0;
 
-  console.log(`\n${allPass ? "✅" : "❌"} ${passed}/${total} checks passed\n`);
+  console.log(`\n${allPass ? "✅" : "❌"} ${passed}/${total} checks passed (failed=${failed}, skipped=${skipped})\n`);
 
   const report = {
     timestamp: new Date().toISOString(),
     gate: "read-book-publish-gate",
     model: "VTL_71_10_20_70",
     passed,
+    failed,
+    skipped,
     total,
     allPass,
+    publish_ready: allPass,
     book_count: books.length,
     results,
   };

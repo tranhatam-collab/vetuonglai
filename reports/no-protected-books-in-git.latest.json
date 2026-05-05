@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "generated_at": "2026-05-05T03:38:31.946Z",
+  "failures": [],
+  "tracked_summary": {
+    "content_json_count": 0,
+    "placeholder_count": 1,
+    "binary_count": 0,
+    "total_under_protected": 3
+  },
+  "founder_order": "2026-05-05: NEVER push books to GitHub."
+}

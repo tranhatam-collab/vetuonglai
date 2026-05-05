@@ -1,10 +1,13 @@
 {
-  "timestamp": "2026-05-04T03:07:52.779Z",
+  "timestamp": "2026-05-05T03:38:32.161Z",
   "gate": "read-book-publish-gate",
   "model": "VTL_71_10_20_70",
-  "passed": 15,
-  "total": 15,
+  "passed": 18,
+  "failed": 0,
+  "skipped": 0,
+  "total": 18,
   "allPass": true,
+  "publish_ready": true,
   "book_count": 1,
   "results": [
     {
@@ -110,6 +113,27 @@
       "key": "no_downloadable_files",
       "pass": true,
       "detail": "no .pdf/.epub/.docx/.mobi/.azw3 files in dist",
+      "status": "passed"
+    },
+    {
+      "book": "tan-cung-mot-cuoc-song",
+      "key": "protected_content_per_book_present",
+      "pass": true,
+      "detail": "protected content valid (9 chapters, source=content.json)",
+      "status": "passed"
+    },
+    {
+      "book": "",
+      "key": "protected_no_leak_in_dist",
+      "pass": true,
+      "detail": "0 protected strings leaked (checked 24 string(s) across 24 html file(s)) [sources: tan-cung-mot-cuoc-song=content.json]",
+      "status": "passed"
+    },
+    {
+      "book": "",
+      "key": "protected_dir_absent_in_dist",
+      "pass": true,
+      "detail": "no `protected` segments under dist/",
       "status": "passed"
     }
   ]

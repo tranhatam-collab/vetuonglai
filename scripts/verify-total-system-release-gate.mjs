@@ -75,6 +75,14 @@ const gateSteps = [
     requiredForSystemSignoff: true,
   },
   {
+    key: "no_protected_books_in_git",
+    label: "Founder order 2026-05-05: no protected book content tracked in git",
+    cmd: "npm",
+    args: ["run", "verify:no-protected-books-in-git"],
+    requiredForBaseline: true,
+    requiredForSystemSignoff: true,
+  },
+  {
     key: "wave_d_public_publish_self_test",
     label: "Wave D live publish verifier self-test",
     cmd: "node",
@@ -248,6 +256,7 @@ function runSelfTest() {
     { key: "session_contract_smoke", ok: true },
     { key: "member_auth_flow", ok: true },
     { key: "read_book_publish_gate", ok: true },
+    { key: "no_protected_books_in_git", ok: true },
     { key: "wave_d_deploy_plan", ok: true },
     { key: "wave_d_public_publish_self_test", ok: true },
     { key: "wave_d_public_publish_live", ok: false },

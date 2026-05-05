@@ -11,3 +11,17 @@ vetuonglai_*.zip
 .autodev/STOP
 .autodev/proposals/
 
+# Protected book content — Founder order 2026-05-05: NEVER push books to GitHub.
+# manifest.json + README.md remain tracked (needed by Worker static import + team docs).
+# All per-book content.json files (the actual manuscript bodies) MUST stay local-only.
+# Founder's order is binding — any commit that re-adds these files MUST be rejected.
+protected/read-books/*/content.json
+protected/read-books/*/content-*.json
+protected/read-books/*/manuscript/
+protected/read-books/*/drafts/
+protected/read-books/_secrets/
+protected/**/*.docx
+protected/**/*.pdf
+protected/**/*.epub
+protected/**/*.mobi
+

@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "description": "Static multi-site system for vetuonglai.com and related subdomains.",
   "scripts": {
+    "prebuild": "node scripts/ensure-protected-content.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
     "verify:founder-panel:local": "node scripts/verify-founder-panel-local.mjs",
@@ -85,6 +86,7 @@
     "verify:read:phase0": "node scripts/verify-read-phase0.mjs",
     "verify:read:phase0:live": "node scripts/verify-read-phase0.mjs --live",
     "verify:read:book-publish-gate": "node scripts/verify-read-book-publish-gate.mjs",
+    "verify:no-protected-books-in-git": "node scripts/verify-no-protected-books-in-git.mjs",
     "verify:qa": "npm run verify:links && npm run verify:responsive && npm run verify:i18n && npm run verify:compliance && npm run verify:member:auth-flow"
   }
 }
