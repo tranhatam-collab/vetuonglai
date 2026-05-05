@@ -18,6 +18,7 @@ Deployment was attempted but did not complete because Cloudflare Wrangler has no
 - Human text inventory generated: `reports/human-text-web-inventory.latest.md`
 - Human text JSON generated: `reports/human-text-web-gate.latest.json`
 - Deploy attempted with `npm run cloudflare:deploy`
+- Deploy attempted again after commit `51906db` with `npm run cloudflare:deploy`
 
 ## Pass
 
@@ -38,6 +39,7 @@ Deployment was attempted but did not complete because Cloudflare Wrangler has no
 - Cloudflare Pages deploy did not complete.
 - Wrangler error: `Failed to fetch auth token: 400 Bad Request`
 - Wrangler error: `set a CLOUDFLARE_API_TOKEN environment variable for wrangler to work`
+- Latest failed deploy command hash: `51906db095f8ddb662ec6dafae900a006c6bf352`
 
 ## Blocked by Founder
 
