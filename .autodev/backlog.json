@@ -6,17 +6,22 @@
       "type": "scaffold-only",
       "branch": "content-1b",
       "title": "Scaffold cho Bài 1 (KHÔNG body, chờ founder manuscript)",
-      "files": ["src/static-pages/read.vetuonglai.com/essays/bai-1-vi-sao-toi-viet-series-nay/"],
-      "status": "pending",
+      "files": [
+        "src/static-pages/read.vetuonglai.com/essays/bai-1-vi-sao-toi-viet-series-nay/"
+      ],
+      "status": "skipped",
       "blocks_build": true,
-      "needs_founder_manuscript": true
+      "needs_founder_manuscript": true,
+      "skipped_reason": "content/essays/bai-1-vi-sao-toi-viet-series-nay.json_already_exists"
     },
     {
       "id": "scaffold-series-json",
       "type": "scaffold-only",
       "branch": "content-1c",
       "title": "Scaffold content/series.json với 10 series + 23 slug placeholder",
-      "files": ["content/series.json"],
+      "files": [
+        "content/series.json"
+      ],
       "status": "pending",
       "blocks_build": true,
       "needs_founder_manuscript": true
