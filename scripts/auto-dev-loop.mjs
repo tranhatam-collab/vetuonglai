@@ -58,9 +58,33 @@ async function appendLog(entry) {
 async function gitWorkingTreeClean() {
   try {
     const { stdout } = await execFileAsync("git", ["status", "--porcelain"], { cwd: ROOT });
-    return stdout.trim().length === 0;
+    // Bỏ qua các pattern noise đã biết: state/backlog/log của loop, audit report regen,
+    // reports/*.latest.json regen timestamp.
+    const ignorePatterns = [
+      /^.M\s+\.autodev\/state\.json/,
+      /^.M\s+\.autodev\/backlog\.json/,
+      /^.M\s+docs\/00_master\/42_BILINGUAL_AUDIT_REPORT\.md/,
+      /^.M\s+reports\/.*\.latest\.json/,
+    ];
+    const lines = stdout.split("\n").filter(Boolean);
+    const significant = lines.filter((l) => !ignorePatterns.some((re) => re.test(l)));
+    return significant.length === 0;
   } catch {
     return false;
+  }
+}
+
+async function resetLoopNoise() {
+  // Reset các file noise auto-regen để không lẫn vào commit task.
+  const noiseFiles = [
+    "docs/00_master/42_BILINGUAL_AUDIT_REPORT.md",
+    "reports/read-phase0-readiness.latest.json",
+    "reports/read-book-publish-gate.latest.json",
+  ];
+  for (const f of noiseFiles) {
+    try {
+      await execFileAsync("git", ["checkout", "--", f], { cwd: ROOT });
+    } catch {}
   }
 }
 
@@ -127,7 +151,10 @@ async function pickTask(backlog, state) {
 }
 
 async function commit(message, files) {
-  await execFileAsync("git", ["add", ...files], { cwd: ROOT });
+  // Persist state/backlog ngay trước khi commit để chúng vào cùng commit task.
+  // (Caller phải đảm bảo state/backlog đã được writeJson trước khi gọi.)
+  const allFiles = [...new Set([...files, ".autodev/state.json", ".autodev/backlog.json"])];
+  await execFileAsync("git", ["add", ...allFiles], { cwd: ROOT });
   await execFileAsync("git", ["commit", "-m", `[auto-dev-loop] ${message}`], { cwd: ROOT });
 }
 
@@ -175,6 +202,10 @@ async function main() {
   // Gate sweep
   const gates = await gateSweep();
   await appendLog({ tick: tickN, ts: tickIso, event: "gate_sweep", gates });
+
+  // Reset noise file (audit report timestamp, reports/*.latest.json) sau gate sweep
+  // để không lẫn vào commit task.
+  await resetLoopNoise();
 
   const allGreen = Object.values(gates).every((v) => v === "pass");
 
@@ -228,9 +259,11 @@ async function main() {
           if (await gitWorkingTreeClean()) {
             // skip — không gì để commit
           } else {
-            await commit(`regen reports (verifier-flake)`, result.files_to_stage);
             didWork = true;
             workSummary = "regen_reports";
+            await writeJson(BACKLOG_PATH, backlog);
+            await writeJson(STATE_PATH, state);
+            await commit(`regen reports (verifier-flake)`, result.files_to_stage);
           }
         }
       }
@@ -266,7 +299,7 @@ async function main() {
           const result = await mod.fix(task);
           await appendLog({ tick: tickN, ts: tickIso, event: "handler", id: mod.id, task: task.id, result });
           if (result.fixed && result.commit) {
-            await commit(result.commit_message.split("\n")[0].replace("[auto-dev-loop] ", ""), result.files_to_stage);
+            // Mutate state/backlog TRƯỚC khi persist + commit để chúng cùng vào commit.
             task.status = "done";
             didWork = true;
             workSummary = `scaffold_${task.id}`;
@@ -275,6 +308,9 @@ async function main() {
                 state.blocked_branches.push(task.branch);
               }
             }
+            await writeJson(BACKLOG_PATH, backlog);
+            await writeJson(STATE_PATH, state);
+            await commit(result.commit_message.split("\n")[0].replace("[auto-dev-loop] ", ""), result.files_to_stage);
           }
         } else {
           // không applicable → đánh dấu skipped
