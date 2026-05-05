@@ -336,6 +336,27 @@ async function main() {
   await writeJson(BACKLOG_PATH, backlog);
   await writeJson(STATE_PATH, state);
 
+  // Nếu tick này không có commit task (didWork=false) nhưng state.json/backlog.json
+  // đã thay đổi (tick_count, last_tick_at, consecutive_clean_ticks), tạo 1
+  // housekeeping commit để working tree không bị dirty cho tick kế tiếp.
+  if (!didWork) {
+    try {
+      const { stdout } = await execFileAsync("git", ["status", "--porcelain", ".autodev/state.json", ".autodev/backlog.json"], { cwd: ROOT });
+      if (stdout.trim().length > 0) {
+        await execFileAsync("git", ["add", ".autodev/state.json", ".autodev/backlog.json"], { cwd: ROOT });
+        await execFileAsync(
+          "git",
+          [
+            "commit",
+            "-m",
+            `[auto-dev-loop] housekeeping tick ${tickN} (gates green, no work)`,
+          ],
+          { cwd: ROOT },
+        );
+      }
+    } catch {}
+  }
+
   const tickDuration = Date.now() - tickStart;
   await appendLog({
     tick: tickN,
