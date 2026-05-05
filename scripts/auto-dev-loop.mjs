@@ -178,9 +178,11 @@ async function main() {
 
   const stopCheck = await shouldStop(state);
   if (stopCheck.stop) {
-    state.stopped_at = tickIso;
-    state.stopped_reason = stopCheck.reason;
-    await writeJson(STATE_PATH, state);
+    if (!state.stopped_at) {
+      state.stopped_at = tickIso;
+      state.stopped_reason = stopCheck.reason;
+      await writeJson(STATE_PATH, state);
+    }
     await appendLog({ tick: state.tick_count, ts: tickIso, event: "stopped", reason: stopCheck.reason });
     await unloadLaunchd();
     console.log(`[auto-dev-loop] stop: ${stopCheck.reason}`);
@@ -378,6 +380,13 @@ async function main() {
     state.stopped_at = new Date().toISOString();
     state.stopped_reason = "two_clean_ticks_in_a_row";
     await writeJson(STATE_PATH, state);
+    try {
+      const { stdout } = await execFileAsync("git", ["status", "--porcelain", ".autodev/state.json"], { cwd: ROOT });
+      if (stdout.trim().length > 0) {
+        await execFileAsync("git", ["add", ".autodev/state.json"], { cwd: ROOT });
+        await execFileAsync("git", ["commit", "-m", "[auto-dev-loop] STOP: 2 tick sạch liên tiếp"], { cwd: ROOT });
+      }
+    } catch {}
     await unloadLaunchd();
     console.log("[auto-dev-loop] STOP: 2 tick sạch liên tiếp, unload launchd.");
   }
