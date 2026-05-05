@@ -1,0 +1,17 @@
+{
+  "slug": "bai-1-vi-sao-toi-viet-series-nay",
+  "series_id": "vi-sao-toi-viet",
+  "number": 1,
+  "status": "awaiting_founder_manuscript",
+  "published": false,
+  "blocks_build": true,
+  "title_vi": null,
+  "title_en": null,
+  "subtitle_vi": null,
+  "subtitle_en": null,
+  "body_vi": null,
+  "body_en": null,
+  "notes_for_founder": "Auto-dev-loop tạo scaffold này. Body do founder Trần Hà Tâm điền. Loop sẽ KHÔNG fabricate.",
+  "created_by": "auto-dev-loop",
+  "created_at": "2026-05-05T03:20:50.253Z"
+}
