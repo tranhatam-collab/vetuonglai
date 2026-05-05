@@ -1,0 +1,2328 @@
+{
+  "generated_at": "2026-05-05T11:50:26.564Z",
+  "gate": "human-text-web-gate",
+  "scope": "vetuonglai-system public HTML",
+  "pages_scanned": 81,
+  "pages_passed": 81,
+  "pages_failed": 0,
+  "warnings": 144,
+  "hosts": {
+    "ai.vetuonglai.com": {
+      "pages": 2,
+      "passed": 2,
+      "failed": 0,
+      "warnings": 3
+    },
+    "business.vetuonglai.com": {
+      "pages": 1,
+      "passed": 1,
+      "failed": 0,
+      "warnings": 1
+    },
+    "community.vetuonglai.com": {
+      "pages": 2,
+      "passed": 2,
+      "failed": 0,
+      "warnings": 3
+    },
+    "docs.vetuonglai.com": {
+      "pages": 17,
+      "passed": 17,
+      "failed": 0,
+      "warnings": 30
+    },
+    "edu.vetuonglai.com": {
+      "pages": 11,
+      "passed": 11,
+      "failed": 0,
+      "warnings": 21
+    },
+    "finance.vetuonglai.com": {
+      "pages": 1,
+      "passed": 1,
+      "failed": 0,
+      "warnings": 1
+    },
+    "green.vetuonglai.com": {
+      "pages": 1,
+      "passed": 1,
+      "failed": 0,
+      "warnings": 2
+    },
+    "invest.vetuonglai.com": {
+      "pages": 1,
+      "passed": 1,
+      "failed": 0,
+      "warnings": 1
+    },
+    "life.vetuonglai.com": {
+      "pages": 1,
+      "passed": 1,
+      "failed": 0,
+      "warnings": 1
+    },
+    "market.vetuonglai.com": {
+      "pages": 2,
+      "passed": 2,
+      "failed": 0,
+      "warnings": 3
+    },
+    "member.vetuonglai.com": {
+      "pages": 4,
+      "passed": 4,
+      "failed": 0,
+      "warnings": 8
+    },
+    "read.vetuonglai.com": {
+      "pages": 24,
+      "passed": 24,
+      "failed": 0,
+      "warnings": 46
+    },
+    "vc.vetuonglai.com": {
+      "pages": 4,
+      "passed": 4,
+      "failed": 0,
+      "warnings": 7
+    },
+    "vetuonglai.com": {
+      "pages": 8,
+      "passed": 8,
+      "failed": 0,
+      "warnings": 14
+    },
+    "work.vetuonglai.com": {
+      "pages": 2,
+      "passed": 2,
+      "failed": 0,
+      "warnings": 3
+    }
+  },
+  "issues": [
+    {
+      "host": "ai.vetuonglai.com",
+      "url": "https://ai.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "ai.vetuonglai.com",
+      "url": "https://ai.vetuonglai.com/use-cases/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "ai.vetuonglai.com",
+      "url": "https://ai.vetuonglai.com/use-cases/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "business.vetuonglai.com",
+      "url": "https://business.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "community.vetuonglai.com",
+      "url": "https://community.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "community.vetuonglai.com",
+      "url": "https://community.vetuonglai.com/principles/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "community.vetuonglai.com",
+      "url": "https://community.vetuonglai.com/principles/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/api-reference/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/api-reference/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/changelog/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/changelog/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/contributor/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/contributor/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/faq/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/faq/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/getting-started/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/invest/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/invest/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/kids/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/kids/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/legal/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/legal/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/legal/material-connection/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/legal/material-connection/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/membership/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/membership/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/pricing/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/pricing/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/products/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/support/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/trust-system/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/trust-system/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/verification/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/work/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/work/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/green-stewardship-pilot/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/green-stewardship-pilot/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/money-discipline-sprint/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/money-discipline-sprint/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/startup-1000/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/startup-1000/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/courses/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/courses/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/green-stewardship-pilot/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/green-stewardship-pilot/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/green-stewardship-pilot/player/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/green-stewardship-pilot/player/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/money-discipline-sprint/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/money-discipline-sprint/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/money-discipline-sprint/player/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/money-discipline-sprint/player/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/startup-1000/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/startup-1000/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/startup-1000/player/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/startup-1000/player/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "finance.vetuonglai.com",
+      "url": "https://finance.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "green.vetuonglai.com",
+      "url": "https://green.vetuonglai.com/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "green.vetuonglai.com",
+      "url": "https://green.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "invest.vetuonglai.com",
+      "url": "https://invest.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "life.vetuonglai.com",
+      "url": "https://life.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "market.vetuonglai.com",
+      "url": "https://market.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "market.vetuonglai.com",
+      "url": "https://market.vetuonglai.com/rules/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "market.vetuonglai.com",
+      "url": "https://market.vetuonglai.com/rules/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/journey/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/journey/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/onboarding/step-2-goals/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/onboarding/step-2-goals/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/signup/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/signup/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/books/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/books/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/books/tan-cung-mot-cuoc-song/demo/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/books/tan-cung-mot-cuoc-song/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/creator/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/creator/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/essays/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/essays/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/how-we-pay/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/how-we-pay/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/learning/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/learning/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/money/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/money/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/society/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/society/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/timeless/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/timeless/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/work/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/work/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/review/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/review/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/stacks/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/stacks/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/submit/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/submit/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/tax-note/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/tax-note/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/terms/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/terms/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/ledger/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/ledger/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/reports/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/reports/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/apply/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/apply/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/guidelines/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/guidelines/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/tiers/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/tiers/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/issuers/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/issuers/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/methods/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/methods/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/v/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/v/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/bat-dau/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/bat-dau/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/he-sinh-thai/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/lien-he/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/lien-he/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/sitemap/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/sitemap/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://member.vetuonglai.com/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://member.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/tin-tuc/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/tin-tuc/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/ve-chung-toi/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/ve-chung-toi/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "work.vetuonglai.com",
+      "url": "https://work.vetuonglai.com/brief/",
+      "key": "true_state",
+      "detail": "manual review required to confirm visible state wording",
+      "severity": "warn"
+    },
+    {
+      "host": "work.vetuonglai.com",
+      "url": "https://work.vetuonglai.com/brief/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    },
+    {
+      "host": "work.vetuonglai.com",
+      "url": "https://work.vetuonglai.com/",
+      "key": "language_review",
+      "detail": "manual review required for natural-language quality",
+      "severity": "warn"
+    }
+  ],
+  "pages": [
+    {
+      "host": "ai.vetuonglai.com",
+      "url": "https://ai.vetuonglai.com/",
+      "role": "ai.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "ai.vetuonglai.com",
+      "url": "https://ai.vetuonglai.com/use-cases/",
+      "role": "ai.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "business.vetuonglai.com",
+      "url": "https://business.vetuonglai.com/",
+      "role": "business.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "community.vetuonglai.com",
+      "url": "https://community.vetuonglai.com/",
+      "role": "community.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "community.vetuonglai.com",
+      "url": "https://community.vetuonglai.com/principles/",
+      "role": "community.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/api-reference/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/changelog/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/contributor/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/faq/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/getting-started/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/",
+      "role": "docs.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/invest/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/kids/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/legal/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/legal/material-connection/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/membership/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/pricing/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/products/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/support/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/trust-system/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/verification/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "docs.vetuonglai.com",
+      "url": "https://docs.vetuonglai.com/work/",
+      "role": "docs.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/green-stewardship-pilot/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/money-discipline-sprint/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/course/startup-1000/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/courses/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/",
+      "role": "edu.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/green-stewardship-pilot/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/green-stewardship-pilot/player/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/money-discipline-sprint/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/money-discipline-sprint/player/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/startup-1000/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "edu.vetuonglai.com",
+      "url": "https://edu.vetuonglai.com/learn/startup-1000/player/",
+      "role": "edu.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "finance.vetuonglai.com",
+      "url": "https://finance.vetuonglai.com/",
+      "role": "finance.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "green.vetuonglai.com",
+      "url": "https://green.vetuonglai.com/",
+      "role": "green.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "invest.vetuonglai.com",
+      "url": "https://invest.vetuonglai.com/",
+      "role": "invest.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "life.vetuonglai.com",
+      "url": "https://life.vetuonglai.com/",
+      "role": "life.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "market.vetuonglai.com",
+      "url": "https://market.vetuonglai.com/",
+      "role": "market.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "market.vetuonglai.com",
+      "url": "https://market.vetuonglai.com/rules/",
+      "role": "market.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/",
+      "role": "member.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/journey/",
+      "role": "member.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/onboarding/step-2-goals/",
+      "role": "member.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "member.vetuonglai.com",
+      "url": "https://member.vetuonglai.com/signup/",
+      "role": "member.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/books/",
+      "role": "read.vetuonglai.com:book",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/books/tan-cung-mot-cuoc-song/demo/",
+      "role": "read.vetuonglai.com:book",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/books/tan-cung-mot-cuoc-song/",
+      "role": "read.vetuonglai.com:book",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/creator/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/essays/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/how-we-pay/",
+      "role": "read.vetuonglai.com:disclosure",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/",
+      "role": "read.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/learning/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/money/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/society/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/timeless/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/pillars/work/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/review/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/stacks/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/submit/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/tax-note/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/terms/",
+      "role": "read.vetuonglai.com:legal",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/ledger/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/transparency/reports/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/apply/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/guidelines/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "read.vetuonglai.com",
+      "url": "https://read.vetuonglai.com/write/tiers/",
+      "role": "read.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/",
+      "role": "vc.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/issuers/",
+      "role": "vc.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/methods/",
+      "role": "vc.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vc.vetuonglai.com",
+      "url": "https://vc.vetuonglai.com/v/",
+      "role": "vc.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/bat-dau/",
+      "role": "vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/he-sinh-thai/",
+      "role": "vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/",
+      "role": "vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/lien-he/",
+      "role": "vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/sitemap/",
+      "role": "vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://member.vetuonglai.com/",
+      "role": "vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/tin-tuc/",
+      "role": "vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "vetuonglai.com",
+      "url": "https://vetuonglai.com/ve-chung-toi/",
+      "role": "vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "work.vetuonglai.com",
+      "url": "https://work.vetuonglai.com/brief/",
+      "role": "work.vetuonglai.com:page",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "manual_review_required",
+      "next_action": "add_true_state_or_confirm_evergreen_page"
+    },
+    {
+      "host": "work.vetuonglai.com",
+      "url": "https://work.vetuonglai.com/",
+      "role": "work.vetuonglai.com:home",
+      "h1_status": "pass",
+      "heading_hierarchy": "pass",
+      "character_hygiene": "pass",
+      "seo_metadata": "pass",
+      "canonical": "pass",
+      "og_image": "pass",
+      "alt_text": "pass",
+      "language": "manual_review_required:vi",
+      "true_state": "pass",
+      "next_action": "human_language_review"
+    }
+  ]
+}

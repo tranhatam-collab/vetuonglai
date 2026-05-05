@@ -38,9 +38,9 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
 - build pipeline đã được khóa thêm:
   - dọn sạch `dist`
   - build lock chống va chạm khi verify song song
-- Wave B — Mobile V1 Closure đã chốt verify pass
-- Wave C — Core Subdomains Hardening đang ở trạng thái `hardening_ready / promotion_blocked`
-- Wave D — Planned-safe rollout hiện đã có shell local + Pages publish plan + deploy/verify runbook cho toàn cụm, nhưng blocker active vẫn là `public DNS`
+- Wave B - Mobile V1 Closure đã chốt verify pass
+- Wave C - Core Subdomains Hardening đang ở trạng thái `hardening_ready / promotion_blocked`
+- Wave D - Planned-safe rollout hiện đã có shell local + Pages publish plan + deploy/verify runbook cho toàn cụm, nhưng blocker active vẫn là `public DNS`
 - Team 4 endpoint pack đã được nhận evidence:
   - self-test pass
   - smoke + strict pass ngoài sandbox với DNS thật
@@ -72,12 +72,19 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - không claim live khi thiếu deploy evidence + domain active + QA pass
   - packet điều phối active:
     - `docs/final-lock/VTL_69_HOMEPAGE_DOCS_READ_BROADCAST_AND_TEAM_CHECKLIST_2026-04-29.md`
+- từ `2026-05-05`, toàn bộ lane public web của repo này phải đi qua thêm human-text gate ở mức web copy, SEO, QA, và reporting:
+  - áp dụng cho text hiển thị, metadata SEO, QA report, release note, handoff file
+  - không áp dụng như một backend/payment/legal/auth change protocol
+  - packet điều phối active:
+    - `../UNIVERSAL_WEB_HUMAN_TEXT_SEO_QA_GATE_PROTOCOL_2026.md`
+    - `docs/web-governance/HUMAN_TEXT_CHARACTER_AND_RESPONSE_PROTOCOL.md`
+    - `docs/final-lock/VTL_72_HUMAN_TEXT_WEB_GATE_ADOPTION_2026-05-05.md`
 - trọng tâm active của tổng kế hoạch hiện tại là:
   - chốt signoff Wave C
   - khóa DNS/runtime publish cho Wave D
   - chốt homepage `kids.vetuonglai.com` nếu qua predeploy gate
-  - chốt homepage/docs/read lane theo checklist VTL 69
-  - rồi mới gom Wave E — Release/QA/Ops pack toàn hệ
+  - chốt homepage/docs/read lane theo checklist VTL 69 + VTL 72
+  - rồi mới gom Wave E - Release/QA/Ops pack toàn hệ
 
 ## Board điều phối chi tiết đang active
 
@@ -101,6 +108,10 @@ Quyết định đã ký bởi Ông Trần Hà Tâm. Không được đổi scop
   - `docs/final-lock/VTL_68_KIDS_HOMEPAGE_LAUNCH_TEAM_SPLIT_2026-04-29.md`
 - Homepage/docs/read broadcast checklist:
   - `docs/final-lock/VTL_69_HOMEPAGE_DOCS_READ_BROADCAST_AND_TEAM_CHECKLIST_2026-04-29.md`
+- Human text web gate adoption:
+  - `../UNIVERSAL_WEB_HUMAN_TEXT_SEO_QA_GATE_PROTOCOL_2026.md`
+  - `docs/web-governance/HUMAN_TEXT_CHARACTER_AND_RESPONSE_PROTOCOL.md`
+  - `docs/final-lock/VTL_72_HUMAN_TEXT_WEB_GATE_ADOPTION_2026-05-05.md`
 - release/signoff pack mới nhất của Wave C:
   - `docs/final-lock/VTL_56_WAVE_C_RELEASE_NOTE_LIFE_INVEST_2026-04-22.md`
   - `docs/final-lock/VTL_57_QA_PM_OPS_SIGNOFF_CHECKLIST_WAVE_C_2026-04-22.md`
@@ -121,15 +132,15 @@ Nếu có tài liệu cũ hơn mâu thuẫn với ba file trên trong phạm vi 
 
 ## Owner map theo team
 
-- Team 1 — Lead Platform / Runtime / Release Control
-- Team 2 — Frontend / UX / Mobile / Public Surfaces
-- Team 3 — Governance / Runtime Truth / QA Gate
-- Team 4 — Data / Registry / Forms / Content Contracts
-- Team 5 — Smoke / Strict Contract / Release Verification
+- Team 1 - Lead Platform / Runtime / Release Control
+- Team 2 - Frontend / UX / Mobile / Public Surfaces
+- Team 3 - Governance / Runtime Truth / QA Gate
+- Team 4 - Data / Registry / Forms / Content Contracts
+- Team 5 - Smoke / Strict Contract / Release Verification
 
 ---
 
-## SPRINT 1 — CORE + TEAM MODEL LOCK (`completed_for_founder_lane`)
+## SPRINT 1 - CORE + TEAM MODEL LOCK (`completed_for_founder_lane`)
 
 ### Team 1
 
@@ -167,7 +178,7 @@ Nếu có tài liệu cũ hơn mâu thuẫn với ba file trên trong phạm vi 
 
 ---
 
-## SPRINT 2 — CORE HARDENING + FOUNDER DATA PLANE (`active_next`)
+## SPRINT 2 - CORE HARDENING + FOUNDER DATA PLANE (`active_next`)
 
 ### Team 1
 
@@ -206,7 +217,7 @@ Nếu có tài liệu cũ hơn mâu thuẫn với ba file trên trong phạm vi 
 
 ---
 
-## SPRINT 3 — FOUNDER COMMAND PANEL (`next`)
+## SPRINT 3 - FOUNDER COMMAND PANEL (`next`)
 
 ### Team 1
 
@@ -248,7 +259,7 @@ Nếu có tài liệu cũ hơn mâu thuẫn với ba file trên trong phạm vi 
 
 ---
 
-## SPRINT 4 — LIMITED AUTOPILOT (`next`)
+## SPRINT 4 - LIMITED AUTOPILOT (`next`)
 
 ### Team 1
 

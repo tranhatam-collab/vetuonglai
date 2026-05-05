@@ -142,6 +142,41 @@ Tài liệu điều phối active:
 
 - `docs/final-lock/VTL_69_HOMEPAGE_DOCS_READ_BROADCAST_AND_TEAM_CHECKLIST_2026-04-29.md`
 
+### Blocker B6 — Human text web gate
+
+Từ `2026-05-05`, mọi public page trong repo này phải qua thêm một gate bắt buộc ở mức web text, SEO, QA, và reporting.
+
+Gate này áp dụng cho:
+
+- visible copy
+- SEO metadata
+- alt text
+- QA reports
+- release notes
+- team handoff files
+
+Gate này không cho phép tự suy diễn sang:
+
+- backend logic
+- payment logic
+- invoice routing
+- legal entity mapping
+- authentication
+- database schema
+- production deploy permission
+
+Tài liệu điều phối active:
+
+- `docs/web-governance/HUMAN_TEXT_CHARACTER_AND_RESPONSE_PROTOCOL.md`
+- `docs/final-lock/VTL_72_HUMAN_TEXT_WEB_GATE_ADOPTION_2026-05-05.md`
+
+Ảnh hưởng:
+
+- Team 2 không được gọi surface là xong nếu layout đúng nhưng text/metadata còn fail
+- Team 3 phải review nghĩa và true-state, không chỉ scan ký tự
+- Team 5 phải chạy `npm run verify:human-text:web` trước khi ký `WEB_READY`
+- Team 1 không được deploy production refresh nếu human-text gate còn fail trong scope deploy
+
 ## 4. Team 1 — Platform / Runtime / Release Control
 
 Channel: `vtl-team1-runtime-release`
@@ -214,6 +249,7 @@ Channel: `vtl-team2-frontend-ux-mobile`
 12. Render đúng tier clusters: `Discover / Create Value / Deep Collaboration`.
 13. Đặt FTC disclosure block gần CTA, không để ở footer.
 14. Chạy visual QA + WCAG, đính kèm evidence ảnh + issue list.
+15. Sửa mọi page fail `npm run verify:human-text:web` trong scope public surface đang do Team 2 chạm.
 
 ### Lệnh bắt buộc
 
@@ -264,6 +300,7 @@ Channel: `vtl-team3-governance-runtime-truth`
 11. Invest gate wording: không ROI claim, không `invest now`.
 12. Xác nhận disclosure wording chuẩn cho referral.
 13. Chuẩn bị quarterly FTC audit checklist (v1).
+14. Ký review cho human-text gate ở mức meaning, H hierarchy, SEO truth, và release wording.
 
 ### Lệnh bắt buộc
 
@@ -346,6 +383,7 @@ Channel: `vtl-team5-smoke-release-qa`
 11. Update evidence pack sau khi deploy `docs/read` live.
 12. Re-run `verify:read:phase0 --live` sau khi DNS ổn định.
 13. Báo verdict: `baseline_ready`, `publish_ready`, blocker còn lại.
+14. Chạy `npm run verify:human-text:web` và đính kèm inventory URL-by-URL trước khi ký web-ready.
 
 ### Lệnh bắt buộc
 
@@ -355,6 +393,7 @@ node scripts/verify-wave-d-public-publish.mjs
 node scripts/verify-wave-c-life-invest-hardening.mjs
 node scripts/verify-team4-endpoints-pack.mjs --self-test
 node scripts/verify-team4-endpoints-pack.mjs
+npm run verify:human-text:web
 ```
 
 Sau khi Team 1 deploy Wave D thật:
