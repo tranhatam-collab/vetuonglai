@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "started_at": null,
+  "last_tick_at": null,
+  "tick_count": 0,
+  "consecutive_clean_ticks": 0,
+  "consecutive_handler_fail": {},
+  "blocked_branches": [],
+  "stop_requested": false,
+  "stopped_at": null,
+  "stopped_reason": null
+}

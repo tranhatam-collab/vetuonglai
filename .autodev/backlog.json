@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "scaffold-bai-1",
+      "type": "scaffold-only",
+      "branch": "content-1b",
+      "title": "Scaffold cho Bài 1 (KHÔNG body, chờ founder manuscript)",
+      "files": ["src/static-pages/read.vetuonglai.com/essays/bai-1-vi-sao-toi-viet-series-nay/"],
+      "status": "pending",
+      "blocks_build": true,
+      "needs_founder_manuscript": true
+    },
+    {
+      "id": "scaffold-series-json",
+      "type": "scaffold-only",
+      "branch": "content-1c",
+      "title": "Scaffold content/series.json với 10 series + 23 slug placeholder",
+      "files": ["content/series.json"],
+      "status": "pending",
+      "blocks_build": true,
+      "needs_founder_manuscript": true
+    },
+    {
+      "id": "auto-assertion-scan",
+      "type": "auto-assertion-lock",
+      "branch": "infra",
+      "title": "Scan dist/ tìm marker chưa có assertion trong check.mjs",
+      "status": "pending"
+    },
+    {
+      "id": "verifier-flake-watch",
+      "type": "verifier-flake",
+      "branch": "infra",
+      "title": "Retry verify:read:phase0 --live nếu gần đây fail",
+      "status": "pending",
+      "recurring": true
+    },
+    {
+      "id": "refactor-build-helpers",
+      "type": "refactor-build-mjs",
+      "branch": "infra",
+      "title": "Rà rename biến cục bộ shadow trong build.mjs (không đổi output)",
+      "status": "pending"
+    }
+  ]
+}
