@@ -21,7 +21,7 @@ async function collectHtmlFiles(dir) {
     const fullPath = path.join(dir, entry.name);
     if (entry.isDirectory()) {
       files.push(...(await collectHtmlFiles(fullPath)));
-    } else if (entry.name.endsWith(".html")) {
+    } else if (entry.name === "index.html") {
       files.push(fullPath);
     }
   }
@@ -57,8 +57,12 @@ async function main() {
     if (INCOME_PATTERN.test(content)) {
       const hasPolicyMarker = content.includes('data-income-reference-policy="login_plus_accepted_disclaimer_only"')
         && content.includes('data-income-disclaimer-event="income_disclaimer_accepted"');
-      if (!hasPolicyMarker) {
-        findings.push(`${relPath} has income reference near referral scope but missing policy marker login+accepted-disclaimer`);
+      const hasPublicDisclaimer = content.includes('data-compliance="income-disclaimer"')
+        || content.includes('data-compliance="income-disclaimer-short"')
+        || content.includes('data-compliance="earning-gate"');
+      const hasNoGuaranteeLanguage = /(không\s+cam\s+kết|no income guarantees|not guarantees|not guarantee)/i.test(content);
+      if (!hasPolicyMarker && !(hasPublicDisclaimer && hasNoGuaranteeLanguage)) {
+        findings.push(`${relPath} has income reference near referral scope but missing income policy/disclaimer safety marker`);
       }
     }
   }

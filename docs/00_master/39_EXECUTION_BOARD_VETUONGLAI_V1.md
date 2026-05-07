@@ -134,7 +134,7 @@ Nếu có tài liệu cũ hơn mâu thuẫn với ba file trên trong phạm vi 
 
 - Team 1 - Lead Platform / Runtime / Release Control
 - Team 2 - Frontend / UX / Mobile / Public Surfaces
-- Team 3 - Governance / Runtime Truth / QA Gate
+- Team 3 — Governance / Runtime Truth / QA Gate
 - Team 4 - Data / Registry / Forms / Content Contracts
 - Team 5 - Smoke / Strict Contract / Release Verification
 
