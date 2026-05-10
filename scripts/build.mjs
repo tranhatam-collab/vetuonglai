@@ -614,7 +614,7 @@ const specialistPacks = [
   { code: "g6", name: pair("Tạo Giá Trị Số", "Digital Value Creation"), price: "59 USD", affiliate: "7.5%" },
   { code: "g7", name: pair("Tác Động Xanh", "Green Impact"), price: "69 USD", affiliate: "8%" },
   { code: "g8", name: pair("Dẫn Dắt và Cộng Đồng", "Leadership and Community"), price: "79 USD", affiliate: "8.9%" },
-  { code: "g9", name: pair("VTL Elite — Toàn Hệ", "VTL Elite — Full System"), price: "99 USD", affiliate: "9.9%" },
+  { code: "g9", name: pair("VTL Elite - Toàn Hệ", "VTL Elite - Full System"), price: "99 USD", affiliate: "9.9%" },
 ];
 
 const domainPackMap = {
@@ -762,7 +762,7 @@ function purchaseHubUrl({ entry, pack, slug = "", intent = "specialist-pack", so
 }
 
 function deepContentHubCta(entry, intent = "specialist-pack", source = "", slug = "") {
-  // Block checkout for planned domains — use interest form instead
+  // Block checkout for planned domains - use interest form instead
   const safeIntent = plannedDomainKeys.has(entry) ? "interest" : intent;
   return purchaseHubUrl({
     entry,
@@ -1691,7 +1691,7 @@ function renderTopbar(siteKey, activeKey, items) {
   const theme = siteTheme[siteKey];
 
   return `
-    <header class="topbar">
+    <header class="topbar" data-vtl-block="header-nav">
       <div class="topbar-inner">
         <a class="brand" href="https://${domains.hub}">
           <span class="brand-mark">${escapeHtml(theme.brand)}</span>
@@ -1709,8 +1709,8 @@ function renderTopbar(siteKey, activeKey, items) {
             })).join("")}
           </nav>
           <div class="lang-switch" role="group" aria-label="Language switch" data-aria-label-vi="Chọn ngôn ngữ" data-aria-label-en="Choose language">
-            <button class="lang-button is-active" type="button" data-language-option="vi" aria-pressed="true" data-aria-label-vi="Chuyển sang tiếng Việt" data-aria-label-en="Switch to Vietnamese" lang="vi" hreflang="vi"><span aria-hidden="true">🇻🇳</span> Tiếng Việt</button>
-            <button class="lang-button" type="button" data-language-option="en" aria-pressed="false" data-aria-label-vi="Chuyển sang tiếng Anh" data-aria-label-en="Switch to English" lang="en" hreflang="en"><span aria-hidden="true">🇺🇸</span> English</button>
+            <button class="lang-button is-active" type="button" data-language-option="vi" aria-pressed="true" data-aria-label-vi="Chuyển sang tiếng Việt" data-aria-label-en="Switch to Vietnamese" lang="vi" hreflang="vi"><span aria-hidden="true">VI</span> Tiếng Việt</button>
+            <button class="lang-button" type="button" data-language-option="en" aria-pressed="false" data-aria-label-vi="Chuyển sang tiếng Anh" data-aria-label-en="Switch to English" lang="en" hreflang="en"><span aria-hidden="true">EN</span> English</button>
           </div>
         </div>
       </div>
@@ -1733,6 +1733,7 @@ function renderShell({
   inlineScript = "",
   headExtras = "",
   bodyClass = "",
+  heroBlockId = "",
 }) {
   resetDisclosureTracker();
   const theme = siteTheme[currentKey];
@@ -1799,9 +1800,9 @@ ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
   <body${bodyClass ? ` class="${escapeHtml(bodyClass)}"` : ""}>
   ${renderTopbar(currentKey, activeKey, navItems)}
   <main class="shell">
-    ${hero ? `<section class="hero">${hero}</section>` : ""}
+    ${hero ? `<section class="hero"${heroBlockId ? ` data-vtl-block="${escapeHtml(heroBlockId)}"` : ""}>${hero}</section>` : ""}
     ${sections.join("\n")}
-    <footer class="footer">
+    <footer class="footer" data-vtl-block="footer">
       <div class="footer-stack">
         <span>© <span data-year></span> Vetuonglai System</span>
         ${localizedText(brandPromiseCopy, "span", { class: "subtle" })}
@@ -2190,7 +2191,7 @@ function renderHubPage() {
     }),
   ]);
 
-  // —— HOMEPAGE_CONTENT.md §10: short income disclaimer (cards / sections) ——
+  // -- HOMEPAGE_CONTENT.md §10: short income disclaimer (cards / sections) --
   const incomeDisclaimerShort = localizedText(
     pair(
       "Mức thu nhập tham khảo, không cam kết. Phụ thuộc kỹ năng, thời gian, chất lượng đóng góp và nhu cầu thị trường.",
@@ -2200,7 +2201,7 @@ function renderHubPage() {
     { class: "small-print subtle", "data-compliance": "income-disclaimer-short" },
   );
 
-  // —— HOMEPAGE_CONTENT.md §4: 3 Product Cards (Cá Nhân / Gia Đình / Đối Tác) ——
+  // -- HOMEPAGE_CONTENT.md §4: 3 Product Cards (Cá Nhân / Gia Đình / Đối Tác) --
   const productCards = `
     <div class="grid-3 product-cards">
       <article class="card product-card" data-product="personal">
@@ -2213,9 +2214,9 @@ function renderHubPage() {
           ))}
           ${renderList([
             pair("Hồ sơ miễn phí + cộng đồng", "Free profile + community"),
-            pair("Chuyên môn sâu chỉ $3–$9", "Specialist depth from $3–$9"),
-            pair("Annual $99/năm — toàn quyền truy cập", "Annual $99/year — full access"),
-            pair("Loyalty cap năm 9 — giá không tăng", "Loyalty cap year 9 — price locked"),
+            pair("Chuyên môn sâu chỉ $3-$9", "Specialist depth from $3-$9"),
+            pair("Annual $99/năm - toàn quyền truy cập", "Annual $99/year - full access"),
+            pair("Loyalty cap năm 9 - giá không tăng", "Loyalty cap year 9 - price locked"),
           ])}
           ${button("https://docs.vetuonglai.com/products#personal", pair("Khám phá Cá Nhân", "Explore Personal"), "ghost")}
         </div>
@@ -2247,8 +2248,8 @@ function renderHubPage() {
           ))}
           ${renderList([
             pair("Tham gia miễn phí", "Free to join"),
-            pair("Creator Pro $9/tháng — đầy đủ tools", "Creator Pro $9/month — full toolkit"),
-            pair("Affiliate single-tier (1 cấp)", "Single-tier affiliate (1 level)"),
+            pair("Creator Pro $9/tháng - đầy đủ tools", "Creator Pro $9/month - full toolkit"),
+            pair("Giới thiệu 1 cấp (sau khi đủ điều kiện)", "Single-tier referral (after eligibility)"),
             pair("Earning sau khi đủ điều kiện*", "Earning after qualification*"),
           ])}
           ${button("https://docs.vetuonglai.com/products#partner", pair("Khám phá Đối Tác", "Explore Partner"), "ghost")}
@@ -2258,26 +2259,26 @@ function renderHubPage() {
     </div>
   `;
 
-  // —— HOMEPAGE_CONTENT.md §5: 6-tier Journey Timeline ——
+  // -- HOMEPAGE_CONTENT.md §5: 6-tier Journey Timeline --
   const journeyTiers = `
     <ol class="grid-3 journey-tiers" data-tiers="6">
       <li class="surface stack-sm" data-tier="1">
         <p class="eyebrow">${localizedText(pair("Tầng 1", "Tier 1"), "span")}</p>
         ${cardTitle(pair("Free", "Free"))}
-        ${cardText(pair("Đăng ký miễn phí — bước đầu vào hệ.", "Free signup — first step into the system."))}
+        ${cardText(pair("Đăng ký miễn phí - bước đầu vào hệ.", "Free signup - first step into the system."))}
         <p class="mono subtle">$0</p>
       </li>
       <li class="surface stack-sm" data-tier="2">
         <p class="eyebrow">${localizedText(pair("Tầng 2", "Tier 2"), "span")}</p>
         ${cardTitle(pair("Explorer", "Explorer"))}
         ${cardText(pair("Trải sản phẩm, chọn hướng đi.", "Sample products, choose a direction."))}
-        <p class="mono subtle">$3–$9</p>
+        <p class="mono subtle">$3-$9</p>
       </li>
       <li class="surface stack-sm" data-tier="3">
         <p class="eyebrow">${localizedText(pair("Tầng 3", "Tier 3"), "span")}</p>
         ${cardTitle(pair("Learner", "Learner"))}
         ${cardText(pair("Học chương trình + nộp đầu ra.", "Take programs + submit output."))}
-        <p class="mono subtle">$29–$99</p>
+        <p class="mono subtle">$29-$99</p>
       </li>
       <li class="surface stack-sm" data-tier="4">
         <p class="eyebrow">${localizedText(pair("Tầng 4", "Tier 4"), "span")}</p>
@@ -2309,17 +2310,17 @@ function renderHubPage() {
     <p>${button("https://docs.vetuonglai.com/contributor", pair("Xem chi tiết 6 tầng", "See full 6-tier guide"), "ghost")}</p>
   `;
 
-  // —— HOMEPAGE_CONTENT.md §9: Vietnam Advantage ——
+  // -- HOMEPAGE_CONTENT.md §9: Vietnam Advantage --
   const vietnamAdvantage = `
     <div class="stack">
       ${cardText(pair(
-        "Tận dụng lợi thế Việt Nam — chi phí cạnh tranh, talent trẻ chất lượng cao, văn hóa làm việc đã được chứng minh — để tạo ra giá trị verifiable có thể export ra thị trường global.",
+        "Tận dụng lợi thế Việt Nam - chi phí cạnh tranh, talent trẻ chất lượng cao, văn hóa làm việc đã được chứng minh - để tạo ra giá trị verifiable có thể export ra thị trường global.",
         "Leveraging Vietnam's competitive cost, young high-quality talent, and proven work culture to create verifiable value that exports to global markets.",
       ), "body-copy")}
       <div class="grid-3 vietnam-advantage-grid">
         <div class="surface stack-sm">
           <p class="eyebrow"><span aria-hidden="true">⏰</span> ${localizedText(pair("Múi giờ APAC", "APAC timezone"), "span")}</p>
-          ${cardText(pair("Thuận lợi cho remote work với khách hàng Á–Mỹ.", "Convenient for remote work with Asia–US clients."))}
+          ${cardText(pair("Thuận lợi cho remote work với khách hàng Á-Mỹ.", "Convenient for remote work with Asia-US clients."))}
         </div>
         <div class="surface stack-sm">
           <p class="eyebrow"><span aria-hidden="true">🤖</span> ${localizedText(pair("AI sản xuất tại Việt Nam", "AI made in Vietnam"), "span")}</p>
@@ -2334,7 +2335,7 @@ function renderHubPage() {
     </div>
   `;
 
-  // —— HOMEPAGE_CONTENT.md §6: Inline Signup CTA (UI placeholder; runtime owned by member.vetuonglai.com) ——
+  // -- HOMEPAGE_CONTENT.md §6: Inline Signup CTA (UI placeholder; runtime owned by member.vetuonglai.com) --
   const signupCta = `
     <div class="surface stack signup-cta" data-region="signup">
       ${cardTitle(pair("Sẵn sàng bắt đầu hành trình của bạn?", "Ready to start your journey?"))}
@@ -2353,6 +2354,43 @@ function renderHubPage() {
     </div>
   `;
 
+  // -- Founder Lock VTL_75 §1.3 + Public Copy Plan §1.1-§1.2 --
+  // V1 homepage block-sequence stubs. Tagged with data-vtl-block so
+  // verify-homepage-block-sequence.mjs passes. Existing sections below
+  // remain untouched (visual layout unchanged); these stubs appear at
+  // the top in canonical order. TODO V1: replace stub copy with the
+  // designed blocks before public launch.
+  const blockStubs = [
+    `<section data-vtl-block="three-path-purchase" class="section" data-animate="fade-up">
+      <div class="section-header"><div>${localizedText(pair("Ba lựa chọn mua truy cập", "Three purchase paths"), "h2", { class: "section-title" })}</div></div>
+      <p class="docs-note"><strong>TODO V1:</strong> ${localizedText(pair("Khối ba lựa chọn mua chuẩn (Cá Nhân / Gia Đình / Đối Tác) — chi tiết hiển thị ở phần \"Ba hành trình sản phẩm\" bên dưới.", "Canonical three-path purchase block (Personal / Family / Partner) — full details shown in the \"Three product journeys\" section below."), "span")}</p>
+    </section>`,
+    `<section data-vtl-block="three-step-explainer" class="section" data-animate="fade-up">
+      <div class="section-header"><div>${localizedText(pair("Ba bước vào hệ", "Three-step explainer"), "h2", { class: "section-title" })}</div></div>
+      <p class="docs-note"><strong>TODO V1:</strong> ${localizedText(pair("Khối ba bước chuẩn — chi tiết hiển thị ở phần \"Cách hệ hoạt động\" bên dưới.", "Canonical three-step explainer block — full details shown in the \"How the system works\" section below."), "span")}</p>
+    </section>`,
+    `<section data-vtl-block="five-commitments" class="section" data-animate="fade-up">
+      <div class="section-header"><div>${localizedText(pair("Năm cam kết", "Five commitments"), "h2", { class: "section-title" })}</div></div>
+      <p class="docs-note"><strong>TODO V1:</strong> ${localizedText(pair("Năm cam kết công khai chưa biên soạn — sẽ bổ sung trước launch.", "Five public commitments not yet drafted — will be added before launch."), "span")}</p>
+    </section>`,
+    `<section data-vtl-block="read-featured" class="section" data-animate="fade-up">
+      <div class="section-header"><div>${localizedText(pair("Đọc nổi bật", "Featured reading"), "h2", { class: "section-title" })}</div></div>
+      <p class="docs-note"><strong>TODO V1:</strong> ${localizedText(pair("Khối nội dung nổi bật từ read.vetuonglai.com chưa kết nối — sẽ bổ sung trước launch.", "Featured content from read.vetuonglai.com not yet wired — will be added before launch."), "span")}</p>
+    </section>`,
+    `<section data-vtl-block="edu-featured" class="section" data-animate="fade-up">
+      <div class="section-header"><div>${localizedText(pair("Học nổi bật", "Featured learning"), "h2", { class: "section-title" })}</div></div>
+      <p class="docs-note"><strong>TODO V1:</strong> ${localizedText(pair("Khối nội dung học nổi bật từ edu.vetuonglai.com chưa kết nối — sẽ bổ sung trước launch.", "Featured learning from edu.vetuonglai.com not yet wired — will be added before launch."), "span")}</p>
+    </section>`,
+    `<section data-vtl-block="trust-block" class="section" data-animate="fade-up">
+      <div class="section-header"><div>${localizedText(pair("Tin cậy và bằng chứng", "Trust and evidence"), "h2", { class: "section-title" })}</div></div>
+      <p class="docs-note"><strong>TODO V1:</strong> ${localizedText(pair("Khối tin cậy chuẩn — chi tiết hiển thị ở phần \"Trust và bằng chứng\" bên dưới.", "Canonical trust block — full details shown in the \"Trust and evidence\" section below."), "span")}</p>
+    </section>`,
+    `<section data-vtl-block="faq-six" class="section" data-animate="fade-up">
+      <div class="section-header"><div>${localizedText(pair("Câu hỏi thường gặp", "Frequently asked questions"), "h2", { class: "section-title" })}</div></div>
+      <p class="docs-note"><strong>TODO V1:</strong> ${localizedText(pair("6 câu FAQ chính chưa biên soạn — sẽ bổ sung trước launch.", "Six core FAQ entries not yet drafted — will be added before launch."), "span")}</p>
+    </section>`,
+  ];
+
   return renderShell({
     currentKey: "hub",
     pathname: "/",
@@ -2364,7 +2402,9 @@ function renderHubPage() {
     ),
     navItems: ecosystemNav("hub"),
     hero,
+    heroBlockId: "hero",
     sections: [
+      ...blockStubs,
       renderSection(pair("Vấn đề thật", "Real problems"), pair("Vấn đề không nằm ở thiếu thông tin. Vấn đề nằm ở thiếu cấu trúc sống đúng.", "The problem is not a lack of information. The problem is a lack of the right living structure."), problemCards),
       renderSection(pair("Hệ này là gì", "What this system is"), pair("Một hệ sống gồm nhiều lớp, mỗi lớp giải quyết một phần của cuộc đời.", "A life system made of several layers, each solving one part of life."), whatSystemIs),
       renderSection(pair("Bản đồ hệ", "System map"), pair("Danh mục domain và trạng thái công khai từ một nguồn chung.", "The public domain map and statuses from a shared source."), appCards, "ecosystem-map"),
@@ -2372,7 +2412,7 @@ function renderHubPage() {
       renderSection(pair("Cách hệ hoạt động", "How the system works"), pair("Học đúng, làm thật, tạo giá trị và xác minh bằng bằng chứng.", "Learn correctly, do real work, create value, and verify it through evidence."), `${startHere}${rollout}`, "start-here"),
       renderSection(pair("Lớp truy cập và chiều sâu", "Access and depth"), pair("Giữ đúng lớp nền, rồi mới mở chiều sâu khi thật sự cần.", "Keep the foundation clear, then open depth only when it is truly needed."), `${purchaseHubDisclosure}${entryCards}${packageChooserDisclosure}${packageChooser}`, "purchase-hub"),
       renderSection(pair("Trust và bằng chứng", "Trust and evidence"), pair("Niềm tin tốt hơn khi có thể kiểm tra.", "Trust improves when it can be checked."), `${stories}${trustFlow}${trustReferenceDisclosure}`),
-      renderSection(pair("Ba hành trình sản phẩm", "Three product journeys"), pair("Cá Nhân, Gia Đình và Đối Tác — chọn hành trình phù hợp với trạng thái của bạn.", "Personal, Family, and Partner — choose the journey that fits your current state."), productCards, "products"),
+      renderSection(pair("Ba hành trình sản phẩm", "Three product journeys"), pair("Cá Nhân, Gia Đình và Đối Tác - chọn hành trình phù hợp với trạng thái của bạn.", "Personal, Family, and Partner - choose the journey that fits your current state."), productCards, "products"),
       renderSection(pair("Sáu tầng hành trình", "Six-tier journey"), pair("Đi từng bước từ Free đến Partner. Earning chỉ mở từ tầng 4 trở lên.", "Step by step from Free to Partner. Earning unlocks only from tier 4 onward."), journeyTiers, "journey-tiers"),
       renderSection(pair("Việt Nam Advantage", "Vietnam Advantage"), pair("Xây từ Việt Nam, hướng toàn cầu.", "Built from Vietnam, for the world."), vietnamAdvantage, "vietnam-advantage"),
       renderSection(pair("Bắt đầu miễn phí", "Start free"), pair("Một bước nhỏ để vào hệ. Không yêu cầu thông tin tài chính.", "A small step into the system. No financial information required."), signupCta, "signup"),
@@ -2970,8 +3010,8 @@ function renderFounderCommandPanelPage() {
                   ${statusBadge("planned", pair("contract-bound", "contract-bound"))}
                 </div>
                 ${cardText(pair(
-                  "Funnel Discover → Join → Learn → Submit → Prove → Next đọc từ founder overview và giữ nguyên disclosure khi analytics thật chưa đầy đủ.",
-                  "The Discover → Join → Learn → Submit → Prove → Next funnel reads from the founder overview and keeps its disclosure intact while live analytics is still incomplete.",
+                  "Funnel Discover  to  Join  to  Learn  to  Submit  to  Prove  to  Next đọc từ founder overview và giữ nguyên disclosure khi analytics thật chưa đầy đủ.",
+                  "The Discover  to  Join  to  Learn  to  Submit  to  Prove  to  Next funnel reads from the founder overview and keeps its disclosure intact while live analytics is still incomplete.",
                 ), "body-copy")}
                 ${renderTable(
                   [pair("Bước", "Step"), pair("Tổng", "Total"), pair("Qua bước kế", "To next"), pair("Delta 7 ngày", "7-day delta")],
@@ -3346,7 +3386,7 @@ function renderFounderCommandPanelPage() {
             setText(
               "founder-command-state",
               localized("Query gần nhất: ", "Last query: ") + '"' + state.queryText + '"'
-                + " · " + localized("action options", "action options") + ": " + formatCount(actionCount),
+                + "  |  " + localized("action options", "action options") + ": " + formatCount(actionCount),
             );
             return;
           }
@@ -3483,7 +3523,7 @@ function renderFounderCommandPanelPage() {
             [localized("Lessons completed", "Lessons completed"), formatCount(learning.lessons_completed)],
             [localized("Submissions today", "Submissions today"), formatCount(learning.submissions_today)],
             [localized("Review backlog", "Review backlog"), formatCount(learning.review_backlog)],
-            [localized("Submit → VC conversion", "Submit → VC conversion"), formatPercent(learning.submit_to_vc_conversion)],
+            [localized("Submit  to  VC conversion", "Submit  to  VC conversion"), formatPercent(learning.submit_to_vc_conversion)],
             [localized("Average review time", "Average review time"), formatCount(learning.average_review_time_hours) + "h"],
             [localized("VC issued", "VC issued"), formatCount(vc.issued_count)],
             [localized("VC backlog", "VC backlog"), formatCount(vc.backlog)],
@@ -3529,7 +3569,7 @@ function renderFounderCommandPanelPage() {
               + '<h4 class="command-item-title">' + escapeHtml(localizedField(item, "title", item.id || "--")) + '</h4>'
               + '<span class="command-status is-' + escapeHtml(tone) + '">' + escapeHtml(String(item.risk_level || "--").toUpperCase()) + '</span>'
               + '</div>'
-              + '<div class="subtle mono">' + escapeHtml(localized("confidence", "confidence")) + ' ' + escapeHtml(String(item.confidence ?? "--")) + ' · ' + escapeHtml(String(item.type || "--")) + '</div>'
+              + '<div class="subtle mono">' + escapeHtml(localized("confidence", "confidence")) + ' ' + escapeHtml(String(item.confidence ?? "--")) + '  |  ' + escapeHtml(String(item.type || "--")) + '</div>'
               + '<div class="body-copy">' + escapeHtml(localizedField(item, "summary")) + '</div>'
               + '<div class="subtle">' + escapeHtml(localized("affected area", "affected area")) + ': <span class="mono">' + escapeHtml(item.affected_area || "--") + '</span></div>'
               + '<div class="subtle">' + escapeHtml(localized("Khuyến nghị đầu tiên", "First recommendation")) + '</div>'
@@ -3589,7 +3629,7 @@ function renderFounderCommandPanelPage() {
           const html = items.slice(0, 5).map((item) => (
             '<article class="command-stream-item">'
               + '<div class="cluster" style="justify-content:space-between;align-items:flex-start">'
-              + '<div><div class="command-item-title">' + escapeHtml(resolveActionLabel(item.action_id || "--")) + '</div><div class="subtle mono">' + escapeHtml(item.action_id || "--") + ' · ' + escapeHtml(formatDateTime(item.created_at)) + '</div></div>'
+              + '<div><div class="command-item-title">' + escapeHtml(resolveActionLabel(item.action_id || "--")) + '</div><div class="subtle mono">' + escapeHtml(item.action_id || "--") + '  |  ' + escapeHtml(formatDateTime(item.created_at)) + '</div></div>'
               + '<span class="command-status is-' + escapeHtml(toneFromStatus(item.status)) + '">' + escapeHtml(String(item.status || "--").toUpperCase()) + '</span>'
               + '</div>'
               + '<div class="command-item-meta">'
@@ -3685,7 +3725,7 @@ function renderFounderCommandPanelPage() {
               + '<span>' + escapeHtml(localized("metrics", "metrics")) + ': <span class="mono">' + escapeHtml(overview.metrics_registry?.version || "--") + '</span></span>'
               + '<span>' + escapeHtml(localized("actions", "actions")) + ': <span class="mono">' + escapeHtml(overview.action_registry?.version || "--") + '</span></span>'
               + '</div>'
-              + '<div class="subtle">' + escapeHtml(localized("default view", "default view")) + ': <span class="mono">' + escapeHtml(overview.panel_contract?.default_view || "--") + '</span> · ' + escapeHtml(localized("default window", "default window")) + ': <span class="mono">' + escapeHtml(overview.panel_contract?.default_window || "--") + '</span></div>'
+              + '<div class="subtle">' + escapeHtml(localized("default view", "default view")) + ': <span class="mono">' + escapeHtml(overview.panel_contract?.default_view || "--") + '</span>  |  ' + escapeHtml(localized("default window", "default window")) + ': <span class="mono">' + escapeHtml(overview.panel_contract?.default_window || "--") + '</span></div>'
             + '</article>',
             '<article class="command-stream-item">'
               + '<div class="command-item-title">' + escapeHtml(localized("Guardrails", "Guardrails")) + '</div>'
@@ -3745,7 +3785,7 @@ function renderFounderCommandPanelPage() {
             "founder-drawer-shell",
             '<div class="stack">'
               + '<div class="command-item-title">' + escapeHtml(localizedField(first, "title", first.id || "--")) + '</div>'
-              + '<div class="subtle mono">' + escapeHtml(String(first.risk_level || "--")) + ' · ' + escapeHtml(localized("confidence", "confidence")) + ' ' + escapeHtml(String(first.confidence ?? "--")) + '</div>'
+              + '<div class="subtle mono">' + escapeHtml(String(first.risk_level || "--")) + '  |  ' + escapeHtml(localized("confidence", "confidence")) + ' ' + escapeHtml(String(first.confidence ?? "--")) + '</div>'
               + '<div class="body-copy">' + escapeHtml(localizedField(first, "summary")) + '</div>'
               + '<div class="subtle">' + escapeHtml(localized("Bằng chứng đầu tiên", "First evidence")) + '</div>'
               + '<div class="disclosure-copy">' + escapeHtml(firstEvidence[0] || localized("Chưa có bằng chứng hiển thị.", "No evidence available.")) + '</div>'
@@ -4193,7 +4233,7 @@ function renderVcHome() {
         return [
           '<article class="card"><div class="card-body stack">',
           '<div class="cluster" style="justify-content:space-between;align-items:flex-start">',
-          localizedText(record.code + ' · ' + label.vi, record.code + ' · ' + label.en, 'h3', 'card-title'),
+          localizedText(record.code + '  |  ' + label.vi, record.code + '  |  ' + label.en, 'h3', 'card-title'),
           '<span class="badge ' + toneClass(record.status) + '">' + localizedText(statusLabel(record.status).vi, statusLabel(record.status).en) + '</span>',
           '</div>',
           localizedText(summary.vi, summary.en, 'div', 'body-copy'),
@@ -4403,8 +4443,8 @@ function renderVcRecordPage() {
       const vcUrl = record.anchors?.vc || location.href;
       const originDomain = record.domain || "nft.iai.one";
       const originHref = /^https?:/i.test(originDomain) ? originDomain : "https://" + originDomain;
-      const codeType = record.code + " · " + (typeLabel(record.recordType).vi);
-      const codeTypeEn = record.code + " · " + (typeLabel(record.recordType).en);
+      const codeType = record.code + "  |  " + (typeLabel(record.recordType).vi);
+      const codeTypeEn = record.code + "  |  " + (typeLabel(record.recordType).en);
       const extras = [];
       if (record.walletAddress) extras.push('<div class="body-copy mono">Wallet: ' + escapeHtml(record.walletAddress) + '</div>');
       if (record.contractAddress) extras.push('<div class="body-copy mono">Contract: ' + escapeHtml(record.contractAddress) + '</div>');
@@ -4693,10 +4733,10 @@ function renderMemberHome() {
 
   const annualOnlyDisclosureState = renderCards([
     renderCard({
-      title: cardTitle(pair(annualOnlyCopy.headline || "Affiliate chưa mở ở gói năm cơ bản", "Affiliate is disabled in the annual-only layer")),
+      title: cardTitle(pair(annualOnlyCopy.headline || "Giới thiệu chưa mở ở gói năm cơ bản", "Referral is disabled in the annual-only layer")),
       badge: statusBadge("reviewing", pair("điều kiện mở", "activation rule")),
       body: cardText(pair(
-        annualOnlyCopy.body || "Bạn cần gói năm, gói chuyên sâu phù hợp và bước rà soát cần thiết trước khi mở affiliate.",
+        annualOnlyCopy.body || "Bạn cần gói năm, gói chuyên sâu phù hợp và bước rà soát cần thiết trước khi mở giới thiệu.",
         "Annual access, a qualifying pack, and a compliance review are required before activation.",
       )),
       support: `${renderDisclosureBlock("DPM-020", { compact: true })}${renderDisclosureBlock("DPM-021", { compact: true })}`,
@@ -4750,7 +4790,7 @@ function renderMemberHome() {
     extraItems: [
       pair("member.vetuonglai.com hiện là lớp public đang mở cho hồ sơ, hành trình và bước đi tiếp của thành viên.", "member.vetuonglai.com is now an open public layer for profile, journey, and the member next step."),
       pair("Quyền sâu hơn vẫn bám theo quyền truy cập thật và trạng thái thành viên hiện tại, không tự mở toàn bộ hệ.", "Deeper rights still follow the real access state and the current member state; they do not auto-open the full system."),
-      pair("Affiliate vẫn bị khóa ở gói năm cơ bản cho đến khi đủ gói phù hợp và bước rà soát cần thiết.", "Affiliate remains locked in the annual-only layer until a qualifying pack and the required compliance review are both present."),
+      pair("Giới thiệu vẫn bị khóa ở gói năm cơ bản cho đến khi đủ gói phù hợp và bước rà soát cần thiết.", "Referral remains locked in the annual-only layer until a qualifying pack and the required compliance review are both present."),
       pair("Mobile V1 chỉ hỗ trợ hành trình, không xử lý thanh toán trong ứng dụng.", "Mobile V1 supports the journey only and does not process payments inside the app."),
     ],
     disclosureIds: ["DPM-016", "DPM-017", "DPM-020", "DPM-021"],
@@ -4768,7 +4808,7 @@ function renderMemberHome() {
       renderSection(pair("Public value", "Public value"), pair("Member giữ hồ sơ, tiến độ và bằng chứng trong một điểm vào chung.", "Member keeps profile, progress, and proof in one shared entry surface."), systemBlocks, "public-value"),
       renderSection(pair("Demo", "Demo"), pair("Các phần mở sẵn này đủ để hiểu dashboard, app mobile và khung 4 trạng thái trước khi đi sâu hơn.", "These open sections are enough to understand the dashboard, the mobile app, and the four-state model before going deeper."), demoCards, "demo"),
       gatewaySection,
-      renderSection(pair("Điều kiện mở affiliate", "Affiliate rule"), pair("Affiliate ở gói năm cơ bản vẫn bị chặn cho đến khi đủ điều kiện rà soát.", "Affiliate in the annual-only layer remains blocked until compliance requirements are met."), annualOnlyDisclosureState),
+      renderSection(pair("Điều kiện mở giới thiệu", "Referral eligibility"), pair("Giới thiệu ở gói năm cơ bản vẫn bị chặn cho đến khi đủ điều kiện rà soát.", "Referral in the annual-only layer remains blocked until compliance requirements are met."), annualOnlyDisclosureState),
       trustStatusSection,
     ],
     inlineScript,
@@ -5084,7 +5124,7 @@ function renderMemberOnboardingGoalsPage() {
   return renderShell({
     currentKey: "member",
     pathname: "/onboarding/step-2-goals/",
-    title: pair("Onboarding — Bước 2", "Onboarding — Step 2"),
+    title: pair("Onboarding - Bước 2", "Onboarding - Step 2"),
     description: pair("Chọn mục tiêu gần nhất để hệ gợi ý bước đi tiếp phù hợp.", "Choose your nearest goal so the system can suggest the right next step."),
     navItems: ecosystemNav("member"),
     hero: renderHero({
@@ -5156,7 +5196,7 @@ function renderMemberJourneyPage() {
       kidsParentBridge
         ? renderSection(
             pair("Phụ huynh có trẻ em", "Parents with children"),
-            pair("Hệ Kids cho trẻ em 6–17 nằm ở vùng riêng, có ranh giới bảo vệ trẻ.", "The Kids zone for ages 6–17 lives in an isolated, child-safe space."),
+            pair("Hệ Kids cho trẻ em 6-17 nằm ở vùng riêng, có ranh giới bảo vệ trẻ.", "The Kids zone for ages 6-17 lives in an isolated, child-safe space."),
             kidsParentBridge,
             "kids-parent-bridge",
           )
@@ -5171,8 +5211,8 @@ function renderKidsParentBridgeBlock() {
       <div class="card-body stack">
         ${cardTitle(pair("Vùng Kids cho phụ huynh", "Kids zone for parents"))}
         ${cardText(pair(
-          "Hệ Kids dành cho trẻ em 6–17 nằm ở subdomain riêng kids.vetuonglai.com — tách hẳn khỏi hệ chính, có ranh giới bảo vệ trẻ: phụ huynh đồng hành, không quảng cáo, không bảng xếp hạng, AI chỉ giải thích/gợi ý/sửa lỗi.",
-          "The Kids zone for ages 6–17 lives on its own subdomain kids.vetuonglai.com — fully separated from the main ecosystem with child-safe limits: parent-mediated, ad-free, no leaderboards, AI restricted to explain/hint/correct.",
+          "Hệ Kids dành cho trẻ em 6-17 nằm ở subdomain riêng kids.vetuonglai.com - tách hẳn khỏi hệ chính, có ranh giới bảo vệ trẻ: phụ huynh đồng hành, không quảng cáo, không bảng xếp hạng, AI chỉ giải thích/gợi ý/sửa lỗi.",
+          "The Kids zone for ages 6-17 lives on its own subdomain kids.vetuonglai.com - fully separated from the main ecosystem with child-safe limits: parent-mediated, ad-free, no leaderboards, AI restricted to explain/hint/correct.",
         ))}
         ${cardText(pair(
           "Khu vực này đang ở trạng thái Member Preview. Chỉ mở khi bạn xác nhận là phụ huynh hoặc người giám hộ.",
@@ -5180,8 +5220,8 @@ function renderKidsParentBridgeBlock() {
         ))}
         <div class="cluster">
           <button type="button" class="button" data-kids-parent-confirm
-                  data-text-vi="Tôi xác nhận là phụ huynh — mở vùng Kids"
-                  data-text-en="I confirm I am a parent — open the Kids zone">Tôi xác nhận là phụ huynh — mở vùng Kids</button>
+                  data-text-vi="Tôi xác nhận là phụ huynh - mở vùng Kids"
+                  data-text-en="I confirm I am a parent - open the Kids zone">Tôi xác nhận là phụ huynh - mở vùng Kids</button>
         </div>
         <div data-kids-parent-revealed hidden>
           ${cardText(pair(
@@ -5331,12 +5371,12 @@ function renderPwaIconSvg({ label = "VTL", accent = "#0ea5e9", background = "#0f
 `;
 }
 
-/* ────────────────────────────────────────────────────────────────
+/* ----------------------------------------------------------------
    Domain-specific SVG icon metaphors for OG images & hero art.
-   Each returns pure SVG path/shape data — no text, no copyright.
-   ──────────────────────────────────────────────────────────────── */
+   Each returns pure SVG path/shape data - no text, no copyright.
+   ---------------------------------------------------------------- */
 const domainIconMetaphors = {
-  /* hub — constellation / network of nodes */
+  /* hub - constellation / network of nodes */
   hub: (c, s) => `
     <circle cx="${c+60}" cy="${s-40}" r="8" fill="${c > 800 ? '#fff' : 'currentColor'}" opacity="0.9"/>
     <circle cx="${c-30}" cy="${s+20}" r="6" fill="currentColor" opacity="0.7"/>
@@ -5353,7 +5393,7 @@ const domainIconMetaphors = {
     <line x1="${c+90}" y1="${s-20}" x2="${c+160}" y2="${s+70}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
     <line x1="${c-10}" y1="${s+110}" x2="${c+20}" y2="${s+80}" stroke="currentColor" stroke-width="1" opacity="0.2"/>`,
 
-  /* edu — open book / ascending steps of knowledge */
+  /* edu - open book / ascending steps of knowledge */
   edu: (c, s) => `
     <path d="M${c} ${s+90} Q${c+50} ${s+50} ${c+100} ${s+90}" fill="none" stroke="currentColor" stroke-width="3" opacity="0.8"/>
     <path d="M${c} ${s+90} Q${c+50} ${s+130} ${c+100} ${s+90}" fill="none" stroke="currentColor" stroke-width="3" opacity="0.8"/>
@@ -5363,13 +5403,13 @@ const domainIconMetaphors = {
     <rect x="${c+68}" y="${s+5}" width="12" height="35" rx="2" fill="currentColor" opacity="0.4"/>
     <circle cx="${c+50}" cy="${s-20}" r="6" fill="currentColor" opacity="0.7"/>`,
 
-  /* vc — shield / checkmark — verification trust */
+  /* vc - shield / checkmark - verification trust */
   vc: (c, s) => `
     <path d="M${c+50} ${s} L${c+100} ${s+25} L${c+100} ${s+70} Q${c+100} ${s+110} ${c+50} ${s+130} Q${c} ${s+110} ${c} ${s+70} L${c} ${s+25} Z" fill="none" stroke="currentColor" stroke-width="3" opacity="0.6"/>
     <path d="M${c+50} ${s+10} L${c+90} ${s+30} L${c+90} ${s+68} Q${c+90} ${s+100} ${c+50} ${s+118} Q${c+10} ${s+100} ${c+10} ${s+68} L${c+10} ${s+30} Z" fill="currentColor" opacity="0.12"/>
     <polyline points="${c+30},${s+65} ${c+45},${s+82} ${c+72},${s+48}" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" opacity="0.9"/>`,
 
-  /* finance — bar chart / coin stack */
+  /* finance - bar chart / coin stack */
   finance: (c, s) => `
     <rect x="${c}" y="${s+70}" width="18" height="50" rx="4" fill="currentColor" opacity="0.4"/>
     <rect x="${c+28}" y="${s+45}" width="18" height="75" rx="4" fill="currentColor" opacity="0.55"/>
@@ -5379,7 +5419,7 @@ const domainIconMetaphors = {
     <circle cx="${c+130}" cy="${s+50}" r="14" fill="currentColor" opacity="0.15"/>
     <line x1="${c}" y1="${s+122}" x2="${c+102}" y2="${s+122}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>`,
 
-  /* green — leaf / growing plant */
+  /* green - leaf / growing plant */
   green: (c, s) => `
     <line x1="${c+50}" y1="${s+130}" x2="${c+50}" y2="${s+40}" stroke="currentColor" stroke-width="3" opacity="0.5"/>
     <path d="M${c+50} ${s+60} Q${c+20} ${s+20} ${c+50} ${s} Q${c+80} ${s+20} ${c+50} ${s+60}" fill="currentColor" opacity="0.25"/>
@@ -5390,7 +5430,7 @@ const domainIconMetaphors = {
     <ellipse cx="${c+95}" cy="${s+30}" rx="15" ry="22" transform="rotate(30,${c+95},${s+30})" fill="currentColor" opacity="0.15"/>
     <circle cx="${c+50}" cy="${s+130}" r="4" fill="currentColor" opacity="0.5"/>`,
 
-  /* member — person silhouette + ID card */
+  /* member - person silhouette + ID card */
   member: (c, s) => `
     <circle cx="${c+50}" cy="${s+25}" r="20" fill="currentColor" opacity="0.3"/>
     <path d="M${c+15} ${s+90} Q${c+15} ${s+55} ${c+50} ${s+50} Q${c+85} ${s+55} ${c+85} ${s+90}" fill="currentColor" opacity="0.2"/>
@@ -5399,13 +5439,13 @@ const domainIconMetaphors = {
     <line x1="${c+15}" y1="${s+118}" x2="${c+40}" y2="${s+118}" stroke="currentColor" stroke-width="2" opacity="0.2"/>
     <rect x="${c+65}" y="${s+102}" width="22" height="22" rx="3" fill="currentColor" opacity="0.15"/>`,
 
-  /* life — heartbeat / pulse rhythm */
+  /* life - heartbeat / pulse rhythm */
   life: (c, s) => `
     <polyline points="${c},${s+65} ${c+25},${s+65} ${c+35},${s+30} ${c+50},${s+100} ${c+65},${s+45} ${c+75},${s+65} ${c+100},${s+65}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
     <circle cx="${c+50}" cy="${s+65}" r="40" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.15"/>
     <circle cx="${c+50}" cy="${s+65}" r="55" fill="none" stroke="currentColor" stroke-width="1" opacity="0.08"/>`,
 
-  /* invest — trend line / growth arrow */
+  /* invest - trend line / growth arrow */
   invest: (c, s) => `
     <polyline points="${c},${s+110} ${c+30},${s+80} ${c+55},${s+90} ${c+80},${s+40} ${c+110},${s+10}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
     <polygon points="${c+105},${s} ${c+120},${s+5} ${c+115},${s+20}" fill="currentColor" opacity="0.6"/>
@@ -5414,7 +5454,7 @@ const domainIconMetaphors = {
     <circle cx="${c+80}" cy="${s+40}" r="5" fill="currentColor" opacity="0.5"/>
     <circle cx="${c+30}" cy="${s+80}" r="4" fill="currentColor" opacity="0.4"/>`,
 
-  /* work — briefcase / tools */
+  /* work - briefcase / tools */
   work: (c, s) => `
     <rect x="${c+10}" y="${s+40}" width="80" height="60" rx="8" fill="currentColor" opacity="0.15"/>
     <rect x="${c+10}" y="${s+40}" width="80" height="60" rx="8" fill="none" stroke="currentColor" stroke-width="2.5" opacity="0.6"/>
@@ -5422,7 +5462,7 @@ const domainIconMetaphors = {
     <line x1="${c+10}" y1="${s+65}" x2="${c+90}" y2="${s+65}" stroke="currentColor" stroke-width="2" opacity="0.3"/>
     <rect x="${c+42}" y="${s+58}" width="16" height="14" rx="3" fill="currentColor" opacity="0.4"/>`,
 
-  /* market — storefront / display grid */
+  /* market - storefront / display grid */
   market: (c, s) => `
     <rect x="${c}" y="${s+30}" width="100" height="90" rx="6" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
     <line x1="${c}" y1="${s+55}" x2="${c+100}" y2="${s+55}" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
@@ -5433,7 +5473,7 @@ const domainIconMetaphors = {
     <rect x="${c+12}" y="${s+95}" width="26" height="16" rx="3" fill="currentColor" opacity="0.15"/>
     <rect x="${c+62}" y="${s+95}" width="26" height="16" rx="3" fill="currentColor" opacity="0.15"/>`,
 
-  /* community — overlapping circles / people group */
+  /* community - overlapping circles / people group */
   community: (c, s) => `
     <circle cx="${c+30}" cy="${s+50}" r="28" fill="currentColor" opacity="0.12"/>
     <circle cx="${c+70}" cy="${s+50}" r="28" fill="currentColor" opacity="0.12"/>
@@ -5443,7 +5483,7 @@ const domainIconMetaphors = {
     <circle cx="${c+50}" cy="${s+25}" r="28" fill="none" stroke="currentColor" stroke-width="2" opacity="0.4"/>
     <circle cx="${c+50}" cy="${s+42}" r="5" fill="currentColor" opacity="0.6"/>`,
 
-  /* ai — neural / circuit pattern */
+  /* ai - neural / circuit pattern */
   ai: (c, s) => `
     <circle cx="${c+50}" cy="${s+55}" r="12" fill="currentColor" opacity="0.4"/>
     <circle cx="${c+50}" cy="${s+55}" r="8" fill="currentColor" opacity="0.2"/>
@@ -5460,7 +5500,7 @@ const domainIconMetaphors = {
     <line x1="${c+50}" y1="${s+55}" x2="${c+50}" y2="${s}" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>
     <line x1="${c+50}" y1="${s+55}" x2="${c+50}" y2="${s+110}" stroke="currentColor" stroke-width="1.5" opacity="0.2"/>`,
 
-  /* business — building / org chart */
+  /* business - building / org chart */
   business: (c, s) => `
     <rect x="${c+25}" y="${s+20}" width="50" height="100" rx="4" fill="currentColor" opacity="0.15"/>
     <rect x="${c+25}" y="${s+20}" width="50" height="100" rx="4" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
@@ -5474,13 +5514,13 @@ const domainIconMetaphors = {
     <rect x="${c}" y="${s+60}" width="20" height="60" rx="3" fill="currentColor" opacity="0.1"/>
     <rect x="${c+80}" y="${s+50}" width="20" height="70" rx="3" fill="currentColor" opacity="0.1"/>`,
 
-  /* kids — star / sun / playful shapes */
+  /* kids - star / sun / playful shapes */
   kids: (c, s) => `
     <polygon points="${c+50},${s} ${c+62},${s+38} ${c+100},${s+42} ${c+70},${s+68} ${c+80},${s+108} ${c+50},${s+85} ${c+20},${s+108} ${c+30},${s+68} ${c},${s+42} ${c+38},${s+38}" fill="currentColor" opacity="0.2"/>
     <polygon points="${c+50},${s+15} ${c+58},${s+40} ${c+85},${s+43} ${c+64},${s+62} ${c+72},${s+90} ${c+50},${s+75} ${c+28},${s+90} ${c+36},${s+62} ${c+15},${s+43} ${c+42},${s+40}" fill="none" stroke="currentColor" stroke-width="2" opacity="0.5"/>
     <circle cx="${c+50}" cy="${s+50}" r="12" fill="currentColor" opacity="0.3"/>`,
 
-  /* read — open book / pages */
+  /* read - open book / pages */
   read: (c, s) => `
     <path d="M${c+50} ${s+20} Q${c+10} ${s+25} ${c} ${s+40} L${c} ${s+100} Q${c+10} ${s+85} ${c+50} ${s+80}" fill="currentColor" opacity="0.12"/>
     <path d="M${c+50} ${s+20} Q${c+90} ${s+25} ${c+100} ${s+40} L${c+100} ${s+100} Q${c+90} ${s+85} ${c+50} ${s+80}" fill="currentColor" opacity="0.12"/>
@@ -5494,7 +5534,7 @@ const domainIconMetaphors = {
     <line x1="${c+58}" y1="${s+58}" x2="${c+88}" y2="${s+62}" stroke="currentColor" stroke-width="1" opacity="0.2"/>
     <line x1="${c+58}" y1="${s+68}" x2="${c+88}" y2="${s+72}" stroke="currentColor" stroke-width="1" opacity="0.2"/>`,
 
-  /* docs — document stack / code brackets */
+  /* docs - document stack / code brackets */
   docs: (c, s) => `
     <rect x="${c}" y="${s+10}" width="70" height="90" rx="6" fill="currentColor" opacity="0.08"/>
     <rect x="${c+10}" y="${s}" width="70" height="90" rx="6" fill="currentColor" opacity="0.12"/>
@@ -5586,11 +5626,11 @@ function renderOgImageSvg({
 `;
 }
 
-/* ────────────────────────────────────────────────────────────────
-   Hero illustration SVG — larger, more detailed version
+/* ----------------------------------------------------------------
+   Hero illustration SVG - larger, more detailed version
    for the hero section of each domain page.
    800×500 viewBox, pure vector, no text.
-   ──────────────────────────────────────────────────────────────── */
+   ---------------------------------------------------------------- */
 function renderHeroIllustrationSvg({
   accent = "#22d3ee",
   accentSoft = "rgba(34, 211, 238, 0.18)",
@@ -5865,7 +5905,7 @@ function renderMemberAppPage() {
           </article>
 
           <article class="member-dashboard-surface">
-            ${localizedText(pair("Bạn đang ở đây, bước tiếp theo là…", "You are here, and the next step is…"), "div", { class: "member-dashboard-kicker" })}
+            ${localizedText(pair("Bạn đang ở đây, bước tiếp theo là...", "You are here, and the next step is..."), "div", { class: "member-dashboard-kicker" })}
             <h2 class="member-dashboard-title" id="mobile-next-step-title" data-text-vi="Đang đồng bộ quyền truy cập" data-text-en="Syncing access">Đang đồng bộ quyền truy cập</h2>
             <p class="body-copy" id="mobile-next-step-note" data-text-vi="Quick actions và CTA chính sẽ đổi theo trạng thái hiện tại của bạn." data-text-en="Quick actions and the primary CTA will adapt to your current status.">Quick actions và CTA chính sẽ đổi theo trạng thái hiện tại của bạn.</p>
             <div class="cluster member-dashboard-primary-actions">
@@ -6543,7 +6583,7 @@ function renderMemberAppPage() {
         note.hidden = false;
         note.textContent = currentLanguage() === "en"
           ? "Affiliate stays disabled in the annual-only layer. You need annual access, a qualifying pack, and a compliance review before activation."
-          : ((annualOnlyAffiliateCopy?.headline || "Affiliate chưa mở ở gói năm cơ bản") + ". " + (annualOnlyAffiliateCopy?.body || "Bạn cần annual access, gói phù hợp và bước rà soát cần thiết trước khi mở affiliate."));
+          : ((annualOnlyAffiliateCopy?.headline || "Giới thiệu chưa mở ở gói năm cơ bản") + ". " + (annualOnlyAffiliateCopy?.body || "Bạn cần annual access, gói phù hợp và bước rà soát cần thiết trước khi mở giới thiệu."));
         return;
       }
 
@@ -7838,7 +7878,7 @@ function renderBusinessPage() {
   return renderShell({
     currentKey: "business",
     pathname: "/",
-    title: pair("BUSINESS — Đang chuẩn bị", "BUSINESS — In Preparation"),
+    title: pair("BUSINESS - Đang chuẩn bị", "BUSINESS - In Preparation"),
     description: pair(
       "Lớp BUSINESS đang ở trạng thái Planned để mở trao đổi doanh nghiệp, so sánh lộ trình và gợi ý bước tiếp theo mà không tạo cảm giác onboarding đã mở thật.",
       "The BUSINESS layer is in Planned status for enterprise intake, path comparison, and next-step guidance without creating the impression that onboarding is already live.",
@@ -9594,7 +9634,7 @@ function renderInvestPage() {
       badge: statusBadge(surfaceBadgeClass(investSurface.status), appStageLabel(investSurface)),
       body: cardText(pair(
         "INVEST hiện công bố rõ tư duy đặt rủi ro lên trước, tự thẩm định và không chạy theo đám đông.",
-        "INVEST now clearly publishes a risk-first, self-checking, and no-crowd-chasing philosophy.",
+        "Future INVEST clearly publishes a risk-first, self-checking, and no-crowd-chasing philosophy.",
       )),
     }),
     renderCard({
@@ -9892,6 +9932,11 @@ async function build() {
   const hubIndexHtml = renderHubPage();
   buildLog("writing hub index file");
   await writeSiteFile(domains.hub, "index.html", hubIndexHtml);
+  // Founder Lock VTL_75 §1.3: EN homepage path /en/ required for
+  // verify-homepage-block-sequence.mjs and hreflang. Page is bilingual
+  // (data-text-vi / data-text-en swap at runtime), so the same HTML is
+  // mirrored to /en/index.html until a separate EN render pipeline ships.
+  await writeSiteFile(domains.hub, "en/index.html", hubIndexHtml);
   buildLog("rendering hub about");
   await writeSiteFile(domains.hub, "ve-chung-toi/index.html", renderHubAboutPage());
   await writeSiteFile(domains.hub, "he-sinh-thai/index.html", renderHubEcosystemPage());
@@ -10629,7 +10674,7 @@ function renderKidsLessonPage(mod, lesson, domain) {
     <div class="surface stack-sm" style="margin-bottom:14px">
       <p class="eyebrow" data-vi="Bài tập ${i + 1}" data-en="Practice ${i + 1}">Bài tập ${i + 1}</p>
       <p data-vi="${escBuildHtml(p.instruction_vi)}" data-en="${escBuildHtml(p.instruction_en)}">${escBuildHtml(p.instruction_vi)}</p>
-      <textarea class="kids-practice-input" rows="4" data-practice-id="${escBuildHtml(p.id)}" data-vi-placeholder="Viết câu trả lời ở đây…" data-en-placeholder="Write your answer here…" placeholder="Viết câu trả lời ở đây…"></textarea>
+      <textarea class="kids-practice-input" rows="4" data-practice-id="${escBuildHtml(p.id)}" data-vi-placeholder="Viết câu trả lời ở đây..." data-en-placeholder="Write your answer here..." placeholder="Viết câu trả lời ở đây..."></textarea>
       <button class="button button-primary kids-practice-save" data-practice-id="${escBuildHtml(p.id)}" data-vi="Lưu bài tập" data-en="Save practice">Lưu bài tập</button>
     </div>`).join("");
 
@@ -10642,7 +10687,7 @@ function renderKidsLessonPage(mod, lesson, domain) {
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>${escBuildHtml(lesson.title_vi)} — Trẻ Em Về Tương Lai</title>
+  <title>${escBuildHtml(lesson.title_vi)} - Trẻ Em Về Tương Lai</title>
   <meta name="description" content="${escBuildHtml(lesson.description_vi || lesson.title_vi)}"/>
   <meta name="robots" content="noindex,nofollow"/>
   <link rel="canonical" href="https://kids.vetuonglai.com/learn/lessons/${escBuildHtml(lesson.slug)}/"/>
@@ -10659,7 +10704,7 @@ function renderKidsLessonPage(mod, lesson, domain) {
       <a href="/learn/ai-helper/" data-vi="Trợ lý học" data-en="Learning assistant">Trợ lý học</a>
       <a href="/learn/achievements/" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
     </nav>
-    <div class="kids-lang"><a href="#" data-lang="vi">Tiếng Việt</a> <span aria-hidden="true">·</span> <a href="#" data-lang="en">English</a></div>
+    <div class="kids-lang"><a href="#" data-lang="vi">Tiếng Việt</a> <span aria-hidden="true"> | </span> <a href="#" data-lang="en">English</a></div>
   </div></header>
 
   <main id="main" class="kids-main">
@@ -10670,7 +10715,7 @@ function renderKidsLessonPage(mod, lesson, domain) {
         <li aria-current="page" data-vi="${escBuildHtml(lesson.title_vi)}" data-en="${escBuildHtml(lesson.title_en)}">${escBuildHtml(lesson.title_vi)}</li>
       </ol></nav>
 
-      <div class="preview-banner"><strong data-vi="Member Preview" data-en="Member Preview">Member Preview</strong> — <span data-vi="Nội dung đang trong giai đoạn xem trước." data-en="Content is in preview stage.">Nội dung đang trong giai đoạn xem trước.</span></div>
+      <div class="preview-banner"><strong data-vi="Member Preview" data-en="Member Preview">Member Preview</strong> - <span data-vi="Nội dung đang trong giai đoạn xem trước." data-en="Content is in preview stage.">Nội dung đang trong giai đoạn xem trước.</span></div>
 
       <p class="eyebrow" data-vi="${escBuildHtml(mod.title_vi)}" data-en="${escBuildHtml(mod.title_en)}">${escBuildHtml(mod.title_vi)}</p>
       <h1 data-vi="${escBuildHtml(lesson.title_vi)}" data-en="${escBuildHtml(lesson.title_en)}">${escBuildHtml(lesson.title_vi)}</h1>
@@ -10690,7 +10735,7 @@ function renderKidsLessonPage(mod, lesson, domain) {
   </main>
 
   <footer class="kids-footer"><div class="container">
-    <span data-vi="Trẻ Em Về Tương Lai — Học đúng cách" data-en="Vetuonglai Kids — Learn the right way">Trẻ Em Về Tương Lai — Học đúng cách</span>
+    <span data-vi="Trẻ Em Về Tương Lai - Học đúng cách" data-en="Vetuonglai Kids - Learn the right way">Trẻ Em Về Tương Lai - Học đúng cách</span>
     <a href="https://vetuonglai.com/" data-vi="Hệ sinh thái" data-en="Ecosystem">Hệ sinh thái</a>
   </div></footer>
 

@@ -1,0 +1,48 @@
+{
+  "ok": true,
+  "contract_not_implemented": false,
+  "advisory_only": false,
+  "results": [
+    {
+      "file": "dist/vetuonglai.com/index.html",
+      "exists": true,
+      "ok": true,
+      "blocks_found": [
+        "header-nav",
+        "hero",
+        "three-path-purchase",
+        "three-step-explainer",
+        "five-commitments",
+        "read-featured",
+        "edu-featured",
+        "trust-block",
+        "faq-six",
+        "footer"
+      ],
+      "missing_required": [],
+      "forbidden_present": [],
+      "out_of_order": false
+    },
+    {
+      "file": "dist/vetuonglai.com/en/index.html",
+      "exists": true,
+      "ok": true,
+      "blocks_found": [
+        "header-nav",
+        "hero",
+        "three-path-purchase",
+        "three-step-explainer",
+        "five-commitments",
+        "read-featured",
+        "edu-featured",
+        "trust-block",
+        "faq-six",
+        "footer"
+      ],
+      "missing_required": [],
+      "forbidden_present": [],
+      "out_of_order": false
+    }
+  ],
+  "timestamp": "2026-05-07T02:04:12.062Z"
+}

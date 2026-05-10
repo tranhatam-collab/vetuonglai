@@ -90,7 +90,7 @@ Master Passes are the **identity bundles** that grant access across product line
 | # | Pass (VI) | Pass (EN) | Phase | Annual price (USD) | Multi-year ladder |
 |---|---|---|---|---|---|
 | 1 | Hộ chiếu Thành viên | Member Passport | V1 | $99/yr (Y1 30% launch discount: $69, capped at first 1,000 paid or 90 days) | $99 / $181.50 / $247.50 / $371.25 / loyalty cap year 9+ |
-| 2 | Hộ chiếu Gia đình | Family Passport | V2 (build-V1, public-CTA-V2) | $159/yr | TBD (locked V2 with Founder; working: same step pattern as Member, scaled) |
+| 2 | Hộ chiếu Gia đình | Family Passport | V2 (build-V1, public-CTA-V2) | $159/yr (LOCKED 2026-05-06; supersedes legacy $99) | Annual only at V1+V2 launch; multi-year ladder TBD V2 with Founder memo |
 | 3 | Hộ chiếu Đối tác / Doanh nghiệp | Partner / Business Passport | V3 | from $1,200/yr per seat ladder | Custom; per-seat tiers locked V3 with sales+legal review |
 
 ### 2.2 Member Passport — ladder detail
@@ -112,13 +112,16 @@ Master Passes are the **identity bundles** that grant access across product line
 - Not stackable with referral discounts (single-tier referral pays the referrer in revenue share, not in price discount on the new member's purchase).
 - Discount window status is shown on `/pricing/` with the auditable cap counter ("X / 1,000 đã đăng ký, còn Y ngày").
 
-### 2.3 Family Passport — entitlement
+### 2.3 Family Passport — entitlement and pricing (LOCKED 2026-05-06)
 
+- **Price: $159/year** (single locked figure; supersedes any prior `$99/year` Family wording in `PS §3.3` and the legacy `Starter $89/year for 2` in `PS:86`).
 - ≤ 2 adults + ≤ 4 children, single household (verified by shared payment + shared address).
 - Adults each have full Member entitlement.
 - Children get Kids surface entitlement (V2+) under parent-linked accounts; ages 13-17 may interact with Edu and Read child-safe content; under 13 requires verifiable parental consent per COPPA + Luật Trẻ em.
 - Family-only entitlement: parent dashboard for child progress + parental controls.
 - Family Passport public CTA is **not on V1 homepage above-the-fold**; it appears only on `/pricing/` detail in V1, becomes a homepage block in V2.
+- **Y1 launch discount does not apply to Family.** The 30% / 1,000-cap / 90-day window is Member Passport only (§2.2). Family is full-price at first sale.
+- `$99/year` is reserved exclusively for **Member Passport (single seat)** until a future Founder memo authorizes its reuse for any other tier.
 
 ### 2.4 Partner / Business Passport — entitlement
 

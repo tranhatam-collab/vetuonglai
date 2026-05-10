@@ -81,15 +81,28 @@ Use this order when making decisions:
 8. `docs/final-lock/VTL_06_EXECUTION_WORKSTREAMS_AND_DEPENDENCIES_FINAL.md`
 9. `docs/final-lock/VTL_07_TEAM_SPLIT_WORKLOAD_AND_PROMPTS_FINAL.md`
 10. `docs/final-lock/VTL_08_FOUNDER_UPDATE_CHANGELOG_2026-04-09.md`
-11. `VETUONGLAI_MASTER_HANDOFF_INDEX.md`
-12. `VETUONGLAI_MASTER_VISION_AND_POSITIONING.md`
-13. `VETUONGLAI_ECOSYSTEM_ARCHITECTURE.md`
-14. `VETUONGLAI_DOMAIN_ROLE_MATRIX.md`
-15. `VETUONGLAI_MASTER_SYSTEM_UPGRADE_2026_04.md`
-16. `VETUONGLAI_NORTH_STAR_VISION_2026.md`
-17. `VETUONGLAI_SUBDOMAIN_MISSION_AND_SEO_MASTER.md`
-18. `VETUONGLAI_RUNTIME_TRUTH_AND_QA.md`
-19. `cloudflare/domain-runtime-truth.json`
+11. `../UNIVERSAL_WEB_HUMAN_TEXT_SEO_QA_GATE_PROTOCOL_2026.md` for public web text, SEO, QA, report, and release wording work
+12. `docs/web-governance/HUMAN_TEXT_CHARACTER_AND_RESPONSE_PROTOCOL.md` for active Vetuonglai implementation of the human text web gate
+13. `docs/final-lock/VTL_72_HUMAN_TEXT_WEB_GATE_ADOPTION_2026-05-05.md`
+14. `VETUONGLAI_MASTER_HANDOFF_INDEX.md`
+15. `VETUONGLAI_MASTER_VISION_AND_POSITIONING.md`
+16. `VETUONGLAI_ECOSYSTEM_ARCHITECTURE.md`
+17. `VETUONGLAI_DOMAIN_ROLE_MATRIX.md`
+18. `VETUONGLAI_MASTER_SYSTEM_UPGRADE_2026_04.md`
+19. `VETUONGLAI_NORTH_STAR_VISION_2026.md`
+20. `VETUONGLAI_SUBDOMAIN_MISSION_AND_SEO_MASTER.md`
+21. `VETUONGLAI_RUNTIME_TRUTH_AND_QA.md`
+22. `cloudflare/domain-runtime-truth.json`
+
+## Human text web gate
+
+For any task touching public copy, SEO metadata, rendered public HTML text, QA reports, release notes, handoff files, or team commands, apply:
+
+- `../UNIVERSAL_WEB_HUMAN_TEXT_SEO_QA_GATE_PROTOCOL_2026.md`
+- `docs/web-governance/HUMAN_TEXT_CHARACTER_AND_RESPONSE_PROTOCOL.md`
+- `docs/final-lock/VTL_72_HUMAN_TEXT_WEB_GATE_ADOPTION_2026-05-05.md`
+
+This gate does not authorize backend, payment, invoice routing, legal mapping, authentication, database schema, user data, secrets, or production deployment changes.
 
 ## Founder Final Lock 2026-04-09
 

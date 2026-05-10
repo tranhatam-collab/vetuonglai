@@ -630,8 +630,8 @@
         }
       ],
       "annualOnlyAffiliateDisabledCopy": {
-        "headline": "Affiliate chưa mở ở gói năm cơ bản",
-        "body": "Bạn cần gói năm, gói chuyên sâu phù hợp và bước rà soát cần thiết trước khi mở affiliate.",
+        "headline": "Giới thiệu chưa mở ở gói năm cơ bản",
+        "body": "Bạn cần gói năm, gói chuyên sâu phù hợp và bước rà soát cần thiết trước khi mở giới thiệu.",
         "ctaPrimary": "Xem điều kiện kích hoạt",
         "ctaSecondary": "Quay về homepage package chooser",
         "allowedNextSteps": [

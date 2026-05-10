@@ -25,7 +25,7 @@ body {
 a { color: var(--docs-accent); }
 code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 
-/* ─── Utilities ─── */
+/* --- Utilities --- */
 .container { width: min(1100px, 100% - 2rem); margin: 0 auto; }
 .surface {
   background: var(--docs-surface);
@@ -37,7 +37,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 .stack-sm > * + * { margin-top: 0.45rem; }
 .stack-md > * + * { margin-top: 0.8rem; }
 
-/* ─── Skip link ─── */
+/* --- Skip link --- */
 .skip-link {
   position: absolute;
   left: -999px;
@@ -48,7 +48,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 }
 .skip-link:focus { left: 0.5rem; top: 0.5rem; }
 
-/* ─── Header ─── */
+/* --- Header --- */
 .docs-header {
   position: sticky;
   top: 0;
@@ -92,7 +92,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   background: var(--docs-surface);
 }
 
-/* ─── Language switch ─── */
+/* --- Language switch --- */
 .docs-lang {
   display: flex;
   gap: 0.3rem;
@@ -117,17 +117,17 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   border-color: var(--docs-accent);
 }
 
-/* ─── Bilingual toggle ─── */
+/* --- Bilingual toggle --- */
 [data-lang="en"] [data-vi] { display: none !important; }
 [data-lang="vi"] [data-en] { display: none !important; }
 
-/* ─── Layout: sidebar + main ─── */
+/* --- Layout: sidebar + main --- */
 .docs-layout {
   display: flex;
   min-height: calc(100vh - 56px);
 }
 
-/* ─── Sidebar ─── */
+/* --- Sidebar --- */
 .docs-sidebar {
   width: var(--docs-sidebar-w);
   flex-shrink: 0;
@@ -181,7 +181,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   font-size: 1.1rem;
 }
 
-/* ─── Main content ─── */
+/* --- Main content --- */
 .docs-main {
   flex: 1;
   min-width: 0;
@@ -190,7 +190,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   padding: 2rem 1.5rem;
 }
 
-/* ─── Table of contents ─── */
+/* --- Table of contents --- */
 .docs-toc {
   position: sticky;
   top: 72px;
@@ -206,7 +206,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 .docs-toc a { text-decoration: none; color: var(--docs-muted); }
 .docs-toc a:hover { color: var(--docs-accent); }
 
-/* ─── Hero ─── */
+/* --- Hero --- */
 .docs-hero {
   padding: 3rem 0;
   text-align: center;
@@ -222,7 +222,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 
 .docs-hero p { color: var(--docs-muted); max-width: 560px; margin: 0 auto; }
 
-/* ─── Grid ─── */
+/* --- Grid --- */
 .docs-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -235,7 +235,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   gap: 1rem;
 }
 
-/* ─── Cards ─── */
+/* --- Cards --- */
 .docs-card {
   background: var(--docs-surface);
   border: 1px solid var(--docs-border);
@@ -254,7 +254,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 .docs-card p { margin: 0; color: var(--docs-muted); font-size: 0.9rem; }
 .docs-card-icon { display: inline-block; font-size: 1.4rem; margin-bottom: 0.5rem; }
 
-/* ─── Table ─── */
+/* --- Table --- */
 .docs-table {
   width: 100%;
   border-collapse: collapse;
@@ -270,7 +270,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 
 .docs-table th { background: var(--docs-band); font-weight: 600; }
 
-/* ─── Code blocks ─── */
+/* --- Code blocks --- */
 .docs-code {
   background: var(--docs-code-bg);
   color: #e2e8f0;
@@ -297,7 +297,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   font-size: 0.72rem;
 }
 
-/* ─── Badges ─── */
+/* --- Badges --- */
 .docs-badge {
   display: inline-block;
   font-size: 0.72rem;
@@ -314,7 +314,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 .docs-badge.is-live { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
 .docs-badge.is-planned { background: #fef3c7; color: #92400e; border-color: #fde68a; }
 
-/* ─── Footer ─── */
+/* --- Footer --- */
 .docs-footer {
   border-top: 1px solid var(--docs-border);
   padding: 1.6rem 0 2.4rem;
@@ -324,7 +324,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   text-align: center;
 }
 
-/* ─── Focus visible ─── */
+/* --- Focus visible --- */
 :focus-visible {
   outline: 3px solid var(--docs-accent);
   outline-offset: 2px;
@@ -333,7 +333,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
 
 :focus:not(:focus-visible) { outline: none; }
 
-/* ─── Reduced motion ─── */
+/* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -343,7 +343,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   }
 }
 
-/* ─── Mobile ─── */
+/* --- Mobile --- */
 @media (max-width: 860px) {
   .docs-grid,
   .docs-cards { grid-template-columns: 1fr; }
@@ -377,7 +377,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   .docs-cards { grid-template-columns: 1fr; }
 }
 
-/* ─── Referral disclosure (FTC 16 CFR §255 component) ─── */
+/* --- Referral disclosure (FTC 16 CFR §255 component) --- */
 .referral-disclosure {
   border: 1px solid var(--docs-border);
   border-left: 4px solid var(--docs-accent);
@@ -408,7 +408,7 @@ code, pre { font-family: "SF Mono", "Fira Code", "Consolas", monospace; }
   }
 }
 
-/* ─── Print ─── */
+/* --- Print --- */
 @media print {
   .docs-sidebar,
   .docs-header nav,

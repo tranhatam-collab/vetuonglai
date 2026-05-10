@@ -1,4 +1,4 @@
-/* KIDS subdomain — child-safe, parent-mediated UI */
+/* KIDS subdomain - child-safe, parent-mediated UI */
 :root {
   --kids-bg: #fffaf3;
   --kids-surface: #ffffff;
@@ -176,7 +176,7 @@ h3 { font-size: 19px; font-weight: 600; }
 
 [hidden] { display: none !important; }
 
-/* ─── Focus visible ─── */
+/* --- Focus visible --- */
 :focus-visible {
   outline: 3px solid var(--kids-accent);
   outline-offset: 2px;
@@ -196,7 +196,7 @@ textarea:focus-visible {
   outline: none;
 }
 
-/* ─── Reduced motion ─── */
+/* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

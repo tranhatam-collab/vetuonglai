@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Vetuonglai icon</title>
+  <desc id="desc">A calm V mark with a rising horizon, used for Vetuonglai web and payment verification.</desc>
+  <defs>
+    <linearGradient id="bg" x1="160" y1="96" x2="864" y2="928" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4ADE80"/>
+      <stop offset="0.45" stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#818CF8"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="260" y1="258" x2="764" y2="746" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#EAFBF8"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="28" stdDeviation="34" flood-color="#0F172A" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+  <rect width="1024" height="1024" rx="232" fill="#F7FBFA"/>
+  <rect x="88" y="88" width="848" height="848" rx="196" fill="url(#bg)" filter="url(#softShadow)"/>
+  <path d="M260 328c-14-27 6-58 36-58h80c17 0 32 10 39 25l98 211 98-211c7-15 22-25 39-25h78c31 0 50 32 36 59L561 721c-18 35-68 35-86 0L260 328Z" fill="url(#mark)"/>
+  <path d="M314 694c64-42 130-63 198-63s134 21 198 63" fill="none" stroke="#DFFAF4" stroke-width="48" stroke-linecap="round" opacity="0.82"/>
+  <circle cx="512" cy="706" r="18" fill="#FFFFFF" opacity="0.92"/>
+</svg>

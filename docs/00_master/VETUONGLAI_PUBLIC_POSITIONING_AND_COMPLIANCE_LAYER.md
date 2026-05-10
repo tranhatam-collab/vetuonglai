@@ -202,13 +202,31 @@ V1 public homepage cannot ship without sign-off on the above six.
 | COPPA (15 USC §6501-6506, 16 CFR §312) | Any US child user data collection; any kids.* surface |
 | Luật Trẻ em 2016 + implementing decrees | Any Vietnamese child user; any kids.* surface |
 
-### 5.3 Pre-EU acquisition (any phase) — additional
+### 5.3 Pre-EU acquisition — DEFERRED TO V3 (LOCKED 2026-05-06)
+
+EU public launch is **deferred to V3**. V2 only prepares EU compliance notes; V2 does not open any EU public surface, EU acquisition, or EU contributor onboarding. The full V1/V2/V3 EU posture:
+
+| Phase | EU posture |
+|---|---|
+| V1 | Passive EU traffic served with GDPR-compliant cookie banner + minimal collection. No EU acquisition. No EU contributor. No EU CTA. |
+| V2 | Same as V1 plus active preparation: draft EU counsel engagement; map Platform Work Directive 2024/2831; design EU-region data residency posture; prepare DSA compliance notes for Read creator economy. **Still no EU public launch.** |
+| V3 | EU public launch may open **only when** all 5 conditions below are recorded as complete. Until all 5 are on file, EU public launch is blocked at the routing layer. |
+
+#### V3 EU launch — 5 hard conditions
 
 | Regime | Triggers |
 |---|---|
 | GDPR | Any EU visitor on a tracked public surface |
 | EU Platform Work Directive 2024/2831 | Any EU contributor onboarding |
 | Digital Services Act | Read creator-economy surfaces accessible to EU users |
+
+The 5 hard conditions to open V3 EU launch:
+
+1. EU counsel of record retained, with signed engagement letter.
+2. GDPR DPO (or DPO-equivalent role) appointed.
+3. Platform Work Directive compliance assessment complete and signed.
+4. Digital Services Act compliance assessment complete and signed for Read.
+5. Founder explicit go-decision on file.
 
 EU launch requires a separate Founder go-decision and a retained EU counsel before the first EU-targeted acquisition spend.
 

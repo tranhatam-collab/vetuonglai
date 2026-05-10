@@ -1,5 +1,5 @@
-// KIDS subdomain — minimal runtime: i18n switch + curriculum loader.
-// No live backend yet — this is Member Preview. All flows are stubbed.
+// KIDS subdomain - minimal runtime: i18n switch + curriculum loader.
+// No live backend yet - this is Member Preview. All flows are stubbed.
 (function () {
   "use strict";
 
@@ -76,12 +76,12 @@
         <article class="surface stack-md stage-card">
           <div class="stage-num" aria-hidden="true">${i + 1}</div>
           <div>
-            <p class="age">${escHtml(s.ageRange)} · ${escHtml(s[labelKey] || s.labelVi)}</p>
+            <p class="age">${escHtml(s.ageRange)}  |  ${escHtml(s[labelKey] || s.labelVi)}</p>
             <h3>${escHtml(s.labelVi)}</h3>
-            <p class="status-line">${(s.objectives || []).join(" · ")}</p>
+            <p class="status-line">${(s.objectives || []).join("  |  ")}</p>
             <div class="track-list">${tracks}</div>
-            <p class="status-line"><strong data-vi="Dự án" data-en="Projects">Dự án</strong>: ${(s.projects || []).join(" · ")}</p>
-            <p class="status-line"><strong data-vi="Đầu ra" data-en="Outputs">Đầu ra</strong>: ${(s.outputs || []).join(" · ")}</p>
+            <p class="status-line"><strong data-vi="Dự án" data-en="Projects">Dự án</strong>: ${(s.projects || []).join("  |  ")}</p>
+            <p class="status-line"><strong data-vi="Đầu ra" data-en="Outputs">Đầu ra</strong>: ${(s.outputs || []).join("  |  ")}</p>
           </div>
         </article>`;
     }).join("");

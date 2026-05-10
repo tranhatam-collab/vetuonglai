@@ -279,14 +279,58 @@ The DEV_IMPLEMENTATION_MAPPING_LOCK file is the only master that **already align
 
 ---
 
-## 8. Open items intentionally **not** locked in this memo
+## 8. Open items — Founder lock 2026-05-06 (resolved)
 
-These are deferred to a follow-up Founder decision; they are not blocking for §6 dev start, but they must be locked before V1 public launch:
+All 4 open items below were resolved by Founder on 2026-05-06 in the same session that approved this memo. They are now binding additions to the lock.
 
-1. **3 recommended supporting documents** alongside the 12 canonical legal docs. Founder mentioned this count; no current doc lists them. Candidates to propose: (a) Editorial Standards (Read), (b) Contributor Code of Conduct, (c) Data Subject Request (DSAR) workflow. Founder to choose / replace.
-2. **Family Pass exact pricing.** Memo locks $159/year as working number; PS §3.3 has $99/year (lower than Starter $89/year for 2 — internally inconsistent). Founder to confirm $159 or alternative.
-3. **VTL_67 vs RFM contributor taxonomy reconciliation.** RFM has 7 skill groups (A-G); VTL_67 has 8 functional roles. Memo §6.3 will resolve, but Founder may want to pre-decide whether these are two orthogonal taxonomies (skill vs role) or one merged list.
-4. **EU launch trigger.** No EU public surface allowed until EU legal opinion on file. Founder to decide whether to actively pursue EU launch in V2 or defer to V3.
+### 8.1 The 3 recommended supporting documents (LOCKED)
+
+In addition to the 12 canonical legal documents (Public Copy Plan §12), the following 3 supporting documents are **required** for V1+V2 launch readiness:
+
+| # | Title | Path | Owner |
+|---|---|---|---|
+| 1 | Editorial Standards (Read) | `docs.vetuonglai.com/legal/editorial/` (mirrored at `read.vetuonglai.com/standards/`) | Read editorial board + Team 3 |
+| 2 | Contributor Code of Conduct | `docs.vetuonglai.com/legal/contributor-conduct/` | Team 3 |
+| 3 | Data Subject Request (DSAR) workflow | `docs.vetuonglai.com/legal/dsar/` | Team 3 + counsel |
+
+These 3 docs follow the same versioning, bilingual, and changelog rules as the 12 canonical docs (Public Copy Plan §12.1, §12.2). They appear in the `/legal/` index alongside the canonical 12.
+
+The DSAR doc is the canonical surface for any GDPR access/erasure request, CCPA opt-out, and Nghị định 13/2023 data-subject rights. It must be live before the V1 public launch even though the EU regime does not actively apply until V3 (per §8.4 below) — because CA + VN regimes already apply on day one.
+
+### 8.2 Family Passport pricing (LOCKED)
+
+- **Family Passport: $159/year** for ≤ 2 adults + ≤ 4 children, single household.
+- The legacy `$99/year` Family wording in `PS §3.3` is **superseded**; if any prior doc renders Family at $99/year, that wording is wrong and must be replaced with $159/year on the next pass through the doc.
+- The legacy "Starter $89/year for 2" in PS:86 was an inconsistent draft and is **dropped from the canonical set**; Family is the only pricing for the 2-adult household tier.
+- `$99/year` may only be reused as a Family-tier number under a future Founder memo; until then, $99 belongs exclusively to **Member Passport (single seat)**.
+- Y1 launch discount (30% / first 1,000 / 90 days) applies to Member Passport only — not to Family. Family is full-price at first sale.
+
+This lock is canonical for Product Architecture §2 and §4.
+
+### 8.3 Contributor taxonomy — two independent axes (LOCKED)
+
+RFM and VTL_67 represent **two orthogonal axes**, not a single list. They do not merge.
+
+| Axis | Source | Count | Purpose |
+|---|---|---|---|
+| Skill / capability groups | `VETUONGLAI_REVENUE_FOR_MEMBERS.md` §1 (groups A-G) | 7 | What the contributor *can do* (writing, teaching, coaching, building, designing, reviewing, mentoring). Used by the matching engine to route work to contributors. |
+| Operational roles | `docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md` | 8 | What the contributor *does in the workflow* (creator, reviewer, editor, curator, etc.). Used by the platform's editorial workflow to assign permissions. |
+
+A single contributor may carry multiple skill groups (multi-tag) and may simultaneously hold one or more operational roles. The matching engine asks "which skill groups?"; the workflow engine asks "which role for this task?". Neither replaces the other.
+
+Contributor Economy §3 + §10 read against this two-axis model. Any future doc that proposes merging the two axes is rejected unless a new Founder memo authorizes it.
+
+### 8.4 EU launch trigger (LOCKED)
+
+EU public launch is **deferred to V3**. V2 only prepares EU compliance notes; no EU-targeted public surface, no EU-targeted acquisition spend, no EU-targeted contributor onboarding occurs in V2.
+
+| Phase | EU posture |
+|---|---|
+| V1 | Passive EU traffic served with GDPR-compliant cookie banner + minimal collection (per Public Copy Plan §15.1). No EU acquisition. No EU contributor. |
+| V2 | Same as V1 plus active preparation: draft EU counsel engagement; map Platform Work Directive 2024/2831 requirements; design EU-region data residency posture; prepare DSA compliance for Read creator economy. **Still no EU public launch.** |
+| V3 | EU public launch may open **only when** all of: (a) EU counsel of record retained, (b) GDPR DPO (or DPO-equivalent) appointed, (c) Platform Work Directive compliance assessment complete and signed, (d) Digital Services Act compliance assessment complete and signed for Read, (e) Founder explicit go-decision on file. Until all 5 are recorded, EU public launch is blocked. |
+
+This supersedes any prior wording that allowed an opportunistic EU surface in V2.
 
 ---
 
@@ -299,7 +343,7 @@ This memo is "approved" when:
 - ✅ Founder confirms tagline (§3).
 - ✅ Founder confirms 5 red lines (§4).
 - ✅ Founder confirms V1 public surface restriction (§5).
-- ⏳ Founder picks among open items (§8) before V1 public launch (not blocking for §6 work to begin).
+- ✅ Founder locks all 4 open items (§8) — resolved 2026-05-06.
 
 Once §6 docs are written and committed, this memo's status changes from `FOUNDER_LOCK_2026-05-06` to `FOUNDER_LOCK_2026-05-06_IMPLEMENTED_BY_<commit-shas>`.
 
@@ -312,5 +356,6 @@ Until then: **this memo is the authority. The 8 masters are reference only.**
 - 2026-05-06 — Memo drafted by Team 1 assistant after full read of 8 masters + 3 final-lock docs (`VTL_03`, `VTL_05`, `VTL_67`).
 - Source extract delivered by general-purpose subagent task `ses_203cadc7cffeUN8ZRDIVexaY5e`; sections A-Q with file:line citations on record in session.
 - 7 lock decisions confirmed by Founder via session question prompts on 2026-05-06.
+- 4 open items (§8) resolved by Founder 2026-05-06 in same session: 3 supporting docs approved as proposed; Family Passport locked $159/year (overrides $99 legacy); contributor taxonomy locked as two orthogonal axes (RFM 7 skill groups × VTL_67 8 operational roles); EU launch deferred to V3.
 
 — end of memo —

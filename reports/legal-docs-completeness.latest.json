@@ -1,0 +1,236 @@
+{
+  "ok": true,
+  "canonical_all_ok": true,
+  "supporting_all_ok": false,
+  "supporting_advisory_until": "2026-06-01T00:00:00.000Z",
+  "canonical_12": [
+    {
+      "slug": "tos",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/tos/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/tos/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "privacy",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/privacy/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/privacy/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "cookies",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/cookies/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/cookies/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "refund",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/refund/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/refund/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "material-connection",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/material-connection/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/material-connection/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "contractor",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/contractor/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/contractor/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "income",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/income/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/income/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "invest",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/invest/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/invest/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "kids",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/kids/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/kids/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "spam",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/spam/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/spam/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "dmca",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/dmca/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/dmca/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    },
+    {
+      "slug": "conduct",
+      "advisory": false,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/conduct/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/conduct/index.html",
+        "exists": true,
+        "has_version": true
+      },
+      "ok": true
+    }
+  ],
+  "supporting_3": [
+    {
+      "slug": "editorial",
+      "advisory": true,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/editorial/index.html",
+        "exists": false,
+        "has_version": false
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/editorial/index.html",
+        "exists": false,
+        "has_version": false
+      },
+      "ok": false
+    },
+    {
+      "slug": "contributor-conduct",
+      "advisory": true,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/contributor-conduct/index.html",
+        "exists": false,
+        "has_version": false
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/contributor-conduct/index.html",
+        "exists": false,
+        "has_version": false
+      },
+      "ok": false
+    },
+    {
+      "slug": "dsar",
+      "advisory": true,
+      "vi": {
+        "path": "dist/docs.vetuonglai.com/legal/dsar/index.html",
+        "exists": false,
+        "has_version": false
+      },
+      "en": {
+        "path": "dist/docs.vetuonglai.com/en/legal/dsar/index.html",
+        "exists": false,
+        "has_version": false
+      },
+      "ok": false
+    }
+  ],
+  "timestamp": "2026-05-07T02:06:31.531Z"
+}

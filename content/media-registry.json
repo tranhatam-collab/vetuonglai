@@ -1,0 +1,107 @@
+{
+  "/pillars/timeless": {
+    "src": "cot-loi-timeless.webp",
+    "altVi": "Hình ảnh minh họa các nguyên tắc bất di bất dịch trong cuộc sống và phát triển cá nhân, nhấn mạnh giá trị vĩnh cửu.",
+    "altEn": "Illustration depicting timeless principles in life and personal development, emphasizing eternal values."
+  },
+  "/pillars/society": {
+    "src": "xa-hoi-vuong-lai.webp",
+    "altVi": "Biểu tượng xã hội bền vững với các yếu tố cộng đồng và tương tác xã hội trong tương lai.",
+    "altEn": "Symbol of sustainable society with community elements and future social interactions."
+  },
+  "/pillars/learning": {
+    "src": "hoc-tap-vuong-lai.webp",
+    "altVi": "Hình ảnh đại diện cho quá trình học tập liên tục và phát triển kỹ năng suốt đời.",
+    "altEn": "Representation of continuous learning and lifelong skill development."
+  },
+  "/pillars/money": {
+    "src": "tien-bac-vuong-lai.webp",
+    "altVi": "Sơ đồ minh họa quản lý tài chính thông minh và đầu tư bền vững trong xã hội hiện đại.",
+    "altEn": "Diagram illustrating smart financial management and sustainable investing in modern society."
+  },
+  "/pillars/work": {
+    "src": "cong-viec-vuong-lai.webp",
+    "altVi": "Trình bày các mô hình làm việc tương lai với công nghệ và sự cân bằng cuộc sống.",
+    "altEn": "Presentation of future work models with technology and work-life balance."
+  },
+  "/write/guidelines": {
+    "src": "huong-dan-viet-vuong-lai.webp",
+    "altVi": "Hướng dẫn viết lách sáng tạo với các quy tắc và ví dụ minh họa cho tác giả.",
+    "altEn": "Creative writing guidelines with rules and illustrative examples for authors."
+  },
+  "/write/apply": {
+    "src": "ung-tuyen-viet-vuong-lai.webp",
+    "altVi": "Quy trình ứng tuyển viết bài với các bước và yêu cầu cần thiết.",
+    "altEn": "Application process for writing articles with necessary steps and requirements."
+  },
+  "/write/tiers": {
+    "src": "cap-bac-viet-vuong-lai.webp",
+    "altVi": "Cấu trúc các cấp độ viết lách với lợi ích và tiêu chí đánh giá.",
+    "altEn": "Structure of writing tiers with benefits and evaluation criteria."
+  },
+  "/write": {
+    "src": "viet-vuong-lai.webp",
+    "altVi": "Tổng quan về cộng đồng viết lách và các cơ hội đóng góp nội dung.",
+    "altEn": "Overview of the writing community and opportunities for content contribution."
+  },
+  "/transparency": {
+    "src": "minh-bach-vuong-lai.webp",
+    "altVi": "Biểu đồ minh họa sự minh bạch trong hệ thống và các số liệu công khai.",
+    "altEn": "Chart illustrating transparency in the system and public metrics."
+  },
+  "/transparency/reports": {
+    "src": "bao-cao-minh-bach-vuong-lai.webp",
+    "altVi": "Tập hợp các báo cáo tài chính và hoạt động minh bạch của tổ chức.",
+    "altEn": "Collection of financial and operational transparency reports of the organization."
+  },
+  "/transparency/ledger": {
+    "src": "so-sach-minh-bach-vuong-lai.webp",
+    "altVi": "Sổ cái minh bạch ghi nhận các giao dịch và tài chính công khai.",
+    "altEn": "Transparent ledger recording public transactions and finances."
+  },
+  "/how-we-pay": {
+    "src": "cach-thuc-thanh-toan-vuong-lai.webp",
+    "altVi": "Giải thích cách thức thanh toán và phân phối lợi nhuận trong hệ thống.",
+    "altEn": "Explanation of payment methods and profit distribution in the system."
+  },
+  "/tax-note": {
+    "src": "ghi-chu-thue-vuong-lai.webp",
+    "altVi": "Thông tin về ghi chú thuế và các quy định liên quan đến tài chính.",
+    "altEn": "Information on tax notes and related financial regulations."
+  },
+  "/creator": {
+    "src": "nguoi-tao-vuong-lai.webp",
+    "altVi": "Hồ sơ của các nhà sáng tạo và đóng góp viên trong cộng đồng.",
+    "altEn": "Profiles of creators and contributors in the community."
+  },
+  "/terms": {
+    "src": "dieu-khoan-vuong-lai.webp",
+    "altVi": "Điều khoản và điều kiện sử dụng dịch vụ của nền tảng.",
+    "altEn": "Terms and conditions for using the platform's services."
+  },
+  "/review": {
+    "src": "danh-gia-vuong-lai.webp",
+    "altVi": "Quy trình đánh giá và phản hồi nội dung từ cộng đồng.",
+    "altEn": "Review process and community feedback on content."
+  },
+  "/submit": {
+    "src": "gui-vuong-lai.webp",
+    "altVi": "Hướng dẫn gửi nội dung và các yêu cầu để đóng góp bài viết.",
+    "altEn": "Guidelines for submitting content and requirements for article contributions."
+  },
+  "/stacks": {
+    "src": "ngan-xep-vuong-lai.webp",
+    "altVi": "Tổ chức các stack công nghệ và công cụ được sử dụng trong dự án.",
+    "altEn": "Organization of technology stacks and tools used in the project."
+  },
+  "/books": {
+    "src": "sach-vuong-lai.webp",
+    "altVi": "Bộ sưu tập sách và tài liệu khuyến nghị cho phát triển cá nhân.",
+    "altEn": "Collection of recommended books and resources for personal development."
+  },
+  "/essays": {
+    "src": "bai-viet-vuong-lai.webp",
+    "altVi": "Tập hợp các bài luận và phân tích sâu về các chủ đề quan trọng.",
+    "altEn": "Collection of essays and in-depth analyses on important topics."
+  }
+}

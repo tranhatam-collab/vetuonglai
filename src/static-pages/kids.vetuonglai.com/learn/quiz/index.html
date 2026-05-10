@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Bài kiểm tra — Trẻ Em Về Tương Lai</title>
+  <title>Bài kiểm tra - Trẻ Em Về Tương Lai</title>
   <meta name="description" content="Bản xem trước công khai của bài kiểm tra Kids: câu hỏi và chấm điểm trên thiết bị để mô tả luồng học an toàn."/>
   <meta name="robots" content="noindex,nofollow"/>
   <link rel="canonical" href="https://kids.vetuonglai.com/learn/quiz/"/>
@@ -24,7 +24,7 @@
       <a href="/learn/ai-helper/" data-vi="Trợ lý học" data-en="Learning assistant">Trợ lý học</a>
       <a href="/learn/achievements/" data-vi="Thành tích" data-en="Achievements">Thành tích</a>
     </nav>
-    <div class="kids-lang"><a href="#" data-lang="vi"><span aria-hidden="true">🇻🇳</span> Tiếng Việt</a> <span aria-hidden="true">·</span> <a href="#" data-lang="en"><span aria-hidden="true">🇺🇸</span> English</a></div>
+    <div class="kids-lang"><a href="#" data-lang="vi"><span aria-hidden="true">VI</span> Tiếng Việt</a> <span aria-hidden="true"> | </span> <a href="#" data-lang="en"><span aria-hidden="true">EN</span> English</a></div>
   </div></header>
 
   <main id="main" class="kids-main">
@@ -35,7 +35,7 @@
         <li aria-current="page" data-vi="Bài kiểm tra" data-en="Quiz">Bài kiểm tra</li>
       </ol></nav>
 
-      <div class="preview-banner"><strong data-vi="Bản xem trước công khai" data-en="Public Preview">Bản xem trước công khai</strong> — <span data-vi="Chấm điểm hiện chạy trên thiết bị để mô phỏng luồng học." data-en="Scoring currently runs locally to illustrate the learning flow.">Chấm điểm hiện chạy trên thiết bị để mô phỏng luồng học.</span></div>
+      <div class="preview-banner"><strong data-vi="Bản xem trước công khai" data-en="Public Preview">Bản xem trước công khai</strong> - <span data-vi="Chấm điểm hiện chạy trên thiết bị để mô phỏng luồng học." data-en="Scoring currently runs locally to illustrate the learning flow.">Chấm điểm hiện chạy trên thiết bị để mô phỏng luồng học.</span></div>
 
       <h1 data-vi="Bài kiểm tra" data-en="Quiz">Bài kiểm tra</h1>
       <p id="quizLessonTitle" class="lede"></p>
@@ -66,7 +66,7 @@
   </main>
 
   <footer class="kids-footer"><div class="container">
-    <span data-vi="Trẻ Em Về Tương Lai — Học đúng cách" data-en="Vetuonglai Kids — Learn the right way">Trẻ Em Về Tương Lai — Học đúng cách</span>
+    <span data-vi="Trẻ Em Về Tương Lai - Học đúng cách" data-en="Vetuonglai Kids - Learn the right way">Trẻ Em Về Tương Lai - Học đúng cách</span>
     <a href="https://vetuonglai.com/" data-vi="Hệ sinh thái" data-en="Ecosystem">Hệ sinh thái</a>
   </div></footer>
 
@@ -134,8 +134,8 @@
           var score = Math.round((correct / quizzes.length) * 100);
           document.getElementById("quizScore").textContent = score + "%";
           var feedbacks = {
-            vi: { fail: "Chưa đạt — hãy xem lại bài học và thử lại.", preview: "Gần đạt — thử lại lần nữa nhé!", pass: "Tốt lắm! Con đã hiểu bài.", advanced: "Xuất sắc! Con nắm rất vững." },
-            en: { fail: "Not yet — review the lesson and try again.", preview: "Almost there — try once more!", pass: "Well done! You understood the lesson.", advanced: "Excellent! You have strong understanding." }
+            vi: { fail: "Chưa đạt - hãy xem lại bài học và thử lại.", preview: "Gần đạt - thử lại lần nữa nhé!", pass: "Tốt lắm! Con đã hiểu bài.", advanced: "Xuất sắc! Con nắm rất vững." },
+            en: { fail: "Not yet - review the lesson and try again.", preview: "Almost there - try once more!", pass: "Well done! You understood the lesson.", advanced: "Excellent! You have strong understanding." }
           };
           var bucket = score < 40 ? "fail" : score < 70 ? "preview" : score < 90 ? "pass" : "advanced";
           document.getElementById("quizFeedback").textContent = feedbacks[lang][bucket];

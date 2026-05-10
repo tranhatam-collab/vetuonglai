@@ -25,6 +25,22 @@ Static multi-site codebase for:
 - `scripts/deploy-pages.mjs`: deploys each generated site root to Cloudflare Pages
 - `scripts/deploy-workers.mjs`: updates the live Worker scripts that currently front the Vetuonglai domains
 
+## Human Text Web Gate
+
+Before any public page, SEO metadata, QA report, release note, or handoff can be called web-ready, read:
+
+- `../UNIVERSAL_WEB_HUMAN_TEXT_SEO_QA_GATE_PROTOCOL_2026.md`
+- `docs/web-governance/HUMAN_TEXT_CHARACTER_AND_RESPONSE_PROTOCOL.md`
+- `docs/final-lock/VTL_72_HUMAN_TEXT_WEB_GATE_ADOPTION_2026-05-05.md`
+
+Run:
+
+```bash
+npm run verify:human-text:web
+```
+
+This gate is for visible text, SEO, QA, and reporting. It does not authorize backend, payment, invoice routing, legal mapping, auth, database, user data, secret, or production deployment changes.
+
 ## Build
 
 ```bash

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-05-05T03:38:32.369Z",
+  "timestamp": "2026-05-07T01:28:12.594Z",
   "phase": 0,
   "liveMode": false,
   "passed": 8,
@@ -24,7 +24,7 @@
     {
       "key": "banned_phrases",
       "pass": true,
-      "detail": "0 banned phrases in 24 HTML files"
+      "detail": "0 banned phrases in 25 HTML files"
     },
     {
       "key": "runtime_truth_stage",

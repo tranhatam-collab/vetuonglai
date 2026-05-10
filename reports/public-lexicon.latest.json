@@ -1,0 +1,278 @@
+{
+  "ok": false,
+  "scanned_files": 84,
+  "hard_failures": 28,
+  "manual_review": 1,
+  "negation_filtered_count": 30,
+  "negation_filter_enabled": true,
+  "allowlisted_count": 0,
+  "allowlist_entries_loaded": 0,
+  "allowlist_path": "docs/final-lock/VTL_75_INFRA_IAI_ONE_ALLOWLIST_2026-05-07.md",
+  "allowlist_present": false,
+  "allowlist_signed": false,
+  "allowlist_signer": null,
+  "hits": [
+    {
+      "file": "dist/vetuonglai.com/index.html",
+      "line": 9,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "</script></head><body><header class=\"topbar\"><div class=\"topbar-inner\"><a class=\"brand\" href=\"https://vetuonglai.com\"><span class=\"brand-mark\">VT</span><span class=\"brand-meta\"><span class=\"brand-title\" data-text-vi=\"Về Tương Lai\" data-text"
+    },
+    {
+      "file": "dist/vetuonglai.com/lien-he/index.html",
+      "line": 15,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "><input type=\"hidden\" name=\"form_key\" value=\"vetuonglai_contact_intake_v1\"><input type=\"hidden\" name=\"source\" value=\"hub_contact_page\"><input type=\"hidden\" name=\"page_url\" value=\"https://vetuonglai.com/lien-he/\"><div class=\"vtl-form-honeypo"
+    },
+    {
+      "file": "dist/vetuonglai.com/he-sinh-thai/index.html",
+      "line": 9,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "</script></head><body><header class=\"topbar\"><div class=\"topbar-inner\"><a class=\"brand\" href=\"https://vetuonglai.com\"><span class=\"brand-mark\">VT</span><span class=\"brand-meta\"><span class=\"brand-title\" data-text-vi=\"Về Tương Lai\" data-text"
+    },
+    {
+      "file": "dist/vc.vetuonglai.com/index.html",
+      "line": 10,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "const nftRegistryUrl = \"https://nft.iai.one/api/asset-registrations\";"
+    },
+    {
+      "file": "dist/vc.vetuonglai.com/index.html",
+      "line": 55,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "const domainLabel = (record) => record.domain || \"nft.iai.one\";"
+    },
+    {
+      "file": "dist/vc.vetuonglai.com/v/index.html",
+      "line": 10,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "const nftRegistryUrl = \"https://nft.iai.one/api/asset-registrations\";"
+    },
+    {
+      "file": "dist/vc.vetuonglai.com/v/index.html",
+      "line": 96,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "const originDomain = record.domain || \"nft.iai.one\";"
+    },
+    {
+      "file": "dist/member.vetuonglai.com/index.html",
+      "line": 9,
+      "term": "affiliate",
+      "matched": "affiliate",
+      "manual_review": true,
+      "negation_checked": true,
+      "snippet": "</script></head><body><header class=\"topbar\"><div class=\"topbar-inner\"><a class=\"brand\" href=\"https://vetuonglai.com\"><span class=\"brand-mark\">MB</span><span class=\"brand-meta\"><span class=\"brand-title\" data-text-vi=\"Future MEMBER\" data-tex"
+    },
+    {
+      "file": "dist/finance.vetuonglai.com/index.html",
+      "line": 9,
+      "term": "get rich",
+      "matched": "get rich",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "</script></head><body><header class=\"topbar\"><div class=\"topbar-inner\"><a class=\"brand\" href=\"https://vetuonglai.com\"><span class=\"brand-mark\">FN</span><span class=\"brand-meta\"><span class=\"brand-title\" data-text-vi=\"Future FIN\" data-text-e"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/work/index.html",
+      "line": 3,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "-> trust.iai.one ghi chứng nhận (nếu đủ điều kiện)"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/verification/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Hệ xác minh | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Hạ tầng xác minh trust.iai.on"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/verification/index.html",
+      "line": 3,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "-> trust.iai.one"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/verification/index.html",
+      "line": 8,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "-> API/Billing - tích hợp và thanh toán</code></pre></div></section><section class=\"stack-sm\"><h2 data-vi=\"4 lớp xác minh\" data-en=\"4 Verification Layers\">4 lớp xác minh</h2><table class=\"docs-table\"><thead><tr><th data-vi=\"Lớp\" data-en=\"La"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/trust-system/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>trust.iai.one Verification System | DOCS</title><meta name=\"description\" content=\"Tổng quan trust.iai."
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/support/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Hỗ trợ | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Kênh hỗ trợ, FAQ và thời gian phản"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/products/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Sản phẩm | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Tổng quan hệ sinh thái Về Tương "
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/pricing/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Bảng giá | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Bảng giá minh bạch cho hạ tầng x"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/legal/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Pháp lý và điều khoản | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Điều khoản sử dụng,"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/legal/material-connection/index.html",
+      "line": 1,
+      "term": "kiếm tiền",
+      "matched": "kiếm tiền",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Material connection - Giới thiệu minh bạch | DOCS Về Tương Lai</title><meta name=\"description\" content"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/legal/material-connection/index.html",
+      "line": 1,
+      "term": "thu nhập thụ động",
+      "matched": "thu nhập thụ động",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Material connection - Giới thiệu minh bạch | DOCS Về Tương Lai</title><meta name=\"description\" content"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/legal/material-connection/index.html",
+      "line": 1,
+      "term": "passive income",
+      "matched": "passive income",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Material connection - Giới thiệu minh bạch | DOCS Về Tương Lai</title><meta name=\"description\" content"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/legal/material-connection/index.html",
+      "line": 1,
+      "term": "đổi đời",
+      "matched": "đổi đời",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Material connection - Giới thiệu minh bạch | DOCS Về Tương Lai</title><meta name=\"description\" content"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/legal/material-connection/index.html",
+      "line": 1,
+      "term": "multi-level",
+      "matched": "multi-level",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Material connection - Giới thiệu minh bạch | DOCS Về Tương Lai</title><meta name=\"description\" content"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/getting-started/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Bắt đầu | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Hướng dẫn bắt đầu với hệ sinh thá"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/getting-started/index.html",
+      "line": 2,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "-> trust.iai.one"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/faq/index.html",
+      "line": 1,
+      "term": "kiếm tiền",
+      "matched": "kiếm tiền",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Câu hỏi thường gặp | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Câu hỏi thường gặp về "
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/faq/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Câu hỏi thường gặp | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Câu hỏi thường gặp về "
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/changelog/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Nhật ký thay đổi | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Nhật ký thay đổi quan tr"
+    },
+    {
+      "file": "dist/docs.vetuonglai.com/api-reference/index.html",
+      "line": 1,
+      "term": "iai.one",
+      "matched": "iai.one",
+      "manual_review": false,
+      "negation_checked": true,
+      "snippet": "<!doctype html><html lang=\"vi\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Tham chiếu API | DOCS Về Tương Lai</title><meta name=\"description\" content=\"Tham chiếu API cho trust.i"
+    }
+  ],
+  "timestamp": "2026-05-07T02:01:08.948Z"
+}

@@ -104,6 +104,31 @@ The following are explicitly excluded from the contributor economy:
 - Income-share agreements (ISAs) where member income post-Vetuonglai is shared back to the platform.
 - Equity in Vetuonglai issued to contributors as compensation (equity is via a separate Reg D / VN Luật Chứng khoán process under §6 of Product Architecture, never a contributor payout).
 
+### 3.5 Contributor taxonomy — two orthogonal axes (LOCKED 2026-05-06)
+
+A contributor is described along **two independent axes**. They do not merge; matching, payout, and workflow logic read each axis separately.
+
+#### Axis 1 — Skill / capability groups (RFM A-G, 7 groups)
+
+Source: `VETUONGLAI_REVENUE_FOR_MEMBERS.md` §1, groups A through G.
+Purpose: what the contributor *can do* (capability tags such as writing, teaching, coaching, building, designing, reviewing, mentoring — exact wording locked in RFM §1).
+Used by: the matching engine to route opportunities (a Read editorial brief lands with contributors tagged in the Writing + Reviewing skill groups; an Edu cohort lands with Teaching + Mentoring).
+Cardinality: a contributor may carry multiple skill tags simultaneously (multi-tag).
+
+#### Axis 2 — Operational roles (VTL_67, 8 roles)
+
+Source: `docs/final-lock/VTL_67_READ_CREATOR_ECONOMY_LOCK_2026-04-28.md` (Read creator economy).
+Purpose: what the contributor *does in the workflow for a specific task* (creator, reviewer, editor, curator, etc. — exact 8 enumerated in VTL_67).
+Used by: the workflow engine to assign permissions per task (only contributors holding the Reviewer role can approve a Read essay submission; only Editor role can publish).
+Cardinality: a contributor may hold one or more operational roles, but each role is granted by the platform after qualification (not self-claimed).
+
+#### Hard rule: the two axes do not merge
+
+- A skill group is not a role. A role is not a skill group.
+- The matching engine never asks "which role?"; the workflow engine never asks "which skill?".
+- Any future doc proposing to collapse these to a single list is rejected unless authorized by a new Founder memo.
+- Engineering data model carries them as **two separate tables**: `contributor_skill_tag` (multi-row per contributor) and `contributor_role_grant` (multi-row per contributor with grant timestamp + grantor). Neither references the other; they share only `contributor_id` as a foreign key.
+
 ---
 
 ## 4. The canonical revenue split

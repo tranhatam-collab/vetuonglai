@@ -34,6 +34,18 @@ Reading order mới bắt buộc trước khi code:
 9. `docs/final-lock/VTL_07_TEAM_SPLIT_WORKLOAD_AND_PROMPTS_FINAL.md`
 10. `docs/final-lock/VTL_08_FOUNDER_UPDATE_CHANGELOG_2026-04-09.md`
 
+## Human text web gate 2026-05-05
+
+Từ ngày `2026-05-05`, mọi task chạm public web text, SEO metadata, QA report, release note, hoặc handoff file phải đọc thêm:
+
+1. `../UNIVERSAL_WEB_HUMAN_TEXT_SEO_QA_GATE_PROTOCOL_2026.md`
+2. `docs/web-governance/HUMAN_TEXT_CHARACTER_AND_RESPONSE_PROTOCOL.md`
+3. `docs/final-lock/VTL_72_HUMAN_TEXT_WEB_GATE_ADOPTION_2026-05-05.md`
+
+Quy tắc này chỉ áp dụng cho lớp web text, SEO, QA, reporting, và release wording.
+
+Nó không cho phép tự sửa backend, payment, invoice routing, legal mapping, authentication, database schema, user data, hoặc production deploy.
+
 ## Nguyên tắc đọc
 
 - Không đọc từng file rồi suy diễn theo ý riêng.

@@ -39,7 +39,10 @@
       "scriptName": "vetuonglai-vc",
       "entry": "workers/vc-worker.mjs",
       "assetsDir": "dist/vc.vetuonglai.com",
-      "routes": ["vc.vetuonglai.com/api/vc/*", "www.vc.vetuonglai.com/api/vc/*"],
+      "routes": [
+        "vc.vetuonglai.com/*",
+        "www.vc.vetuonglai.com/*"
+      ],
       "accessRuntime": {
         "requiredSecrets": [
           "SESSION_COOKIE_SECRET",

@@ -397,17 +397,19 @@ Every legal doc has VI and EN versions, both legally binding within their respec
 
 ---
 
-## 13. Recommended supporting documents (3 — open item §11)
+## 13. Recommended supporting documents (3 — LOCKED 2026-05-06)
 
-Per Memo §8 open items, the Founder lock for the **3 recommended supporting documents** is pending Founder input. Working candidates (subject to Founder selection):
+Founder locked the 3 recommended supporting documents on 2026-05-06 (per VTL_75 §8.1). They are **required for V1+V2 launch readiness** alongside the 12 canonical legal docs (§12).
 
-| Candidate | Path (working) | Purpose |
-|---|---|---|
-| Editorial Standards (Read) | `/legal/editorial/` or `read.vetuonglai.com/standards/` | Editorial review criteria for Read essays + books |
-| Contributor Code of Conduct | `/legal/contributor-conduct/` | Conduct rules for active contributors (separate from general `/legal/conduct/`) |
-| Data Subject Request (DSAR) workflow | `/legal/dsar/` | GDPR / CCPA / Nghị định 13/2023 access + deletion request procedure |
+| # | Title | Path | Owner |
+|---|---|---|---|
+| 1 | Editorial Standards (Read) | `/legal/editorial/` (mirrored at `read.vetuonglai.com/standards/`) | Read editorial board + Team 3 |
+| 2 | Contributor Code of Conduct | `/legal/contributor-conduct/` | Team 3 |
+| 3 | Data Subject Request (DSAR) workflow | `/legal/dsar/` | Team 3 + counsel |
 
-These are recommended but not strictly mandatory for V1 minimum-viable legal compliance. Founder picks the final 3 (may replace any with another candidate). Whichever 3 are picked, they are added to `/legal/` index alongside the canonical 12.
+These follow the same versioning, bilingual, and changelog rules as §12.1 + §12.2. They appear in the `/legal/` index alongside the 12 canonical docs (total 15 legal/operational docs at V1+V2 launch).
+
+**Why the DSAR doc is V1-day-one even though EU defers to V3:** California (CCPA) + Vietnam (Nghị định 13/2023) data-subject rights apply on day one regardless of EU posture. The DSAR doc is the canonical channel for any access/deletion request from those jurisdictions; EU GDPR-equivalent flow piggybacks on the same doc when V3 EU launch opens.
 
 ---
 
@@ -551,7 +553,7 @@ This layer is "done for V1" when:
 - ✅ Footer (§10) carries entity legal name + 5 legal links + tagline.
 - ✅ Docs sitemap (§11) deployed; tone (§11.3) followed.
 - ✅ 12 canonical legal docs (§12) live with VI + EN + version.
-- ✅ 3 recommended supporting docs (§13) — pending Founder lock; track as open item.
+- ✅ 3 supporting docs (§13) live: Editorial Standards (Read), Contributor Code of Conduct, DSAR workflow.
 - ✅ Microcopy canon (§14) is the only source for public CTAs; verifier passes.
 - ✅ Privacy posture (§15) implemented; cookie banner GDPR + Nghị định 13/2023 compliant.
 - ✅ All 6 release-gate verifiers (§16) green in `reports/`.

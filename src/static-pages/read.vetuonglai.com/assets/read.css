@@ -247,7 +247,7 @@ a {
   z-index: 100;
 }
 
-/* ─── Focus visible ─── */
+/* --- Focus visible --- */
 :focus-visible {
   outline: 3px solid var(--read-accent);
   outline-offset: 2px;
@@ -258,7 +258,7 @@ a {
   outline: none;
 }
 
-/* ─── Reduced motion ─── */
+/* --- Reduced motion --- */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
