@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="gradPastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08"/>
+      </filter>
+    </defs><rect width="100%" height="100%" fill="#F7FBFA"/>
+    
+    <rect x="56" y="52" width="72" height="72" rx="18" fill="url(#grad)"/>
+    <text x="92.0" y="96.64" text-anchor="middle"
+      font-family="Inter, Noto Sans, Arial, sans-serif" font-size="27.36" font-weight="800"
+      fill="#0F172A" letter-spacing="-1">VT</text><text x="148" y="104" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="34" font-weight="800" fill="#0F172A" letter-spacing="-1.2">Vetuonglai</text><rect x="970" y="60" width="170" height="44" rx="22" fill="#B45309"/><text x="1055" y="89" text-anchor="middle" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">READ</text><text x="70" y="255" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="62" font-weight="800" fill="#0F172A" letter-spacing="-2">Suy nghĩ chậm trong thế giới</text><text x="70" y="339" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="62" font-weight="800" fill="#0F172A" letter-spacing="-2">nhanh.</text><text x="72" y="510" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="28" font-weight="400" fill="#475569">Slow thinking in a fast world.</text><text x="72" y="576" font-family="JetBrains Mono, Inter, monospace" font-size="22" fill="#475569">vetuonglai.com</text><path d="M 963.2 376.8 L 963.2 283.2 Q 1010.0 265.2 1010.0 290.4 L 1010.0 387.6" fill="none" stroke="#B45309" stroke-width="6.300000000000001" stroke-linecap="round" stroke-linejoin="round"/><path d="M 1056.8 376.8 L 1056.8 283.2 Q 1010.0 265.2 1010.0 290.4" fill="none" stroke="#B45309" stroke-width="6.300000000000001" stroke-linecap="round" stroke-linejoin="round"/><path d="M 1028.0 272.4 L 1028.0 315.6 L 1013.6 308.4 L 999.2 315.6 L 999.2 272.4" fill="none" stroke="#B45309" stroke-width="6.300000000000001" stroke-linecap="round" stroke-linejoin="round"/><rect x="70" y="540" width="140" height="6" rx="3" fill="url(#grad)"/></svg>

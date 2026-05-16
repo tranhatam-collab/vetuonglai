@@ -293,13 +293,11 @@ input {
 .brand-mark {
   width: 42px;
   height: 42px;
-  display: grid;
-  place-items: center;
-  border-radius: 14px;
-  background: linear-gradient(135deg, var(--accent), rgba(255, 255, 255, 0.16));
-  color: #051019;
-  font-weight: 800;
-  box-shadow: 0 0 24px var(--accent-soft);
+  border-radius: 12px;
+  display: block;
+  flex-shrink: 0;
+  object-fit: contain;
+  box-shadow: 0 0 24px var(--accent-soft, rgba(34, 211, 238, 0.18));
 }
 
 .brand-meta {

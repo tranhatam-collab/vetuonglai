@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="pastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.10"/>
+      </filter>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="22"/>
+      </filter>
+    </defs>
+    <rect width="100%" height="100%" fill="#F7FBFA"/>
+    <circle cx="885.6" cy="202.5" r="310.5" fill="#22D3EE" opacity="0.08" filter="url(#soft)"/>
+    <circle cx="194.4" cy="1188.0" r="270.0" fill="#818CF8" opacity="0.07" filter="url(#soft)"/>
+    <circle cx="594.0" cy="742.5" r="243.0" fill="#4ADE80" opacity="0.05" filter="url(#soft)"/>
+    <rect x="82" y="118" width="916" height="920" rx="44" fill="#FFFFFF" filter="url(#shadow)"/><g opacity="0.055"><g transform="translate(670 180) scale(1.02)"><path d="M 55.86 78.87 A 104.00 104.00 0 1 0 237.73 175.57" fill="none" stroke="url(#grad)" stroke-width="26" stroke-linecap="round"/><path d="M 98.67 73.85 A 78.00 78.00 0 0 1 161.50 65.02" fill="none" stroke="#94A3B8" stroke-width="9" stroke-linecap="round" opacity="0.75"/><path d="M 84 146 L 128 190 L 220 96 L 250 66" fill="none" stroke="#0F172A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><path d="M 212 76 L 238 50" fill="none" stroke="#0F172A" stroke-width="8" stroke-linecap="round" opacity="0.95"/></g></g><g transform="translate(104 150)"><rect x="0" y="0" width="66" height="66" rx="18" fill="url(#grad)"/><path d="M 14.67 20.17 L 25.67 44.00 L 36.67 20.17 L 47.67 20.17 M 36.67 20.17 L 36.67 48.58" fill="none" stroke="#0F172A" stroke-width="4.40" stroke-linecap="round" stroke-linejoin="round"/></g><text x="188" y="191.6" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="28" font-weight="800" fill="#0F172A">Vetuonglai</text><text x="120" y="404" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="46" font-weight="800" fill="#0F172A" letter-spacing="-1.3">Hiểu tiền. Bảo vệ tiền.</text><text x="120" y="462" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="46" font-weight="800" fill="#0F172A" letter-spacing="-1.3">Không hype.</text><text x="122" y="562" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="26" fill="#475569">Understand money. Protect it. No hype.</text><rect x="120" y="810" width="168" height="4" rx="2" fill="url(#grad)"/><rect x="838" y="1098" width="160" height="46" rx="23" fill="#FACC15"/><text x="918" y="1128" text-anchor="middle" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">FINANCE</text><text x="104" y="1128" font-family="DejaVu Sans Mono, monospace" font-size="21" fill="#475569">vetuonglai.com</text></svg>

@@ -1,4 +1,4 @@
-import { access, mkdir, readFile, readdir, rename, rm, stat, writeFile } from "node:fs/promises";
+import { access, copyFile, mkdir, readFile, readdir, rename, rm, stat, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -209,104 +209,120 @@ if (nftBridge.siteUrl) {
   }
 }
 
+// siteTheme — accent colors locked to Brandpro v2 master subdomain matrix.
+// Source: Brandpro-all/forks/vetuonglai.com/country-packs/_MASTER-SUBDOMAIN-MATRIX.md
 const siteTheme = {
   hub: {
     brand: "VT",
     name: pair("Về Tương Lai", "Vetuonglai"),
-    accent: "#7bd3ff",
-    accentSoft: "rgba(123, 211, 255, 0.18)",
-    accentStrong: "#d9f5ff",
+    accent: "#22D3EE",
+    accentSoft: "rgba(34, 211, 238, 0.16)",
+    accentStrong: "#A5F3FC",
   },
   vc: {
     brand: "VC",
     name: pair("VC Registry", "VC Registry"),
-    accent: "#f4c96b",
-    accentSoft: "rgba(244, 201, 107, 0.18)",
-    accentStrong: "#fff0c7",
+    accent: "#6366F1",
+    accentSoft: "rgba(99, 102, 241, 0.16)",
+    accentStrong: "#C7D2FE",
   },
   edu: {
-    brand: "ED",
+    brand: "EDU",
     name: pair("Future EDU", "Future EDU"),
-    accent: "#76dfc1",
-    accentSoft: "rgba(118, 223, 193, 0.16)",
-    accentStrong: "#d7fff2",
+    accent: "#22D3EE",
+    accentSoft: "rgba(34, 211, 238, 0.16)",
+    accentStrong: "#A5F3FC",
   },
   member: {
     brand: "MB",
     name: pair("Future MEMBER", "Future MEMBER"),
-    accent: "#8fd9d2",
-    accentSoft: "rgba(143, 217, 210, 0.18)",
-    accentStrong: "#d9fff7",
+    accent: "#818CF8",
+    accentSoft: "rgba(129, 140, 248, 0.18)",
+    accentStrong: "#C7D2FE",
   },
   work: {
-    brand: "Việc",
+    brand: "WK",
     name: pair("Việc Làm", "Future WORK"),
-    accent: "#ffd27a",
-    accentSoft: "rgba(255, 210, 122, 0.18)",
-    accentStrong: "#fff0c7",
+    accent: "#FB923C",
+    accentSoft: "rgba(251, 146, 60, 0.18)",
+    accentStrong: "#FED7AA",
   },
   market: {
-    brand: "Chợ",
+    brand: "MK",
     name: pair("Chợ Tương Lai", "Future MARKET"),
-    accent: "#9be37f",
-    accentSoft: "rgba(155, 227, 127, 0.18)",
-    accentStrong: "#e5ffd7",
+    accent: "#F472B6",
+    accentSoft: "rgba(244, 114, 182, 0.16)",
+    accentStrong: "#FBCFE8",
   },
   community: {
-    brand: "Cộng",
+    brand: "CM",
     name: pair("Cộng Đồng", "Future COMMUNITY"),
-    accent: "#8ac6ff",
-    accentSoft: "rgba(138, 198, 255, 0.18)",
-    accentStrong: "#deefff",
+    accent: "#FB7185",
+    accentSoft: "rgba(251, 113, 133, 0.16)",
+    accentStrong: "#FECDD3",
   },
   ai: {
     brand: "AI",
     name: pair("Future AI", "Future AI"),
-    accent: "#b28dff",
-    accentSoft: "rgba(178, 141, 255, 0.18)",
-    accentStrong: "#efe4ff",
+    accent: "#818CF8",
+    accentSoft: "rgba(129, 140, 248, 0.18)",
+    accentStrong: "#C7D2FE",
   },
   business: {
-    brand: "DN",
+    brand: "BIZ",
     name: pair("Doanh Nghiệp", "Future BUSINESS"),
-    accent: "#ff9f6b",
-    accentSoft: "rgba(255, 159, 107, 0.18)",
-    accentStrong: "#ffe6d5",
+    accent: "#7C3AED",
+    accentSoft: "rgba(124, 58, 237, 0.18)",
+    accentStrong: "#DDD6FE",
   },
   green: {
     brand: "GR",
     name: pair("Future GREEN", "Future GREEN"),
-    accent: "#59d78b",
-    accentSoft: "rgba(89, 215, 139, 0.18)",
-    accentStrong: "#d7ffea",
+    accent: "#34D399",
+    accentSoft: "rgba(52, 211, 153, 0.16)",
+    accentStrong: "#A7F3D0",
   },
   finance: {
     brand: "FN",
     name: pair("Future FIN", "Future FIN"),
-    accent: "#6fb7ff",
-    accentSoft: "rgba(111, 183, 255, 0.18)",
-    accentStrong: "#dcecff",
+    accent: "#FACC15",
+    accentSoft: "rgba(250, 204, 21, 0.18)",
+    accentStrong: "#FEF08A",
   },
   life: {
     brand: "LF",
     name: pair("Future LIFE", "Future LIFE"),
-    accent: "#ff9d72",
-    accentSoft: "rgba(255, 157, 114, 0.18)",
-    accentStrong: "#ffe2d1",
+    accent: "#4ADE80",
+    accentSoft: "rgba(74, 222, 128, 0.16)",
+    accentStrong: "#BBF7D0",
   },
   invest: {
     brand: "IV",
     name: pair("Future INVEST", "Future INVEST"),
-    accent: "#ffb86f",
-    accentSoft: "rgba(255, 184, 111, 0.18)",
-    accentStrong: "#ffe7c7",
+    accent: "#818CF8",
+    accentSoft: "rgba(129, 140, 248, 0.18)",
+    accentStrong: "#C7D2FE",
   },
   read: {
     brand: "RD",
     name: pair("Future READ", "Future READ"),
-    accent: "#a8c4e0",
-    accentSoft: "rgba(168, 196, 224, 0.18)",
-    accentStrong: "#dce8f4",
+    accent: "#B45309",
+    accentSoft: "rgba(180, 83, 9, 0.14)",
+    accentStrong: "#FED7AA",
+  },
+  docs: {
+    brand: "DOC",
+    name: pair("Documentation", "Documentation"),
+    accent: "#475569",
+    accentSoft: "rgba(71, 85, 105, 0.14)",
+    accentStrong: "#CBD5E1",
+  },
+  kids: {
+    brand: "KD",
+    name: pair("Future KIDS", "Future KIDS"),
+    accent: "#F59E0B",
+    accentSoft: "rgba(245, 158, 11, 0.16)",
+    accentStrong: "#FDE68A",
   },
 };
 
@@ -1693,8 +1709,8 @@ function renderTopbar(siteKey, activeKey, items) {
   return `
     <header class="topbar" data-vtl-block="header-nav">
       <div class="topbar-inner">
-        <a class="brand" href="https://${domains.hub}">
-          <span class="brand-mark">${escapeHtml(theme.brand)}</span>
+        <a class="brand" href="https://${domains.hub}" aria-label="Vetuonglai — Về Tương Lai">
+          <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" decoding="async" />
           <span class="brand-meta">
             ${localizedText(theme.name, "span", { class: "brand-title" })}
             ${localizedText(brandSubtitleCopy, "span", { class: "brand-subtitle" })}
@@ -1751,7 +1767,8 @@ function renderShell({
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
   <title data-text-vi="${escapeHtml(titleCopy.vi)}" data-text-en="${escapeHtml(titleCopy.en)}">${escapeHtml(titleCopy.vi)}</title>
   <meta name="description" data-content-vi="${escapeHtml(descriptionCopy.vi)}" data-content-en="${escapeHtml(descriptionCopy.en)}" content="${escapeHtml(descriptionCopy.vi)}" />
   <meta name="robots" content="${escapeHtml(robotsMeta)}" />
@@ -1762,14 +1779,23 @@ function renderShell({
   <meta property="og:description" data-content-vi="${escapeHtml(descriptionCopy.vi)}" data-content-en="${escapeHtml(descriptionCopy.en)}" content="${escapeHtml(descriptionCopy.vi)}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="${escapeHtml(canonical)}" />
-  <meta property="og:image" content="${escapeHtml(absoluteUrl(domains[currentKey], "/assets/og-image.svg"))}" />
+  <meta property="og:image" content="${escapeHtml(absoluteUrl(domains[currentKey], `/assets/web/web-og-${currentKey}.png`))}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="${escapeHtml(titleCopy.vi)}" />
 ${renderOgLocaleMeta()}
+  <meta property="og:site_name" content="Vetuonglai" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@vetuonglai" />
   <meta name="twitter:title" data-content-vi="${escapeHtml(titleCopy.vi)}" data-content-en="${escapeHtml(titleCopy.en)}" content="${escapeHtml(titleCopy.vi)}" />
   <meta name="twitter:description" data-content-vi="${escapeHtml(descriptionCopy.vi)}" data-content-en="${escapeHtml(descriptionCopy.en)}" content="${escapeHtml(descriptionCopy.vi)}" />
-  <meta name="twitter:image" content="${escapeHtml(absoluteUrl(domains[currentKey], "/assets/og-image.svg"))}" />
+  <meta name="twitter:image" content="${escapeHtml(absoluteUrl(domains[currentKey], `/assets/web/web-og-${currentKey}.png`))}" />
+  <meta name="theme-color" content="${escapeHtml(theme.accent)}" />
   <link rel="canonical" href="${escapeHtml(canonical)}" />
+  <link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-${escapeHtml(currentKey)}.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+  <link rel="mask-icon" href="/assets/brand/vetuonglai-favicon.svg" color="${escapeHtml(theme.accent)}" />
 ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
   ${headExtras || ""}
   <link rel="stylesheet" href="/assets/design-tokens.css" />
@@ -9875,21 +9901,83 @@ async function writeAssets(domain) {
   await ensureDomainOgAsset(domain);
 }
 
-async function copyBrandAssetsForDomain(domain) {
-  const sourceRoot = path.join(SRC, "static-pages", "shared-assets", "brand");
+function isTextAsset(filename) {
+  return /\.(svg|json|css|js|txt|md|csv|html)$/i.test(filename);
+}
+
+async function copyBinaryToSite(domain, srcAbsolutePath, relativeDestPath) {
+  const target = path.join(DIST, domain, relativeDestPath);
+  await ensureDir(path.dirname(target));
+  await copyFile(srcAbsolutePath, target);
+}
+
+async function copyDirToSite(domain, srcDir, destPrefix) {
   let entries;
   try {
-    entries = await readdir(sourceRoot, { withFileTypes: true });
+    entries = await readdir(srcDir, { withFileTypes: true });
   } catch (error) {
     if (error?.code === "ENOENT") return;
     throw error;
   }
   for (const entry of entries) {
     if (!entry.isFile()) continue;
-    const src = path.join(sourceRoot, entry.name);
-    const content = await readFile(src, "utf8");
-    await writeSiteFile(domain, `assets/brand/${entry.name}`, content);
+    const src = path.join(srcDir, entry.name);
+    const dest = `${destPrefix}/${entry.name}`;
+    if (isTextAsset(entry.name)) {
+      const content = await readFile(src, "utf8");
+      await writeSiteFile(domain, dest, content);
+    } else {
+      await copyBinaryToSite(domain, src, dest);
+    }
   }
+}
+
+async function copyBrandAssetsForDomain(domain) {
+  await copyDirToSite(domain, path.join(SRC, "static-pages", "shared-assets", "brand"), "assets/brand");
+  await copyDirToSite(domain, path.join(SRC, "static-pages", "shared-assets", "icons"), "assets/icons");
+  await copyDomainWebKitAssets(domain);
+}
+
+// Per-domain V2 web kit (og card, favicon, hero, 404, email signature).
+async function copyDomainWebKitAssets(domain) {
+  const webRoot = path.join(SRC, "static-pages", "shared-assets", "web");
+  let entries;
+  try {
+    entries = await readdir(webRoot, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+
+  const key = subdomainKeyForHost(domain);
+  const universalPrefixes = ["web-error-404", "web-email-signature"];
+  const perDomainPrefixes = key
+    ? [`web-og-${key}.`, `web-favicon-${key}.`, `web-hero-${key}.`]
+    : [];
+
+  for (const entry of entries) {
+    if (!entry.isFile()) continue;
+    const name = entry.name;
+    const isUniversal = universalPrefixes.some((p) => name.startsWith(p));
+    const isPerDomain = perDomainPrefixes.some((p) => name.startsWith(p));
+    if (!isUniversal && !isPerDomain) continue;
+
+    const src = path.join(webRoot, name);
+    const dest = `assets/web/${name}`;
+    if (isTextAsset(name)) {
+      const content = await readFile(src, "utf8");
+      await writeSiteFile(domain, dest, content);
+    } else {
+      await copyBinaryToSite(domain, src, dest);
+    }
+  }
+}
+
+function subdomainKeyForHost(host) {
+  for (const [key, h] of Object.entries(domains)) {
+    if (h === host) return key;
+  }
+  return "";
 }
 
 function buildLog(step) {

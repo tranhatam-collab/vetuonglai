@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="vtlGrad" x1="56" y1="56" x2="456" y2="456" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#86EFAC"/>
+      <stop offset="50%" stop-color="#67E8F9"/>
+      <stop offset="100%" stop-color="#A5B4FC"/>
+    </linearGradient>
+    <style>
+      .mono { font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-weight: 800; letter-spacing: -0.04em; }
+    </style>
+  </defs>
+  <rect x="36" y="36" width="440" height="440" rx="72" fill="#0F172A"/>
+  <text x="102" y="308" class="mono" font-size="160" fill="#F8FAFC">VT</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="gradPastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08"/>
+      </filter>
+    </defs><rect width="100%" height="100%" fill="#F7FBFA"/>
+    <text x="90" y="220" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="94" font-weight="800" fill="#0F172A">Bằng chứng</text><text x="90" y="320" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="94" font-weight="800" fill="#0F172A">không phải lời hứa</text><text x="92" y="392" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="30" fill="#475569">Identity, verification, and measurable progress.</text><path d="M 1050.0 216.4 L 988.4 242.8 L 1001.6 344.0 Q 1050.0 388.0 1098.4 344.0 L 1111.6 242.8 Z" fill="none" stroke="#6366F1" stroke-width="7.700000000000001" stroke-linecap="round" stroke-linejoin="round"/><path d="M 1012.6 295.6 L 1041.2 326.4 L 1089.6 269.2" fill="none" stroke="#6366F1" stroke-width="9.24" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="92" y="560" width="70" height="70" rx="18" fill="url(#grad)"/>
+    <text x="127.0" y="603.4" text-anchor="middle"
+      font-family="Inter, Noto Sans, Arial, sans-serif" font-size="26.6" font-weight="800"
+      fill="#0F172A" letter-spacing="-1">VT</text><text x="182" y="606" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="28" font-weight="700" fill="#0F172A">Vetuonglai</text></svg>

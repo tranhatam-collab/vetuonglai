@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="gradPastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08"/>
+      </filter>
+    </defs><rect width="100%" height="100%" fill="#F7FBFA"/>
+    <rect x="0" y="0" width="1080" height="297" fill="#FFFFFF"/><rect x="0" y="289" width="1080" height="8" fill="url(#grad)"/><rect x="86" y="200" width="908" height="990" rx="42" fill="#FFFFFF" filter="url(#shadow)"/><rect x="830" y="56" width="150" height="44" rx="22" fill="#F59E0B"/><text x="905" y="84" text-anchor="middle" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="20" font-weight="700" fill="#0F172A">KIDS</text>
+    <rect x="86" y="44" width="64" height="64" rx="18" fill="url(#grad)"/>
+    <text x="118.0" y="83.68" text-anchor="middle"
+      font-family="Inter, Noto Sans, Arial, sans-serif" font-size="24.32" font-weight="800"
+      fill="#0F172A" letter-spacing="-1">VT</text><text x="140" y="320" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="52" font-weight="800" fill="#0F172A" letter-spacing="-1.4">Học bằng làm. An</text><text x="140" y="386" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="52" font-weight="800" fill="#0F172A" letter-spacing="-1.4">toàn. Không khoe</text><text x="140" y="452" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="52" font-weight="800" fill="#0F172A" letter-spacing="-1.4">điểm.</text><text x="142" y="554" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="26" fill="#475569">Learn by doing. Safe. No score-flexing.</text><ellipse cx="818.4" cy="1010.0" rx="19.2" ry="31.200000000000003" transform="rotate(0 818.4 1010.0)" fill="none" stroke="#F59E0B" stroke-width="8.4"/><ellipse cx="799.2" cy="1043.2553755053225" rx="19.2" ry="31.200000000000003" transform="rotate(60 799.2 1043.2553755053225)" fill="none" stroke="#F59E0B" stroke-width="8.4"/><ellipse cx="760.8" cy="1043.2553755053225" rx="19.2" ry="31.200000000000003" transform="rotate(120 760.8 1043.2553755053225)" fill="none" stroke="#F59E0B" stroke-width="8.4"/><ellipse cx="741.6" cy="1010.0" rx="19.2" ry="31.200000000000003" transform="rotate(180 741.6 1010.0)" fill="none" stroke="#F59E0B" stroke-width="8.4"/><ellipse cx="760.8" cy="976.7446244946775" rx="19.2" ry="31.200000000000003" transform="rotate(240 760.8 976.7446244946775)" fill="none" stroke="#F59E0B" stroke-width="8.4"/><ellipse cx="799.2" cy="976.7446244946775" rx="19.2" ry="31.200000000000003" transform="rotate(300 799.2 976.7446244946775)" fill="none" stroke="#F59E0B" stroke-width="8.4"/><circle cx="780.0" cy="1010.0" r="14.399999999999999" fill="#F59E0B"/><text x="140" y="1262" font-family="JetBrains Mono, Inter, monospace" font-size="22" fill="#475569">vetuonglai.com/kids</text></svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="820" height="312" viewBox="0 0 820 312">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="gradPastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08"/>
+      </filter>
+    </defs><rect width="100%" height="100%" fill="#F7FBFA"/>
+    
+    <rect x="42" y="44" width="70" height="70" rx="18" fill="url(#grad)"/>
+    <text x="77.0" y="87.4" text-anchor="middle"
+      font-family="Inter, Noto Sans, Arial, sans-serif" font-size="26.6" font-weight="800"
+      fill="#0F172A" letter-spacing="-1">VT</text><text x="132" y="94" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="44" font-weight="800" fill="#0F172A">Vetuonglai</text><text x="132" y="136" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="18" fill="#475569">Sống thật - Làm thật - Tương lai thật.</text><text x="44" y="212" font-family="JetBrains Mono, Inter, monospace" font-size="14" fill="#475569">Một identity</text><text x="44" y="236" font-family="JetBrains Mono, Inter, monospace" font-size="14" fill="#475569">Xác minh rõ</text><text x="44" y="260" font-family="JetBrains Mono, Inter, monospace" font-size="14" fill="#475569">Tiến bộ đo được</text><text x="620" y="124" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="18" fill="#475569">14+ lớp hệ thống</text><rect x="610" y="140" width="166" height="92" rx="26" fill="#FFFFFF" filter="url(#shadow)"/>
+    <rect x="628" y="157" width="58" height="58" rx="16" fill="url(#grad)"/>
+    <text x="657.0" y="192.96" text-anchor="middle"
+      font-family="Inter, Noto Sans, Arial, sans-serif" font-size="22.04" font-weight="800"
+      fill="#0F172A" letter-spacing="-1">VT</text><text x="704" y="192" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="17" font-weight="700" fill="#0F172A">Brand system</text></svg>

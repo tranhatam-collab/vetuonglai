@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="gradPastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.08"/>
+      </filter>
+    </defs>
+    <rect x="8" y="8" width="112" height="112" rx="28" fill="#22D3EE"/><path d="M 42.24 78.96000000000001 L 42.24 49.040000000000006 Q 64.0 42.24 64.0 50.4 L 64.0 81.68 Q 54.480000000000004 74.88 42.24 78.96000000000001" fill="none" stroke="#0F172A" stroke-width="2.3800000000000003" stroke-linecap="round" stroke-linejoin="round"/><path d="M 85.75999999999999 78.96000000000001 L 85.75999999999999 49.040000000000006 Q 64.0 42.24 64.0 50.4" fill="none" stroke="#0F172A" stroke-width="2.3800000000000003" stroke-linecap="round" stroke-linejoin="round"/><line x1="64.0" y1="35.44" x2="64.0" y2="42.24" stroke="#0F172A" stroke-width="2.3800000000000003" stroke-linecap="round"/><line x1="60.6" y1="38.84" x2="67.4" y2="38.84" stroke="#0F172A" stroke-width="2.3800000000000003" stroke-linecap="round"/></svg>

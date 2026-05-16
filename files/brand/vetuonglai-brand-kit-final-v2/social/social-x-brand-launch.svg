@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="pastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.10"/>
+      </filter>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="22"/>
+      </filter>
+    </defs>
+    <rect width="100%" height="100%" fill="#F7FBFA"/>
+    <circle cx="984.0" cy="101.2" r="155.2" fill="#22D3EE" opacity="0.08" filter="url(#soft)"/>
+    <circle cx="216.0" cy="594.0" r="135.0" fill="#818CF8" opacity="0.07" filter="url(#soft)"/>
+    <circle cx="660.0" cy="371.3" r="121.5" fill="#4ADE80" opacity="0.05" filter="url(#soft)"/>
+    <rect x="72" y="78" width="1056" height="520" rx="38" fill="#FFFFFF" filter="url(#shadow)"/><g transform="translate(98 106)"><rect x="0" y="0" width="60" height="60" rx="18" fill="url(#grad)"/><path d="M 13.33 18.33 L 23.33 40.00 L 33.33 18.33 L 43.33 18.33 M 33.33 18.33 L 33.33 44.17" fill="none" stroke="#0F172A" stroke-width="4.00" stroke-linecap="round" stroke-linejoin="round"/></g><text x="176" y="143.8" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="28" font-weight="800" fill="#0F172A">Vetuonglai</text><g opacity="0.055"><g transform="translate(760 104) scale(0.94)"><path d="M 55.86 78.87 A 104.00 104.00 0 1 0 237.73 175.57" fill="none" stroke="url(#grad)" stroke-width="26" stroke-linecap="round"/><path d="M 98.67 73.85 A 78.00 78.00 0 0 1 161.50 65.02" fill="none" stroke="#94A3B8" stroke-width="9" stroke-linecap="round" opacity="0.75"/><path d="M 84 146 L 128 190 L 220 96 L 250 66" fill="none" stroke="#0F172A" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/><path d="M 212 76 L 238 50" fill="none" stroke="#0F172A" stroke-width="8" stroke-linecap="round" opacity="0.95"/></g></g><text x="104" y="320" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="54" font-weight="800" fill="#0F172A">Một identity. Mọi lớp đời sống.</text><text x="104" y="390" font-family="DejaVu Sans, Inter, Arial, sans-serif" font-size="28" fill="#475569">One identity. Every layer of life.</text><text x="104" y="530" font-family="DejaVu Sans Mono, monospace" font-size="22" fill="#475569">vetuonglai.com</text></svg>

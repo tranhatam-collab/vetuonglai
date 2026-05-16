@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220mm" height="110mm" viewBox="0 0 220 110">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+      <linearGradient id="pastel" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#86EFAC"/>
+        <stop offset="50%" stop-color="#67E8F9"/>
+        <stop offset="100%" stop-color="#A5B4FC"/>
+      </linearGradient>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#0F172A" flood-opacity="0.10"/>
+      </filter>
+      <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+        <feGaussianBlur stdDeviation="22"/>
+      </filter>
+    </defs>
+    <rect width="100%" height="100%" fill="#FFFFFF"/><rect x="0" y="0" width="220" height="110" rx="0" fill="#FFFFFF"/><g transform="translate(12 12)"><rect x="0" y="0" width="18" height="18" rx="18" fill="url(#grad)"/><path d="M 4.00 5.50 L 7.00 12.00 L 10.00 5.50 L 13.00 5.50 M 10.00 5.50 L 10.00 13.25" fill="none" stroke="#0F172A" stroke-width="1.20" stroke-linecap="round" stroke-linejoin="round"/></g><text x="34" y="24.5" font-family="DejaVu Sans, Arial, sans-serif" font-size="6" font-weight="800" fill="#0F172A">Vetuonglai</text><text x="34" y="31" font-family="DejaVu Sans Mono, monospace" font-size="3.2" fill="#475569">tranhatam@gmail.com</text><text x="34" y="36.5" font-family="DejaVu Sans Mono, monospace" font-size="3.2" fill="#475569">vetuonglai.com</text><rect x="132" y="34" width="70" height="30" rx="4" fill="none" stroke="#CBD5E1" stroke-dasharray="2 1"/><text x="110" y="88" text-anchor="middle" font-family="DejaVu Serif, serif" font-size="5" font-style="italic" fill="#475569">Sống thật - Làm thật - Tương lai thật</text></svg>

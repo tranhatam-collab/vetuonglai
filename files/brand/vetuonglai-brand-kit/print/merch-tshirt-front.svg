@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="210mm" height="297mm" viewBox="0 0 210 297">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+    </defs><rect width="100%" height="100%" fill="#F8F5EF"/>
+    <path d="M 121.15 87.45 A 21.080000000000002 21.080000000000002 0 1 1 107.93 80.13" fill="none" stroke="url(#grad)" stroke-width="5.2700000000000005" stroke-linecap="round"/><path d="M 96.15 100.58 L 103.31 108.17 L 116.38 90.04" fill="none" stroke="#0F172A" stroke-width="3.79" stroke-linecap="round" stroke-linejoin="round"/><text x="105" y="146" text-anchor="middle" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="9" font-weight="800" fill="#0F172A">Vetuonglai</text><circle cx="65" cy="200" r="4.2" fill="#0F172A"/><circle cx="81" cy="200" r="4.2" fill="#6366F1"/><circle cx="97" cy="200" r="4.2" fill="#22D3EE"/><circle cx="113" cy="200" r="4.2" fill="#818CF8"/><circle cx="65" cy="216" r="4.2" fill="#FACC15"/><circle cx="81" cy="216" r="4.2" fill="#818CF8"/><circle cx="97" cy="216" r="4.2" fill="#34D399"/><circle cx="113" cy="216" r="4.2" fill="#4ADE80"/><circle cx="65" cy="232" r="4.2" fill="#FB923C"/><circle cx="81" cy="232" r="4.2" fill="#F472B6"/><circle cx="97" cy="232" r="4.2" fill="#FB7185"/><circle cx="113" cy="232" r="4.2" fill="url(#grad)"/><circle cx="65" cy="248" r="4.2" fill="#7C3AED"/><circle cx="81" cy="248" r="4.2" fill="#B45309"/><circle cx="97" cy="248" r="4.2" fill="#475569"/><circle cx="113" cy="248" r="4.2" fill="#F59E0B"/><text x="105" y="282" text-anchor="middle" font-family="JetBrains Mono, Inter, monospace" font-size="4.1" fill="#0F172A">Sống thật • Làm thật • Tương lai thật</text></svg>

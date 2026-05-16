@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220mm" height="110mm" viewBox="0 0 220 110">
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#4ADE80"/>
+        <stop offset="50%" stop-color="#22D3EE"/>
+        <stop offset="100%" stop-color="#818CF8"/>
+      </linearGradient>
+    </defs><rect width="100%" height="100%" fill="#FFFFFF"/>
+    
+    <rect x="14" y="12" width="16" height="16" rx="4" fill="url(#grad)"/>
+    <text x="22.0" y="21.92" text-anchor="middle"
+      font-family="Inter, Noto Sans, Arial, sans-serif" font-size="6.08" font-weight="800"
+      fill="#0F172A" letter-spacing="-1">VT</text><text x="35" y="23" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="8" font-weight="800" fill="#0F172A">Vetuonglai</text><text x="14" y="31" font-family="JetBrains Mono, Inter, monospace" font-size="3.3" fill="#475569">Return address line 1 • City • Country</text><rect x="118" y="35" width="88" height="38" rx="3" fill="none" stroke="#CBD5E1" stroke-width="0.5" stroke-dasharray="2 2"/><text x="162" y="55" text-anchor="middle" font-family="Inter, Noto Sans, Arial, sans-serif" font-size="4" fill="#94A3B8">Recipient area</text><text x="110" y="94" text-anchor="middle" font-family="DejaVu Serif, Noto Serif, serif" font-size="5" font-style="italic" fill="#0F172A">Sống thật • Làm thật • Tương lai thật</text></svg>

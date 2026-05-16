@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="400" viewBox="0 0 1600 400" fill="none">
+  <style>
+    .word { font-family: "Plus Jakarta Sans", "Inter", Arial, sans-serif; font-weight: 800; letter-spacing: -0.02em; }
+    .sub { font-family: "Inter", Arial, sans-serif; font-weight: 500; }
+  </style>
+  <rect width="1600" height="400" fill="#FFFFFF"/>
+  <circle cx="180" cy="200" r="118" stroke="#0F172A" stroke-width="10"/>
+  <path d="M287 126 A118 118 0 0 1 298 156" stroke="#FFFFFF" stroke-width="18" stroke-linecap="round"/>
+  <path d="M130 198 L176 246 L242 146" stroke="#0F172A" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="360" y="215" class="word" font-size="118" fill="#0F172A">Vetuonglai</text>
+  <text x="364" y="275" class="sub" font-size="28" fill="#0F172A" opacity="0.74">Về Tương Lai</text>
+</svg>
