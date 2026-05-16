@@ -10069,6 +10069,7 @@ async function build() {
   await writeSiteFile(domains.vc, "_redirects", "/v/* /v/index.html 200\n");
   await writeSiteFile(domains.vc, "robots.txt", renderRobots(domains.vc));
   await writeSiteFile(domains.vc, "sitemap.xml", renderSitemap(domains.vc, vcPaths));
+  await copyStaticTreeForDomain(domains.vc);
   buildLog("vc done");
 
   buildLog("rendering edu");

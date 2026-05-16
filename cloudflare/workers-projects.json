@@ -73,7 +73,12 @@
       "scriptName": "vetuonglai-edu-github",
       "entry": "workers/generic-worker.mjs",
       "assetsDir": "dist/edu.vetuonglai.com",
-      "routes": ["edu.vetuonglai.com/*", "www.edu.vetuonglai.com/*"]
+      "routes": ["edu.vetuonglai.com/*", "www.edu.vetuonglai.com/*"],
+      "accessRuntime": {
+        "requiredSecrets": ["WALLET_ADDRESS_SECRET", "WALLET_INTERNAL_TOKEN"],
+        "recommendedVars": [],
+        "requiredBindings": ["ACCESS_KV_NAMESPACE"]
+      }
     },
     {
       "key": "member",
@@ -117,14 +122,24 @@
       "scriptName": "vetuonglai-green",
       "entry": "workers/generic-worker.mjs",
       "assetsDir": "dist/green.vetuonglai.com",
-      "routes": ["green.vetuonglai.com/*", "www.green.vetuonglai.com/*"]
+      "routes": ["green.vetuonglai.com/*", "www.green.vetuonglai.com/*"],
+      "accessRuntime": {
+        "requiredSecrets": ["WALLET_ADDRESS_SECRET", "WALLET_INTERNAL_TOKEN"],
+        "recommendedVars": [],
+        "requiredBindings": ["ACCESS_KV_NAMESPACE"]
+      }
     },
     {
       "key": "finance",
       "scriptName": "vetuonglai-finance",
       "entry": "workers/generic-worker.mjs",
       "assetsDir": "dist/finance.vetuonglai.com",
-      "routes": ["finance.vetuonglai.com/*", "www.finance.vetuonglai.com/*"]
+      "routes": ["finance.vetuonglai.com/*", "www.finance.vetuonglai.com/*"],
+      "accessRuntime": {
+        "requiredSecrets": ["WALLET_ADDRESS_SECRET", "WALLET_INTERNAL_TOKEN"],
+        "recommendedVars": [],
+        "requiredBindings": ["ACCESS_KV_NAMESPACE"]
+      }
     },
     {
       "key": "kids",
@@ -141,6 +156,11 @@
         "noAffiliateForMinors": true,
         "noLeaderboards": true,
         "noPublicProfiles": true
+      },
+      "accessRuntime": {
+        "requiredSecrets": ["WALLET_ADDRESS_SECRET", "WALLET_INTERNAL_TOKEN"],
+        "recommendedVars": [],
+        "requiredBindings": ["ACCESS_KV_NAMESPACE"]
       }
     }
   ]

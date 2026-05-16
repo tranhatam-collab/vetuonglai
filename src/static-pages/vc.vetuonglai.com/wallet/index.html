@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="vc">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ví VTL — vc.vetuonglai.com</title>
+<meta name="description" content="Ví VTL: địa chỉ ví, số dư, lịch sử giao dịch và yêu cầu rút tiền." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
+<style>
+:root{--bg:#0e1116;--card:#161b22;--border:#2a313c;--fg:#e6edf3;--muted:#8b949e;--accent:#3fb950;--warn:#d29922;--danger:#f85149;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5}
+.wrap{max-width:880px;margin:0 auto;padding:32px 20px}
+h1{font-size:24px;font-weight:700;margin:0 0 4px}
+.sub{color:var(--muted);font-size:14px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px}
+.addr{font-family:var(--mono);font-size:14px;word-break:break-all;background:#0a0c10;padding:12px;border-radius:8px;border:1px solid var(--border);color:var(--accent)}
+.balance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
+.balance-cell{background:#0a0c10;border:1px solid var(--border);border-radius:8px;padding:12px}
+.balance-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.balance-value{font-family:var(--mono);font-size:18px;font-weight:600;margin-top:4px}
+.kyc-none{color:var(--warn)}
+.kyc-basic{color:var(--warn)}
+.kyc-verified{color:var(--accent)}
+button{font:inherit;border:1px solid var(--border);background:#21262d;color:var(--fg);padding:8px 14px;border-radius:6px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.history{font-family:var(--mono);font-size:12px;max-height:300px;overflow:auto}
+.history-row{padding:8px 0;border-bottom:1px dashed var(--border);display:flex;justify-content:space-between;gap:12px}
+.history-row:last-child{border-bottom:none}
+.tx-credit{color:var(--accent)}
+.tx-debit,.tx-transfer_out,.tx-payout_request{color:var(--danger)}
+.tx-transfer_in,.tx-payout_settled{color:var(--accent)}
+.muted{color:var(--muted);font-size:12px}
+.error{background:#42050a;border-color:var(--danger);color:#ffdcdc;padding:12px;border-radius:8px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Ví VTL</h1>
+  <div class="sub">Địa chỉ ví, số dư, lịch sử và yêu cầu rút tiền — đồng bộ trên toàn vetuonglai.com.</div>
+
+  <div id="status-card" class="card"><div class="muted">Đang tải ví…</div></div>
+
+  <div id="wallet-content" hidden>
+    <div class="card">
+      <div class="muted">Địa chỉ ví của bạn</div>
+      <div id="address" class="addr"></div>
+      <div class="actions">
+        <button id="btn-copy">Sao chép địa chỉ</button>
+        <button id="btn-refresh">Làm mới</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Số dư (VND)</div>
+      <div class="balance-grid">
+        <div class="balance-cell"><div class="balance-label">Available</div><div class="balance-value" id="bal-available">0</div></div>
+        <div class="balance-cell"><div class="balance-label">Pending</div><div class="balance-value" id="bal-pending">0</div></div>
+        <div class="balance-cell"><div class="balance-label">Tax held</div><div class="balance-value" id="bal-tax">0</div></div>
+        <div class="balance-cell"><div class="balance-label">Withdrawn</div><div class="balance-value" id="bal-withdrawn">0</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="muted">KYC</div>
+      <div>Cấp độ: <strong id="kyc-level" class="kyc-none">none</strong></div>
+      <div class="muted" style="margin-top:6px">Cần cấp <code>verified</code> trước khi yêu cầu rút tiền.</div>
+    </div>
+
+    <div class="card">
+      <div class="muted">Lịch sử giao dịch (gần nhất)</div>
+      <div id="history" class="history" style="margin-top:8px"><div class="muted">Đang tải…</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const API_BASE = "/api/wallet";
+
+function fmtVnd(value){
+  const n=Number(value||0);
+  return n.toLocaleString("vi-VN") + " ₫";
+}
+
+function fmtDate(unix){
+  if(!unix) return "";
+  return new Date(unix*1000).toLocaleString("vi-VN");
+}
+
+function showError(msg){
+  document.getElementById("status-card").innerHTML = '<div class="error">' + msg + '</div>';
+}
+
+function renderWallet(wallet){
+  document.getElementById("status-card").remove();
+  const content = document.getElementById("wallet-content");
+  content.hidden = false;
+  document.getElementById("address").textContent = wallet.address;
+  document.getElementById("bal-available").textContent = fmtVnd(wallet.balances.available_vnd);
+  document.getElementById("bal-pending").textContent = fmtVnd(wallet.balances.pending_vnd);
+  document.getElementById("bal-tax").textContent = fmtVnd(wallet.balances.tax_held_vnd);
+  document.getElementById("bal-withdrawn").textContent = fmtVnd(wallet.balances.withdrawn_vnd);
+  const kycEl = document.getElementById("kyc-level");
+  const level = wallet.kyc?.level || "none";
+  kycEl.textContent = level;
+  kycEl.className = "kyc-" + level;
+}
+
+function renderHistory(entries){
+  const el = document.getElementById("history");
+  if(!entries || entries.length === 0){
+    el.innerHTML = '<div class="muted">Chưa có giao dịch.</div>';
+    return;
+  }
+  el.innerHTML = entries.map(function(e){
+    const sign = ["credit","transfer_in","payout_settled","tax_release"].includes(e.type) ? "+" : "-";
+    return '<div class="history-row">'
+      + '<div><span class="tx-' + e.type + '">' + sign + fmtVnd(e.amount_vnd) + '</span> <span class="muted">' + e.type + '</span><br><span class="muted">' + (e.memo || e.ref || e.source) + '</span></div>'
+      + '<div class="muted">' + fmtDate(e.created_at) + '</div>'
+      + '</div>';
+  }).join("");
+}
+
+async function loadWallet(){
+  try{
+    const r = await fetch(API_BASE + "/me", { credentials: "include" });
+    if(r.status === 401){
+      showError('Bạn chưa đăng nhập. <a href="https://member.vetuonglai.com/signup/">Đăng ký / đăng nhập</a> để xem ví.');
+      return;
+    }
+    const data = await r.json();
+    if(!data.wallet){
+      showError("Không lấy được ví: " + (data.detail || data.status));
+      return;
+    }
+    renderWallet(data.wallet);
+    loadHistory();
+  }catch(err){
+    showError("Lỗi kết nối: " + err.message);
+  }
+}
+
+async function loadHistory(){
+  try{
+    const r = await fetch(API_BASE + "/history?limit=20", { credentials: "include" });
+    const data = await r.json();
+    renderHistory(data.entries || []);
+  }catch(err){
+    document.getElementById("history").innerHTML = '<div class="muted">Không tải được lịch sử: ' + err.message + '</div>';
+  }
+}
+
+document.addEventListener("click", function(e){
+  if(e.target.id === "btn-copy"){
+    const addr = document.getElementById("address").textContent;
+    navigator.clipboard?.writeText(addr);
+    e.target.textContent = "Đã sao chép";
+    setTimeout(function(){ e.target.textContent = "Sao chép địa chỉ"; }, 1500);
+  }
+  if(e.target.id === "btn-refresh"){
+    location.reload();
+  }
+});
+
+loadWallet();
+</script>
+</body>
+</html>

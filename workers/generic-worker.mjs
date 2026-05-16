@@ -1,6 +1,12 @@
 import { maybeHandleAccessRuntime } from "./lib/access-runtime.mjs";
 import { maybeHandleFounderRuntime } from "./lib/founder-runtime.mjs";
 import { maybeHandleWalletRuntime } from "./lib/wallet-runtime.mjs";
+import { maybeHandleCommunityRuntime } from "./lib/community-runtime.mjs";
+import { maybeHandleJobsRuntime } from "./lib/jobs-runtime.mjs";
+import { maybeHandleAffiliateRuntime } from "./lib/affiliate-runtime.mjs";
+import { maybeHandleAnalyticsRuntime } from "./lib/analytics-runtime.mjs";
+import { maybeHandleNotifyRuntime } from "./lib/notify-runtime.mjs";
+import { maybeHandleAdminCmsRuntime } from "./lib/admin-cms-runtime.mjs";
 import businessDomainContract from "../src/data/business-domain-contract.json" with { type: "json" };
 import packageComparisonDemoOutput from "../src/data/package-comparison-demo-output.json" with { type: "json" };
 import packageFormRegistry from "../src/data/package-form-registry.json" with { type: "json" };
@@ -508,6 +514,24 @@ export default {
     if (walletResponse) {
       return walletResponse;
     }
+
+    const communityResponse = await maybeHandleCommunityRuntime(request, env);
+    if (communityResponse) return communityResponse;
+
+    const jobsResponse = await maybeHandleJobsRuntime(request, env);
+    if (jobsResponse) return jobsResponse;
+
+    const affiliateResponse = await maybeHandleAffiliateRuntime(request, env);
+    if (affiliateResponse) return affiliateResponse;
+
+    const analyticsResponse = await maybeHandleAnalyticsRuntime(request, env);
+    if (analyticsResponse) return analyticsResponse;
+
+    const notifyResponse = await maybeHandleNotifyRuntime(request, env);
+    if (notifyResponse) return notifyResponse;
+
+    const adminCmsResponse = await maybeHandleAdminCmsRuntime(request, env);
+    if (adminCmsResponse) return adminCmsResponse;
 
     if (env.ASSETS && typeof env.ASSETS.fetch === "function") {
       return env.ASSETS.fetch(request);

@@ -1,5 +1,11 @@
 import { maybeHandleVcOwnershipRuntime } from "./lib/vc-ownership-runtime.mjs";
 import { maybeHandleWalletRuntime } from "./lib/wallet-runtime.mjs";
+import { maybeHandleCommunityRuntime } from "./lib/community-runtime.mjs";
+import { maybeHandleJobsRuntime } from "./lib/jobs-runtime.mjs";
+import { maybeHandleAffiliateRuntime } from "./lib/affiliate-runtime.mjs";
+import { maybeHandleAnalyticsRuntime } from "./lib/analytics-runtime.mjs";
+import { maybeHandleNotifyRuntime } from "./lib/notify-runtime.mjs";
+import { maybeHandleAdminCmsRuntime } from "./lib/admin-cms-runtime.mjs";
 
 function missingAssetsResponse(request) {
   return new Response(
@@ -27,7 +33,7 @@ function corsHeadersFor(request) {
     "access-control-allow-origin": allowed,
     "access-control-allow-credentials": "true",
     "access-control-allow-methods": "GET, POST, OPTIONS",
-    "access-control-allow-headers": "content-type, authorization, x-wallet-internal-token, idempotency-key",
+    "access-control-allow-headers": "content-type, authorization, x-wallet-internal-token, x-internal-token, idempotency-key",
     "access-control-max-age": "86400",
     "vary": "origin",
   };
@@ -52,9 +58,25 @@ export default {
     }
 
     const walletResponse = await maybeHandleWalletRuntime(request, env);
-    if (walletResponse) {
-      return addCorsHeaders(walletResponse, request);
-    }
+    if (walletResponse) return addCorsHeaders(walletResponse, request);
+
+    const communityResponse = await maybeHandleCommunityRuntime(request, env);
+    if (communityResponse) return addCorsHeaders(communityResponse, request);
+
+    const jobsResponse = await maybeHandleJobsRuntime(request, env);
+    if (jobsResponse) return addCorsHeaders(jobsResponse, request);
+
+    const affiliateResponse = await maybeHandleAffiliateRuntime(request, env);
+    if (affiliateResponse) return addCorsHeaders(affiliateResponse, request);
+
+    const analyticsResponse = await maybeHandleAnalyticsRuntime(request, env);
+    if (analyticsResponse) return addCorsHeaders(analyticsResponse, request);
+
+    const notifyResponse = await maybeHandleNotifyRuntime(request, env);
+    if (notifyResponse) return addCorsHeaders(notifyResponse, request);
+
+    const adminCmsResponse = await maybeHandleAdminCmsRuntime(request, env);
+    if (adminCmsResponse) return addCorsHeaders(adminCmsResponse, request);
 
     const vcApiResponse = await maybeHandleVcOwnershipRuntime(request, env);
     if (vcApiResponse) {

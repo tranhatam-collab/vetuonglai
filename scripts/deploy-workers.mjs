@@ -108,10 +108,12 @@ async function prepareWorkerAssetsDir(worker) {
 function printAccessRuntimeContract(worker) {
   if (!worker.accessRuntime) return;
 
+  const r = worker.accessRuntime;
   console.log(`Access runtime contract for ${worker.scriptName}:`);
-  console.log(`  required secrets: ${worker.accessRuntime.requiredSecrets.join(", ")}`);
-  console.log(`  recommended vars: ${worker.accessRuntime.recommendedVars.join(", ")}`);
-  console.log(`  optional bindings: ${worker.accessRuntime.optionalBindings.join(", ")}`);
+  console.log(`  required secrets: ${(r.requiredSecrets || []).join(", ")}`);
+  console.log(`  recommended vars: ${(r.recommendedVars || []).join(", ")}`);
+  console.log(`  optional bindings: ${(r.optionalBindings || []).join(", ")}`);
+  console.log(`  required bindings: ${(r.requiredBindings || []).join(", ")}`);
 }
 
 function listWorkerSecrets(scriptName, accountId) {
