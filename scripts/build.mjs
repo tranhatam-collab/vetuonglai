@@ -1810,16 +1810,57 @@ ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
   <script type="application/ld+json">
   ${JSON.stringify({
     "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": titleCopy.vi,
-    "description": descriptionCopy.vi,
-    "url": canonical,
-    "inLanguage": primaryRuntimeLocale,
-    "isPartOf": {
-      "@type": "WebSite",
-      "name": "Vetuonglai",
-      "url": `https://${domains.hub}/`,
-    },
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${canonical}#webpage`,
+        "name": titleCopy.vi,
+        "description": descriptionCopy.vi,
+        "url": canonical,
+        "inLanguage": primaryRuntimeLocale,
+        "isPartOf": { "@id": `https://${domains.hub}/#website` },
+        "primaryImageOfPage": {
+          "@type": "ImageObject",
+          "url": `https://${domains[currentKey]}/assets/web/web-og-${currentKey}.png`,
+          "width": 1200,
+          "height": 630,
+        },
+      },
+      {
+        "@type": "WebSite",
+        "@id": `https://${domains.hub}/#website`,
+        "url": `https://${domains.hub}/`,
+        "name": "Vetuonglai",
+        "alternateName": "Về Tương Lai",
+        "inLanguage": ["vi-VN", "en-US"],
+        "publisher": { "@id": `https://${domains.hub}/#organization` },
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": `https://${domains.hub}/tim-kiem/?q={search_term_string}`,
+          },
+          "query-input": "required name=search_term_string",
+        },
+      },
+      {
+        "@type": "Organization",
+        "@id": `https://${domains.hub}/#organization`,
+        "name": "Vetuonglai",
+        "alternateName": "Về Tương Lai",
+        "url": `https://${domains.hub}/`,
+        "logo": {
+          "@type": "ImageObject",
+          "url": `https://${domains.hub}/assets/brand/vetuonglai-logo-primary.png`,
+        },
+        "sameAs": [
+          "https://twitter.com/vetuonglai",
+          "https://www.youtube.com/@vetuonglai",
+          "https://github.com/vetuonglai",
+        ],
+        "description": "Hệ sinh thái 14+ subdomain phối hợp quanh ví VTL và identity duy nhất, giúp người Việt sống thật, làm thật, tạo bằng chứng kiểm chứng được.",
+      },
+    ],
   })}
   </script>
 </head>
@@ -10154,6 +10195,7 @@ async function build() {
     `https://${domains.life}/sitemap.xml`,
     `https://${domains.invest}/sitemap.xml`,
   ]));
+  await copyStaticTreeForDomain(domains.hub);
   buildLog("hub done");
 
   buildLog("rendering vc");

@@ -88,19 +88,16 @@ trả về `{ verdict, feedback }` + lưu vào KV. ~2 ngày dev.
 
 ---
 
-## 6. Search index
+## 6. Search index ✅ SHIPPED 2026-05-17 (Pagefind)
 
-**Hiện trạng**: Sitemap được generate, SEO metadata đầy đủ.
-**Thiếu**: full-text search box trên homepage / docs.
+**Hiện trạng**: ✅ DONE — Pagefind 1.5.2 static search live trên production.
+  - Index 4 domain: vetuonglai.com (11 page), docs.vetuonglai.com, read.vetuonglai.com, edu.vetuonglai.com
+  - Auto-rebuild qua `postbuild` chain trong package.json
+  - UI bilingual (VI/EN translations) tại `/tim-kiem/` (hub) + `/search/` (docs)
+  - JSON-LD `SearchAction` schema → Google Sitelinks search box
+  - Live: https://vetuonglai.com/tim-kiem/ + /_pagefind/pagefind-entry.json (200)
 
-**Lựa chọn**:
-- **Pagefind** (static, free, dùng được ngay) — chỉ index dist/, build-time.
-- **Algolia** (managed, $X/tháng) — best UX, cần API key.
-- **Cloudflare AutoRAG** — đã có account, miễn phí limit thấp.
-
-**Cần Founder**: chọn 1 trong 3. **Tôi gợi ý Pagefind** (zero-cost, đủ tốt cho v1).
-
-**Khi có**: ~3 giờ dev.
+**+2% completion** đã đạt. Không còn blocker.
 
 ---
 

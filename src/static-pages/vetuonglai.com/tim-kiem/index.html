@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="hub">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Tìm kiếm — Vetuonglai" data-text-en="Search — Vetuonglai">Tìm kiếm — Vetuonglai</title>
+<meta name="description" data-content-vi="Tìm bài viết, khóa học, tài liệu trên toàn hệ Vetuonglai." data-content-en="Search articles, courses, and docs across Vetuonglai." content="Tìm bài viết, khóa học, tài liệu trên toàn hệ Vetuonglai." />
+<meta name="robots" content="noindex,follow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-hub.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#22D3EE" />
+<link rel="canonical" href="https://vetuonglai.com/tim-kiem/" />
+<link rel="alternate" hreflang="vi-VN" href="https://vetuonglai.com/tim-kiem/" />
+<link rel="alternate" hreflang="en-US" href="https://vetuonglai.com/tim-kiem/?lang=en" />
+<link rel="alternate" hreflang="x-default" href="https://vetuonglai.com/tim-kiem/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<link rel="stylesheet" href="/assets/style.css" />
+<link rel="stylesheet" href="/_pagefind/pagefind-ui.css" />
+<style>
+.search-shell { max-width: 880px; margin: 0 auto; padding: 48px 20px 96px; }
+.search-shell h1 { font-family: var(--vt-font-display); font-size: clamp(2rem, 4vw, 3rem); margin: 0 0 12px; letter-spacing: -0.02em; }
+.search-shell .lead { color: var(--vt-text-soft); margin: 0 0 32px; max-width: 600px; }
+.pagefind-ui { --pagefind-ui-primary: #22D3EE; --pagefind-ui-text: #0F172A; --pagefind-ui-background: #F7FBFA; --pagefind-ui-border: #E2E8F0; --pagefind-ui-tag: #ECF6F4; --pagefind-ui-border-radius: 12px; --pagefind-ui-border-width: 1px; --pagefind-ui-image-border-radius: 8px; --pagefind-ui-font: var(--vt-font-sans); }
+.pagefind-ui form { box-shadow: var(--vt-shadow-sm); }
+.empty-hint { margin-top: 24px; color: var(--vt-text-soft); font-size: 14px; }
+.empty-hint code { background: var(--vt-bg-soft); padding: 2px 6px; border-radius: 6px; font-family: var(--vt-font-mono); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="search-shell">
+  <a href="https://vetuonglai.com" style="display:inline-flex;align-items:center;gap:8px;color:inherit;text-decoration:none;margin-bottom:32px">
+    <img src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" />
+    <strong>Vetuonglai</strong>
+  </a>
+  <h1 data-text-vi="Tìm trên Vetuonglai" data-text-en="Search Vetuonglai">Tìm trên Vetuonglai</h1>
+  <p class="lead" data-text-vi="Lục tìm bài viết, khóa học, tài liệu và bằng chứng kiểm chứng được trên toàn hệ." data-text-en="Search articles, courses, docs, and verifiable evidence across the system.">Lục tìm bài viết, khóa học, tài liệu và bằng chứng kiểm chứng được trên toàn hệ.</p>
+  <div data-vtl-search></div>
+  <p class="empty-hint" data-text-vi="Mẹo: thử các từ khoá như “xác minh”, “hành trình”, “bằng chứng”, “VTL wallet”, “annual access”." data-text-en="Tip: try keywords like “verification”, “journey”, “evidence”, “VTL wallet”, “annual access”.">Mẹo: thử các từ khoá như “xác minh”, “hành trình”, “bằng chứng”, “VTL wallet”, “annual access”.</p>
+</div>
+<script type="module">
+  import { PagefindUI } from "/_pagefind/pagefind-ui.js";
+  new PagefindUI({
+    element: "[data-vtl-search]",
+    showImages: false,
+    showSubResults: true,
+    debounceTimeoutMs: 200,
+    resetStyles: false,
+    translations: {
+      placeholder: "Tìm trên Vetuonglai…",
+      clear_search: "Xoá",
+      load_more: "Tải thêm",
+      search_label: "Tìm kiếm",
+      filters_label: "Lọc",
+      zero_results: "Không có kết quả cho \"[SEARCH_TERM]\"",
+      many_results: "[COUNT] kết quả cho \"[SEARCH_TERM]\"",
+      one_result: "[COUNT] kết quả cho \"[SEARCH_TERM]\"",
+      alt_search: "Không tìm thấy \"[SEARCH_TERM]\". Thử các từ thay thế:",
+      search_suggestion: "Không có kết quả. Gợi ý:",
+      searching: "Đang tìm \"[SEARCH_TERM]\"…"
+    }
+  });
+</script>
+</body>
+</html>
