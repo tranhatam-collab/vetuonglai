@@ -1,4 +1,5 @@
 import { maybeHandleVcOwnershipRuntime } from "./lib/vc-ownership-runtime.mjs";
+import { maybeHandleWalletRuntime } from "./lib/wallet-runtime.mjs";
 
 function missingAssetsResponse(request) {
   return new Response(
@@ -16,16 +17,25 @@ function missingAssetsResponse(request) {
   );
 }
 
-const CORS_HEADERS = {
-  "access-control-allow-origin": "https://member.vetuonglai.com",
-  "access-control-allow-methods": "GET, POST, OPTIONS",
-  "access-control-allow-headers": "content-type, authorization",
-  "access-control-max-age": "86400",
-};
+const ORIGIN_ALLOWLIST = /^https:\/\/([a-z0-9-]+\.)?vetuonglai\.com$/;
+const DEFAULT_ORIGIN = "https://vetuonglai.com";
 
-function addCorsHeaders(response) {
+function corsHeadersFor(request) {
+  const origin = request.headers.get("origin") || "";
+  const allowed = ORIGIN_ALLOWLIST.test(origin) ? origin : DEFAULT_ORIGIN;
+  return {
+    "access-control-allow-origin": allowed,
+    "access-control-allow-credentials": "true",
+    "access-control-allow-methods": "GET, POST, OPTIONS",
+    "access-control-allow-headers": "content-type, authorization, x-wallet-internal-token, idempotency-key",
+    "access-control-max-age": "86400",
+    "vary": "origin",
+  };
+}
+
+function addCorsHeaders(response, request) {
   const headers = new Headers(response.headers);
-  for (const [key, value] of Object.entries(CORS_HEADERS)) {
+  for (const [key, value] of Object.entries(corsHeadersFor(request))) {
     headers.set(key, value);
   }
   return new Response(response.body, {
@@ -37,14 +47,18 @@ function addCorsHeaders(response) {
 
 export default {
   async fetch(request, env) {
-    // Handle CORS preflight
     if (request.method === "OPTIONS") {
-      return new Response(null, { status: 204, headers: CORS_HEADERS });
+      return new Response(null, { status: 204, headers: corsHeadersFor(request) });
+    }
+
+    const walletResponse = await maybeHandleWalletRuntime(request, env);
+    if (walletResponse) {
+      return addCorsHeaders(walletResponse, request);
     }
 
     const vcApiResponse = await maybeHandleVcOwnershipRuntime(request, env);
     if (vcApiResponse) {
-      return addCorsHeaders(vcApiResponse);
+      return addCorsHeaders(vcApiResponse, request);
     }
 
     const url = new URL(request.url);

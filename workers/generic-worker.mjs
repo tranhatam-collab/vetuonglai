@@ -1,5 +1,6 @@
 import { maybeHandleAccessRuntime } from "./lib/access-runtime.mjs";
 import { maybeHandleFounderRuntime } from "./lib/founder-runtime.mjs";
+import { maybeHandleWalletRuntime } from "./lib/wallet-runtime.mjs";
 import businessDomainContract from "../src/data/business-domain-contract.json" with { type: "json" };
 import packageComparisonDemoOutput from "../src/data/package-comparison-demo-output.json" with { type: "json" };
 import packageFormRegistry from "../src/data/package-form-registry.json" with { type: "json" };
@@ -501,6 +502,11 @@ export default {
     const accessResponse = await maybeHandleAccessRuntime(request, env);
     if (accessResponse) {
       return accessResponse;
+    }
+
+    const walletResponse = await maybeHandleWalletRuntime(request, env);
+    if (walletResponse) {
+      return walletResponse;
     }
 
     if (env.ASSETS && typeof env.ASSETS.fetch === "function") {

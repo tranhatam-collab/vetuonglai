@@ -8,6 +8,7 @@ import readBooksRegistry from "../../src/data/read-books.json" with { type: "jso
 import protectedManifest from "../../protected/read-books/manifest.json" with { type: "json" };
 import protectedTanCung from "../../protected/read-books/tan-cung-mot-cuoc-song/content.json" with { type: "json" };
 import { createAccessStore } from "./access-state.mjs";
+import { ensureWalletForEmail } from "./wallet-runtime.mjs";
 
 const ACCESS_BASE = "/api/access";
 const SESSION_COOKIE_NAME = "vtl_session";
@@ -1622,6 +1623,22 @@ async function handleFreeAccountCreate(request, env) {
     member_state: sessionMemberState,
   });
 
+  let walletAddress = "";
+  try {
+    const walletResult = await ensureWalletForEmail(candidateEmail, env, {
+      createdFrom: "free_account_create",
+    });
+    if (walletResult?.ok && walletResult.wallet) {
+      walletAddress = walletResult.wallet.address;
+    }
+  } catch (error) {
+    await logSessionAudit(env, "wallet_provision_failed", {
+      candidate_email: candidateEmail,
+      stage: "free_account_create",
+      reason: String(error?.message || error || "unknown"),
+    });
+  }
+
   return jsonResponse({
     status: "free_account_created",
     authenticated: true,
@@ -1629,6 +1646,7 @@ async function handleFreeAccountCreate(request, env) {
     annual_access_status: sessionPayload.annual_access_status,
     owned_packs: sessionPayload.owned_packs,
     entitlements: sessionPayload.entitlements,
+    wallet_address: walletAddress,
     next: {
       purchaseHub: "https://vetuonglai.com/",
       annualAccessCheckoutHint: "https://vetuonglai.com/?entry=hub&intent=annual-access",
@@ -1695,6 +1713,22 @@ async function handleMagicLinkConsume(request, env) {
     member_state: sessionPayload.member_state,
   });
 
+  let walletAddress = "";
+  try {
+    const walletResult = await ensureWalletForEmail(sessionPayload.candidate_email, env, {
+      createdFrom: "magic_link_consume",
+    });
+    if (walletResult?.ok && walletResult.wallet) {
+      walletAddress = walletResult.wallet.address;
+    }
+  } catch (error) {
+    await logSessionAudit(env, "wallet_provision_failed", {
+      candidate_email: sessionPayload.candidate_email,
+      stage: "magic_link_consume",
+      reason: String(error?.message || error || "unknown"),
+    });
+  }
+
   return jsonResponse({
     status: "session_created",
     authenticated: true,
@@ -1702,6 +1736,7 @@ async function handleMagicLinkConsume(request, env) {
     annual_access_status: sessionPayload.annual_access_status,
     owned_packs: sessionPayload.owned_packs,
     entitlements: sessionPayload.entitlements,
+    wallet_address: walletAddress,
   }, {
     status: 200,
     headers: {

@@ -13,7 +13,9 @@
           "SESSION_COOKIE_SECRET",
           "MAGIC_LINK_SIGNING_KEY",
           "PAY_IAI_ONE_API_KEY",
-          "PAY_IAI_ONE_WEBHOOK_SECRET"
+          "PAY_IAI_ONE_WEBHOOK_SECRET",
+          "WALLET_ADDRESS_SECRET",
+          "WALLET_INTERNAL_TOKEN"
         ],
         "recommendedVars": [
           "VTL_ENV",
@@ -31,6 +33,9 @@
         ],
         "optionalBindings": [
           "ACCESS_KV_NAMESPACE"
+        ],
+        "requiredBindings": [
+          "ACCESS_KV_NAMESPACE"
         ]
       }
     },
@@ -47,13 +52,18 @@
         "requiredSecrets": [
           "SESSION_COOKIE_SECRET",
           "VC_IDENTITY_ATTESTATION_SECRET",
-          "VC_OWNERSHIP_CHALLENGE_SECRET"
+          "VC_OWNERSHIP_CHALLENGE_SECRET",
+          "WALLET_ADDRESS_SECRET",
+          "WALLET_INTERNAL_TOKEN"
         ],
         "recommendedVars": [
           "VTL_ENV",
           "VC_OWNERSHIP_RECORD_TTL_SECONDS"
         ],
         "optionalBindings": [
+          "ACCESS_KV_NAMESPACE"
+        ],
+        "requiredBindings": [
           "ACCESS_KV_NAMESPACE"
         ]
       }
@@ -76,7 +86,9 @@
           "SESSION_COOKIE_SECRET",
           "MAGIC_LINK_SIGNING_KEY",
           "PAY_IAI_ONE_API_KEY",
-          "PAY_IAI_ONE_WEBHOOK_SECRET"
+          "PAY_IAI_ONE_WEBHOOK_SECRET",
+          "WALLET_ADDRESS_SECRET",
+          "WALLET_INTERNAL_TOKEN"
         ],
         "recommendedVars": [
           "VTL_ENV",
@@ -93,6 +105,9 @@
           "VTL_ALLOWED_RETURN_HOSTS"
         ],
         "optionalBindings": [
+          "ACCESS_KV_NAMESPACE"
+        ],
+        "requiredBindings": [
           "ACCESS_KV_NAMESPACE"
         ]
       }

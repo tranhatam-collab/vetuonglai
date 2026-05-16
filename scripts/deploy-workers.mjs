@@ -187,6 +187,29 @@ async function main() {
       ...(commitHash ? ["--tag", commitHash.slice(0, 12)] : []),
     ];
 
+    const requiredBindings = worker.accessRuntime?.requiredBindings || [];
+    let tempConfigPath = null;
+    if (requiredBindings.includes("ACCESS_KV_NAMESPACE")) {
+      const kvId = process.env.ACCESS_KV_NAMESPACE_ID;
+      if (!kvId) {
+        throw new Error(
+          `Worker ${worker.scriptName} requires ACCESS_KV_NAMESPACE binding. `
+          + `Set env ACCESS_KV_NAMESPACE_ID=<kv-namespace-id> before deploy.`,
+        );
+      }
+      const tempConfigDir = await mkdtemp(path.join(os.tmpdir(), `${worker.scriptName}-config-`));
+      tempConfigPath = path.join(tempConfigDir, "wrangler.jsonc");
+      await writeFile(tempConfigPath, JSON.stringify({
+        name: worker.scriptName,
+        main: worker.entry,
+        compatibility_date: config.compatibilityDate,
+        kv_namespaces: [
+          { binding: "ACCESS_KV_NAMESPACE", id: kvId },
+        ],
+      }, null, 2), "utf8");
+      wranglerArgs.push("--config", tempConfigPath);
+    }
+
     if (!scriptOnly) {
       for (const route of worker.routes) {
         wranglerArgs.push("--routes", route);
@@ -202,6 +225,9 @@ async function main() {
       });
     } finally {
       await preparedAssets.cleanup();
+      if (tempConfigPath) {
+        await rm(path.dirname(tempConfigPath), { recursive: true, force: true });
+      }
     }
   }
 
