@@ -9871,7 +9871,25 @@ async function writeAssets(domain) {
   await writeSiteFile(domain, "assets/design-tokens.json", designTokensJson);
   await writeSiteFile(domain, "assets/style.css", styleCss);
   await writeSiteFile(domain, "assets/app.js", sharedJs);
+  await copyBrandAssetsForDomain(domain);
   await ensureDomainOgAsset(domain);
+}
+
+async function copyBrandAssetsForDomain(domain) {
+  const sourceRoot = path.join(SRC, "static-pages", "shared-assets", "brand");
+  let entries;
+  try {
+    entries = await readdir(sourceRoot, { withFileTypes: true });
+  } catch (error) {
+    if (error?.code === "ENOENT") return;
+    throw error;
+  }
+  for (const entry of entries) {
+    if (!entry.isFile()) continue;
+    const src = path.join(sourceRoot, entry.name);
+    const content = await readFile(src, "utf8");
+    await writeSiteFile(domain, `assets/brand/${entry.name}`, content);
+  }
 }
 
 function buildLog(step) {
@@ -10617,12 +10635,14 @@ async function build() {
   buildLog("rendering read");
   await ensureDomainOgAsset(domains.read);
   await copyStaticTreeForDomain(domains.read);
+  await copyBrandAssetsForDomain(domains.read);
   await applyOgImageBaselineToDomain(domains.read);
   buildLog("read done");
 
   buildLog("rendering docs");
   await ensureDomainOgAsset(domains.docs);
   await copyStaticTreeForDomain(domains.docs);
+  await copyBrandAssetsForDomain(domains.docs);
   await applyOgImageBaselineToDomain(domains.docs);
   buildLog("docs done");
   } finally {
