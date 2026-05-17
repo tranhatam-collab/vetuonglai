@@ -172,7 +172,8 @@ completion trong 3–4 tuần dev.
 | 3 | T+40 | Affiliate dashboard + Analytics auto-tracking | +3 | 63 |
 | 4 | T+57 | Notify inbox UI + Admin CMS UI (2 agents //) | +4 | 67 |
 | 5 | T+76 | Read reading-progress + library + PWA manifest V2 | +3 | 70 |
-| 6 | T+95 | Wallet UI reskin V2 (light theme) + Brand kit V3 apply (2 agents //) | +2 | **72** |
+| 6 | T+95 | Wallet UI reskin V2 (light theme) + Brand kit V3 apply (2 agents //) | +2 | 72 |
+| 7 | T+114 | VC issuer registry API + Admin page + Member unified dashboard (2 agents //) | +5 | **77** |
 - CSS bug fix homepage ecosystem cards
 - KV binding pattern + auto-deploy via deploy-workers.mjs
 
