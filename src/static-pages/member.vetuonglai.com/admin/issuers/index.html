@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="member">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quản trị VC Issuer — Vetuonglai Admin</title>
+<meta name="description" content="VC Issuer Registry — Quản lý đăng ký và phê duyệt các issuer phát hành chứng chỉ. Chỉ Founder mới truy cập được." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-member.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#475569" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:1280px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 24px;max-width:720px}
+.btn{padding:9px 18px;border-radius:var(--vt-radius-button);background:#475569;color:white;border:0;font:inherit;cursor:pointer;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-ghost{background:transparent;color:#475569;border:1px solid #475569}
+.btn-danger{background:#b91c1c}
+.btn-sm{padding:6px 12px;font-size:13px}
+.notice{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.error-notice{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.success-notice{background:#f0fdf4;border:1px solid #86efac;color:#166534;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr;gap:24px;align-items:start}
+.panel{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:18px}
+.panel h2{margin:0 0 12px;font-size:15px;font-weight:700;color:var(--vt-text-main)}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.form-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media (max-width:900px){.form-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.form-grid{grid-template-columns:1fr}}
+.form-row{display:flex;flex-direction:column;gap:4px}
+.form-row.full{grid-column:1 / -1}
+.form-row label{font-size:12px;font-weight:600;color:var(--vt-text-soft);text-transform:uppercase;letter-spacing:.04em}
+.form-row input,.form-row select,.form-row textarea{border:1px solid var(--vt-border-light);border-radius:8px;padding:9px 11px;font:inherit;color:inherit;background:transparent}
+.form-actions{display:flex;justify-content:flex-start;gap:8px;margin-top:18px;flex-wrap:wrap}
+.table-wrapper{overflow-x:auto;margin-top:12px}
+.table{width:100%;border-collapse:collapse;font-size:13px}
+.table th{text-align:left;padding:10px;border-bottom:2px solid var(--vt-border-light);background:var(--vt-bg-soft);font-weight:600;font-size:12px;color:var(--vt-text-soft);text-transform:uppercase;letter-spacing:.04em}
+.table td{padding:10px;border-bottom:1px solid var(--vt-border-light)}
+.table tr:last-child td{border-bottom:0}
+.table tr:hover{background:var(--vt-bg-soft)}
+.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.badge-pending{background:#fef3c7;color:#92400e}
+.badge-approved{background:#dcfce7;color:#166534}
+.badge-deleted{background:#f3f4f6;color:#6b7280}
+.email-cell{font-family:var(--vt-font-mono);font-size:12px;color:var(--vt-text-soft);word-break:break-all}
+.timestamp{font-size:12px;color:var(--vt-text-muted)}
+.empty{padding:32px;text-align:center;background:var(--vt-bg-soft);border:1px dashed var(--vt-border-light);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+.pagination{display:flex;justify-content:center;gap:6px;margin-top:16px;flex-wrap:wrap}
+.pagination button{padding:6px 12px;border:1px solid var(--vt-border-light);border-radius:6px;background:transparent;color:inherit;cursor:pointer;font-weight:600;font-size:13px}
+.pagination button:hover{background:var(--vt-bg-soft)}
+.pagination button:disabled{opacity:.5;cursor:not-allowed}
+.pagination button.active{background:#475569;color:white;border-color:#475569}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,0.6);display:flex;align-items:center;justify-content:center;padding:20px;z-index:1000;overflow-y:auto}
+.modal{background:#fff;max-width:500px;width:100%;border-radius:var(--vt-radius-modal);padding:28px}
+.modal h2{margin:0 0 16px;font-size:18px;font-weight:700}
+.modal label{display:block;font-size:12px;font-weight:600;color:var(--vt-text-soft);margin:12px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+.modal input,.modal select{width:100%;border:1px solid var(--vt-border-light);border-radius:8px;padding:10px 12px;font:inherit;color:inherit;background:transparent}
+.modal .row{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}
+.loading{text-align:center;color:var(--vt-text-soft);font-size:13px;padding:24px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://member.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Admin · VC Issuer</span>
+  </a>
+  <h1>Quản trị VC Issuer</h1>
+  <p class="lead">Quản lý registry của các issuer phát hành chứng chỉ. Xem danh sách đơn đăng ký, phê duyệt, và soft-delete issuer không còn hoạt động. Chỉ Founder mới truy cập được.</p>
+
+  <div id="auth-notice" class="notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> với tài khoản founder.</div>
+  <div id="forbidden-notice" class="error-notice" hidden>Trang này chỉ dành cho Founder. <a href="https://member.vetuonglai.com/">Quay lại dashboard</a>.</div>
+
+  <div id="status-message" hidden></div>
+
+  <div class="grid">
+    <div>
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Thêm issuer mới</h2>
+        </div>
+        <form id="issuer-form">
+          <div class="form-grid">
+            <div class="form-row">
+              <label for="name">Tên issuer</label>
+              <input id="name" type="text" name="name" placeholder="e.g. Vetuonglai Academy" required />
+            </div>
+            <div class="form-row">
+              <label for="email">Email liên hệ</label>
+              <input id="email" type="email" name="email" placeholder="issuer@example.com" required />
+            </div>
+            <div class="form-row">
+              <label for="profile_url">Profile URL</label>
+              <input id="profile_url" type="url" name="profile_url" placeholder="https://example.com/profile" required />
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn">Đăng ký issuer</button>
+            <span id="form-status" class="save-status" hidden></span>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head">
+          <h2>Danh sách issuer</h2>
+          <span id="issuer-count" style="font-size:12px;color:var(--vt-text-soft)">0 issuer</span>
+        </div>
+
+        <div id="issuers-loading" class="loading">Đang tải danh sách issuer...</div>
+        <div id="issuers-empty" class="empty" hidden>Chưa có issuer nào. <a href="#" onclick="document.getElementById('name').focus(); return false">Thêm cái đầu tiên</a>.</div>
+
+        <div class="table-wrapper" id="issuers-table-container" hidden>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tên</th>
+                <th>Email</th>
+                <th>Trạng thái</th>
+                <th>Ngày tạo</th>
+                <th>Hành động</th>
+              </tr>
+            </thead>
+            <tbody id="issuers-tbody">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination" id="pagination" hidden>
+          <button id="prev-btn" class="btn btn-sm btn-ghost">← Trước</button>
+          <span id="page-info" style="align-self:center;font-size:13px">Trang 1</span>
+          <button id="next-btn" class="btn btn-sm btn-ghost">Sau →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-bg" id="delete-modal" hidden>
+    <div class="modal">
+      <h2>Xóa issuer</h2>
+      <p id="delete-confirm-msg" style="font-size:13px;color:var(--vt-text-soft);margin:0 0 16px">
+        Bạn có chắc muốn xóa issuer này? Đây là soft-delete, dữ liệu sẽ được lưu nhưng không hiển thị.
+      </p>
+      <div class="row">
+        <button id="delete-cancel-btn" class="btn btn-ghost">Hủy</button>
+        <button id="delete-confirm-btn" class="btn btn-danger">Xác nhận xóa</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+const API_BASE = "https://member.vetuonglai.com";
+
+let currentPage = 1;
+let totalPages = 1;
+let selectedIssuer = null;
+
+async function checkAuth() {
+  try {
+    const res = await fetch(`${API_BASE}/api/auth/me`, {
+      credentials: "include",
+    });
+    if (!res.ok) {
+      document.getElementById("auth-notice").hidden = false;
+      return false;
+    }
+    const data = await res.json();
+    if (data.role !== "founder") {
+      document.getElementById("forbidden-notice").hidden = false;
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Auth check failed:", error);
+    return false;
+  }
+}
+
+async function loadIssuers(page = 1) {
+  try {
+    document.getElementById("issuers-loading").hidden = false;
+    document.getElementById("issuers-empty").hidden = true;
+    document.getElementById("issuers-table-container").hidden = true;
+
+    const res = await fetch(`${API_BASE}/api/vc/issuer/list?page=${page}&limit=20`, {
+      credentials: "include",
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+    const data = await res.json();
+    const { issuers, total, limit } = data;
+
+    currentPage = page;
+    totalPages = Math.ceil(total / limit);
+
+    document.getElementById("issuer-count").textContent = `${total} issuer`;
+    document.getElementById("page-info").textContent = `Trang ${currentPage} / ${totalPages}`;
+
+    if (!issuers || issuers.length === 0) {
+      document.getElementById("issuers-empty").hidden = false;
+      document.getElementById("issuers-loading").hidden = true;
+      document.getElementById("pagination").hidden = true;
+      return;
+    }
+
+    const tbody = document.getElementById("issuers-tbody");
+    tbody.innerHTML = "";
+
+    issuers.forEach((issuer) => {
+      const tr = document.createElement("tr");
+      const createdDate = new Date(issuer.created_at);
+      const dateStr = createdDate.toLocaleDateString("vi-VN");
+
+      const statusBadge = issuer.status === "pending_approval"
+        ? `<span class="badge badge-pending">${issuer.status}</span>`
+        : issuer.status === "approved"
+          ? `<span class="badge badge-approved">${issuer.status}</span>`
+          : `<span class="badge badge-deleted">${issuer.status}</span>`;
+
+      tr.innerHTML = `
+        <td><code style="font-size:11px;color:var(--vt-text-muted)">${issuer.id}</code></td>
+        <td style="font-weight:600">${escapeHtml(issuer.name)}</td>
+        <td class="email-cell">${escapeHtml(issuer.email)}</td>
+        <td>${statusBadge}</td>
+        <td class="timestamp">${dateStr}</td>
+        <td>
+          <button class="btn btn-sm btn-ghost" onclick="showDeleteModal('${issuer.id}', '${escapeHtml(issuer.name)}')">
+            Xóa
+          </button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    document.getElementById("issuers-table-container").hidden = false;
+    document.getElementById("issuers-loading").hidden = true;
+    document.getElementById("pagination").hidden = false;
+
+    document.getElementById("prev-btn").disabled = currentPage <= 1;
+    document.getElementById("next-btn").disabled = currentPage >= totalPages;
+  } catch (error) {
+    console.error("Error loading issuers:", error);
+    document.getElementById("issuers-loading").innerHTML = `<div style="color:var(--vt-text-error)">Lỗi tải danh sách issuer</div>`;
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function showStatus(message, isError = false) {
+  const el = document.getElementById("status-message");
+  el.innerHTML = message;
+  el.className = isError ? "error-notice" : "success-notice";
+  el.hidden = false;
+  setTimeout(() => {
+    el.hidden = true;
+  }, 4000);
+}
+
+function showDeleteModal(issuerId, issuerName) {
+  selectedIssuer = issuerId;
+  document.getElementById("delete-confirm-msg").textContent = `Bạn có chắc muốn xóa issuer "${issuerName}"? Đây là soft-delete, dữ liệu sẽ được lưu nhưng không hiển thị.`;
+  document.getElementById("delete-modal").hidden = false;
+}
+
+document.getElementById("issuer-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const profile_url = document.getElementById("profile_url").value.trim();
+
+  if (!name || !email || !profile_url) {
+    showStatus("Vui lòng điền đầy đủ thông tin", true);
+    return;
+  }
+
+  try {
+    const statusEl = document.getElementById("form-status");
+    statusEl.textContent = "Đang gửi...";
+    statusEl.hidden = false;
+
+    const res = await fetch(`${API_BASE}/api/vc/issuer/register`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ name, email, profile_url }),
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    statusEl.textContent = "✓ Thêm thành công";
+    statusEl.className = "save-status ok";
+    statusEl.hidden = false;
+
+    showStatus(`✓ Issuer "${name}" đã được đăng ký thành công!`);
+
+    document.getElementById("issuer-form").reset();
+    await loadIssuers(1);
+  } catch (error) {
+    console.error("Error registering issuer:", error);
+    const statusEl = document.getElementById("form-status");
+    statusEl.textContent = `✗ ${error.message}`;
+    statusEl.className = "save-status err";
+    statusEl.hidden = false;
+    showStatus(`Lỗi: ${error.message}`, true);
+  }
+});
+
+document.getElementById("delete-cancel-btn").addEventListener("click", () => {
+  document.getElementById("delete-modal").hidden = true;
+  selectedIssuer = null;
+});
+
+document.getElementById("delete-confirm-btn").addEventListener("click", async () => {
+  if (!selectedIssuer) return;
+
+  try {
+    document.getElementById("delete-confirm-btn").disabled = true;
+
+    const res = await fetch(`${API_BASE}/api/vc/issuer/delete/${selectedIssuer}`, {
+      method: "POST",
+      credentials: "include",
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || `HTTP ${res.status}`);
+    }
+
+    document.getElementById("delete-modal").hidden = true;
+    showStatus("✓ Issuer đã được xóa thành công");
+    await loadIssuers(currentPage);
+  } catch (error) {
+    console.error("Error deleting issuer:", error);
+    showStatus(`Lỗi xóa: ${error.message}`, true);
+  } finally {
+    document.getElementById("delete-confirm-btn").disabled = false;
+  }
+});
+
+document.getElementById("prev-btn").addEventListener("click", () => {
+  if (currentPage > 1) loadIssuers(currentPage - 1);
+});
+
+document.getElementById("next-btn").addEventListener("click", () => {
+  if (currentPage < totalPages) loadIssuers(currentPage + 1);
+});
+
+(async () => {
+  const isAuthed = await checkAuth();
+  if (isAuthed) {
+    await loadIssuers(1);
+  }
+})();
+</script>
+</body>
+</html>

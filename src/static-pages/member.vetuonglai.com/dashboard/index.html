@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="member">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Dashboard — Vetuonglai" data-text-en="Dashboard — Vetuonglai">Dashboard — Vetuonglai</title>
+<meta name="description" data-content-vi="Bảng điều khiển thành viên — xem ví, affiliate, cộng đồng, tiến độ đọc, thông báo và CMS. Tất cả trên một trang." data-content-en="Member dashboard — wallet, affiliate, community, reading progress, notifications and CMS. All in one place." content="Bảng điều khiển thành viên — xem ví, affiliate, cộng đồng, tiến độ đọc, thông báo và CMS." />
+<meta name="robots" content="noindex,follow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-member.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#818CF8" />
+<link rel="canonical" href="https://member.vetuonglai.com/dashboard/" />
+<link rel="alternate" hreflang="vi-VN" href="https://member.vetuonglai.com/dashboard/" />
+<link rel="alternate" hreflang="en-US" href="https://member.vetuonglai.com/dashboard/?lang=en" />
+<meta property="og:title" content="Dashboard — Vetuonglai" />
+<meta property="og:description" content="Bảng điều khiển thành viên — ví, affiliate, cộng đồng, đọc, thông báo." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://member.vetuonglai.com/dashboard/" />
+<meta property="og:image" content="https://member.vetuonglai.com/assets/web/web-og-member.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Vetuonglai" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://member.vetuonglai.com/assets/web/web-og-member.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:1280px;margin:0 auto;padding:32px 20px 96px}
+.header{margin-bottom:32px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.5rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 20px;max-width:640px}
+.auth-notice{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;padding:12px;border-radius:8px;font-size:14px;margin-bottom:20px}
+.auth-notice a{color:#3730a3;font-weight:600}
+.dashboard-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:32px}
+@media (min-width:768px){.dashboard-grid{grid-template-columns:repeat(2,1fr)}}
+@media (min-width:1200px){.dashboard-grid{grid-template-columns:repeat(3,1fr)}}
+.card{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:20px;display:flex;flex-direction:column;gap:12px;transition:border-color .15s,box-shadow .15s}
+.card:hover{border-color:#c7d2fe;box-shadow:0 1px 3px rgba(129,140,248,0.08)}
+.card-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px}
+.card-header{display:flex;align-items:flex-start;gap:12px}
+.card-title{font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.05em;color:var(--vt-text-muted);margin:0}
+.card-content{flex:1}
+.card-stat{display:flex;align-items:baseline;gap:6px}
+.card-value{font-family:var(--vt-font-mono);font-size:24px;font-weight:700;color:var(--vt-text-main)}
+.card-unit{font-size:12px;color:var(--vt-text-soft)}
+.card-meta{font-size:12px;color:var(--vt-text-soft);margin-top:4px}
+.card-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;font-size:13px}
+.card-item{padding:8px;background:var(--vt-bg-soft);border-radius:6px;color:var(--vt-text-main);text-decoration:none;display:block;border:1px solid transparent;transition:border-color .15s}
+.card-item:hover{border-color:var(--vt-border-light)}
+.card-item-title{font-weight:600;color:var(--vt-text-main)}
+.card-item-meta{font-size:11px;color:var(--vt-text-muted);margin-top:2px}
+.card-footer{margin-top:12px;padding-top:12px;border-top:1px solid var(--vt-border-light)}
+.card-link{display:inline-flex;align-items:center;gap:6px;color:#818CF8;text-decoration:none;font-weight:600;font-size:13px}
+.card-link:hover{text-decoration:underline}
+.empty-card{color:var(--vt-text-soft);font-size:13px;padding:20px;text-align:center}
+.error-card{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:8px;font-size:13px}
+.loading{color:var(--vt-text-muted);font-size:13px}
+.badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.03em}
+.badge-info{background:#dbeafe;color:#1e40af}
+.badge-success{background:#dcfce7;color:#166534}
+.badge-warning{background:#fef3c7;color:#92400e}
+.disclaimer{margin-top:48px;padding:14px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+.footer-links{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.footer-links a{color:#818CF8;text-decoration:none;font-size:13px;font-weight:500}
+.footer-links a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="shell">
+  <div class="header">
+    <a class="brand" href="https://member.vetuonglai.com">
+      <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+      <span class="brand-title">Vetuonglai — Dashboard</span>
+    </a>
+    <h1 data-text-vi="Bảng điều khiển" data-text-en="Dashboard">Bảng điều khiển</h1>
+    <p class="lead" data-text-vi="Xem tổng quan: ví, hoa hồng affiliate, cộng đồng, tiến độ đọc, thông báo và quản trị. Tất cả các hoạt động chính trên một trang." data-text-en="Overview: wallet, affiliate commissions, community, reading progress, notifications and admin. All main activities in one place.">Xem tổng quan: ví, hoa hồng affiliate, cộng đồng, tiến độ đọc, thông báo và quản trị. Tất cả các hoạt động chính trên một trang.</p>
+
+    <div id="auth-notice" class="auth-notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> để xem dashboard.</div>
+  </div>
+
+  <div id="dashboard" hidden>
+    <div class="dashboard-grid">
+      <!-- Wallet Card -->
+      <div class="card" id="card-wallet">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(129,140,248,0.1);color:#818CF8;">💳</div>
+          <h2 class="card-title" data-text-vi="Ví" data-text-en="Wallet">Ví</h2>
+        </div>
+        <div class="card-content">
+          <div class="loading" data-text-vi="Đang tải…" data-text-en="Loading…">Đang tải…</div>
+        </div>
+      </div>
+
+      <!-- Affiliate Card -->
+      <div class="card" id="card-affiliate">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(134,239,172,0.1);color:#22c55e;">🤝</div>
+          <h2 class="card-title" data-text-vi="Affiliate" data-text-en="Affiliate">Affiliate</h2>
+        </div>
+        <div class="card-content">
+          <div class="loading" data-text-vi="Đang tải…" data-text-en="Loading…">Đang tải…</div>
+        </div>
+      </div>
+
+      <!-- Community Card -->
+      <div class="card" id="card-community">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(249,115,115,0.1);color:#ef4444;">👥</div>
+          <h2 class="card-title" data-text-vi="Cộng đồng" data-text-en="Community">Cộng đồng</h2>
+        </div>
+        <div class="card-content">
+          <div class="loading" data-text-vi="Đang tải…" data-text-en="Loading…">Đang tải…</div>
+        </div>
+      </div>
+
+      <!-- Reading Progress Card -->
+      <div class="card" id="card-reading">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(180,83,9,0.1);color:#b45309;">📚</div>
+          <h2 class="card-title" data-text-vi="Đọc" data-text-en="Reading">Đọc</h2>
+        </div>
+        <div class="card-content">
+          <div class="loading" data-text-vi="Đang tải…" data-text-en="Loading…">Đang tải…</div>
+        </div>
+      </div>
+
+      <!-- Notifications Card -->
+      <div class="card" id="card-notifications">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(139,92,246,0.1);color:#a855f7;">🔔</div>
+          <h2 class="card-title" data-text-vi="Thông báo" data-text-en="Notifications">Thông báo</h2>
+        </div>
+        <div class="card-content">
+          <div class="loading" data-text-vi="Đang tải…" data-text-en="Loading…">Đang tải…</div>
+        </div>
+      </div>
+
+      <!-- Admin CMS Card -->
+      <div class="card" id="card-admin">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(148,163,184,0.1);color:#64748b;">⚙️</div>
+          <h2 class="card-title" data-text-vi="Admin" data-text-en="Admin">Admin</h2>
+        </div>
+        <div class="card-content">
+          <div class="loading" data-text-vi="Đang tải…" data-text-en="Loading…">Đang tải…</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="disclaimer" data-text-vi="Bảng điều khiển tổng hợp các hoạt động từ các subsystem khác nhau. Dữ liệu cập nhật từ API. Nếu có lỗi, hãy kiểm tra kết nối internet." data-text-en="Dashboard aggregates activities from different subsystems. Data updates from APIs. If there are errors, please check your internet connection.">Bảng điều khiển tổng hợp các hoạt động từ các subsystem khác nhau. Dữ liệu cập nhật từ API. Nếu có lỗi, hãy kiểm tra kết nối internet.</div>
+
+  <div class="footer-links">
+    <a href="https://member.vetuonglai.com/" data-text-vi="← Về trang chính" data-text-en="← Back to home">← Về trang chính</a>
+    <a href="https://member.vetuonglai.com/inbox/" data-text-vi="Hộp tin →" data-text-en="Inbox →">Hộp tin →</a>
+  </div>
+</div>
+
+<script>
+const API_WALLET = "https://vc.vetuonglai.com/api/wallet";
+const API_AFFILIATE = "https://vc.vetuonglai.com/api/affiliate";
+const API_COMMUNITY = "https://community.vetuonglai.com/api/community";
+const API_READ = "https://read.vetuonglai.com/api/read";
+const API_NOTIFY = "https://vc.vetuonglai.com/api/notify";
+const API_ADMIN = "https://vc.vetuonglai.com/api/admin";
+
+const SESSION_URL = "https://vc.vetuonglai.com/api/access/session/current";
+
+function esc(s){ return String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+function fmtVnd(v){ return Number(v||0).toLocaleString("vi-VN") + " ₫"; }
+function fmtNum(v){ return Number(v||0).toLocaleString("vi-VN"); }
+
+async function checkSession(){
+  try{
+    const r = await fetch(SESSION_URL, { credentials: "include" });
+    if(!r.ok) return false;
+    const d = await r.json();
+    return !!d.authenticated;
+  }catch(e){ console.error("Session check error:", e); return false; }
+}
+
+async function loadWallet(){
+  const card = document.getElementById("card-wallet");
+  const content = card.querySelector(".card-content");
+  try{
+    const r = await fetch(API_WALLET, { credentials: "include" });
+    if(!r.ok) throw new Error(r.status);
+    const wallet = await r.json();
+    const available = wallet.balances?.available_vnd || 0;
+    content.innerHTML = `
+      <div class="card-stat">
+        <div class="card-value">${esc(fmtVnd(available))}</div>
+      </div>
+      <div class="card-meta" data-text-vi="Có sẵn" data-text-en="Available">Có sẵn</div>
+      <div class="card-footer">
+        <a class="card-link" href="https://vc.vetuonglai.com/wallet/" data-text-vi="Quản lý ví →" data-text-en="Manage wallet →">Quản lý ví →</a>
+      </div>
+    `;
+  }catch(err){
+    content.innerHTML = `<div class="empty-card" data-text-vi="Không tải được ví" data-text-en="Could not load wallet">Không tải được ví</div>`;
+    console.error("Wallet error:", err);
+  }
+}
+
+async function loadAffiliate(){
+  const card = document.getElementById("card-affiliate");
+  const content = card.querySelector(".card-content");
+  try{
+    const r = await fetch(API_AFFILIATE + "/stats", { credentials: "include" });
+    if(!r.ok) throw new Error(r.status);
+    const stats = await r.json();
+    const pending = stats.pending_earned_vnd || 0;
+    const total = stats.total_earned_vnd || 0;
+    content.innerHTML = `
+      <div class="card-stat">
+        <div class="card-value">${esc(fmtVnd(pending))}</div>
+      </div>
+      <div class="card-meta" data-text-vi="Chờ thanh toán" data-text-en="Pending payout">Chờ thanh toán</div>
+      <div class="card-meta" data-text-vi="Tổng: " data-text-en="Total: ">${'Tổng: ' + esc(fmtVnd(total))}</div>
+      <div class="card-footer">
+        <a class="card-link" href="https://member.vetuonglai.com/affiliate/" data-text-vi="Xem affiliate →" data-text-en="View affiliate →">Xem affiliate →</a>
+      </div>
+    `;
+  }catch(err){
+    content.innerHTML = `<div class="empty-card" data-text-vi="Không tải được affiliate" data-text-en="Could not load affiliate">Không tải được affiliate</div>`;
+    console.error("Affiliate error:", err);
+  }
+}
+
+async function loadCommunity(){
+  const card = document.getElementById("card-community");
+  const content = card.querySelector(".card-content");
+  try{
+    const r = await fetch(API_COMMUNITY + "/profile", { credentials: "include" });
+    if(!r.ok) throw new Error(r.status);
+    const profile = await r.json();
+    const posts = Array.isArray(profile.recent_posts) ? profile.recent_posts.slice(0, 3) : [];
+    let html = `<div class="card-meta">${esc(fmtNum(profile.post_count || 0))} bài viết</div>`;
+    if(posts.length > 0){
+      html += `<div class="card-list">`;
+      posts.forEach(p => {
+        html += `<a class="card-item" href="https://community.vetuonglai.com/feed/?id=${esc(p.id)}" title="${esc(p.title || '')}">
+          <div class="card-item-title">${esc((p.title || '').substring(0, 40))}</div>
+          <div class="card-item-meta">${esc(fmtNum(p.reactions || 0))} reactions</div>
+        </a>`;
+      });
+      html += `</div>`;
+    }else{
+      html += `<div class="empty-card" data-text-vi="Chưa có bài viết" data-text-en="No posts yet">Chưa có bài viết</div>`;
+    }
+    html += `<div class="card-footer">
+      <a class="card-link" href="https://community.vetuonglai.com/feed/" data-text-vi="Xem cộng đồng →" data-text-en="View community →">Xem cộng đồng →</a>
+    </div>`;
+    content.innerHTML = html;
+  }catch(err){
+    content.innerHTML = `<div class="empty-card" data-text-vi="Không tải được cộng đồng" data-text-en="Could not load community">Không tải được cộng đồng</div>`;
+    console.error("Community error:", err);
+  }
+}
+
+async function loadReading(){
+  const card = document.getElementById("card-reading");
+  const content = card.querySelector(".card-content");
+  try{
+    const r = await fetch(API_READ + "/progress", { credentials: "include" });
+    if(!r.ok) throw new Error(r.status);
+    const progress = await r.json();
+    const streak = progress.reading_streak || 0;
+    const total = progress.total_read || 0;
+    content.innerHTML = `
+      <div class="card-stat">
+        <div class="card-value">${esc(fmtNum(streak))}</div>
+      </div>
+      <div class="card-meta" data-text-vi="Ngày liên tiếp đọc" data-text-en="Day streak">Ngày liên tiếp đọc</div>
+      <div class="card-meta" data-text-vi="Tổng bài đã đọc: " data-text-en="Total read: ">${'Tổng bài: ' + esc(fmtNum(total))}</div>
+      <div class="card-footer">
+        <a class="card-link" href="https://read.vetuonglai.com/library/" data-text-vi="Thư viện →" data-text-en="Library →">Thư viện →</a>
+      </div>
+    `;
+  }catch(err){
+    content.innerHTML = `<div class="empty-card" data-text-vi="Không tải được tiến độ đọc" data-text-en="Could not load reading progress">Không tải được tiến độ đọc</div>`;
+    console.error("Reading error:", err);
+  }
+}
+
+async function loadNotifications(){
+  const card = document.getElementById("card-notifications");
+  const content = card.querySelector(".card-content");
+  try{
+    const r = await fetch(API_NOTIFY + "/inbox-count", { credentials: "include" });
+    if(!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    const unread = data.unread_count || 0;
+    const total = data.total_count || 0;
+    content.innerHTML = `
+      <div class="card-stat">
+        <div class="card-value">${esc(fmtNum(unread))}</div>
+      </div>
+      <div class="card-meta" data-text-vi="Chưa đọc" data-text-en="Unread">Chưa đọc</div>
+      <div class="card-meta" data-text-vi="Tổng: " data-text-en="Total: ">${'Tổng: ' + esc(fmtNum(total))}</div>
+      <div class="card-footer">
+        <a class="card-link" href="https://member.vetuonglai.com/inbox/" data-text-vi="Xem hộp tin →" data-text-en="View inbox →">Xem hộp tin →</a>
+      </div>
+    `;
+  }catch(err){
+    content.innerHTML = `<div class="empty-card" data-text-vi="Không tải được thông báo" data-text-en="Could not load notifications">Không tải được thông báo</div>`;
+    console.error("Notifications error:", err);
+  }
+}
+
+async function loadAdmin(){
+  const card = document.getElementById("card-admin");
+  const content = card.querySelector(".card-content");
+  try{
+    const r = await fetch(API_ADMIN + "/cms/drafts", { credentials: "include" });
+    if(!r.ok){
+      // User likely doesn't have permission
+      content.innerHTML = `<div class="empty-card" data-text-vi="Chỉ dành cho Founder" data-text-en="Founder only">Chỉ dành cho Founder</div>`;
+      return;
+    }
+    const data = await r.json();
+    const drafts = data.draft_count || 0;
+    content.innerHTML = `
+      <div class="card-stat">
+        <div class="card-value">${esc(fmtNum(drafts))}</div>
+      </div>
+      <div class="card-meta" data-text-vi="Bản nháp CMS" data-text-en="CMS drafts">Bản nháp CMS</div>
+      <div class="card-footer">
+        <a class="card-link" href="https://member.vetuonglai.com/admin/cms/" data-text-vi="Quản lý CMS →" data-text-en="Manage CMS →">Quản lý CMS →</a>
+      </div>
+    `;
+  }catch(err){
+    content.innerHTML = `<div class="empty-card" data-text-vi="Chỉ dành cho Founder" data-text-en="Founder only">Chỉ dành cho Founder</div>`;
+    console.error("Admin error:", err);
+  }
+}
+
+async function loadDashboard(){
+  const authed = await checkSession();
+  if(!authed){
+    document.getElementById("auth-notice").hidden = false;
+    return;
+  }
+  document.getElementById("auth-notice").hidden = true;
+  document.getElementById("dashboard").hidden = false;
+
+  // Load all cards in parallel
+  await Promise.all([
+    loadWallet(),
+    loadAffiliate(),
+    loadCommunity(),
+    loadReading(),
+    loadNotifications(),
+    loadAdmin(),
+  ]);
+
+  if(window.vtlTrack) window.vtlTrack("dashboard_view");
+}
+
+loadDashboard();
+</script>
+</body>
+</html>

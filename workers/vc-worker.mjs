@@ -1,4 +1,5 @@
 import { maybeHandleVcOwnershipRuntime } from "./lib/vc-ownership-runtime.mjs";
+import { maybeHandleVcRuntime } from "./lib/vc-runtime.mjs";
 import { maybeHandleWalletRuntime } from "./lib/wallet-runtime.mjs";
 import { maybeHandleCommunityRuntime } from "./lib/community-runtime.mjs";
 import { maybeHandleJobsRuntime } from "./lib/jobs-runtime.mjs";
@@ -78,9 +79,14 @@ export default {
     const adminCmsResponse = await maybeHandleAdminCmsRuntime(request, env);
     if (adminCmsResponse) return addCorsHeaders(adminCmsResponse, request);
 
-    const vcApiResponse = await maybeHandleVcOwnershipRuntime(request, env);
+    const vcApiResponse = await maybeHandleVcRuntime(request, env);
     if (vcApiResponse) {
       return addCorsHeaders(vcApiResponse, request);
+    }
+
+    const vcOwnershipResponse = await maybeHandleVcOwnershipRuntime(request, env);
+    if (vcOwnershipResponse) {
+      return addCorsHeaders(vcOwnershipResponse, request);
     }
 
     const url = new URL(request.url);
