@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="member">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quản trị nội dung — Vetuonglai Admin</title>
+<meta name="description" content="CMS nội bộ Vetuonglai — chỉ dành cho Founder. Quản lý page, snippet, FAQ, policy với revision history 180 ngày." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-member.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#475569" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:1280px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 24px;max-width:720px}
+.btn{padding:9px 18px;border-radius:var(--vt-radius-button);background:#475569;color:white;border:0;font:inherit;cursor:pointer;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-ghost{background:transparent;color:#475569;border:1px solid #475569}
+.btn-danger{background:#b91c1c}
+.btn-sm{padding:6px 12px;font-size:13px}
+.notice{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.error-notice{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:320px 1fr;gap:24px;align-items:start}
+@media (max-width: 860px){ .grid{grid-template-columns:1fr} }
+.panel{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:18px}
+.panel h2{margin:0 0 12px;font-size:15px;font-weight:700;color:var(--vt-text-main)}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.filter-row{margin-bottom:12px}
+.filter-row select,.filter-row input{width:100%;border:1px solid var(--vt-border-light);border-radius:8px;padding:8px 10px;font:inherit;color:inherit;background:transparent;font-size:13px}
+.list{display:flex;flex-direction:column;gap:6px;max-height:600px;overflow-y:auto}
+.list-row{padding:10px;border-radius:8px;cursor:pointer;border:1px solid transparent;display:flex;flex-direction:column;gap:4px}
+.list-row:hover{background:var(--vt-bg-soft)}
+.list-row.active{background:var(--vt-bg-soft);border-color:#475569}
+.list-key{font-family:var(--vt-font-mono);font-size:11px;color:var(--vt-text-muted);word-break:break-all}
+.list-title{font-weight:600;font-size:14px;color:var(--vt-text-main)}
+.list-meta{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:11px;color:var(--vt-text-soft)}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.badge-public{background:#dcfce7;color:#166534}
+.badge-draft{background:#fef3c7;color:#92400e}
+.badge-members_only{background:#ede9fe;color:#5b21b6}
+.editor{min-height:480px}
+.editor-empty{padding:64px 24px;text-align:center;color:var(--vt-text-soft);background:var(--vt-bg-soft);border:1px dashed var(--vt-border-light);border-radius:var(--vt-radius-card)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:600px){ .form-grid{grid-template-columns:1fr} }
+.form-row{display:flex;flex-direction:column;gap:4px}
+.form-row.full{grid-column:1 / -1}
+.form-row label{font-size:12px;font-weight:600;color:var(--vt-text-soft);text-transform:uppercase;letter-spacing:.04em}
+.form-row input,.form-row select,.form-row textarea{border:1px solid var(--vt-border-light);border-radius:8px;padding:9px 11px;font:inherit;color:inherit;background:transparent}
+.form-row input[readonly]{background:var(--vt-bg-soft);color:var(--vt-text-soft)}
+.form-row input.mono,.form-row textarea.mono{font-family:var(--vt-font-mono);tab-size:2}
+.form-row textarea{resize:vertical;min-height:120px}
+.form-row textarea.body{min-height:280px;font-family:var(--vt-font-mono);font-size:13px;tab-size:2}
+.form-row textarea.meta{min-height:100px;font-family:var(--vt-font-mono);font-size:12px;tab-size:2}
+.form-actions{display:flex;justify-content:space-between;gap:8px;margin-top:18px;flex-wrap:wrap}
+.form-actions .left,.form-actions .right{display:flex;gap:8px;flex-wrap:wrap}
+.save-status{font-size:13px;color:var(--vt-text-soft);align-self:center}
+.save-status.ok{color:#166534}
+.save-status.err{color:#991b1b}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,0.6);display:flex;align-items:flex-start;justify-content:center;padding:60px 20px;z-index:1000;overflow-y:auto}
+.modal{background:#fff;max-width:640px;width:100%;border-radius:var(--vt-radius-modal);padding:28px}
+.modal.wide{max-width:800px}
+.modal h2{margin:0 0 4px;font-size:20px}
+.modal .modal-sub{color:var(--vt-text-soft);font-size:13px;margin-bottom:16px}
+.modal label{display:block;font-size:12px;font-weight:600;color:var(--vt-text-soft);margin:12px 0 4px;text-transform:uppercase;letter-spacing:.04em}
+.modal input,.modal select,.modal textarea{width:100%;border:1px solid var(--vt-border-light);border-radius:8px;padding:10px 12px;font:inherit;color:inherit;background:transparent}
+.modal textarea{resize:vertical;min-height:120px;font-family:var(--vt-font-mono);tab-size:2}
+.modal .row{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.rev-list{display:flex;flex-direction:column;gap:10px;max-height:480px;overflow-y:auto;margin-top:8px}
+.rev-item{border:1px solid var(--vt-border-light);border-radius:10px;padding:12px;background:var(--vt-bg-soft)}
+.rev-head{display:flex;justify-content:space-between;font-size:12px;color:var(--vt-text-soft);margin-bottom:6px;font-family:var(--vt-font-mono)}
+.rev-body{font-family:var(--vt-font-mono);font-size:12px;color:var(--vt-text-main);white-space:pre-wrap;word-break:break-word;max-height:160px;overflow:auto;background:#fff;padding:8px;border-radius:6px;border:1px solid var(--vt-border-light)}
+.disclaimer{margin-top:48px;padding:14px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+.muted{color:var(--vt-text-muted);font-size:13px}
+.empty{padding:32px;text-align:center;background:var(--vt-bg-soft);border:1px dashed var(--vt-border-light);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+.copy-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;color:white;padding:10px 18px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.copy-toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://member.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Admin · CMS</span>
+  </a>
+  <h1>Quản trị nội dung</h1>
+  <p class="lead">Tạo, chỉnh sửa, xoá nội dung tĩnh (page, snippet, FAQ, policy) cho hệ thống Vetuonglai. Mỗi lần lưu sinh 1 revision — có thể xem lịch sử và rollback. Chỉ Founder mới truy cập được.</p>
+
+  <div id="auth-notice" class="notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> với tài khoản founder.</div>
+  <div id="forbidden-notice" class="error-notice" hidden>Trang này chỉ dành cho Founder. <a href="https://member.vetuonglai.com/">Quay lại dashboard</a>.</div>
+
+  <div id="app" hidden>
+    <div class="grid">
+      <aside class="panel">
+        <div class="panel-head">
+          <h2>Nội dung</h2>
+          <button class="btn btn-sm" id="btn-create">+ Tạo mới</button>
+        </div>
+        <div class="filter-row">
+          <select id="type-filter">
+            <option value="">Tất cả loại</option>
+            <option value="page">page</option>
+            <option value="snippet">snippet</option>
+            <option value="faq">faq</option>
+            <option value="policy">policy</option>
+            <option value="email">email</option>
+            <option value="banner">banner</option>
+          </select>
+        </div>
+        <div id="list" class="list"><div class="muted">Đang tải…</div></div>
+      </aside>
+
+      <section class="panel editor" id="editor">
+        <div class="editor-empty" id="editor-empty">Chọn một mục bên trái hoặc tạo mới.</div>
+
+        <form id="editor-form" hidden>
+          <div class="form-grid">
+            <div class="form-row full">
+              <label>Key</label>
+              <input type="text" name="key" class="mono" readonly />
+            </div>
+            <div class="form-row">
+              <label>Loại (type)</label>
+              <input type="text" name="type" class="mono" pattern="[a-z][a-z0-9_-]{1,30}" required />
+            </div>
+            <div class="form-row">
+              <label>Visibility</label>
+              <select name="visibility" required>
+                <option value="draft">draft</option>
+                <option value="public">public</option>
+                <option value="members_only">members_only</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Ngôn ngữ (lang)</label>
+              <input type="text" name="lang" maxlength="8" placeholder="vi" />
+            </div>
+            <div class="form-row">
+              <label>Tiêu đề</label>
+              <input type="text" name="title" maxlength="240" />
+            </div>
+            <div class="form-row full">
+              <label>Body (markdown / html / text — tối đa 64KB)</label>
+              <textarea name="body" class="body" maxlength="65536"></textarea>
+            </div>
+            <div class="form-row full">
+              <label>Metadata (JSON)</label>
+              <textarea name="metadata" class="meta" placeholder='{"draft":false,"tags":["doc"]}'></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <div class="left">
+              <button type="button" class="btn btn-ghost btn-sm" id="btn-revisions">Xem revisions</button>
+              <button type="button" class="btn btn-danger btn-sm" id="btn-delete">Xoá</button>
+            </div>
+            <div class="right">
+              <span class="save-status" id="save-status"></span>
+              <button type="submit" class="btn">Lưu</button>
+            </div>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+
+  <div class="disclaimer">Mỗi lần lưu tạo 1 revision. Lịch sử 180 ngày. Không xoá vĩnh viễn metadata, chỉ ẩn khỏi public.</div>
+</div>
+
+<div id="modal-host"></div>
+<div id="copy-toast" class="copy-toast">Đã lưu</div>
+
+<script>
+const API = "https://vc.vetuonglai.com/api/admin/cms";
+const SESSION_API = "https://vc.vetuonglai.com/api/access/session/current";
+
+const state = {
+  currentKey: null,
+  items: [],
+  currentContent: null,
+  typeFilter: "",
+};
+
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+
+function track(event, payload){
+  try{ window.vtlTrack && window.vtlTrack(event, payload || {}); }catch{}
+}
+
+function toast(msg){
+  const el = document.getElementById("copy-toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 1400);
+}
+
+function relTime(iso){
+  if(!iso) return "";
+  const d = new Date(iso);
+  if(isNaN(d.getTime())) return "";
+  const diff = (Date.now() - d.getTime()) / 1000;
+  if(diff < 60) return Math.max(1, Math.floor(diff)) + "s trước";
+  if(diff < 3600) return Math.floor(diff/60) + "m trước";
+  if(diff < 86400) return Math.floor(diff/3600) + "h trước";
+  if(diff < 86400*30) return Math.floor(diff/86400) + "d trước";
+  return d.toLocaleDateString("vi-VN");
+}
+
+function badge(v){
+  const cls = "badge badge-" + (v || "draft");
+  return `<span class="${cls}">${esc(v || "draft")}</span>`;
+}
+
+async function checkAccess(){
+  try{
+    const r = await fetch(SESSION_API, { credentials: "include" });
+    if(!r.ok){ document.getElementById("auth-notice").hidden = false; return false; }
+    const d = await r.json();
+    if(!d.authenticated){ document.getElementById("auth-notice").hidden = false; return false; }
+    // Try a list call — server enforces founder gate (403 if not founder)
+    const probe = await fetch(API + "/list", { credentials: "include" });
+    if(probe.status === 403){
+      document.getElementById("forbidden-notice").hidden = false;
+      return false;
+    }
+    if(probe.status === 401){
+      document.getElementById("auth-notice").hidden = false;
+      return false;
+    }
+    if(!probe.ok){
+      document.getElementById("forbidden-notice").hidden = false;
+      return false;
+    }
+    const body = await probe.json();
+    state.items = Array.isArray(body.items) ? body.items : [];
+    return true;
+  }catch{
+    document.getElementById("auth-notice").hidden = false;
+    return false;
+  }
+}
+
+async function loadList(){
+  try{
+    const r = await fetch(API + "/list", { credentials: "include" });
+    if(!r.ok){
+      document.getElementById("list").innerHTML = '<div class="error-notice">Lỗi tải danh sách (' + r.status + ')</div>';
+      return;
+    }
+    const d = await r.json();
+    state.items = Array.isArray(d.items) ? d.items : [];
+    renderList();
+  }catch(err){
+    document.getElementById("list").innerHTML = '<div class="error-notice">Lỗi: ' + esc(err.message) + '</div>';
+  }
+}
+
+function applyTypeFilter(){
+  state.typeFilter = document.getElementById("type-filter").value || "";
+  renderList();
+}
+
+function renderList(){
+  const host = document.getElementById("list");
+  const filtered = state.typeFilter
+    ? state.items.filter(it => it.type === state.typeFilter)
+    : state.items.slice();
+  if(filtered.length === 0){
+    host.innerHTML = '<div class="empty">Chưa có nội dung nào' + (state.typeFilter ? ' với loại "' + esc(state.typeFilter) + '"' : '') + '.</div>';
+    return;
+  }
+  // sort by updated_at desc
+  filtered.sort((a,b) => String(b.updated_at||"").localeCompare(String(a.updated_at||"")));
+  host.innerHTML = filtered.map(it => `
+    <div class="list-row${it.key === state.currentKey ? ' active' : ''}" data-key="${esc(it.key)}">
+      <div class="list-key">${esc(it.key)}</div>
+      <div class="list-title">${esc(it.title || "(không tiêu đề)")}</div>
+      <div class="list-meta">
+        <span>${badge(it.visibility)} <span class="muted" style="margin-left:6px">${esc(it.type || "page")}</span></span>
+        <span class="muted">${esc(relTime(it.updated_at))}</span>
+      </div>
+    </div>
+  `).join("");
+}
+
+async function loadItem(key){
+  state.currentKey = key;
+  setStatus("Đang tải…");
+  renderList();
+  try{
+    const r = await fetch(API + "/content?key=" + encodeURIComponent(key), { credentials: "include" });
+    if(!r.ok){
+      setStatus("Không tải được (" + r.status + ")", "err");
+      return;
+    }
+    const d = await r.json();
+    state.currentContent = d.content || null;
+    fillForm(state.currentContent);
+    setStatus("");
+    track("cms_edit", { key });
+  }catch(err){
+    setStatus("Lỗi: " + err.message, "err");
+  }
+}
+
+function fillForm(c){
+  if(!c){
+    document.getElementById("editor-empty").hidden = false;
+    document.getElementById("editor-form").hidden = true;
+    return;
+  }
+  document.getElementById("editor-empty").hidden = true;
+  const f = document.getElementById("editor-form");
+  f.hidden = false;
+  f.key.value = c.key || "";
+  f.type.value = c.type || "page";
+  f.visibility.value = c.visibility || "draft";
+  f.lang.value = c.lang || "";
+  f.title.value = c.title || "";
+  f.body.value = c.body || "";
+  try{
+    f.metadata.value = c.metadata ? JSON.stringify(c.metadata, null, 2) : "";
+  }catch{
+    f.metadata.value = "";
+  }
+}
+
+function setStatus(msg, kind){
+  const el = document.getElementById("save-status");
+  el.textContent = msg || "";
+  el.className = "save-status" + (kind ? " " + kind : "");
+}
+
+async function saveItem(){
+  const f = document.getElementById("editor-form");
+  const key = f.key.value.trim();
+  if(!key){ setStatus("Thiếu key", "err"); return; }
+  let metadata = null;
+  const metaRaw = f.metadata.value.trim();
+  if(metaRaw){
+    try{ metadata = JSON.parse(metaRaw); }
+    catch{ setStatus("Metadata không phải JSON hợp lệ", "err"); return; }
+  }
+  const body = {
+    key,
+    type: f.type.value.trim() || "page",
+    visibility: f.visibility.value,
+    title: f.title.value,
+    body: f.body.value,
+    metadata,
+    lang: f.lang.value.trim() || null,
+  };
+  setStatus("Đang lưu…");
+  try{
+    const r = await fetch(API + "/content", {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+    const d = await r.json().catch(() => ({}));
+    if(!r.ok){
+      setStatus("Lỗi: " + (d.detail || d.status || r.status), "err");
+      return;
+    }
+    setStatus("Đã lưu", "ok");
+    toast("Đã lưu revision mới");
+    // optimistic update in list
+    const idx = state.items.findIndex(it => it.key === key);
+    const merged = Object.assign({}, state.items[idx] || {}, {
+      key, type: body.type, visibility: body.visibility, title: body.title,
+      updated_at: new Date().toISOString(),
+    });
+    if(idx >= 0) state.items[idx] = merged; else state.items.unshift(merged);
+    renderList();
+    track("cms_save", { key });
+    // reload to pull updated revision number from server
+    loadList();
+  }catch(err){
+    setStatus("Lỗi: " + err.message, "err");
+  }
+}
+
+async function deleteItem(){
+  if(!state.currentKey) return;
+  if(!confirm('Xoá "' + state.currentKey + '"? Hành động này không tạo revision mới — nội dung sẽ ẩn khỏi public.')) return;
+  try{
+    const r = await fetch(API + "/content?key=" + encodeURIComponent(state.currentKey), {
+      method: "DELETE",
+      credentials: "include",
+    });
+    if(!r.ok){
+      const d = await r.json().catch(() => ({}));
+      setStatus("Không xoá được: " + (d.detail || r.status), "err");
+      return;
+    }
+    track("cms_delete", { key: state.currentKey });
+    state.items = state.items.filter(it => it.key !== state.currentKey);
+    state.currentKey = null;
+    state.currentContent = null;
+    fillForm(null);
+    renderList();
+    toast("Đã xoá");
+  }catch(err){
+    setStatus("Lỗi: " + err.message, "err");
+  }
+}
+
+function closeModal(){
+  document.getElementById("modal-host").innerHTML = "";
+}
+
+function showCreateModal(){
+  document.getElementById("modal-host").innerHTML = `
+    <div class="modal-bg" data-modal-bg>
+      <form class="modal" id="create-form">
+        <h2>Tạo nội dung mới</h2>
+        <p class="modal-sub">Key: lowercase, 1–80 ký tự, gồm a–z 0–9 . _ -</p>
+        <label>Key</label>
+        <input type="text" name="key" required pattern="[a-z0-9][a-z0-9._-]{0,79}" maxlength="80" placeholder="vd: about.team, faq.refund" />
+        <label>Loại (type)</label>
+        <input type="text" name="type" value="page" pattern="[a-z][a-z0-9_-]{1,30}" required />
+        <label>Visibility</label>
+        <select name="visibility">
+          <option value="draft">draft</option>
+          <option value="public">public</option>
+          <option value="members_only">members_only</option>
+        </select>
+        <label>Ngôn ngữ (lang)</label>
+        <input type="text" name="lang" placeholder="vi" maxlength="8" />
+        <label>Tiêu đề</label>
+        <input type="text" name="title" maxlength="240" />
+        <label>Body</label>
+        <textarea name="body" maxlength="65536" style="min-height:140px"></textarea>
+        <label>Metadata (JSON, optional)</label>
+        <textarea name="metadata" style="min-height:80px" placeholder='{"tags":["doc"]}'></textarea>
+        <div class="row">
+          <button type="button" class="btn btn-ghost" data-close>Huỷ</button>
+          <button type="submit" class="btn">Tạo</button>
+        </div>
+      </form>
+    </div>`;
+}
+
+async function loadRevisions(key){
+  document.getElementById("modal-host").innerHTML = `
+    <div class="modal-bg" data-modal-bg>
+      <div class="modal wide">
+        <h2>Lịch sử revisions</h2>
+        <p class="modal-sub">Key: <span style="font-family:var(--vt-font-mono)">${esc(key)}</span> — lưu trữ 180 ngày.</p>
+        <div id="rev-host"><div class="muted">Đang tải…</div></div>
+        <div class="row">
+          <span></span>
+          <button type="button" class="btn btn-ghost" data-close>Đóng</button>
+        </div>
+      </div>
+    </div>`;
+  try{
+    const r = await fetch(API + "/content/" + encodeURIComponent(key) + "/revisions", { credentials: "include" });
+    if(!r.ok){
+      document.getElementById("rev-host").innerHTML = '<div class="error-notice">Lỗi tải revisions (' + r.status + ')</div>';
+      return;
+    }
+    const d = await r.json();
+    const revs = Array.isArray(d.revisions) ? d.revisions : (Array.isArray(d.items) ? d.items : []);
+    if(revs.length === 0){
+      document.getElementById("rev-host").innerHTML = '<div class="empty">Chưa có revision nào.</div>';
+      return;
+    }
+    document.getElementById("rev-host").innerHTML = '<div class="rev-list">' + revs.map(rv => {
+      const preview = rv.body ? String(rv.body).slice(0, 600) : (rv.diff || "");
+      return `<div class="rev-item">
+        <div class="rev-head">
+          <span>#${esc(rv.revision_id || rv.id || "?")} · ${esc(rv.replaced_at || rv.created_at || "")}</span>
+          <span>${esc(rv.replaced_by || rv.author || "")}</span>
+        </div>
+        <div class="rev-body">${esc(preview)}${rv.body && rv.body.length > 600 ? "\n…" : ""}</div>
+      </div>`;
+    }).join("") + '</div>';
+  }catch(err){
+    document.getElementById("rev-host").innerHTML = '<div class="error-notice">Lỗi: ' + esc(err.message) + '</div>';
+  }
+}
+
+// Event delegation
+document.addEventListener("click", e => {
+  const row = e.target.closest("[data-key]");
+  if(row && document.getElementById("list").contains(row)){
+    loadItem(row.dataset.key);
+    return;
+  }
+  if(e.target.id === "btn-create"){ showCreateModal(); return; }
+  if(e.target.id === "btn-delete"){ deleteItem(); return; }
+  if(e.target.id === "btn-revisions"){
+    if(state.currentKey) loadRevisions(state.currentKey);
+    return;
+  }
+  if(e.target.matches("[data-close]") || e.target.hasAttribute("data-modal-bg")){
+    closeModal();
+    return;
+  }
+});
+
+document.addEventListener("change", e => {
+  if(e.target.id === "type-filter") applyTypeFilter();
+});
+
+document.body.addEventListener("submit", async e => {
+  if(e.target.id === "editor-form"){
+    e.preventDefault();
+    saveItem();
+    return;
+  }
+  if(e.target.id === "create-form"){
+    e.preventDefault();
+    const f = e.target;
+    let metadata = null;
+    const metaRaw = f.metadata.value.trim();
+    if(metaRaw){
+      try{ metadata = JSON.parse(metaRaw); }
+      catch{ alert("Metadata không phải JSON hợp lệ"); return; }
+    }
+    const body = {
+      key: f.key.value.trim(),
+      type: f.type.value.trim() || "page",
+      visibility: f.visibility.value,
+      title: f.title.value,
+      body: f.body.value,
+      metadata,
+      lang: f.lang.value.trim() || null,
+    };
+    const btn = f.querySelector('button[type=submit]');
+    btn.disabled = true;
+    btn.textContent = "Đang tạo…";
+    try{
+      const r = await fetch(API + "/content", {
+        method: "PUT",
+        headers: { "content-type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(body),
+      });
+      const d = await r.json().catch(() => ({}));
+      if(!r.ok){
+        alert("Không tạo được: " + (d.detail || d.status || r.status));
+        return;
+      }
+      track("cms_create", { key: body.key });
+      closeModal();
+      await loadList();
+      loadItem(body.key);
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "Tạo";
+    }
+  }
+});
+
+// Boot
+(async () => {
+  const ok = await checkAccess();
+  if(!ok) return;
+  document.getElementById("app").hidden = false;
+  renderList();
+})();
+</script>
+</body>
+</html>

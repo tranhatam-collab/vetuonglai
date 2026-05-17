@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="member">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Hộp tin — Vetuonglai" data-text-en="Inbox — Vetuonglai">Hộp tin — Vetuonglai</title>
+<meta name="description" data-content-vi="Hộp tin Vetuonglai — thông báo về ví, ứng tuyển công việc, phản hồi cộng đồng. Không spam, không marketing." data-content-en="Vetuonglai inbox — notifications about wallet, job applications, community replies. No spam, no marketing." content="Hộp tin Vetuonglai — thông báo về ví, ứng tuyển công việc, phản hồi cộng đồng. Không spam, không marketing." />
+<meta name="robots" content="noindex,follow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-member.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#818CF8" />
+<link rel="canonical" href="https://member.vetuonglai.com/inbox/" />
+<link rel="alternate" hreflang="vi-VN" href="https://member.vetuonglai.com/inbox/" />
+<link rel="alternate" hreflang="en-US" href="https://member.vetuonglai.com/inbox/?lang=en" />
+<meta property="og:title" content="Hộp tin — Vetuonglai" />
+<meta property="og:description" content="Thông báo về ví, ứng tuyển công việc, phản hồi cộng đồng — không spam, không marketing." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://member.vetuonglai.com/inbox/" />
+<meta property="og:image" content="https://member.vetuonglai.com/assets/web/web-og-member.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Vetuonglai" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://member.vetuonglai.com/assets/web/web-og-member.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:880px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.5rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 24px;max-width:620px}
+.filter-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.filter-tab{padding:6px 12px;border-radius:999px;border:1px solid var(--vt-border-light);background:transparent;color:var(--vt-text-soft);font-size:13px;cursor:pointer;font-family:inherit}
+.filter-tab.active{background:#818CF8;color:white;border-color:#818CF8}
+.notice{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.notice a{color:#3730a3;font-weight:600}
+.inbox-list{display:flex;flex-direction:column;gap:12px}
+.msg{position:relative;background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:16px 18px 16px 26px;cursor:pointer;transition:border-color .15s, box-shadow .15s}
+.msg:hover{border-color:#c7d2fe;box-shadow:0 1px 3px rgba(129,140,248,0.08)}
+.msg.unread::before{content:"";position:absolute;left:10px;top:22px;width:8px;height:8px;border-radius:50%;background:#818CF8}
+.msg-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--vt-text-soft);margin-bottom:6px}
+.msg-badge{padding:2px 8px;border-radius:999px;background:rgba(129,140,248,0.1);color:#4338CA;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;font-family:var(--vt-font-mono)}
+.msg-subject{font-weight:700;font-size:16px;color:var(--vt-text-main);margin:4px 0 6px;line-height:1.35}
+.msg-body{color:var(--vt-text-soft);font-size:14px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.msg.expanded .msg-body{display:block}
+.msg-channels{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.chan{font-size:11px;color:var(--vt-text-muted);padding:1px 7px;border-radius:6px;border:1px solid var(--vt-border-light);font-family:var(--vt-font-mono)}
+.muted{color:var(--vt-text-muted);font-size:13px}
+.empty{padding:32px;text-align:center;background:#fff;border:1px dashed var(--vt-border-light);border-radius:var(--vt-radius-card);color:var(--vt-text-soft)}
+.error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:8px}
+.disclaimer{margin-top:48px;padding:14px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://member.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Hộp tin</span>
+  </a>
+  <h1 data-text-vi="Hộp tin" data-text-en="Inbox">Hộp tin</h1>
+  <p class="lead" data-text-vi="Thông báo về ví, ứng tuyển công việc, phản hồi cộng đồng — không spam, không marketing. Chỉ những gì thật sự xảy ra trên tài khoản của bạn." data-text-en="Notifications about wallet, job applications, community replies — no spam, no marketing. Only what genuinely happens on your account.">Thông báo về ví, ứng tuyển công việc, phản hồi cộng đồng — không spam, không marketing. Chỉ những gì thật sự xảy ra trên tài khoản của bạn.</p>
+
+  <div id="auth-notice" class="notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> để xem hộp tin.</div>
+
+  <div class="filter-tabs" id="tabs"></div>
+
+  <div id="inbox">
+    <div class="muted" data-text-vi="Đang tải…" data-text-en="Loading…">Đang tải…</div>
+  </div>
+
+  <div class="disclaimer" data-text-vi="Vetuonglai chỉ gửi thông báo về hoạt động trên hệ. Không bán email, không gửi quảng cáo bên thứ ba." data-text-en="Vetuonglai only sends notifications about on-platform activity. We never sell emails or send third-party ads.">Vetuonglai chỉ gửi thông báo về hoạt động trên hệ. Không bán email, không gửi quảng cáo bên thứ ba.</div>
+</div>
+
+<script>
+const API = "https://vc.vetuonglai.com/api/notify";
+const FILTERS = [
+  { key: "all", label: "Tất cả" },
+  { key: "unread", label: "Chưa đọc" },
+  { key: "wallet", label: "Ví" },
+  { key: "jobs", label: "Việc làm" },
+  { key: "community", label: "Cộng đồng" },
+];
+let currentFilter = "all";
+let messages = [];
+
+function esc(s){ return String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+
+function timeAgo(ts){
+  let unix = Number(ts||0);
+  if(unix > 1e12) unix = Math.floor(unix/1000);
+  const diff = Math.floor(Date.now()/1000) - unix;
+  if(diff < 60) return `${Math.max(diff,0)}s trước`;
+  if(diff < 3600) return `${Math.floor(diff/60)}p trước`;
+  if(diff < 86400) return `${Math.floor(diff/3600)}h trước`;
+  if(diff < 86400*7) return `${Math.floor(diff/86400)}ngày trước`;
+  return new Date(unix*1000).toLocaleDateString("vi-VN");
+}
+
+function templateCategory(template){
+  const t = String(template||"").toLowerCase();
+  if(t.includes("wallet") || t.includes("vi") || t.includes("payout") || t.includes("deposit") || t.includes("withdraw")) return "wallet";
+  if(t.includes("job") || t.includes("work") || t.includes("apply") || t.includes("application")) return "jobs";
+  if(t.includes("community") || t.includes("post") || t.includes("comment") || t.includes("react") || t.includes("circle")) return "community";
+  return "other";
+}
+
+function renderTabs(){
+  const el = document.getElementById("tabs");
+  el.innerHTML = FILTERS.map(f =>
+    `<button class="filter-tab ${f.key===currentFilter?'active':''}" data-filter="${f.key}">${esc(f.label)}</button>`
+  ).join("");
+  el.querySelectorAll(".filter-tab").forEach(b => b.onclick = () => applyFilter(b.dataset.filter));
+}
+
+function truncate(s, n){
+  const v = String(s||"");
+  if(v.length <= n) return v;
+  return v.slice(0, n) + "…";
+}
+
+function renderMessage(m){
+  const unread = !!m.unread;
+  const body = String(m.body||"");
+  const channels = Array.isArray(m.channels) ? m.channels : [];
+  return `<article class="msg ${unread?'unread':''}" data-id="${esc(m.id)}" data-template="${esc(m.template||'')}" data-category="${templateCategory(m.template)}">
+    <div class="msg-head">
+      <span><span class="msg-badge">${esc(m.template||"notify")}</span> · ${esc(m.lang||"vi")}</span>
+      <span>${timeAgo(m.created_at)}</span>
+    </div>
+    <div class="msg-subject">${esc(m.subject||"(không tiêu đề)")}</div>
+    <div class="msg-body" data-full="${esc(body)}">${esc(truncate(body, 200))}</div>
+    ${channels.length ? `<div class="msg-channels">${channels.map(c => `<span class="chan">${esc(c)}</span>`).join("")}</div>` : ""}
+  </article>`;
+}
+
+function renderList(){
+  const el = document.getElementById("inbox");
+  let list = messages.slice();
+  if(currentFilter === "unread") list = list.filter(m => m.unread);
+  else if(currentFilter !== "all") list = list.filter(m => templateCategory(m.template) === currentFilter);
+
+  if(list.length === 0){
+    el.innerHTML = `<div class="empty" data-text-vi="Chưa có thông báo nào. Khi có hoạt động trên hệ, bạn sẽ thấy ở đây." data-text-en="No notifications yet. When something happens on your account, it shows up here.">Chưa có thông báo nào. Khi có hoạt động trên hệ, bạn sẽ thấy ở đây.</div>`;
+    return;
+  }
+  el.innerHTML = `<div class="inbox-list">${list.map(renderMessage).join("")}</div>`;
+}
+
+function applyFilter(name){
+  currentFilter = name;
+  renderTabs();
+  renderList();
+}
+
+async function markRead(id){
+  try{
+    const r = await fetch(API + "/inbox/" + encodeURIComponent(id) + "/read", {
+      method: "POST",
+      credentials: "include",
+    });
+    if(!r.ok) return false;
+    return true;
+  }catch{ return false; }
+}
+
+async function checkSession(){
+  try{
+    const r = await fetch("https://vc.vetuonglai.com/api/access/session/current", { credentials: "include" });
+    if(!r.ok) return false;
+    const d = await r.json();
+    return !!d.authenticated;
+  }catch{ return false; }
+}
+
+async function loadInbox(){
+  const el = document.getElementById("inbox");
+  const authed = await checkSession();
+  if(!authed){
+    document.getElementById("auth-notice").hidden = false;
+    el.innerHTML = "";
+    return;
+  }
+  document.getElementById("auth-notice").hidden = true;
+  el.innerHTML = '<div class="muted">Đang tải…</div>';
+  try{
+    const r = await fetch(API + "/inbox", { credentials: "include" });
+    if(!r.ok){
+      el.innerHTML = '<div class="error">Lỗi tải hộp tin (' + r.status + ').</div>';
+      return;
+    }
+    const data = await r.json();
+    messages = Array.isArray(data.messages) ? data.messages : [];
+    renderList();
+  }catch(err){
+    el.innerHTML = '<div class="error">Lỗi tải: ' + esc(err.message) + '</div>';
+  }
+}
+
+document.getElementById("inbox").addEventListener("click", async e => {
+  const card = e.target.closest(".msg");
+  if(!card) return;
+  const id = card.dataset.id;
+  const template = card.dataset.template;
+  const bodyEl = card.querySelector(".msg-body");
+  const full = bodyEl?.dataset.full || "";
+
+  // Expand body in place
+  if(!card.classList.contains("expanded")){
+    card.classList.add("expanded");
+    if(bodyEl) bodyEl.textContent = full;
+  }
+
+  // Mark read if was unread
+  if(card.classList.contains("unread")){
+    const ok = await markRead(id);
+    if(ok){
+      card.classList.remove("unread");
+      const m = messages.find(x => String(x.id) === String(id));
+      if(m) m.unread = false;
+      if(window.vtlTrack) window.vtlTrack("inbox_read", { template });
+    }
+  }
+});
+
+renderTabs();
+loadInbox();
+if(window.vtlTrack) window.vtlTrack("inbox_view");
+</script>
+</body>
+</html>

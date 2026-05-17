@@ -152,21 +152,24 @@ completion trong 3–4 tuần dev.
 - Jobs board v1 (50% → **70%** — UI shipped Tick 2)
 - Affiliate tracking (60% → **80%** — dashboard UI shipped Tick 3)
 - Analytics ingestion (40% → **70%** — auto-tracking on every page Tick 3)
-- Notification queue (50%)
-- Admin CMS light (50%)
+- Notification queue (50% → **75%** — inbox UI shipped Tick 4)
+- Admin CMS light (50% → **75%** — full CRUD UI + revisions shipped Tick 4)
 - ✅ Search index Pagefind (Tick 1 — 100%)
 - ✅ Community feed UI live https://community.vetuonglai.com/feed/ (Tick 2)
 - ✅ Jobs board UI live https://work.vetuonglai.com/jobs/ (Tick 2)
 - ✅ Affiliate dashboard live https://member.vetuonglai.com/affiliate/ (Tick 3)
 - ✅ Auto page_view + link_click tracker bundled in shared app.js (Tick 3)
+- ✅ Notify inbox UI live https://member.vetuonglai.com/inbox/ (Tick 4)
+- ✅ Admin CMS UI live https://member.vetuonglai.com/admin/cms/ (Tick 4)
 
-## Loop progress tracker (cron 7,27,47 every 20 min, job 22f5f804)
+## Loop progress tracker (cron */19 every 19 min, job 109a59f7)
 
 | Tick | Time | Shipped | Δ% | Cum% |
 |---|---|---|---|---|
 | 1 | T+0 | Pagefind search + JSON-LD SearchAction | +2 | 57 |
 | 2 | T+20 | Community feed UI + Jobs board UI | +3 | 60 |
-| 3 | T+40 | Affiliate dashboard + Analytics auto-tracking | +3 | **63** |
+| 3 | T+40 | Affiliate dashboard + Analytics auto-tracking | +3 | 63 |
+| 4 | T+57 | Notify inbox UI + Admin CMS UI (2 agents //) | +4 | **67** |
 - CSS bug fix homepage ecosystem cards
 - KV binding pattern + auto-deploy via deploy-workers.mjs
 
