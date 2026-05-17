@@ -58,6 +58,103 @@ h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);margi
 .disclaimer{margin-top:48px;padding:14px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
 .copy-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;color:white;padding:10px 18px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
 .copy-toast.show{opacity:1}
+
+/* ============================================
+   MOBILE RESPONSIVE BREAKPOINTS
+   ============================================ */
+
+/* Tablet and below: 768px */
+@media (max-width: 768px) {
+  .shell { padding: 24px 16px 80px; }
+  h1 { font-size: clamp(1.4rem, 3vw, 2rem); margin-bottom: 12px; }
+  .lead { font-size: 14px; margin-bottom: 20px; }
+
+  /* Stats grid: 2 columns on tablet, 1 on mobile */
+  .stats { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+  .stat { padding: 14px; }
+  .stat-label { font-size: 11px; }
+  .stat-value { font-size: 20px; }
+  .stat-sub { font-size: 11px; }
+
+  .section-head { margin: 20px 0 12px; gap: 8px; }
+  .section-head h2 { font-size: 16px; }
+  .btn { padding: 8px 14px; font-size: 14px; border-radius: 12px; }
+
+  /* Code cards: full width, better touch targets */
+  .code { padding: 14px; gap: 10px; }
+  .code-row { flex-direction: column; align-items: flex-start; }
+  .code-name { font-size: 14px; }
+  .code-target { font-size: 11px; margin-bottom: 4px; }
+  .code-share { font-size: 12px; min-width: 100%; padding: 10px; }
+  .code-stats { gap: 14px; font-size: 12px; }
+
+  .modal { max-width: 90vw; padding: 20px; }
+  .modal h2 { font-size: 18px; }
+  .modal label { font-size: 12px; }
+  .modal input, .modal select { font-size: 16px; padding: 10px; border-radius: 8px; }
+  .modal .row { flex-direction: column-reverse; gap: 10px; }
+  .modal .row button { width: 100%; }
+
+  .disclaimer { margin-top: 32px; padding: 12px; font-size: 12px; }
+}
+
+/* Mobile: 480px and below */
+@media (max-width: 480px) {
+  .shell { padding: 16px 12px 72px; }
+  .brand { margin-bottom: 16px; }
+  .brand-mark { width: 32px; height: 32px; }
+  .brand-title { font-size: 13px; }
+
+  h1 { font-size: clamp(1.2rem, 2.5vw, 1.6rem); margin-bottom: 8px; }
+  .lead { font-size: 13px; margin-bottom: 16px; line-height: 1.5; }
+
+  /* Stats: single column stack */
+  .stats { grid-template-columns: 1fr; gap: 10px; margin-bottom: 16px; }
+  .stat { padding: 12px; border-radius: 12px; }
+  .stat-label { font-size: 10px; margin-bottom: 4px; }
+  .stat-value { font-size: 18px; }
+  .stat-sub { font-size: 10px; margin-top: 2px; }
+
+  .section-head { margin: 16px 0 10px; flex-direction: column; align-items: stretch; }
+  .section-head h2 { font-size: 15px; }
+  .btn { width: 100%; padding: 10px 12px; font-size: 13px; border-radius: 10px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
+
+  /* Code cards: card layout */
+  .code { padding: 12px; gap: 8px; border-radius: 12px; }
+  .code-row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .code-name { font-size: 13px; }
+  .code-target { font-size: 10px; word-break: break-word; }
+  .code-share { font-size: 11px; min-width: 100%; padding: 8px 10px; border-radius: 6px; }
+  .code-stats { flex-direction: column; gap: 8px; font-size: 11px; }
+  .code-stat { flex-direction: row; gap: 6px; align-items: baseline; }
+  .code-stat strong { font-size: 13px; }
+
+  /* Modal: full viewport width with padding */
+  .modal-bg { padding: 20px 12px; align-items: flex-end; }
+  .modal { max-width: 100%; border-radius: 20px 20px 0 0; padding: 18px; }
+  .modal h2 { font-size: 16px; }
+  .modal-sub { font-size: 12px; }
+  .modal label { font-size: 11px; margin: 10px 0 3px; }
+  .modal input, .modal select { font-size: 16px; padding: 12px; border-radius: 8px; }
+  .modal .row { flex-direction: column-reverse; gap: 8px; }
+  .modal .row button { width: 100%; min-height: 44px; }
+
+  .muted { font-size: 12px; }
+  .empty { padding: 20px 12px; font-size: 13px; }
+  .error { font-size: 12px; padding: 10px; }
+  .notice { font-size: 12px; padding: 10px; }
+  .disclaimer { margin-top: 24px; padding: 10px; font-size: 11px; line-height: 1.5; }
+}
+
+/* Extra small: 320px (very small phones) */
+@media (max-width: 320px) {
+  .shell { padding: 12px 8px 64px; }
+  h1 { font-size: 1.1rem; }
+  .lead { font-size: 12px; }
+  .stat-value { font-size: 16px; }
+  .code-name { font-size: 12px; }
+  .code-share { font-size: 10px; padding: 6px 8px; }
+}
 </style>
 </head>
 <body>
