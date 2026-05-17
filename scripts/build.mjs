@@ -10506,6 +10506,7 @@ async function build() {
   await writeSiteFile(domains.member, "robots.txt", renderRobots(domains.member));
   buildLog("writing member sitemap");
     await writeSiteFile(domains.member, "sitemap.xml", renderSitemap(domains.member, memberPaths));
+    await copyStaticTreeForDomain(domains.member);
     buildLog("member done");
 
     buildLog("rendering work");

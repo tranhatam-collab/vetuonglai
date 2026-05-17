@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="member">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Affiliate — Vetuonglai" data-text-en="Affiliate — Vetuonglai">Affiliate — Vetuonglai</title>
+<meta name="description" data-content-vi="Tạo mã giới thiệu, theo dõi click + conversion + hoa hồng. Không spam, chỉ chia sẻ những gì bạn thật sự tin." data-content-en="Create referral codes, track clicks + conversions + commission. No spam, only share what you genuinely trust." content="Tạo mã giới thiệu, theo dõi click + conversion + hoa hồng." />
+<meta name="robots" content="noindex,follow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-member.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#818CF8" />
+<link rel="canonical" href="https://member.vetuonglai.com/affiliate/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:1040px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 24px;max-width:640px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:28px}
+.stat{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:18px}
+.stat-label{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--vt-text-muted);margin-bottom:6px}
+.stat-value{font-family:var(--vt-font-mono);font-size:24px;font-weight:700;color:var(--vt-text-main)}
+.stat-sub{font-size:12px;color:var(--vt-text-soft);margin-top:4px}
+.section-head{display:flex;justify-content:space-between;align-items:center;margin:28px 0 14px;gap:12px;flex-wrap:wrap}
+.section-head h2{margin:0;font-size:18px;font-weight:700}
+.btn{padding:9px 18px;border-radius:var(--vt-radius-button);background:#818CF8;color:white;border:0;font:inherit;cursor:pointer;font-weight:600}
+.btn:hover{filter:brightness(1.05)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-ghost{background:transparent;color:#818CF8;border:1px solid #818CF8}
+.codes{display:grid;gap:12px}
+.code{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:18px;display:grid;gap:8px}
+.code-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.code-name{font-family:var(--vt-font-mono);font-size:16px;font-weight:700;color:#4338CA}
+.code-target{font-family:var(--vt-font-mono);font-size:12px;color:var(--vt-text-soft);word-break:break-all}
+.code-share{font-family:var(--vt-font-mono);font-size:13px;color:var(--vt-text-main);background:var(--vt-bg-soft);padding:8px 12px;border-radius:8px;flex:1;min-width:240px;border:1px dashed var(--vt-border-light)}
+.code-stats{display:flex;gap:18px;font-size:13px;color:var(--vt-text-soft);flex-wrap:wrap}
+.code-stat{display:flex;flex-direction:column}
+.code-stat strong{font-family:var(--vt-font-mono);color:var(--vt-text-main);font-size:15px}
+.muted{color:var(--vt-text-muted);font-size:13px}
+.empty{padding:32px;text-align:center;background:#fff;border:1px dashed var(--vt-border-light);border-radius:var(--vt-radius-card);color:var(--vt-text-soft)}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,0.6);display:flex;align-items:flex-start;justify-content:center;padding:60px 20px;z-index:1000;overflow-y:auto}
+.modal{background:#fff;max-width:480px;width:100%;border-radius:var(--vt-radius-modal);padding:28px}
+.modal h2{margin:0 0 4px;font-size:20px}
+.modal .modal-sub{color:var(--vt-text-soft);font-size:13px;margin-bottom:16px}
+.modal label{display:block;font-size:13px;font-weight:600;color:var(--vt-text-soft);margin:12px 0 4px}
+.modal input,.modal select{width:100%;border:1px solid var(--vt-border-light);border-radius:10px;padding:10px 12px;font:inherit;color:inherit;background:transparent}
+.modal .row{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:8px}
+.notice{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.disclaimer{margin-top:48px;padding:14px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+.copy-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;color:white;padding:10px 18px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none}
+.copy-toast.show{opacity:1}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://member.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Affiliate</span>
+  </a>
+  <h1 data-text-vi="Affiliate" data-text-en="Affiliate">Affiliate</h1>
+  <p class="lead" data-text-vi="Tạo mã giới thiệu, chia sẻ link, theo dõi click + conversion + hoa hồng. Cam kết: không bao giờ ép share, không lừa người mới." data-text-en="Create codes, share links, track clicks + conversions + commission. Pledge: never pressure-share, never trick newcomers.">Tạo mã giới thiệu, chia sẻ link, theo dõi click + conversion + hoa hồng. Cam kết: không bao giờ ép share, không lừa người mới.</p>
+
+  <div id="auth-notice" class="notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> để dùng affiliate dashboard.</div>
+
+  <div id="stats-area" hidden>
+    <div class="stats">
+      <div class="stat"><div class="stat-label">Tổng click</div><div class="stat-value" id="s-clicks">0</div><div class="stat-sub">click qua mã của bạn</div></div>
+      <div class="stat"><div class="stat-label">Conversion</div><div class="stat-value" id="s-conversions">0</div><div class="stat-sub">đơn đã hoàn tất</div></div>
+      <div class="stat"><div class="stat-label">Hoa hồng</div><div class="stat-value" id="s-earned">0 ₫</div><div class="stat-sub">cộng vào ví VTL</div></div>
+      <div class="stat"><div class="stat-label">Conversion rate</div><div class="stat-value" id="s-cvr">0%</div><div class="stat-sub">conv / click</div></div>
+    </div>
+
+    <div class="section-head">
+      <h2 data-text-vi="Mã giới thiệu của bạn" data-text-en="Your referral codes">Mã giới thiệu của bạn</h2>
+      <button class="btn" id="btn-create">+ Tạo mã mới</button>
+    </div>
+
+    <div id="codes-area"><div class="muted">Đang tải…</div></div>
+  </div>
+
+  <div class="disclaimer" data-text-vi="Hoa hồng mặc định 15% (1500 bps), có thể tăng tuỳ chiến dịch. Vetuonglai bảo vệ người mới: không cho phép affiliate ép cọc, fake countdown, hay claim 'thu nhập thụ động đảm bảo'. Vi phạm = ban vĩnh viễn affiliate, không hoàn cọc." data-text-en="Default commission 15% (1500 bps), may increase per campaign. Vetuonglai protects newcomers: no high-pressure deposit, fake countdown, or 'guaranteed passive income' allowed. Violation = permanent affiliate ban without refund.">Hoa hồng mặc định 15% (1500 bps), có thể tăng tuỳ chiến dịch. Vetuonglai bảo vệ người mới: không cho phép affiliate ép cọc, fake countdown, hay claim 'thu nhập thụ động đảm bảo'. Vi phạm = ban vĩnh viễn affiliate, không hoàn cọc.</div>
+</div>
+
+<div id="modal-host"></div>
+<div id="copy-toast" class="copy-toast">Đã sao chép</div>
+
+<script>
+const API = "https://vc.vetuonglai.com/api/affiliate";
+
+function esc(s){ return String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+function fmtVnd(v){ return Number(v||0).toLocaleString("vi-VN") + " ₫"; }
+function fmtNum(v){ return Number(v||0).toLocaleString("vi-VN"); }
+
+function toast(msg){
+  const el = document.getElementById("copy-toast");
+  el.textContent = msg;
+  el.classList.add("show");
+  setTimeout(() => el.classList.remove("show"), 1400);
+}
+
+function renderCode(c){
+  const shareUrl = "https://vetuonglai.com/r/" + c.code;
+  return `<div class="code" data-code="${esc(c.code)}">
+    <div class="code-row">
+      <div>
+        <div class="code-name">${esc(c.code)}</div>
+        <div class="code-target">→ ${esc(c.target_url)}</div>
+      </div>
+      <div class="code-stats">
+        <div class="code-stat"><strong>${fmtNum(c.clicks)}</strong><span>click</span></div>
+        <div class="code-stat"><strong>${fmtNum(c.conversions)}</strong><span>conv</span></div>
+        <div class="code-stat"><strong>${fmtVnd(c.earned_vnd)}</strong><span>hoa hồng</span></div>
+      </div>
+    </div>
+    <div class="code-row">
+      <span class="code-share" data-share="${esc(shareUrl)}">${esc(shareUrl)}</span>
+      <button class="btn btn-ghost" data-action="copy" data-share="${esc(shareUrl)}">Sao chép link</button>
+    </div>
+  </div>`;
+}
+
+async function loadAll(){
+  try{
+    const sess = await fetch("https://vc.vetuonglai.com/api/access/session/current", { credentials: "include" });
+    if(!sess.ok){ document.getElementById("auth-notice").hidden = false; return; }
+    const sd = await sess.json();
+    if(!sd.authenticated){ document.getElementById("auth-notice").hidden = false; return; }
+  }catch{ document.getElementById("auth-notice").hidden = false; return; }
+
+  document.getElementById("stats-area").hidden = false;
+
+  try{
+    const [stats, codes] = await Promise.all([
+      fetch(API + "/stats", { credentials: "include" }).then(r => r.json()),
+      fetch(API + "/codes/me", { credentials: "include" }).then(r => r.json()),
+    ]);
+    document.getElementById("s-clicks").textContent = fmtNum(stats.total_clicks);
+    document.getElementById("s-conversions").textContent = fmtNum(stats.total_conversions);
+    document.getElementById("s-earned").textContent = fmtVnd(stats.total_earned_vnd);
+    const cvr = stats.total_clicks ? (100 * stats.total_conversions / stats.total_clicks).toFixed(1) : 0;
+    document.getElementById("s-cvr").textContent = cvr + "%";
+
+    const codesArea = document.getElementById("codes-area");
+    if(!codes.codes || codes.codes.length === 0){
+      codesArea.innerHTML = '<div class="empty">Bạn chưa có mã nào. Tạo mã đầu tiên để bắt đầu chia sẻ.</div>';
+    }else{
+      codesArea.innerHTML = '<div class="codes">' + codes.codes.map(renderCode).join("") + '</div>';
+    }
+  }catch(err){
+    document.getElementById("codes-area").innerHTML = '<div class="error">Lỗi tải: ' + esc(err.message) + '</div>';
+  }
+}
+
+function showCreateModal(){
+  document.getElementById("modal-host").innerHTML = `
+    <div class="modal-bg" id="modal-bg">
+      <form class="modal" id="create-form">
+        <h2>Tạo mã giới thiệu</h2>
+        <p class="modal-sub">Để trống Code để hệ tự sinh mã 8 ký tự ngẫu nhiên.</p>
+        <label>Code (3–30 ký tự, a-z 0-9 -)</label>
+        <input type="text" name="code" maxlength="30" placeholder="tự sinh nếu để trống" pattern="[a-z0-9-]{3,30}" />
+        <label>Target URL (subdomain Vetuonglai)</label>
+        <select name="target_url" required>
+          <option value="https://vetuonglai.com/">https://vetuonglai.com/</option>
+          <option value="https://vc.vetuonglai.com/">vc — Verification</option>
+          <option value="https://edu.vetuonglai.com/">edu — Learning</option>
+          <option value="https://edu.vetuonglai.com/courses/">edu/courses — Course catalog</option>
+          <option value="https://finance.vetuonglai.com/">finance</option>
+          <option value="https://green.vetuonglai.com/">green</option>
+          <option value="https://read.vetuonglai.com/">read</option>
+          <option value="https://work.vetuonglai.com/jobs/">work/jobs</option>
+          <option value="https://community.vetuonglai.com/feed/">community/feed</option>
+        </select>
+        <label>Hoa hồng (bps — 1500 = 15%)</label>
+        <input type="number" name="commission_bps" min="0" max="5000" value="1500" step="100" />
+        <div class="row">
+          <button type="button" class="btn btn-ghost" data-close>Huỷ</button>
+          <button type="submit" class="btn">Tạo mã</button>
+        </div>
+      </form>
+    </div>`;
+}
+
+document.addEventListener("click", e => {
+  if(e.target.id === "btn-create"){ showCreateModal(); return; }
+  if(e.target.matches("[data-close]") || e.target.id === "modal-bg"){
+    document.getElementById("modal-host").innerHTML = "";
+    return;
+  }
+  if(e.target.matches('[data-action="copy"]')){
+    const url = e.target.dataset.share;
+    navigator.clipboard?.writeText(url);
+    toast("Đã sao chép link");
+    if(window.vtlTrack) window.vtlTrack("affiliate_copy", { code: e.target.closest("[data-code]")?.dataset.code });
+  }
+});
+
+document.body.addEventListener("submit", async e => {
+  if(e.target.id !== "create-form") return;
+  e.preventDefault();
+  const form = e.target;
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = true;
+  btn.textContent = "Đang tạo…";
+  try{
+    const body = {
+      code: form.code.value.trim() || undefined,
+      target_url: form.target_url.value,
+      commission_bps: Number(form.commission_bps.value) || 1500,
+    };
+    const r = await fetch(API + "/codes", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(body),
+    });
+    const d = await r.json().catch(() => ({}));
+    if(!r.ok){ alert("Không tạo được: " + (d.detail || d.status || r.status)); return; }
+    document.getElementById("modal-host").innerHTML = "";
+    if(window.vtlTrack) window.vtlTrack("affiliate_code_created", { code: d.code?.code });
+    await loadAll();
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "Tạo mã";
+  }
+});
+
+loadAll();
+</script>
+</body>
+</html>

@@ -516,3 +516,87 @@ window.vetuonglaiDetectEntry = detectEntryFromHostname;
 
 initScrollAnimations();
 setLanguage(initialLanguage, { updateUrl: !new URL(window.location.href).searchParams.has("lang") });
+
+// ===========================================================================
+// Vetuonglai analytics tracker — fires anonymous page_view on every load.
+// Reads vtl_ref cookie (set by /r/{code} affiliate redirect) if present so
+// conversions can be attributed without a third-party tracker.
+// Endpoint is open (no auth) and rate-limited at the worker; no PII sent.
+// ===========================================================================
+(function vtlAnalytics() {
+  if (typeof window === "undefined" || typeof fetch !== "function") return;
+
+  // Skip noindex / kids pages — child safety + dev preview pages.
+  var html = document.documentElement || {};
+  if (html.getAttribute("data-domain") === "kids") return;
+  var robots = document.querySelector('meta[name="robots"]');
+  if (robots && /noindex/i.test(robots.content || "")) return;
+
+  function readCookie(name) {
+    var match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+    return match ? decodeURIComponent(match[2]) : "";
+  }
+
+  function send(eventName, extraProps) {
+    var props = {
+      lang: html.lang || "vi",
+      ref_path: location.pathname,
+      ref_search: location.search.slice(0, 200),
+      domain_key: html.getAttribute("data-domain") || "",
+      referrer_host: "",
+      viewport_w: Math.min(4096, window.innerWidth || 0),
+    };
+    try {
+      if (document.referrer) {
+        var refUrl = new URL(document.referrer);
+        if (refUrl.host !== location.host) props.referrer_host = refUrl.host.slice(0, 80);
+      }
+    } catch (e) {}
+    var affiliateRef = readCookie("vtl_ref");
+    if (affiliateRef) props.affiliate_ref = affiliateRef.slice(0, 30);
+    if (extraProps) {
+      for (var k in extraProps) if (Object.prototype.hasOwnProperty.call(extraProps, k)) props[k] = extraProps[k];
+    }
+
+    var body = JSON.stringify({
+      name: eventName,
+      host: location.host.slice(0, 80),
+      path: location.pathname.slice(0, 200),
+      props: props,
+    });
+
+    var endpoint = "https://vc.vetuonglai.com/api/analytics/events";
+    if (navigator.sendBeacon) {
+      try {
+        navigator.sendBeacon(endpoint, new Blob([body], { type: "application/json" }));
+        return;
+      } catch (e) {}
+    }
+    fetch(endpoint, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: body,
+      keepalive: true,
+      credentials: "omit",
+    }).catch(function () {});
+  }
+
+  // Initial page_view.
+  send("page_view");
+
+  // Outbound link clicks → fire link_click event before navigation.
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest && e.target.closest("a[href]");
+    if (!a) return;
+    var href = a.getAttribute("href") || "";
+    if (!/^https?:\/\//.test(href)) return;
+    try {
+      var u = new URL(href);
+      if (u.host === location.host) return;
+      send("link_click", { target_host: u.host.slice(0, 80), target_path: u.pathname.slice(0, 100) });
+    } catch (err) {}
+  }, { capture: true, passive: true });
+
+  // Expose for surface-specific custom events.
+  window.vtlTrack = send;
+})();
