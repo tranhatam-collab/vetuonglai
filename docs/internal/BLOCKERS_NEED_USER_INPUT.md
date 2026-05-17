@@ -1,7 +1,8 @@
 # Blockers cần Founder input để leo từ ~55% → 85%
 
-Ngày: 2026-05-16
+Ngày: 2026-05-18
 Tác giả: Claude (autonomous build session)
+Tick 5 deployed: Member worker v2 (b3f7075c) with inbox + CMS + PWA manifest V2
 
 Hệ thống hiện đã đẩy lên ~55% completion sau session này (lên từ ~32%). Các subsystem
 sau **KHÔNG thể tự build hết** vì cần quyết định kinh doanh / tài khoản bên thứ ba —
