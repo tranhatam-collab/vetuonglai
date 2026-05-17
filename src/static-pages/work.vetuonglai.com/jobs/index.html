@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="work">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Việc làm — Vetuonglai Work" data-text-en="Jobs — Vetuonglai Work">Việc làm — Vetuonglai Work</title>
+<meta name="description" data-content-vi="Việc thật. Giá rõ. Có escrow. Tuyển và ứng tuyển trên hệ Vetuonglai." data-content-en="Real work. Clear price. Escrow protected. Hire and apply on Vetuonglai." content="Việc thật. Giá rõ. Có escrow." />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-work.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#FB923C" />
+<meta property="og:title" content="Việc làm — Vetuonglai Work" />
+<meta property="og:description" content="Việc thật. Giá rõ. Có escrow." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://work.vetuonglai.com/jobs/" />
+<meta property="og:image" content="https://work.vetuonglai.com/assets/web/web-og-work.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Vetuonglai" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://work.vetuonglai.com/assets/web/web-og-work.png" />
+<link rel="canonical" href="https://work.vetuonglai.com/jobs/" />
+<link rel="alternate" hreflang="vi-VN" href="https://work.vetuonglai.com/jobs/" />
+<link rel="alternate" hreflang="en-US" href="https://work.vetuonglai.com/jobs/?lang=en" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,500&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:1080px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.5rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 16px;max-width:640px}
+.tagline{display:inline-block;background:rgba(251,146,60,0.1);color:#9a3412;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;margin-bottom:8px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:24px 0 18px}
+.filter{display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{padding:6px 12px;border-radius:999px;border:1px solid var(--vt-border-light);background:transparent;color:var(--vt-text-soft);font-size:13px;cursor:pointer;font-family:inherit}
+.filter-btn.active{background:#FB923C;color:white;border-color:#FB923C}
+.btn{padding:10px 18px;border-radius:var(--vt-radius-button);background:#FB923C;color:white;border:0;font:inherit;cursor:pointer;font-weight:600}
+.btn:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;color:#FB923C;border:1px solid #FB923C}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.job{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:20px;display:flex;flex-direction:column;gap:10px}
+.job-head{display:flex;justify-content:space-between;gap:12px}
+.job-type{padding:2px 10px;border-radius:999px;background:rgba(251,146,60,0.08);color:#9a3412;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;align-self:flex-start}
+.job h3{margin:0;font-size:17px;font-weight:700;line-height:1.3}
+.job-desc{color:var(--vt-text-soft);font-size:14px;line-height:1.55;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.job-meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px dashed var(--vt-border-light);font-size:13px;color:var(--vt-text-muted)}
+.job-budget{font-family:var(--vt-font-mono);font-weight:600;color:var(--vt-text-main)}
+.job-skills{display:flex;gap:4px;flex-wrap:wrap;font-size:11px}
+.job-skill{padding:2px 8px;background:var(--vt-bg-soft);border-radius:6px;color:var(--vt-text-soft)}
+.modal-bg{position:fixed;inset:0;background:rgba(15,23,42,0.6);display:flex;align-items:flex-start;justify-content:center;padding:60px 20px;z-index:1000;overflow-y:auto}
+.modal{background:#fff;max-width:520px;width:100%;border-radius:var(--vt-radius-modal);padding:28px}
+.modal h2{margin:0 0 16px;font-size:20px}
+.modal label{display:block;font-size:13px;font-weight:600;color:var(--vt-text-soft);margin:12px 0 4px}
+.modal input,.modal textarea,.modal select{width:100%;border:1px solid var(--vt-border-light);border-radius:10px;padding:10px 12px;font:inherit;color:inherit;background:transparent}
+.modal textarea{min-height:100px;resize:vertical}
+.modal .row{display:flex;justify-content:space-between;gap:8px;margin-top:18px}
+.muted{color:var(--vt-text-muted);font-size:13px}
+.error{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;padding:12px;border-radius:8px}
+.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px;border-radius:8px;font-size:14px}
+.disclaimer{margin-top:48px;padding:14px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://work.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Việc</span>
+  </a>
+  <span class="tagline" data-text-vi="Việc thật · Giá rõ · Có escrow" data-text-en="Real work · Clear price · Escrow protected">Việc thật · Giá rõ · Có escrow</span>
+  <h1 data-text-vi="Việc làm" data-text-en="Jobs">Việc làm</h1>
+  <p class="lead" data-text-vi="Đăng tin tuyển hoặc tìm việc freelance/part-time/full-time có bằng chứng. Phí 2% (Pro), miễn phí (Elite+). Không phải đại lý tuyển dụng." data-text-en="Post a listing or find freelance/part-time/full-time work with evidence. 2% fee (Pro), free (Elite+). Not a recruitment agency.">Đăng tin tuyển hoặc tìm việc freelance/part-time/full-time có bằng chứng. Phí 2% (Pro), miễn phí (Elite+). Không phải đại lý tuyển dụng.</p>
+
+  <div class="toolbar">
+    <div class="filter" id="filter">
+      <button class="filter-btn active" data-status="open">Đang tuyển</button>
+      <button class="filter-btn" data-status="in_progress">Đang thực hiện</button>
+      <button class="filter-btn" data-status="completed">Đã hoàn thành</button>
+    </div>
+    <button class="btn" id="btn-post" hidden>Đăng tin tuyển</button>
+  </div>
+
+  <div id="auth-notice" class="notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> để đăng tin hoặc ứng tuyển. Vẫn xem được mọi tin đã đăng.</div>
+
+  <div id="grid" class="grid">
+    <div class="muted">Đang tải tin tuyển…</div>
+  </div>
+
+  <div class="disclaimer" data-text-vi="Vetuonglai không phải đại lý tuyển dụng. Escrow giữ tiền trung lập giữa người tuyển và người ứng. Phí nền tảng minh bạch, không quảng cáo trên tin." data-text-en="Vetuonglai is not a recruitment agency. Escrow holds funds neutrally between employer and applicant. Platform fee is transparent; no ads on listings.">Vetuonglai không phải đại lý tuyển dụng. Escrow giữ tiền trung lập giữa người tuyển và người ứng. Phí nền tảng minh bạch, không quảng cáo trên tin.</div>
+</div>
+
+<div id="modal-host"></div>
+
+<script>
+const API = "https://vc.vetuonglai.com/api/jobs";
+let currentStatus = "open";
+let isAuthed = false;
+
+function esc(s){ return String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+function fmtVnd(v){ return Number(v||0).toLocaleString("vi-VN") + " ₫"; }
+function timeAgo(unix){
+  const diff = Math.floor(Date.now()/1000) - Number(unix||0);
+  if(diff < 60) return "vừa xong";
+  if(diff < 3600) return `${Math.floor(diff/60)}p trước`;
+  if(diff < 86400) return `${Math.floor(diff/3600)}h trước`;
+  return new Date(unix*1000).toLocaleDateString("vi-VN");
+}
+
+function renderJob(j){
+  const skills = (j.skills || []).slice(0, 4).map(s => `<span class="job-skill">${esc(s)}</span>`).join("");
+  return `<article class="job" data-id="${esc(j.id)}">
+    <div class="job-head">
+      <span class="job-type">${esc(j.job_type||"freelance").replace("_"," ")}</span>
+    </div>
+    <h3>${esc(j.title)}</h3>
+    <div class="job-desc">${esc(j.description)}</div>
+    <div class="job-skills">${skills}</div>
+    <div class="job-meta">
+      <span class="job-budget">${j.budget_vnd ? fmtVnd(j.budget_vnd) : "Thương lượng"}</span>
+      <span>${esc(j.location||"remote")} · ${timeAgo(j.created_at)}</span>
+    </div>
+    <div style="display:flex;gap:6px">
+      <button class="btn btn-ghost" data-action="apply" style="flex:1">Ứng tuyển</button>
+      <span class="muted" style="align-self:center">${j.application_count||0} ứng viên</span>
+    </div>
+  </article>`;
+}
+
+async function loadJobs(){
+  const el = document.getElementById("grid");
+  el.innerHTML = '<div class="muted">Đang tải…</div>';
+  try{
+    const r = await fetch(API + "/listings?status=" + encodeURIComponent(currentStatus));
+    const data = await r.json();
+    const list = data.listings || [];
+    if(list.length === 0){
+      el.innerHTML = '<div class="muted">Chưa có tin nào ở trạng thái này. Quay lại sau hoặc đăng tin đầu tiên.</div>';
+      return;
+    }
+    el.innerHTML = list.map(renderJob).join("");
+  }catch(err){
+    el.innerHTML = '<div class="error">Lỗi tải: ' + esc(err.message) + '</div>';
+  }
+}
+
+async function checkSession(){
+  try{
+    const r = await fetch("https://vc.vetuonglai.com/api/access/session/current", { credentials: "include" });
+    if(r.ok){
+      const d = await r.json();
+      if(d.authenticated){
+        isAuthed = true;
+        document.getElementById("btn-post").hidden = false;
+        return;
+      }
+    }
+  }catch{}
+  document.getElementById("auth-notice").hidden = false;
+}
+
+function showPostModal(){
+  if(!isAuthed){ document.getElementById("auth-notice").hidden = false; return; }
+  document.getElementById("modal-host").innerHTML = `
+    <div class="modal-bg" id="modal-bg">
+      <form class="modal" id="post-form">
+        <h2>Đăng tin tuyển</h2>
+        <label>Tiêu đề</label>
+        <input type="text" name="title" maxlength="140" required placeholder="VD: Cần freelancer viết landing page" />
+        <label>Mô tả công việc</label>
+        <textarea name="description" maxlength="8000" required placeholder="Mô tả rõ phạm vi, deliverable, deadline..."></textarea>
+        <label>Loại việc</label>
+        <select name="job_type">
+          <option value="freelance">Freelance</option>
+          <option value="part_time">Part-time</option>
+          <option value="full_time">Full-time</option>
+          <option value="internship">Internship</option>
+          <option value="volunteer">Volunteer</option>
+        </select>
+        <label>Ngân sách (VND, để 0 nếu thương lượng)</label>
+        <input type="number" name="budget_vnd" min="0" step="1000" value="0" />
+        <label>Kỹ năng (phân tách bằng dấu phẩy, tối đa 12)</label>
+        <input type="text" name="skills" placeholder="copywriting, html, design" />
+        <label>Địa điểm</label>
+        <input type="text" name="location" value="remote" maxlength="60" />
+        <div class="row">
+          <button type="button" class="btn btn-ghost" data-close>Huỷ</button>
+          <button type="submit" class="btn">Đăng tin</button>
+        </div>
+      </form>
+    </div>`;
+}
+
+async function showApply(jobId, jobTitle){
+  if(!isAuthed){ document.getElementById("auth-notice").hidden = false; return; }
+  document.getElementById("modal-host").innerHTML = `
+    <div class="modal-bg" id="modal-bg">
+      <form class="modal" id="apply-form" data-job-id="${esc(jobId)}">
+        <h2>Ứng tuyển: ${esc(jobTitle)}</h2>
+        <label>Ghi chú gửi nhà tuyển dụng</label>
+        <textarea name="note" maxlength="4000" placeholder="Vì sao bạn phù hợp? Kinh nghiệm tương tự, portfolio..."></textarea>
+        <label>Giá đề xuất (VND, 0 nếu chấp nhận budget gốc)</label>
+        <input type="number" name="proposed_budget_vnd" min="0" step="1000" value="0" />
+        <label>Portfolio URL</label>
+        <input type="url" name="portfolio_url" placeholder="https://..." />
+        <div class="row">
+          <button type="button" class="btn btn-ghost" data-close>Huỷ</button>
+          <button type="submit" class="btn">Gửi ứng tuyển</button>
+        </div>
+      </form>
+    </div>`;
+}
+
+document.getElementById("filter").addEventListener("click", e => {
+  if(!e.target.matches(".filter-btn")) return;
+  document.querySelectorAll(".filter-btn").forEach(b => b.classList.toggle("active", b === e.target));
+  currentStatus = e.target.dataset.status;
+  loadJobs();
+});
+
+document.getElementById("btn-post").addEventListener("click", showPostModal);
+
+document.getElementById("grid").addEventListener("click", e => {
+  if(e.target.matches('[data-action="apply"]')){
+    const card = e.target.closest("[data-id]");
+    if(!card) return;
+    const title = card.querySelector("h3").textContent;
+    showApply(card.dataset.id, title);
+  }
+});
+
+document.body.addEventListener("click", e => {
+  if(e.target.matches("[data-close]") || e.target.id === "modal-bg"){
+    document.getElementById("modal-host").innerHTML = "";
+  }
+});
+
+document.body.addEventListener("submit", async e => {
+  const form = e.target;
+  if(form.id !== "post-form" && form.id !== "apply-form") return;
+  e.preventDefault();
+  const submitBtn = form.querySelector('button[type=submit]');
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Đang gửi…";
+  try{
+    let url, body;
+    if(form.id === "post-form"){
+      url = API + "/listings";
+      const skills = form.skills.value.split(",").map(s => s.trim()).filter(Boolean).slice(0,12);
+      body = {
+        title: form.title.value, description: form.description.value,
+        job_type: form.job_type.value, budget_vnd: Number(form.budget_vnd.value)||0,
+        skills, location: form.location.value,
+      };
+    }else{
+      url = API + "/listings/" + form.dataset.jobId + "/apply";
+      body = {
+        note: form.note.value,
+        proposed_budget_vnd: Number(form.proposed_budget_vnd.value)||0,
+        portfolio_url: form.portfolio_url.value,
+      };
+    }
+    const r = await fetch(url, { method:"POST", headers:{"content-type":"application/json"}, credentials:"include", body: JSON.stringify(body) });
+    const d = await r.json().catch(()=>({}));
+    if(!r.ok){ alert("Lỗi: " + (d.detail || d.status || r.status)); return; }
+    document.getElementById("modal-host").innerHTML = "";
+    loadJobs();
+  }finally{
+    submitBtn.disabled = false;
+  }
+});
+
+checkSession();
+loadJobs();
+</script>
+</body>
+</html>

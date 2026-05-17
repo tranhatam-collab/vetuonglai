@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="community">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Vòng tròn — Cộng đồng Vetuonglai" data-text-en="Circles — Vetuonglai Community">Vòng tròn — Cộng đồng Vetuonglai</title>
+<meta name="description" data-content-vi="Vòng tròn nhỏ, người thật, đóng góp đo được — không follower, không quảng cáo." data-content-en="Small circles, real people, measurable contribution — no followers, no ads." content="Vòng tròn nhỏ, người thật, đóng góp đo được — không follower, không quảng cáo." />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-community.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#FB7185" />
+<meta property="og:title" content="Vòng tròn — Cộng đồng Vetuonglai" />
+<meta property="og:description" content="Vòng tròn nhỏ, người thật, đóng góp đo được — không follower, không quảng cáo." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://community.vetuonglai.com/feed/" />
+<meta property="og:image" content="https://community.vetuonglai.com/assets/web/web-og-community.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Vetuonglai" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://community.vetuonglai.com/assets/web/web-og-community.png" />
+<link rel="canonical" href="https://community.vetuonglai.com/feed/" />
+<link rel="alternate" hreflang="vi-VN" href="https://community.vetuonglai.com/feed/" />
+<link rel="alternate" hreflang="en-US" href="https://community.vetuonglai.com/feed/?lang=en" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,500&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:880px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.5rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 28px;max-width:580px}
+.circle-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.circle-tab{padding:6px 12px;border-radius:999px;border:1px solid var(--vt-border-light);background:transparent;color:var(--vt-text-soft);font-size:13px;cursor:pointer;font-family:inherit}
+.circle-tab.active{background:#FB7185;color:white;border-color:#FB7185}
+.composer{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:18px;margin-bottom:24px}
+.composer input[type=text],.composer textarea{width:100%;border:1px solid var(--vt-border-light);border-radius:10px;padding:10px 12px;font:inherit;color:inherit;background:transparent}
+.composer textarea{min-height:90px;resize:vertical;margin-top:8px}
+.composer .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;gap:8px}
+.composer select{font:inherit;border:1px solid var(--vt-border-light);border-radius:8px;padding:6px 10px;background:transparent;color:inherit}
+.btn{padding:8px 16px;border-radius:var(--vt-radius-button);background:#FB7185;color:white;border:0;font:inherit;cursor:pointer;font-weight:600}
+.btn:hover{filter:brightness(1.05)}
+.btn-ghost{background:transparent;color:var(--vt-text-soft);border:1px solid var(--vt-border-light)}
+.post{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:18px;margin-bottom:14px}
+.post-head{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--vt-text-soft);margin-bottom:6px}
+.post-circle{padding:2px 8px;border-radius:999px;background:rgba(251,113,133,0.08);color:#FB7185;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.post h3{margin:6px 0;font-size:18px;font-weight:700;line-height:1.3}
+.post-body{color:var(--vt-text-soft);font-size:15px;line-height:1.6;white-space:pre-wrap;word-break:break-word}
+.reactions{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap}
+.react-btn{padding:4px 10px;border-radius:999px;border:1px solid var(--vt-border-light);background:transparent;color:var(--vt-text-soft);font-size:12px;cursor:pointer;font-family:inherit}
+.react-btn:hover{border-color:#FB7185;color:#FB7185}
+.muted{color:var(--vt-text-muted);font-size:13px}
+.error{background:#fff1f2;border:1px solid #fecdd3;color:#9f1239;padding:12px;border-radius:8px}
+.notice{background:#f0f9ff;border:1px solid #bae6fd;color:#075985;padding:12px;border-radius:8px;font-size:14px}
+.disclaimer{margin-top:48px;padding:14px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://community.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Cộng đồng</span>
+  </a>
+  <h1 data-text-vi="Vòng tròn" data-text-en="Circles">Vòng tròn</h1>
+  <p class="lead" data-text-vi="Đóng góp, không phải followers. Mỗi bài là một suy nghĩ thật — không bot, không quảng cáo, không leaderboard." data-text-en="Contribution, not followers. Each post is real thinking — no bots, no ads, no leaderboards.">Đóng góp, không phải followers. Mỗi bài là một suy nghĩ thật — không bot, không quảng cáo, không leaderboard.</p>
+
+  <div class="circle-tabs" id="tabs"></div>
+
+  <div id="auth-notice" class="notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> để đăng bài. Vẫn xem được mọi bài đã đăng.</div>
+
+  <form class="composer" id="composer" hidden>
+    <input type="text" id="title" placeholder="Tiêu đề ngắn gọn (≤140 ký tự)" maxlength="140" required />
+    <textarea id="body" placeholder="Bài viết của bạn — có thể là quan sát, câu hỏi, hoặc phản tư." maxlength="8000" required></textarea>
+    <div class="row">
+      <select id="circle">
+        <option value="general">general</option>
+        <option value="edu">edu</option>
+        <option value="work">work</option>
+        <option value="finance">finance</option>
+        <option value="green">green</option>
+        <option value="family">family</option>
+        <option value="vc">vc</option>
+      </select>
+      <button class="btn" type="submit">Đăng bài</button>
+    </div>
+  </form>
+
+  <div id="feed">
+    <div class="muted" data-text-vi="Đang tải bài viết…" data-text-en="Loading posts…">Đang tải bài viết…</div>
+  </div>
+
+  <div class="disclaimer" data-text-vi="Vòng tròn nhỏ ưu tiên chất lượng tương tác. Không quảng cáo, không spam, không bán user data. Bài viết hiển thị tên tài khoản ở dạng mask để bảo vệ quyền riêng tư." data-text-en="Small circles prioritize quality interaction. No ads, no spam, no selling user data. Author handles are masked for privacy.">Vòng tròn nhỏ ưu tiên chất lượng tương tác. Không quảng cáo, không spam, không bán user data. Bài viết hiển thị tên tài khoản ở dạng mask để bảo vệ quyền riêng tư.</div>
+</div>
+
+<script>
+const API = "https://vc.vetuonglai.com/api/community";
+const CIRCLES = ["all", "general", "edu", "work", "finance", "green", "family", "vc"];
+let currentCircle = "all";
+
+function renderTabs(){
+  const el = document.getElementById("tabs");
+  el.innerHTML = CIRCLES.map(c =>
+    `<button class="circle-tab ${c===currentCircle?'active':''}" data-circle="${c}">${c}</button>`
+  ).join("");
+  el.querySelectorAll(".circle-tab").forEach(b => b.onclick = () => { currentCircle = b.dataset.circle; renderTabs(); loadFeed(); });
+}
+
+function timeAgo(unix){
+  const diff = Math.floor(Date.now()/1000) - Number(unix||0);
+  if(diff < 60) return `${diff}s trước`;
+  if(diff < 3600) return `${Math.floor(diff/60)}p trước`;
+  if(diff < 86400) return `${Math.floor(diff/3600)}h trước`;
+  return new Date(unix*1000).toLocaleDateString("vi-VN");
+}
+
+function esc(s){ return String(s||"").replace(/[&<>"']/g, m => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m])); }
+
+function renderPost(p){
+  const reactions = p.reactions || {};
+  return `<article class="post" data-id="${esc(p.id)}">
+    <div class="post-head">
+      <span><span class="post-circle">${esc(p.circle)}</span> · ${esc(p.author_public?.masked || "ẩn danh")}</span>
+      <span>${timeAgo(p.created_at)}</span>
+    </div>
+    <h3>${esc(p.title)}</h3>
+    <div class="post-body">${esc(p.body).slice(0, 600)}${p.body && p.body.length > 600 ? '…' : ''}</div>
+    <div class="reactions">
+      <button class="react-btn" data-react="heart">❤ Trân trọng ${reactions.heart||0}</button>
+      <button class="react-btn" data-react="insight">💡 Sáng tỏ ${reactions.insight||0}</button>
+      <button class="react-btn" data-react="support">🤝 Ủng hộ ${reactions.support||0}</button>
+      <button class="react-btn" data-react="doubt">🤔 Nghi vấn ${reactions.doubt||0}</button>
+      <span class="muted">· ${p.comment_count||0} phản hồi</span>
+    </div>
+  </article>`;
+}
+
+async function loadFeed(){
+  const el = document.getElementById("feed");
+  el.innerHTML = '<div class="muted">Đang tải…</div>';
+  try{
+    const qs = currentCircle === "all" ? "" : "?circle=" + encodeURIComponent(currentCircle);
+    const r = await fetch(API + "/posts" + qs, { credentials: "include" });
+    const data = await r.json();
+    const posts = data.posts || [];
+    if(posts.length === 0){
+      el.innerHTML = '<div class="muted">Chưa có bài nào trong vòng tròn này. Bạn có thể là người đầu tiên.</div>';
+      return;
+    }
+    el.innerHTML = posts.map(renderPost).join("");
+  }catch(err){
+    el.innerHTML = '<div class="error">Lỗi tải bài: ' + esc(err.message) + '</div>';
+  }
+}
+
+async function checkSession(){
+  try{
+    const r = await fetch("https://vc.vetuonglai.com/api/access/session/current", { credentials: "include" });
+    if(r.ok){
+      const d = await r.json();
+      if(d.authenticated){
+        document.getElementById("composer").hidden = false;
+        return;
+      }
+    }
+  }catch{}
+  document.getElementById("auth-notice").hidden = false;
+}
+
+document.getElementById("composer").addEventListener("submit", async e => {
+  e.preventDefault();
+  const title = document.getElementById("title").value.trim();
+  const body = document.getElementById("body").value.trim();
+  const circle = document.getElementById("circle").value;
+  const btn = e.target.querySelector(".btn");
+  btn.disabled = true;
+  btn.textContent = "Đang đăng…";
+  try{
+    const r = await fetch(API + "/posts", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ title, body, circle }),
+    });
+    if(!r.ok){
+      const d = await r.json().catch(() => ({}));
+      alert("Không đăng được: " + (d.detail || d.status || r.status));
+      return;
+    }
+    document.getElementById("title").value = "";
+    document.getElementById("body").value = "";
+    await loadFeed();
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "Đăng bài";
+  }
+});
+
+document.getElementById("feed").addEventListener("click", async e => {
+  if(!e.target.matches(".react-btn")) return;
+  const post = e.target.closest("[data-id]");
+  if(!post) return;
+  try{
+    const r = await fetch(API + "/posts/" + post.dataset.id + "/react", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify({ reaction: e.target.dataset.react }),
+    });
+    if(r.status === 401){
+      document.getElementById("auth-notice").hidden = false;
+      return;
+    }
+    await loadFeed();
+  }catch{}
+});
+
+renderTabs();
+checkSession();
+loadFeed();
+</script>
+</body>
+</html>

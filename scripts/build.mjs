@@ -10545,6 +10545,7 @@ async function build() {
     await writeSiteFile(domains.work, "robots.txt", renderRobots(domains.work));
     buildLog("writing work sitemap");
     await writeSiteFile(domains.work, "sitemap.xml", renderSitemap(domains.work, workPaths));
+    await copyStaticTreeForDomain(domains.work);
     buildLog("work done");
 
     buildLog("rendering market");
@@ -10624,6 +10625,7 @@ async function build() {
     await writeSiteFile(domains.community, "robots.txt", renderRobots(domains.community));
     buildLog("writing community sitemap");
     await writeSiteFile(domains.community, "sitemap.xml", renderSitemap(domains.community, communityPaths));
+    await copyStaticTreeForDomain(domains.community);
     buildLog("community done");
 
     buildLog("rendering ai");

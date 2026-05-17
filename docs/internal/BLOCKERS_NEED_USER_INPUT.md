@@ -148,12 +148,22 @@ completion trong 3–4 tuần dev.
 ## Đã làm autonomous trong session này
 
 - Wallet system full v1 (60% — tăng từ 0%)
-- Community subsystem (60%)
-- Jobs board v1 (50%)
+- Community subsystem (60% → **75%** — UI shipped Tick 2)
+- Jobs board v1 (50% → **70%** — UI shipped Tick 2)
 - Affiliate tracking (60%)
 - Analytics ingestion (40%)
 - Notification queue (50%)
 - Admin CMS light (50%)
+- ✅ Search index Pagefind (Tick 1 — 100%)
+- ✅ Community feed UI live https://community.vetuonglai.com/feed/ (Tick 2)
+- ✅ Jobs board UI live https://work.vetuonglai.com/jobs/ (Tick 2)
+
+## Loop progress tracker (cron 7,27,47 every 20 min, job 22f5f804)
+
+| Tick | Time | Shipped | Δ% | Cum% |
+|---|---|---|---|---|
+| 1 | T+0 | Pagefind search + JSON-LD SearchAction | +2 | 57 |
+| 2 | T+20 | Community feed UI + Jobs board UI | +3 | 60 |
 - CSS bug fix homepage ecosystem cards
 - KV binding pattern + auto-deploy via deploy-workers.mjs
 
