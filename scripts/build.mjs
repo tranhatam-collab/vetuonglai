@@ -8865,8 +8865,10 @@ function renderEduCoursePlayer(course, lessons) {
       vcCandidate: "/api/access/learning/vc-candidate?course=" + encodeURIComponent(course.slug),
       progress: "/api/access/learning/progress",
       submission: "/api/access/learning/submission",
+      courseCompletion: "/api/edu/course-completion",
     };
     let runtimeCourseState = null;
+    let runtimeCandidateEmail = null;
     const currentLanguage = () => document.documentElement.dataset.language === "en" ? "en" : "vi";
 
     const copy = (vi, en = vi) => ({ vi, en });
@@ -8958,13 +8960,16 @@ function renderEduCoursePlayer(course, lessons) {
         });
         if (!response.ok) {
           runtimeCourseState = null;
+          runtimeCandidateEmail = null;
           return null;
         }
         const payload = await response.json().catch(() => ({}));
         runtimeCourseState = payload.course_state || null;
+        runtimeCandidateEmail = payload.candidate_email || null;
         return runtimeCourseState;
       } catch {
         runtimeCourseState = null;
+        runtimeCandidateEmail = null;
         return null;
       }
     }
@@ -9019,12 +9024,118 @@ function renderEduCoursePlayer(course, lessons) {
       );
     }
 
+    async function awardCourseCompletion(candidateEmail) {
+      try {
+        const response = await fetch(learningEndpoints.courseCompletion, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          credentials: "same-origin",
+          body: JSON.stringify({
+            course_id: course.slug,
+            course_title: localized(course.title, course.titleEn),
+            candidate_email: candidateEmail,
+          }),
+        });
+        if (!response.ok) {
+          const errorBody = await response.json().catch(() => ({}));
+          return {
+            ok: false,
+            error: errorBody.status || "award_failed",
+            detail: errorBody.detail || "Failed to award course completion credit",
+          };
+        }
+        const result = await response.json();
+        return {
+          ok: true,
+          status: result.status,
+          wallet: result.wallet,
+          credit_awarded_vnd: result.credit_awarded_vnd,
+        };
+      } catch (err) {
+        return {
+          ok: false,
+          error: "award_request_failed",
+          detail: String(err?.message || err),
+        };
+      }
+    }
+
+    function showCompletionModal(creditResult, candidateEmail) {
+      const modal = document.createElement("div");
+      modal.style.cssText = "position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;";
+
+      const content = document.createElement("div");
+      content.style.cssText = "background:white;border-radius:8px;padding:40px;max-width:500px;text-align:center;box-shadow:0 10px 40px rgba(0,0,0,0.2);";
+
+      const title = document.createElement("h2");
+      title.style.cssText = "font-size:28px;font-weight:700;margin:0 0 16px;color:#22D3EE;";
+      title.textContent = localized("Khóa học hoàn tất!", "Course completed!");
+
+      const celebrateEmoji = document.createElement("div");
+      celebrateEmoji.style.cssText = "font-size:48px;margin:16px 0;";
+      celebrateEmoji.textContent = "🎉";
+
+      const message = document.createElement("p");
+      message.style.cssText = "font-size:16px;color:#333;margin:16px 0;line-height:1.6;";
+
+      if (creditResult.ok) {
+        message.innerHTML = escapeHtml(localized(
+          "Bạn vừa kiếm được 100 VND! Tiền thưởng đã được thêm vào ví của bạn.",
+          "You just earned 100 VND! The reward has been added to your wallet."
+        ));
+
+        const walletBalance = document.createElement("p");
+        walletBalance.style.cssText = "font-size:14px;color:#666;margin:12px 0;";
+        walletBalance.innerHTML = escapeHtml(localized(
+          "Số dư hiện tại: " + (creditResult.wallet?.balances?.available_vnd || 0) + " VND",
+          "Current balance: " + (creditResult.wallet?.balances?.available_vnd || 0) + " VND"
+        ));
+        content.appendChild(walletBalance);
+      } else {
+        message.innerHTML = escapeHtml(localized(
+          "Khóa học hoàn tất! Xin lỗi, chúng tôi gặp lỗi khi thêm tiền thưởng vào ví.",
+          "Course completed! Sorry, we encountered an error adding the reward to your wallet."
+        ));
+      }
+
+      const buttons = document.createElement("div");
+      buttons.style.cssText = "display:flex;gap:12px;margin-top:24px;flex-direction:column;";
+
+      if (creditResult.ok) {
+        const walletLink = document.createElement("a");
+        walletLink.href = "/wallet/";
+        walletLink.style.cssText = "padding:12px 24px;background:#22D3EE;color:white;border-radius:6px;text-decoration:none;font-weight:600;cursor:pointer;display:inline-block;";
+        walletLink.textContent = localized("Xem ví của tôi", "View my wallet");
+        buttons.appendChild(walletLink);
+      }
+
+      const closeBtn = document.createElement("button");
+      closeBtn.style.cssText = "padding:12px 24px;background:#f0f0f0;color:#333;border:none;border-radius:6px;font-weight:600;cursor:pointer;";
+      closeBtn.textContent = localized("Tiếp tục", "Continue");
+      closeBtn.addEventListener("click", () => {
+        document.body.removeChild(modal);
+      });
+      buttons.appendChild(closeBtn);
+
+      content.appendChild(title);
+      content.appendChild(celebrateEmoji);
+      content.appendChild(message);
+      content.appendChild(buttons);
+      modal.appendChild(content);
+      document.body.appendChild(modal);
+    }
+
     function render() {
       const state = mergeWithRuntime(loadState());
       const accessDenied = new URL(window.location.href).searchParams.get("access") === "denied";
       const lesson = lessons.find((item) => item.id === state.currentLessonId) || lessons[0];
       const doneCount = Object.values(state.completed).filter(Boolean).length;
       const progressMilestone = doneCount + " / " + lessons.length;
+      const courseComplete = doneCount === lessons.length && lessons.length > 0;
+      const courseCompletionAwardedKey = "vt-course-completion-awarded:" + course.slug;
+      const courseCompletionAwarded = localStorage.getItem(courseCompletionAwardedKey) === "true";
       const runtimeSubmissions = Object.values(runtimeCourseState?.submissions || {}).filter((entry) => entry && typeof entry === 'object');
       const proofCount = runtimeSubmissions.length > 0
         ? runtimeSubmissions.filter((entry) => entry.submission_type !== 'reflection').length
@@ -9238,6 +9349,16 @@ function renderEduCoursePlayer(course, lessons) {
       root.querySelector('[data-issue-vc]')?.addEventListener('click', () => {
         syncRuntimeState().then(render).catch(() => render());
       });
+
+      // Handle course completion and wallet credit award
+      if (courseComplete && !courseCompletionAwarded && runtimeCandidateEmail) {
+        localStorage.setItem(courseCompletionAwardedKey, "true");
+        awardCourseCompletion(runtimeCandidateEmail).then((creditResult) => {
+          showCompletionModal(creditResult, runtimeCandidateEmail);
+        }).catch(() => {
+          showCompletionModal({ ok: false }, runtimeCandidateEmail);
+        });
+      }
 
       window.vetuonglaiSyncLanguage?.();
     }

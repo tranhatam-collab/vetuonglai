@@ -7,6 +7,7 @@ import { maybeHandleAffiliateRuntime } from "./lib/affiliate-runtime.mjs";
 import { maybeHandleAnalyticsRuntime } from "./lib/analytics-runtime.mjs";
 import { maybeHandleNotifyRuntime } from "./lib/notify-runtime.mjs";
 import { maybeHandleAdminCmsRuntime } from "./lib/admin-cms-runtime.mjs";
+import { maybeHandleEduRuntime } from "./lib/edu-runtime.mjs";
 
 function missingAssetsResponse(request) {
   return new Response(
@@ -60,6 +61,9 @@ export default {
 
     const walletResponse = await maybeHandleWalletRuntime(request, env);
     if (walletResponse) return addCorsHeaders(walletResponse, request);
+
+    const eduResponse = await maybeHandleEduRuntime(request, env);
+    if (eduResponse) return addCorsHeaders(eduResponse, request);
 
     const communityResponse = await maybeHandleCommunityRuntime(request, env);
     if (communityResponse) return addCorsHeaders(communityResponse, request);

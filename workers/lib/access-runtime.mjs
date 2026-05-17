@@ -2032,6 +2032,7 @@ async function handleLearningStateCurrent(request, env) {
   return jsonResponse({
     status: "learning_state_active",
     authenticated: true,
+    candidate_email: candidateEmail,
     member_state: effectiveSession.member_state,
     annual_access_status: effectiveSession.annual_access_status,
     owned_packs: effectiveSession.owned_packs || [],
