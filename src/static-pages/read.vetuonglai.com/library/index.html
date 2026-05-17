@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="read">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Thư viện của bạn — Vetuonglai Đọc" data-text-en="Your library — Vetuonglai Read">Thư viện của bạn — Vetuonglai Đọc</title>
+<meta name="description" data-content-vi="Bài đã đánh dấu và bài đang đọc dở. Lưu cục bộ trên thiết bị này — Vetuonglai không lưu lịch sử đọc trên server." data-content-en="Bookmarks and unfinished reads. Stored locally on this device — Vetuonglai never stores reading history server-side." content="Bài đã đánh dấu và bài đang đọc dở. Lưu cục bộ trên thiết bị này — Vetuonglai không lưu lịch sử đọc trên server." />
+<meta name="robots" content="noindex,follow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-read.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#B45309" />
+<meta property="og:title" content="Thư viện của bạn — Vetuonglai Đọc" />
+<meta property="og:description" content="Bài đã đánh dấu và bài đang đọc dở. Lưu cục bộ — privacy-first." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://read.vetuonglai.com/library/" />
+<meta property="og:image" content="https://read.vetuonglai.com/assets/web/web-og-read.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:site_name" content="Vetuonglai" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://read.vetuonglai.com/assets/web/web-og-read.png" />
+<link rel="canonical" href="https://read.vetuonglai.com/library/" />
+<link rel="alternate" hreflang="vi-VN" href="https://read.vetuonglai.com/library/" />
+<link rel="alternate" hreflang="en-US" href="https://read.vetuonglai.com/library/?lang=en" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Lora:ital,wght@0,500;1,500&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:860px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.5rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 32px;max-width:600px;font-family:var(--vt-font-serif,Lora,serif);font-style:italic}
+h2{font-family:var(--vt-font-display);font-size:20px;margin:32px 0 14px;font-weight:700;letter-spacing:-0.01em;display:flex;align-items:center;gap:10px}
+h2 .count{font-family:var(--vt-font-mono);font-size:12px;color:var(--vt-text-muted);background:var(--vt-bg-soft);padding:2px 8px;border-radius:999px;font-weight:600}
+.list{display:grid;gap:10px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:14px;background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:16px 18px;text-decoration:none;color:inherit;transition:border-color .15s, transform .15s}
+.item:hover{border-color:#B45309;transform:translateY(-1px)}
+.item-main{min-width:0;flex:1}
+.item-title{font-weight:600;font-size:15px;color:var(--vt-text-main);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.item-meta{font-size:12px;color:var(--vt-text-muted);margin-top:4px;font-family:var(--vt-font-mono)}
+.item-pct{flex-shrink:0;font-family:var(--vt-font-mono);font-size:13px;font-weight:600;color:#B45309;background:rgba(180,83,9,.08);padding:5px 10px;border-radius:999px;white-space:nowrap}
+.item-arrow{flex-shrink:0;color:var(--vt-text-muted);font-size:18px}
+.empty{padding:28px;text-align:center;background:#fff;border:1px dashed var(--vt-border-light);border-radius:var(--vt-radius-card);color:var(--vt-text-soft);font-size:14px}
+.empty a{color:#B45309;font-weight:600}
+.disclaimer{margin-top:48px;padding:14px 16px;background:var(--vt-bg-soft);border-radius:10px;color:var(--vt-text-soft);font-size:13px;border-left:3px solid #B45309}
+.row-tools{display:flex;justify-content:flex-end;margin-bottom:14px}
+.btn-ghost{background:transparent;color:var(--vt-text-soft);border:1px solid var(--vt-border-light);padding:6px 12px;border-radius:999px;font:600 12px/1 var(--vt-font-sans);cursor:pointer}
+.btn-ghost:hover{border-color:#B45309;color:#B45309}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://read.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Đọc · Thư viện</span>
+  </a>
+  <h1 data-text-vi="Thư viện của bạn" data-text-en="Your library">Thư viện của bạn</h1>
+  <p class="lead" data-text-vi="Bài đã đánh dấu và bài đang đọc dở. Lưu trên thiết bị này — không gửi server." data-text-en="Bookmarks and unfinished reads. Stored on this device — never sent to the server.">Bài đã đánh dấu và bài đang đọc dở. Lưu trên thiết bị này — không gửi server.</p>
+
+  <div class="row-tools">
+    <button class="btn-ghost" id="btn-clear" type="button" title="Xoá toàn bộ dữ liệu thư viện trên thiết bị này">Xoá thư viện</button>
+  </div>
+
+  <h2>
+    <span data-text-vi="Bài đánh dấu" data-text-en="Bookmarks">Bài đánh dấu</span>
+    <span class="count" id="bmk-count">0</span>
+  </h2>
+  <div id="bmk-list" class="list"></div>
+
+  <h2>
+    <span data-text-vi="Đang đọc dở" data-text-en="In progress">Đang đọc dở</span>
+    <span class="count" id="prog-count">0</span>
+  </h2>
+  <div id="prog-list" class="list"></div>
+
+  <div class="disclaimer" data-text-vi="Lưu cục bộ. Xoá dữ liệu trình duyệt sẽ mất danh sách. Vetuonglai không lưu lịch sử đọc trên server (privacy)." data-text-en="Stored locally. Clearing browser data erases this list. Vetuonglai never stores reading history on the server (privacy).">Lưu cục bộ. Xoá dữ liệu trình duyệt sẽ mất danh sách. Vetuonglai không lưu lịch sử đọc trên server (privacy).</div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var PROGRESS_KEY = "vtl-read-progress";
+  var BOOKMARK_KEY = "vtl-read-bookmarks";
+  var lang = (document.documentElement.getAttribute("lang") || "vi").toLowerCase();
+  var isEN = lang.indexOf("en") === 0;
+
+  function esc(s){ return String(s||"").replace(/[&<>"']/g, function(m){ return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[m]; }); }
+  function lsGet(k){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } }
+  function lsSet(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+  function lsDel(k){ try{ localStorage.removeItem(k); }catch(e){} }
+
+  function relTime(ts){
+    if(!ts) return isEN ? "unknown" : "không rõ";
+    var diff = Math.max(0, Date.now() - ts);
+    var s = Math.round(diff/1000);
+    if(s < 60) return isEN ? "just now" : "vừa xong";
+    var m = Math.round(s/60);
+    if(m < 60) return isEN ? (m + " min ago") : (m + " phút trước");
+    var h = Math.round(m/60);
+    if(h < 24) return isEN ? (h + " h ago") : (h + " giờ trước");
+    var d = Math.round(h/24);
+    if(d < 7) return isEN ? (d + " d ago") : (d + " ngày trước");
+    var w = Math.round(d/7);
+    if(w < 5) return isEN ? (w + " w ago") : (w + " tuần trước");
+    var mo = Math.round(d/30);
+    return isEN ? (mo + " mo ago") : (mo + " tháng trước");
+  }
+
+  function urlFor(entry){
+    if(entry && entry.url) return entry.url;
+    if(!entry || !entry.slug) return "/";
+    // Best-effort: most read pages live under /books/<slug>/ or /essays/<slug>/
+    return "/essays/" + encodeURIComponent(entry.slug) + "/";
+  }
+
+  function renderBookmarks(){
+    var list = lsGet(BOOKMARK_KEY) || [];
+    var host = document.getElementById("bmk-list");
+    document.getElementById("bmk-count").textContent = list.length;
+    if(list.length === 0){
+      host.innerHTML = '<div class="empty">' +
+        (isEN
+          ? 'No bookmarks yet. Open any essay or book and tap "Bookmark" in the top-right.'
+          : 'Chưa có bài đánh dấu. Mở bất kỳ bài essay/sách và bấm "Đánh dấu" góc trên phải.') +
+        ' <a href="/">' + (isEN ? "Browse Read →" : "Mở trang Đọc →") + '</a></div>';
+      return;
+    }
+    host.innerHTML = list.map(function(b){
+      return '<a class="item" href="' + esc(urlFor(b)) + '">' +
+        '<div class="item-main">' +
+          '<div class="item-title">' + esc(b.title || b.slug) + '</div>' +
+          '<div class="item-meta">' + esc(b.slug) + ' · ' + esc(relTime(b.savedAt)) + '</div>' +
+        '</div>' +
+        '<span class="item-arrow" aria-hidden="true">→</span>' +
+      '</a>';
+    }).join("");
+  }
+
+  function renderProgress(){
+    var store = lsGet(PROGRESS_KEY) || {};
+    var entries = [];
+    for(var k in store){
+      if(Object.prototype.hasOwnProperty.call(store, k)){
+        var e = store[k] || {};
+        if(typeof e.percent === "number" && e.percent < 95){
+          entries.push({
+            slug: k,
+            title: e.title || k,
+            percent: e.percent,
+            savedAt: e.savedAt || 0,
+            url: e.url
+          });
+        }
+      }
+    }
+    entries.sort(function(a,b){ return (b.savedAt||0) - (a.savedAt||0); });
+    var host = document.getElementById("prog-list");
+    document.getElementById("prog-count").textContent = entries.length;
+    if(entries.length === 0){
+      host.innerHTML = '<div class="empty">' +
+        (isEN
+          ? 'Nothing in progress. Start reading and your position will be saved here automatically.'
+          : 'Chưa có bài đọc dở. Bắt đầu đọc và vị trí của bạn sẽ tự động lưu vào đây.') +
+        '</div>';
+      return;
+    }
+    host.innerHTML = entries.map(function(e){
+      return '<a class="item" href="' + esc(urlFor(e)) + '">' +
+        '<div class="item-main">' +
+          '<div class="item-title">' + esc(e.title) + '</div>' +
+          '<div class="item-meta">' + esc(e.slug) + ' · ' + esc(relTime(e.savedAt)) + '</div>' +
+        '</div>' +
+        '<span class="item-pct">' + Math.round(e.percent) + '%</span>' +
+        '<span class="item-arrow" aria-hidden="true">→</span>' +
+      '</a>';
+    }).join("");
+  }
+
+  document.getElementById("btn-clear").addEventListener("click", function(){
+    var msg = isEN
+      ? "Clear all local bookmarks and reading progress on this device? This cannot be undone."
+      : "Xoá toàn bộ bookmark và tiến độ đọc trên thiết bị này? Không thể hoàn tác.";
+    if(!confirm(msg)) return;
+    lsDel(BOOKMARK_KEY);
+    lsDel(PROGRESS_KEY);
+    renderBookmarks();
+    renderProgress();
+  });
+
+  renderBookmarks();
+  renderProgress();
+})();
+</script>
+</body>
+</html>

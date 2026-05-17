@@ -169,7 +169,8 @@ completion trong 3–4 tuần dev.
 | 1 | T+0 | Pagefind search + JSON-LD SearchAction | +2 | 57 |
 | 2 | T+20 | Community feed UI + Jobs board UI | +3 | 60 |
 | 3 | T+40 | Affiliate dashboard + Analytics auto-tracking | +3 | 63 |
-| 4 | T+57 | Notify inbox UI + Admin CMS UI (2 agents //) | +4 | **67** |
+| 4 | T+57 | Notify inbox UI + Admin CMS UI (2 agents //) | +4 | 67 |
+| 5 | T+76 | Read reading-progress + library + PWA manifest V2 | +3 | **70** |
 - CSS bug fix homepage ecosystem cards
 - KV binding pattern + auto-deploy via deploy-workers.mjs
 
