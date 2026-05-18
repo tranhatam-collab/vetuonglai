@@ -2488,6 +2488,36 @@ function renderHubPage() {
       renderSection(pair("Ba hành trình sản phẩm", "Three product journeys"), pair("Cá Nhân, Gia Đình và Đối Tác - chọn hành trình phù hợp với trạng thái của bạn.", "Personal, Family, and Partner - choose the journey that fits your current state."), productCards, "products"),
       renderSection(pair("Sáu tầng hành trình", "Six-tier journey"), pair("Đi từng bước từ Free đến Partner. Earning chỉ mở từ tầng 4 trở lên.", "Step by step from Free to Partner. Earning unlocks only from tier 4 onward."), journeyTiers, "journey-tiers"),
       renderSection(pair("Việt Nam Advantage", "Vietnam Advantage"), pair("Xây từ Việt Nam, hướng toàn cầu.", "Built from Vietnam, for the world."), vietnamAdvantage, "vietnam-advantage"),
+      renderSection(
+        pair("Khóa học nổi bật", "Featured course"),
+        pair("Một chương trình đang mở để học viên đi từ nhận thức đến sản phẩm thật.", "A live program taking learners from awareness to real product."),
+        `
+        <article class="card" data-animate="fade-up" id="featured-course-stcn">
+          <div class="card-body stack">
+            <div class="cluster" style="justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap">
+              <div style="flex:1;min-width:240px">
+                <span class="badge member-preview" data-text-vi="Đang mở cohort" data-text-en="Open cohort">Đang mở cohort</span>
+                <h3 class="card-title" style="margin-top:8px" data-text-vi="Sáng Tạo Công Nghệ" data-text-en="Tech Creator">Sáng Tạo Công Nghệ</h3>
+                ${localizedText(pair("Từ căn bản đến đầu tư khởi nghiệp", "From foundation to startup investing"), "p", { class: "card-copy", style: "font-style:italic;margin:4px 0 12px" })}
+              </div>
+              <span class="mono subtle" style="font-size:13px;align-self:flex-end">12 module · 3 giai đoạn</span>
+            </div>
+            ${localizedText(pair("Chương trình đi từ nhận thức về thời đại số, đến tạo sản phẩm số, vận hành hệ thống, tạo doanh thu và bước vào khởi nghiệp. 2 buổi online/tuần + offline immersion 3/6/9 ngày tại Đà Lạt. Không phải khóa AI mẹo vặt, không phải khóa startup truyền cảm hứng — đây là nơi học để làm thật.", "From understanding the digital era, to building digital products, operating systems, creating revenue, and entering entrepreneurship. 2 online sessions/week + 3/6/9-day offline immersion at Da Lat. Not an AI-tips course, not a hype startup course — this is where you learn to build."), "p", { class: "card-copy" })}
+            <ul class="card-copy" style="margin:0;padding-left:18px">
+              <li>${localizedText(pair("Hiểu hệ công nghệ và dùng AI đúng cách", "Understand the tech stack and use AI correctly"), "span")}</li>
+              <li>${localizedText(pair("Tạo sản phẩm số từ ý tưởng đến MVP", "Build a digital product from idea to MVP"), "span")}</li>
+              <li>${localizedText(pair("Xây mô hình doanh thu, biết khi nào dự án đáng đầu tư", "Build a revenue model, know when a project deserves investment"), "span")}</li>
+            </ul>
+            <div class="cluster">
+              ${button(`https://${domains.edu}/courses/sang-tao-cong-nghe/`, pair("Xem chi tiết khóa", "View course"))}
+              ${button(`https://${domains.edu}/courses/sang-tao-cong-nghe/modules/`, pair("Xem 12 module", "View 12 modules"), "ghost")}
+            </div>
+            ${localizedText(pair("Học phí, hotline chuyên gia, địa điểm offline cụ thể chỉ hiện sau khi đăng ký thành viên miễn phí.", "Tuition, expert hotline, and exact offline location only show after free member signup."), "p", { class: "subtle small-print", style: "margin:0" })}
+          </div>
+        </article>
+        `,
+        "featured-course",
+      ),
       renderSection(pair("Bắt đầu miễn phí", "Start free"), pair("Một bước nhỏ để vào hệ. Không yêu cầu thông tin tài chính.", "A small step into the system. No financial information required."), signupCta, "signup"),
       renderSection(pair("Khóa triển khai hiện tại", "Current implementation lock"), pair("Phiên bản đang chạy phải bám đúng vai trò hub.", "The running version must stay faithful to the hub role."), v1),
     ],
@@ -10475,6 +10505,7 @@ async function build() {
   }
   await writeSiteFile(domains.edu, "robots.txt", renderRobots(domains.edu));
   await writeSiteFile(domains.edu, "sitemap.xml", renderSitemap(domains.edu, eduPaths));
+  await copyStaticTreeForDomain(domains.edu);
   buildLog("edu done");
 
   if (BUILD_SCOPE !== "public-core-only") {
