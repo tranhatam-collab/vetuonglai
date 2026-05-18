@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="member">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hàng chờ kiểm duyệt — Vetuonglai Admin</title>
+<meta name="description" content="Kiểm duyệt bài viết bị flag trong cộng đồng Vetuonglai. Chỉ dành cho Founder." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/svg+xml" href="/assets/web/web-favicon-member.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#475569" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans);background:var(--vt-bg-main);color:var(--vt-text-main);line-height:var(--vt-line-height-body)}
+.shell{max-width:1280px;margin:0 auto;padding:32px 20px 96px}
+.brand{display:inline-flex;align-items:center;gap:10px;color:inherit;text-decoration:none;margin-bottom:24px}
+.brand-mark{width:36px;height:36px;border-radius:10px}
+.brand-title{font-weight:700;font-size:15px}
+h1{font-family:var(--vt-font-display);font-size:clamp(1.8rem,3.5vw,2.4rem);margin:8px 0 6px;letter-spacing:-0.02em}
+.lead{color:var(--vt-text-soft);margin:0 0 24px;max-width:720px}
+.btn{padding:9px 18px;border-radius:var(--vt-radius-button);background:#475569;color:white;border:0;font:inherit;cursor:pointer;font-weight:600}
+.btn:hover{filter:brightness(1.08)}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btn-ghost{background:transparent;color:#475569;border:1px solid #475569}
+.btn-danger{background:#b91c1c}
+.btn-success{background:#16a34a}
+.btn-sm{padding:6px 12px;font-size:13px}
+.notice{background:#eef2ff;border:1px solid #c7d2fe;color:#3730a3;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.error-notice{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.success-notice{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;padding:12px;border-radius:8px;font-size:14px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:1fr;gap:24px}
+.panel{background:#fff;border:1px solid var(--vt-border-light);border-radius:var(--vt-radius-card);padding:18px}
+.panel h2{margin:0 0 16px;font-size:15px;font-weight:700;color:var(--vt-text-main)}
+.panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+.queue-item{border:1px solid var(--vt-border-light);border-radius:10px;padding:16px;background:#fff;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:16px}
+@media (max-width: 768px){ .queue-item{grid-template-columns:1fr} }
+.queue-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:12px}
+.queue-title{font-weight:600;font-size:15px;color:var(--vt-text-main)}
+.queue-meta{font-size:12px;color:var(--vt-text-soft);display:flex;gap:12px;flex-wrap:wrap}
+.queue-meta-item{display:flex;gap:4px;align-items:center}
+.queue-preview{background:var(--vt-bg-soft);border:1px solid var(--vt-border-light);border-radius:8px;padding:12px;font-size:13px;color:var(--vt-text-main);line-height:1.5;max-height:120px;overflow:auto;margin-bottom:12px}
+.queue-flags{background:#fef3c7;border-radius:8px;padding:8px 12px;font-size:12px;margin-bottom:12px}
+.queue-flag-item{display:flex;justify-content:space-between;gap:12px;margin-bottom:6px}
+.queue-flag-item:last-child{margin-bottom:0}
+.queue-actions{display:flex;gap:8px;flex-wrap:wrap}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.badge-spam{background:#fee2e2;color:#991b1b}
+.badge-inappropriate{background:#fce7f3;color:#831843}
+.badge-off_topic{background:#fef3c7;color:#92400e}
+.badge-other{background:#e0e7ff;color:#3730a3}
+.empty{padding:32px;text-align:center;background:var(--vt-bg-soft);border:1px dashed var(--vt-border-light);border-radius:10px;color:var(--vt-text-soft);font-size:13px}
+.loading{padding:32px;text-align:center;color:var(--vt-text-soft)}
+.spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--vt-border-light);border-top-color:#475569;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#0f172a;color:white;padding:12px 20px;border-radius:999px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:1000}
+.toast.show{opacity:1}
+.toast.success{background:#16a34a}
+.toast.error{background:#b91c1c}
+</style>
+</head>
+<body>
+<div class="shell">
+  <a class="brand" href="https://member.vetuonglai.com">
+    <img class="brand-mark" src="/assets/brand/vetuonglai-monogram.svg" alt="" width="36" height="36" loading="eager" />
+    <span class="brand-title">Vetuonglai — Admin · Kiểm duyệt cộng đồng</span>
+  </a>
+  <h1>Hàng chờ kiểm duyệt</h1>
+  <p class="lead">Xem xét bài viết bị flag, duyệt hoặc từ chối. Quản trị cộng đồng một cách có trách nhiệm với lịch sử kiểm duyệt đầy đủ. Chỉ Founder mới truy cập được.</p>
+
+  <div id="auth-notice" class="notice" hidden>Bạn cần <a href="https://member.vetuonglai.com/signup/">đăng nhập</a> với tài khoản founder.</div>
+  <div id="forbidden-notice" class="error-notice" hidden>Trang này chỉ dành cho Founder. <a href="https://member.vetuonglai.com/">Quay lại dashboard</a>.</div>
+  <div id="success-message" class="success-notice" hidden></div>
+  <div id="error-message" class="error-notice" hidden></div>
+
+  <div class="grid">
+    <div class="panel">
+      <div class="panel-head">
+        <h2>Bài viết bị flag (<span id="count">0</span>)</h2>
+        <button class="btn btn-sm" onclick="loadFlaggedPosts()">Tải lại</button>
+      </div>
+      <div id="queue-container">
+        <div class="loading"><div class="spinner"></div> Đang tải...</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const BASE_URL = 'https://member.vetuonglai.com';
+
+function showToast(message, type = 'success') {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = `toast show ${type}`;
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 3000);
+}
+
+function showMessage(message, type = 'success') {
+  const el = type === 'success' ? document.getElementById('success-message') : document.getElementById('error-message');
+  el.textContent = message;
+  el.hidden = false;
+  setTimeout(() => { el.hidden = true; }, 4000);
+}
+
+async function checkAuth() {
+  try {
+    const res = await fetch(`${BASE_URL}/api/auth/session`, { credentials: 'include' });
+    const data = await res.json();
+    if (!res.ok || !data.session) {
+      document.getElementById('auth-notice').hidden = false;
+      return false;
+    }
+    if (!data.session.is_founder) {
+      document.getElementById('forbidden-notice').hidden = false;
+      return false;
+    }
+    return true;
+  } catch (e) {
+    document.getElementById('auth-notice').hidden = false;
+    return false;
+  }
+}
+
+async function loadFlaggedPosts() {
+  const container = document.getElementById('queue-container');
+  container.innerHTML = '<div class="loading"><div class="spinner"></div> Đang tải...</div>';
+
+  try {
+    const res = await fetch(`${BASE_URL}/api/community/flagged-posts`, { credentials: 'include' });
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
+    const data = await res.json();
+    const posts = data.posts || [];
+    document.getElementById('count').textContent = posts.length;
+
+    if (posts.length === 0) {
+      container.innerHTML = '<div class="empty">Không có bài viết nào bị flag. Hàng chờ sạch sẽ!</div>';
+      return;
+    }
+
+    const html = posts.map(post => {
+      const created = new Date(post.created_at * 1000).toLocaleString('vi-VN');
+      const flags = post.flags || [];
+      const flagsByReason = {};
+      flags.forEach(flag => {
+        flagsByReason[flag.reason] = (flagsByReason[flag.reason] || 0) + 1;
+      });
+
+      const flagsHtml = Object.entries(flagsByReason).map(([reason, count]) =>
+        `<div class="queue-flag-item">
+          <span><strong>${reason}:</strong> ${count} báo cáo</span>
+          <span class="badge badge-${reason}">${reason}</span>
+        </div>`
+      ).join('');
+
+      return `
+        <div class="queue-item">
+          <div>
+            <div class="queue-header">
+              <div class="queue-title">${escapeHtml(post.title)}</div>
+            </div>
+            <div class="queue-meta">
+              <div class="queue-meta-item">
+                <strong>Tác giả:</strong> ${escapeHtml(post.author_public.masked)}
+              </div>
+              <div class="queue-meta-item">
+                <strong>Thời gian:</strong> ${created}
+              </div>
+              <div class="queue-meta-item">
+                <strong>Vòng tròn:</strong> ${post.circle}
+              </div>
+            </div>
+            <div class="queue-preview">${escapeHtml(post.body)}</div>
+            <div class="queue-flags">
+              <strong>Báo cáo:</strong>
+              ${flagsHtml}
+            </div>
+          </div>
+          <div class="queue-actions" style="display: flex; flex-direction: column; gap: 8px; justify-content: flex-start;">
+            <button class="btn btn-success btn-sm" onclick="moderatePost('${post.id}', 'approve')">Duyệt</button>
+            <button class="btn btn-danger btn-sm" onclick="moderatePost('${post.id}', 'reject', 'inappropriate')">Từ chối</button>
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
+  } catch (e) {
+    console.error(e);
+    container.innerHTML = `<div class="empty">Lỗi tải dữ liệu: ${escapeHtml(e.message)}</div>`;
+    showMessage(`Lỗi: ${e.message}`, 'error');
+  }
+}
+
+async function moderatePost(postId, action, reason = '') {
+  const btn = event.target;
+  btn.disabled = true;
+
+  try {
+    const payload = { action, reason: reason || action };
+    const res = await fetch(`${BASE_URL}/api/community/moderate/${postId}`, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const error = await res.json();
+      throw new Error(error.detail || `HTTP ${res.status}`);
+    }
+
+    const data = await res.json();
+    showToast(action === 'approve' ? 'Bài viết đã được duyệt' : 'Bài viết đã bị từ chối');
+    showMessage(action === 'approve' ? 'Bài viết đã được duyệt' : 'Bài viết đã bị từ chối', 'success');
+    await loadFlaggedPosts();
+  } catch (e) {
+    console.error(e);
+    showToast(`Lỗi: ${e.message}`, 'error');
+    btn.disabled = false;
+  }
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+async function init() {
+  const authed = await checkAuth();
+  if (!authed) {
+    document.getElementById('queue-container').innerHTML = '';
+    return;
+  }
+  await loadFlaggedPosts();
+}
+
+init();
+</script>
+</body>
+</html>

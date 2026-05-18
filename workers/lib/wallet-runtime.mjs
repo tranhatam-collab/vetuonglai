@@ -25,6 +25,8 @@ const VALID_TX_TYPES = new Set([
   "tax_hold",
   "tax_release",
   "promote_pending_to_available",
+  "escrow_lock",
+  "escrow_release",
 ]);
 
 const BASE64URL_ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
@@ -762,6 +764,159 @@ async function handleKycStatus(request, env) {
   });
 }
 
+async function handleEscrowLock(request, env) {
+  const ctx = await requireSessionWallet(request, env);
+  if (ctx.response) return ctx.response;
+  const input = await readRequestJson(request);
+
+  const jobId = String(input.job_id || "").trim();
+  const amount = normalizeAmount(input.amount_vnd);
+  const durationDays = Math.max(1, Math.floor(Number(input.duration_days) || 30));
+
+  if (!jobId) {
+    return jsonResponse({
+      status: "job_id_required",
+      detail: "job_id is required.",
+    }, { status: 422 });
+  }
+  if (!amount) {
+    return jsonResponse({
+      status: "amount_invalid",
+      detail: "amount_vnd must be a positive integer.",
+    }, { status: 422 });
+  }
+
+  const available = Number(ctx.wallet.balances.available_vnd || 0);
+  if (available < amount) {
+    return jsonResponse({
+      status: "insufficient_funds",
+      detail: `Available ${available} < requested ${amount}.`,
+    }, { status: 409 });
+  }
+
+  ctx.wallet.balances.available_vnd = available - amount;
+  ctx.wallet.version = (Number(ctx.wallet.version) || 1) + 1;
+  await writeWallet(env, ctx.wallet);
+
+  const lockedAt = currentUnixSeconds();
+  const expiresAt = lockedAt + (durationDays * 24 * 60 * 60);
+  const store = walletStore(env);
+  const escrowRecord = {
+    job_id: jobId,
+    address: ctx.wallet.address,
+    candidate_email: ctx.wallet.candidate_email,
+    amount_vnd: amount,
+    status: "locked",
+    locked_at: lockedAt,
+    expires_at: expiresAt,
+    released_at: null,
+    duration_days: durationDays,
+  };
+
+  const escrowKey = `escrow:${jobId}`;
+  await store.put(escrowKey, jobId, escrowRecord);
+
+  await appendLedgerEntry(env, ctx.wallet, {
+    type: "escrow_lock",
+    amount_vnd: amount,
+    source: "jobs",
+    ref: jobId,
+    memo: `Job escrow locked for ${durationDays} days`,
+  });
+
+  return jsonResponse({
+    status: "escrow_locked",
+    escrow: escrowRecord,
+    wallet: selfWalletView(ctx.wallet),
+  }, { status: 201 });
+}
+
+async function handleEscrowRelease(request, env) {
+  if (!isInternalCallAuthorized(request, env)) {
+    return jsonResponse({
+      status: "internal_token_required",
+      error_code: "WALLET_INTERNAL_TOKEN_INVALID",
+    }, { status: 401 });
+  }
+
+  const input = await readRequestJson(request);
+  const jobId = String(input.job_id || "").trim();
+
+  if (!jobId) {
+    return jsonResponse({
+      status: "job_id_required",
+      detail: "job_id is required.",
+    }, { status: 422 });
+  }
+
+  const store = walletStore(env);
+  const escrowKey = `escrow:${jobId}`;
+  const escrow = await store.get(escrowKey, jobId);
+
+  if (!escrow) {
+    return jsonResponse({
+      status: "escrow_not_found",
+      detail: `No escrow record for job ${jobId}.`,
+    }, { status: 404 });
+  }
+
+  if (escrow.status !== "locked") {
+    return jsonResponse({
+      status: "escrow_not_locked",
+      detail: `Escrow status is ${escrow.status}, not locked.`,
+    }, { status: 409 });
+  }
+
+  const wallet = await findWalletByAddress(env, escrow.address);
+  if (!wallet) {
+    return jsonResponse({
+      status: "wallet_not_found",
+      detail: "Original escrow wallet not found.",
+    }, { status: 404 });
+  }
+
+  const amount = Number(escrow.amount_vnd || 0);
+  wallet.balances.available_vnd = Number(wallet.balances.available_vnd || 0) + amount;
+  wallet.version = (Number(wallet.version) || 1) + 1;
+  await writeWallet(env, wallet);
+
+  escrow.status = "released";
+  escrow.released_at = currentUnixSeconds();
+  await store.put(escrowKey, jobId, escrow);
+
+  await appendLedgerEntry(env, wallet, {
+    type: "escrow_release",
+    amount_vnd: amount,
+    source: "jobs",
+    ref: jobId,
+    memo: `Job escrow released (job ${jobId} completed)`,
+  });
+
+  return jsonResponse({
+    status: "escrow_released",
+    escrow,
+    wallet: selfWalletView(wallet),
+  });
+}
+
+async function handleEscrowGet(request, env, jobId) {
+  const store = walletStore(env);
+  const escrowKey = `escrow:${jobId}`;
+  const escrow = await store.get(escrowKey, jobId);
+
+  if (!escrow) {
+    return jsonResponse({
+      status: "escrow_not_found",
+      detail: `No escrow record for job ${jobId}.`,
+    }, { status: 404 });
+  }
+
+  return jsonResponse({
+    status: "escrow_ok",
+    escrow,
+  });
+}
+
 export async function maybeHandleWalletRuntime(request, env = {}) {
   const url = new URL(request.url);
   if (!url.pathname.startsWith(WALLET_BASE)) return null;
@@ -808,6 +963,16 @@ export async function maybeHandleWalletRuntime(request, env = {}) {
   }
   if (request.method === "GET" && url.pathname === `${WALLET_BASE}/kyc/status`) {
     return handleKycStatus(request, env);
+  }
+  if (request.method === "POST" && url.pathname === `${WALLET_BASE}/escrow/lock`) {
+    return handleEscrowLock(request, env);
+  }
+  if (request.method === "POST" && url.pathname === `${WALLET_BASE}/escrow/release`) {
+    return handleEscrowRelease(request, env);
+  }
+  const escrowMatch = url.pathname.match(/^\/api\/wallet\/escrow\/([^/]+)$/);
+  if (escrowMatch && request.method === "GET") {
+    return handleEscrowGet(request, env, escrowMatch[1]);
   }
 
   return jsonResponse({

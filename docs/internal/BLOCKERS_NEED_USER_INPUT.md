@@ -176,6 +176,7 @@ completion trong 3–4 tuần dev.
 | 7 | T+114 | VC issuer registry API + Admin page + Member unified dashboard (2 agents //) | +5 | **77** |
 | 8 | T+133 | Affiliate mobile responsive + Edu course wallet integration (2 agents //) | +3 | **80** |
 | 9 | T+152 | Sitemap lastmod polish + Robots.txt + Canonical audit (2 agents //) | +2 | **82** |
+| 10 | T+171 | Onboarding flow (5-step + wallet address step) + Email signature SVG (2 agents //) | +2 | **84** |
 - CSS bug fix homepage ecosystem cards
 - KV binding pattern + auto-deploy via deploy-workers.mjs
 

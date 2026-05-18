@@ -113,9 +113,12 @@ function timeAgo(unix){
 
 function renderJob(j){
   const skills = (j.skills || []).slice(0, 4).map(s => `<span class="job-skill">${esc(s)}</span>`).join("");
-  return `<article class="job" data-id="${esc(j.id)}">
+  const escrowBadge = j.escrow_status === "locked" ? `<span style="padding:2px 8px;border-radius:4px;background:#dbeafe;color:#0c4a6e;font-size:11px;font-weight:600">Escrow Locked</span>` : "";
+  const isCompleted = j.status === "completed";
+  return `<article class="job" data-id="${esc(j.id)}" data-status="${esc(j.status)}">
     <div class="job-head">
       <span class="job-type">${esc(j.job_type||"freelance").replace("_"," ")}</span>
+      ${escrowBadge}
     </div>
     <h3>${esc(j.title)}</h3>
     <div class="job-desc">${esc(j.description)}</div>
@@ -125,7 +128,7 @@ function renderJob(j){
       <span>${esc(j.location||"remote")} · ${timeAgo(j.created_at)}</span>
     </div>
     <div style="display:flex;gap:6px">
-      <button class="btn btn-ghost" data-action="apply" style="flex:1">Ứng tuyển</button>
+      ${isCompleted ? `<span class="muted" style="flex:1">Đã hoàn thành</span>` : `<button class="btn btn-ghost" data-action="apply" style="flex:1">Ứng tuyển</button>`}
       <span class="muted" style="align-self:center">${j.application_count||0} ứng viên</span>
     </div>
   </article>`;
@@ -142,7 +145,26 @@ async function loadJobs(){
       el.innerHTML = '<div class="muted">Chưa có tin nào ở trạng thái này. Quay lại sau hoặc đăng tin đầu tiên.</div>';
       return;
     }
-    el.innerHTML = list.map(renderJob).join("");
+    el.innerHTML = list.map(j => {
+      const html = renderJob(j);
+      const myListings = window.myListings || {};
+      if(myListings[j.id] && isAuthed){
+        const isCompleted = j.status === "completed";
+        const escrowInfo = j.escrow_info || {};
+        const escrowHTML = j.escrow_status === "locked" ? `
+          <div style="padding:8px;background:#f0f9ff;border-radius:8px;border:1px solid #bfdbfe;font-size:12px;margin-top:8px">
+            <div style="color:#075985;margin-bottom:4px">Escrow: ${fmtVnd(j.budget_vnd)}</div>
+            <div style="color:#475569;font-size:11px">Expires: ${new Date(escrowInfo.expires_at*1000).toLocaleDateString('vi-VN')}</div>
+          </div>
+        ` : "";
+        const completeBtn = j.status === "open" && j.budget_vnd > 0 ? `
+          <button class="btn" data-action="complete-job" style="width:100%;margin-top:8px;font-size:13px;padding:8px">Hoàn thành & Release Escrow</button>
+        ` : "";
+        const insertPoint = html.indexOf('</article>');
+        return html.slice(0, insertPoint) + escrowHTML + completeBtn + html.slice(insertPoint);
+      }
+      return html;
+    }).join("");
   }catch(err){
     el.innerHTML = '<div class="error">Lỗi tải: ' + esc(err.message) + '</div>';
   }
@@ -156,11 +178,23 @@ async function checkSession(){
       if(d.authenticated){
         isAuthed = true;
         document.getElementById("btn-post").hidden = false;
+        updateEmployerControls();
         return;
       }
     }
   }catch{}
   document.getElementById("auth-notice").hidden = false;
+}
+
+async function updateEmployerControls(){
+  try{
+    const r = await fetch(API + "/listings/me", { credentials: "include" });
+    if(r.ok){
+      const d = await r.json();
+      const myListings = (d.listings || []).reduce((acc, l) => { acc[l.id] = l; return acc; }, {});
+      window.myListings = myListings;
+    }
+  }catch{}
 }
 
 function showPostModal(){
@@ -231,7 +265,36 @@ document.getElementById("grid").addEventListener("click", e => {
     const title = card.querySelector("h3").textContent;
     showApply(card.dataset.id, title);
   }
+  if(e.target.matches('[data-action="complete-job"]')){
+    const card = e.target.closest("[data-id]");
+    if(!card) return;
+    if(confirm("Hoàn thành công việc này? Escrow sẽ được release cho bạn.")){
+      completeJob(card.dataset.id, e.target);
+    }
+  }
 });
+
+async function completeJob(jobId, btn){
+  btn.disabled = true;
+  btn.textContent = "Đang xử lý…";
+  try{
+    const r = await fetch(API + "/listings/" + jobId + "/complete", {
+      method: "POST",
+      credentials: "include",
+      headers: {"content-type": "application/json"},
+      body: JSON.stringify({})
+    });
+    const d = await r.json().catch(()=>({}));
+    if(!r.ok){ alert("Lỗi: " + (d.detail || d.status || r.status)); return; }
+    alert("Công việc đã hoàn thành. Escrow đã release.");
+    loadJobs();
+  }catch(err){
+    alert("Lỗi: " + err.message);
+  }finally{
+    btn.disabled = false;
+    btn.textContent = "Hoàn thành & Release Escrow";
+  }
+}
 
 document.body.addEventListener("click", e => {
   if(e.target.matches("[data-close]") || e.target.id === "modal-bg"){

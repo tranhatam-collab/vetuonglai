@@ -151,6 +151,115 @@ async function handleReact(request, env, postId) {
   return jsonResponse({ status: "reaction_recorded", reactions: post.reactions });
 }
 
+async function handleFlagPost(request, env, postId) {
+  const ctx = await requireSession(request, env);
+  if (ctx.response) return ctx.response;
+  const input = await readRequestJson(request);
+  const reason = String(input.reason || "other").toLowerCase();
+  const validReasons = ["spam", "inappropriate", "off_topic", "other"];
+  if (!validReasons.includes(reason)) {
+    return jsonResponse({ status: "reason_invalid", valid: validReasons }, { status: 422 });
+  }
+  const store = platformStore(env);
+  const post = await store.get("community_post", postId);
+  if (!post) return jsonResponse({ status: "post_not_found" }, { status: 404 });
+  const flagKey = `${postId}:${ctx.session.candidate_email}`;
+  await store.put("community_flag", flagKey, {
+    post_id: postId,
+    reporter_email: ctx.session.candidate_email,
+    reason,
+    created_at: currentUnixSeconds(),
+  }, { ttlSeconds: POST_TTL });
+  post.flagged = true;
+  post.flag_count = Number(post.flag_count || 0) + 1;
+  post.updated_at = currentUnixSeconds();
+  await store.put("community_post", postId, post, { ttlSeconds: POST_TTL });
+  return jsonResponse({ status: "post_flagged", post_id: postId, reason }, { status: 201 });
+}
+
+async function handleListFlaggedPosts(request, env) {
+  const ctx = await requireSession(request, env);
+  if (ctx.response) return ctx.response;
+  if (!ctx.session.is_founder) {
+    return jsonResponse({ status: "forbidden", detail: "only_founders_can_moderate" }, { status: 403 });
+  }
+  const url = new URL(request.url);
+  const cursor = url.searchParams.get("cursor") || undefined;
+  const data = await listKvByPrefix(env, "community_post", { limit: POSTS_PER_PAGE, cursor });
+  const store = platformStore(env);
+  const flaggedPosts = [];
+  for (const item of data.entries) {
+    const post = item.value;
+    if (post && post.flagged) {
+      const flags = await listKvByPrefix(env, `community_flag:${post.id}`, { limit: 100 });
+      const flagDetails = flags.entries.map((e) => e.value).filter(Boolean);
+      flaggedPosts.push({
+        ...post,
+        flags: flagDetails,
+        flag_count: flagDetails.length,
+      });
+    }
+  }
+  flaggedPosts.sort((a, b) => Number(b.updated_at || 0) - Number(a.updated_at || 0));
+  return jsonResponse({
+    status: "flagged_posts_ok",
+    posts: flaggedPosts,
+    next_cursor: data.next_cursor,
+    total: flaggedPosts.length,
+  });
+}
+
+async function handleModeratePost(request, env, postId) {
+  const ctx = await requireSession(request, env);
+  if (ctx.response) return ctx.response;
+  if (!ctx.session.is_founder) {
+    return jsonResponse({ status: "forbidden", detail: "only_founders_can_moderate" }, { status: 403 });
+  }
+  const input = await readRequestJson(request);
+  const action = String(input.action || "").toLowerCase();
+  const reason = String(input.reason || "other").toLowerCase();
+  const validActions = ["approve", "reject"];
+  if (!validActions.includes(action)) {
+    return jsonResponse({ status: "action_invalid", valid: validActions }, { status: 422 });
+  }
+  const store = platformStore(env);
+  const post = await store.get("community_post", postId);
+  if (!post) return jsonResponse({ status: "post_not_found" }, { status: 404 });
+  const modLogId = makeId("MOD_");
+  const timestamp = currentUnixSeconds();
+  await store.put("community_modlog", modLogId, {
+    id: modLogId,
+    post_id: postId,
+    action,
+    reason,
+    moderator_email: ctx.session.candidate_email,
+    created_at: timestamp,
+  }, { ttlSeconds: POST_TTL });
+  if (action === "approve") {
+    post.flagged = false;
+    post.flag_count = 0;
+    post.updated_at = timestamp;
+    await store.put("community_post", postId, post, { ttlSeconds: POST_TTL });
+    return jsonResponse({
+      status: "post_approved",
+      post_id: postId,
+      modlog_id: modLogId,
+    }, { status: 200 });
+  } else if (action === "reject") {
+    post.soft_deleted = true;
+    post.deleted_reason = reason;
+    post.deleted_at = timestamp;
+    post.deleted_by = ctx.session.candidate_email;
+    post.updated_at = timestamp;
+    await store.put("community_post", postId, post, { ttlSeconds: POST_TTL });
+    return jsonResponse({
+      status: "post_rejected",
+      post_id: postId,
+      modlog_id: modLogId,
+    }, { status: 200 });
+  }
+}
+
 export async function maybeHandleCommunityRuntime(request, env = {}) {
   const url = new URL(request.url);
   if (!url.pathname.startsWith(BASE)) return null;
@@ -164,9 +273,16 @@ export async function maybeHandleCommunityRuntime(request, env = {}) {
   if (request.method === "GET" && url.pathname === `${BASE}/posts`) {
     return handleListPosts(request, env);
   }
+  if (request.method === "GET" && url.pathname === `${BASE}/flagged-posts`) {
+    return handleListFlaggedPosts(request, env);
+  }
   const postMatch = url.pathname.match(/^\/api\/community\/posts\/([^/]+)$/);
   if (postMatch && request.method === "GET") {
     return handleGetPost(request, env, postMatch[1]);
+  }
+  const flagMatch = url.pathname.match(/^\/api\/community\/posts\/([^/]+)\/flag$/);
+  if (flagMatch && request.method === "POST") {
+    return handleFlagPost(request, env, flagMatch[1]);
   }
   const commentMatch = url.pathname.match(/^\/api\/community\/posts\/([^/]+)\/comments$/);
   if (commentMatch && request.method === "POST") {
@@ -175,6 +291,10 @@ export async function maybeHandleCommunityRuntime(request, env = {}) {
   const reactMatch = url.pathname.match(/^\/api\/community\/posts\/([^/]+)\/react$/);
   if (reactMatch && request.method === "POST") {
     return handleReact(request, env, reactMatch[1]);
+  }
+  const moderateMatch = url.pathname.match(/^\/api\/community\/moderate\/([^/]+)$/);
+  if (moderateMatch && request.method === "POST") {
+    return handleModeratePost(request, env, moderateMatch[1]);
   }
   return jsonResponse({ status: "community_route_not_found", path: url.pathname }, { status: 404 });
 }

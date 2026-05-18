@@ -4,6 +4,10 @@ import {
 } from "./runtime-helpers.mjs";
 
 const BASE = "/api/jobs";
+const WALLET_API = "/api/wallet";
+function getInternalToken(env) {
+  return env?.WALLET_INTERNAL_TOKEN || "";
+}
 const LISTING_TTL = 365 * 24 * 60 * 60;
 const APPLICATION_TTL = 365 * 24 * 60 * 60;
 const TITLE_MAX = 140;
@@ -56,9 +60,63 @@ async function handleCreateListing(request, env) {
     employer_email: ctx.session.candidate_email,
     employer_public: publicEmployer(ctx.session.candidate_email),
     application_count: 0,
+    escrow_status: budgetVnd > 0 ? "pending" : "none",
     created_at: currentUnixSeconds(),
     updated_at: currentUnixSeconds(),
   };
+
+  // If budget is set, try to lock escrow
+  if (budgetVnd > 0) {
+    try {
+      const internalToken = getInternalToken(env);
+      if (!internalToken) {
+        return jsonResponse({
+          status: "escrow_unavailable",
+          detail: "Internal token not configured",
+        }, { status: 503 });
+      }
+
+      const lockReq = {
+        job_id: id,
+        amount_vnd: budgetVnd,
+        duration_days: 90,
+      };
+
+      const baseUrl = new URL(request.url).origin;
+      const cookieHeader = request.headers.get("cookie") || "";
+      const escrowResp = await fetch(`${baseUrl}${WALLET_API}/escrow/lock`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-wallet-internal-token": internalToken,
+          "cookie": cookieHeader,
+        },
+        body: JSON.stringify(lockReq),
+      });
+
+      if (!escrowResp.ok) {
+        const errData = await escrowResp.json().catch(() => ({}));
+        return jsonResponse({
+          status: "escrow_lock_failed",
+          detail: errData.detail || errData.status || "Escrow lock failed",
+          escrow_error: errData,
+        }, { status: 402 });
+      }
+
+      const escrowData = await escrowResp.json();
+      record.escrow_status = "locked";
+      record.escrow_info = {
+        locked_at: escrowData.escrow?.locked_at,
+        expires_at: escrowData.escrow?.expires_at,
+      };
+    } catch (err) {
+      return jsonResponse({
+        status: "escrow_request_failed",
+        detail: String(err.message || err),
+      }, { status: 503 });
+    }
+  }
+
   await store.put("job_listing", id, record, { ttlSeconds: LISTING_TTL });
   await store.put("job_listing_by_status", `open:${id}`, { listing_id: id }, { ttlSeconds: LISTING_TTL });
   return jsonResponse({ status: "listing_created", listing: record }, { status: 201 });
@@ -188,6 +246,62 @@ async function handleUpdateApplicationStatus(request, env, listingId, applicatio
   return jsonResponse({ status: "application_updated", application: app });
 }
 
+async function handleCompleteJob(request, env, listingId) {
+  const ctx = await requireSession(request, env);
+  if (ctx.response) return ctx.response;
+  const store = platformStore(env);
+  const listing = await store.get("job_listing", listingId);
+  if (!listing) return jsonResponse({ status: "listing_not_found" }, { status: 404 });
+  if (listing.employer_email !== ctx.session.candidate_email) {
+    return jsonResponse({ status: "not_employer" }, { status: 403 });
+  }
+
+  listing.status = "completed";
+  listing.updated_at = currentUnixSeconds();
+
+  // If escrow is locked, release it
+  if (listing.escrow_status === "locked" && listing.budget_vnd > 0) {
+    try {
+      const internalToken = getInternalToken(env);
+      if (internalToken) {
+        const releaseReq = { job_id: listingId };
+        const baseUrl = new URL(request.url).origin;
+        const cookieHeader = request.headers.get("cookie") || "";
+        const releaseResp = await fetch(`${baseUrl}${WALLET_API}/escrow/release`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            "x-wallet-internal-token": internalToken,
+            "cookie": cookieHeader,
+          },
+          body: JSON.stringify(releaseReq),
+        });
+
+        if (releaseResp.ok) {
+          const releaseData = await releaseResp.json();
+          listing.escrow_status = "released";
+          listing.escrow_info = listing.escrow_info || {};
+          listing.escrow_info.released_at = releaseData.escrow?.released_at;
+        }
+      }
+    } catch (err) {
+      // Log but don't fail the job completion
+      console.error("Escrow release error:", err);
+    }
+  }
+
+  await store.put("job_listing", listingId, listing, { ttlSeconds: LISTING_TTL });
+  const oldStatusKey = `job_listing_by_status:open:${listingId}`;
+  const newStatusKey = `job_listing_by_status:completed:${listingId}`;
+  try {
+    const oldVal = await store.get("job_listing_by_status", `open:${listingId}`);
+    if (oldVal) await store.delete("job_listing_by_status", `open:${listingId}`);
+  } catch {}
+  await store.put("job_listing_by_status", `completed:${listingId}`, { listing_id: listingId }, { ttlSeconds: LISTING_TTL });
+
+  return jsonResponse({ status: "job_completed", listing });
+}
+
 export async function maybeHandleJobsRuntime(request, env = {}) {
   const url = new URL(request.url);
   if (!url.pathname.startsWith(BASE)) return null;
@@ -218,6 +332,10 @@ export async function maybeHandleJobsRuntime(request, env = {}) {
   const appStatusMatch = url.pathname.match(/^\/api\/jobs\/listings\/([^/]+)\/applications\/([^/]+)\/status$/);
   if (appStatusMatch && request.method === "POST") {
     return handleUpdateApplicationStatus(request, env, appStatusMatch[1], appStatusMatch[2]);
+  }
+  const completeMatch = url.pathname.match(/^\/api\/jobs\/listings\/([^/]+)\/complete$/);
+  if (completeMatch && request.method === "POST") {
+    return handleCompleteJob(request, env, completeMatch[1]);
   }
   return jsonResponse({ status: "jobs_route_not_found", path: url.pathname }, { status: 404 });
 }
