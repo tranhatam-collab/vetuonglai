@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+Disallow: /internal/
+
+Sitemap: https://kids.vetuonglai.com/sitemap.xml

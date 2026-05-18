@@ -9989,6 +9989,7 @@ function renderSitemap(domain, paths) {
   const items = paths.map((pathname) => `
   <url>
     <loc>https://${domain}${pathname}</loc>
+    <lastmod>2026-05-18</lastmod>
   </url>`).join("");
 
   return `<?xml version="1.0" encoding="UTF-8"?>
