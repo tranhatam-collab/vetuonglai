@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-vi-title="Tham gia hệ thống  |  Vetuonglai" data-en-title="Join the system  |  Vetuonglai">Tham gia hệ thống  |  Vetuonglai</title>
+  <meta name="description" content="Bắt đầu hành trình tham gia hệ thống Vetuonglai với quy trình tạo tài khoản đơn giản và an toàn." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="canonical" href="https://member.vetuonglai.com/onboarding/" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .progress-bar {
+      height: 4px;
+      background: #e0e0e0;
+      display: flex;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: #667eea;
+      transition: width 0.3s ease;
+    }
+
+    .content {
+      padding: 40px 30px;
+      min-height: 300px;
+    }
+
+    .step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .step-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .step-subtitle {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 14px;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .info-box {
+      background: #f0f4ff;
+      border-left: 4px solid #667eea;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+    }
+
+    .info-box code {
+      background: white;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #d63031;
+    }
+
+    .wallet-display {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 15px;
+      margin-bottom: 20px;
+      font-family: 'Courier New', monospace;
+      word-break: break-all;
+      font-size: 13px;
+      color: #333;
+    }
+
+    .copy-button {
+      margin-top: 10px;
+      padding: 8px 12px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .copy-button:hover {
+      background: #5568d3;
+    }
+
+    .copy-button.copied {
+      background: #27ae60;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 30px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #5568d3;
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: #e8e8e8;
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .confirmation-check {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .confirmation-check input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+
+    .error-message {
+      background: #ffe0e0;
+      border: 1px solid #ff6b6b;
+      color: #d63031;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .success-icon {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: #27ae60;
+      color: white;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 50px;
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .header {
+        padding: 30px 20px;
+      }
+
+      .header h1 {
+        font-size: 24px;
+      }
+
+      .content {
+        padding: 30px 20px;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+    }
+
+    [data-language="en"] .vi-text,
+    [data-language="en"] .vi-only {
+      display: none;
+    }
+
+    [data-language="vi"] .en-text,
+    [data-language="vi"] .en-only {
+      display: none;
+    }
+  </style>
+</head>
+<body data-language="vi">
+  <div class="container">
+    <div class="header">
+      <h1 data-vi-text="Chào mừng" data-en-text="Welcome">Chào mừng</h1>
+      <p data-vi-text="Tham gia hệ thống Về Tương Lai" data-en-text="Join the Vetuonglai system">Tham gia hệ thống Về Tương Lai</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="content">
+      <!-- Step 1: Welcome -->
+      <div class="step active" id="step1">
+        <h2 class="step-title" data-vi-text="Bắt đầu" data-en-text="Get Started">Bắt đầu</h2>
+        <p class="step-subtitle" data-vi-text="Chúng tôi sẽ hướng dẫn bạn qua 5 bước đơn giản để tạo tài khoản của mình. Quá trình này mất khoảng 5-10 phút." data-en-text="We'll guide you through 5 simple steps to create your account. This process takes about 5-10 minutes.">Chúng tôi sẽ hướng dẫn bạn qua 5 bước đơn giản để tạo tài khoản của mình. Quá trình này mất khoảng 5-10 phút.</p>
+
+        <div class="form-group">
+          <label data-vi-text="Email" data-en-text="Email">Email</label>
+          <input type="email" id="email" placeholder="your@email.com" />
+        </div>
+
+        <div class="info-box" data-vi-text="Chúng tôi sẽ gửi một liên kết xác minh đến email này." data-en-text="We'll send a verification link to this email.">Chúng tôi sẽ gửi một liên kết xác minh đến email này.</div>
+
+        <div class="error-message" id="step1Error"></div>
+
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="nextStep()" data-vi-text="Tiếp tục" data-en-text="Continue">Tiếp tục</button>
+        </div>
+      </div>
+
+      <!-- Step 2: Email Verification -->
+      <div class="step" id="step2">
+        <h2 class="step-title" data-vi-text="Xác minh Email" data-en-text="Verify Email">Xác minh Email</h2>
+        <p class="step-subtitle" data-vi-text="Chúng tôi đã gửi một mã xác minh đến email của bạn. Vui lòng nhập mã này:" data-en-text="We've sent a verification code to your email. Please enter it:">Chúng tôi đã gửi một mã xác minh đến email của bạn. Vui lòng nhập mã này:</p>
+
+        <div class="form-group">
+          <label data-vi-text="Mã xác minh" data-en-text="Verification Code">Mã xác minh</label>
+          <input type="text" id="verificationCode" placeholder="123456" maxlength="6" />
+        </div>
+
+        <div class="error-message" id="step2Error"></div>
+
+        <div class="button-group">
+          <button class="btn btn-secondary" onclick="prevStep()" data-vi-text="Quay lại" data-en-text="Back">Quay lại</button>
+          <button class="btn btn-primary" onclick="nextStep()" data-vi-text="Tiếp tục" data-en-text="Continue">Tiếp tục</button>
+        </div>
+      </div>
+
+      <!-- Step 3: Wallet Address Creation -->
+      <div class="step" id="step3">
+        <h2 class="step-title" data-vi-text="Địa chỉ Ví của bạn" data-en-text="Your Wallet Address">Địa chỉ Ví của bạn</h2>
+        <p class="step-subtitle" data-vi-text="Địa chỉ ví là mã định danh duy nhất của bạn trong hệ thống Vetuonglai. Bạn sẽ sử dụng nó để nhận thanh toán, chuyển tiền và tương tác với các dịch vụ khác." data-en-text="Your wallet address is your unique identifier in the Vetuonglai system. You'll use it to receive payments, transfer funds, and interact with other services.">Địa chỉ ví là mã định danh duy nhất của bạn trong hệ thống Vetuonglai. Bạn sẽ sử dụng nó để nhận thanh toán, chuyển tiền và tương tác với các dịch vụ khác.</p>
+
+        <div class="info-box" data-vi-text="Mỗi email sẽ có một địa chỉ ví duy nhất được tạo tự động từ email của bạn. Bạn không cần phải nhớ nó vì nó sẽ luôn có sẵn trong tài khoản của bạn." data-en-text="Each email gets a unique wallet address automatically generated from your email. You don't need to memorize it as it will always be available in your account.">Mỗi email sẽ có một địa chỉ ví duy nhất được tạo tự động từ email của bạn. Bạn không cần phải nhớ nó vì nó sẽ luôn có sẵn trong tài khoản của bạn.</div>
+
+        <p class="step-subtitle" data-vi-text="Dưới đây là địa chỉ ví của bạn:" data-en-text="Here is your wallet address:">Dưới đây là địa chỉ ví của bạn:</p>
+
+        <div class="wallet-display" id="walletDisplay" style="display: none;">
+          <span id="walletAddress"></span>
+          <button class="copy-button" onclick="copyWalletAddress()" data-vi-text="Sao chép" data-en-text="Copy">Sao chép</button>
+        </div>
+
+        <div id="walletLoadingBox" class="info-box" data-vi-text="Đang tạo địa chỉ ví của bạn..." data-en-text="Creating your wallet address...">Đang tạo địa chỉ ví của bạn...</div>
+
+        <div class="error-message" id="step3Error"></div>
+
+        <p class="step-subtitle" style="margin-top: 20px;" data-vi-text="Nhấp vào nút 'Hiểu rồi' khi bạn đã sao chép hoặc ghi nhớ địa chỉ của mình." data-en-text="Click 'Got it' when you've copied or noted your address.">Nhấp vào nút 'Hiểu rồi' khi bạn đã sao chép hoặc ghi nhớ địa chỉ của mình.</p>
+
+        <div class="button-group">
+          <button class="btn btn-secondary" onclick="prevStep()" data-vi-text="Quay lại" data-en-text="Back">Quay lại</button>
+          <button class="btn btn-primary" id="walletConfirmBtn" onclick="nextStep()" disabled data-vi-text="Hiểu rồi" data-en-text="Got it">Hiểu rồi</button>
+        </div>
+      </div>
+
+      <!-- Step 4: Profile Information -->
+      <div class="step" id="step4">
+        <h2 class="step-title" data-vi-text="Thông tin Hồ sơ" data-en-text="Profile Information">Thông tin Hồ sơ</h2>
+        <p class="step-subtitle" data-vi-text="Hoàn thành hồ sơ của bạn để hệ thống biết cách liên hệ với bạn." data-en-text="Complete your profile so we know how to contact you.">Hoàn thành hồ sơ của bạn để hệ thống biết cách liên hệ với bạn.</p>
+
+        <div class="form-group">
+          <label data-vi-text="Tên đầy đủ" data-en-text="Full Name">Tên đầy đủ</label>
+          <input type="text" id="fullName" placeholder="Trần Hà Tâm" />
+        </div>
+
+        <div class="form-group">
+          <label data-vi-text="Số điện thoại" data-en-text="Phone Number">Số điện thoại</label>
+          <input type="tel" id="phone" placeholder="+84 9 1234 5678" />
+        </div>
+
+        <div class="form-group">
+          <label data-vi-text="Quốc gia" data-en-text="Country">Quốc gia</label>
+          <input type="text" id="country" placeholder="Việt Nam" />
+        </div>
+
+        <div class="error-message" id="step4Error"></div>
+
+        <div class="button-group">
+          <button class="btn btn-secondary" onclick="prevStep()" data-vi-text="Quay lại" data-en-text="Back">Quay lại</button>
+          <button class="btn btn-primary" onclick="nextStep()" data-vi-text="Tiếp tục" data-en-text="Continue">Tiếp tục</button>
+        </div>
+      </div>
+
+      <!-- Step 5: Confirmation -->
+      <div class="step" id="step5">
+        <div style="text-align: center;">
+          <div class="success-icon">✓</div>
+          <h2 class="step-title" data-vi-text="Hoàn thành!" data-en-text="All Done!">Hoàn thành!</h2>
+          <p class="step-subtitle" data-vi-text="Tài khoản của bạn đã được tạo thành công. Bạn hiện có thể truy cập tất cả các dịch vụ của Vetuonglai." data-en-text="Your account has been created successfully. You can now access all Vetuonglai services.">Tài khoản của bạn đã được tạo thành công. Bạn hiện có thể truy cập tất cả các dịch vụ của Vetuonglai.</p>
+        </div>
+
+        <div class="info-box" data-vi-text="Địa chỉ ví của bạn:" data-en-text="Your wallet address:">
+          <span data-vi-text="Địa chỉ ví của bạn:" data-en-text="Your wallet address:">Địa chỉ ví của bạn:</span>
+          <br/>
+          <code id="finalWalletAddress"></code>
+        </div>
+
+        <div class="error-message" id="step5Error"></div>
+
+        <div class="button-group">
+          <button class="btn btn-primary" onclick="goToDashboard()" data-vi-text="Đi đến Bảng Điều Khiển" data-en-text="Go to Dashboard">Đi đến Bảng Điều Khiển</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // State management
+    let currentStep = 1;
+    const totalSteps = 5;
+    let onboardingData = {
+      email: '',
+      verificationCode: '',
+      walletAddress: '',
+      fullName: '',
+      phone: '',
+      country: ''
+    };
+
+    // Language handling
+    function setLanguage(lang) {
+      document.body.setAttribute('data-language', lang);
+      localStorage.setItem('preferredLanguage', lang);
+      updatePageText();
+    }
+
+    function updatePageText() {
+      const lang = document.body.getAttribute('data-language') || 'vi';
+      document.querySelectorAll('[data-' + lang + '-text]').forEach(el => {
+        const attr = 'data-' + lang + '-text';
+        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+          el.placeholder = el.getAttribute(attr);
+        } else {
+          el.textContent = el.getAttribute(attr);
+        }
+      });
+
+      document.querySelectorAll('[data-' + lang + '-title]').forEach(el => {
+        el.title = el.getAttribute('data-' + lang + '-title');
+      });
+
+      document.querySelectorAll('[data-' + lang + '-content]').forEach(el => {
+        el.setAttribute('content', el.getAttribute('data-' + lang + '-content'));
+      });
+    }
+
+    function nextStep() {
+      // Validate current step
+      if (currentStep === 1) {
+        const email = document.getElementById('email').value.trim();
+        if (!email || !email.includes('@')) {
+          showError(1, 'Vui lòng nhập email hợp lệ');
+          return;
+        }
+        onboardingData.email = email;
+      } else if (currentStep === 2) {
+        const code = document.getElementById('verificationCode').value.trim();
+        if (!code || code.length < 4) {
+          showError(2, 'Vui lòng nhập mã xác minh');
+          return;
+        }
+        onboardingData.verificationCode = code;
+      } else if (currentStep === 3) {
+        if (!onboardingData.walletAddress) {
+          showError(3, 'Vui lòng tạo địa chỉ ví');
+          return;
+        }
+      } else if (currentStep === 4) {
+        const name = document.getElementById('fullName').value.trim();
+        if (!name) {
+          showError(4, 'Vui lòng nhập tên đầy đủ');
+          return;
+        }
+        onboardingData.fullName = name;
+        onboardingData.phone = document.getElementById('phone').value.trim();
+        onboardingData.country = document.getElementById('country').value.trim();
+      }
+
+      if (currentStep === 3) {
+        // Initialize wallet on step 3
+        if (!onboardingData.walletAddress) {
+          createWalletAddress();
+        }
+      }
+
+      if (currentStep < totalSteps) {
+        currentStep++;
+        updateSteps();
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 1) {
+        currentStep--;
+        updateSteps();
+      }
+    }
+
+    function updateSteps() {
+      // Hide all steps
+      document.querySelectorAll('.step').forEach(step => {
+        step.classList.remove('active');
+      });
+
+      // Show current step
+      document.getElementById('step' + currentStep).classList.add('active');
+
+      // Update progress bar
+      const progress = (currentStep / totalSteps) * 100;
+      document.getElementById('progressFill').style.width = progress + '%';
+
+      // If step 3, create wallet if not already done
+      if (currentStep === 3 && !onboardingData.walletAddress) {
+        createWalletAddress();
+      }
+
+      // If step 5, show final wallet address
+      if (currentStep === 5) {
+        document.getElementById('finalWalletAddress').textContent = onboardingData.walletAddress;
+      }
+    }
+
+    async function createWalletAddress() {
+      if (!onboardingData.email) return;
+
+      const loadingBox = document.getElementById('walletLoadingBox');
+      const display = document.getElementById('walletDisplay');
+      const confirmBtn = document.getElementById('walletConfirmBtn');
+
+      try {
+        loadingBox.style.display = 'block';
+        display.style.display = 'none';
+
+        // Call wallet API to derive address
+        const response = await fetch('/api/wallet/ensure', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            candidate_email: onboardingData.email
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to create wallet');
+        }
+
+        const data = await response.json();
+        onboardingData.walletAddress = data.wallet?.address || '';
+
+        if (onboardingData.walletAddress) {
+          document.getElementById('walletAddress').textContent = onboardingData.walletAddress;
+          loadingBox.style.display = 'none';
+          display.style.display = 'block';
+          confirmBtn.disabled = false;
+        } else {
+          throw new Error('No wallet address returned');
+        }
+      } catch (error) {
+        showError(3, 'Không thể tạo địa chỉ ví: ' + error.message);
+        loadingBox.style.display = 'none';
+      }
+    }
+
+    function copyWalletAddress() {
+      const address = onboardingData.walletAddress;
+      if (!address) return;
+
+      navigator.clipboard.writeText(address).then(() => {
+        const btn = document.querySelector('.copy-button');
+        btn.textContent = 'Đã sao chép!';
+        btn.classList.add('copied');
+
+        setTimeout(() => {
+          btn.textContent = 'Sao chép';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+
+    function showError(step, message) {
+      const errorEl = document.getElementById('step' + step + 'Error');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.classList.add('show');
+        setTimeout(() => {
+          errorEl.classList.remove('show');
+        }, 5000);
+      }
+    }
+
+    function goToDashboard() {
+      window.location.href = '/dashboard';
+    }
+
+    // Initialize
+    window.addEventListener('load', () => {
+      const savedLang = localStorage.getItem('preferredLanguage') || 'vi';
+      setLanguage(savedLang);
+      updateSteps();
+    });
+  </script>
+</body>
+</html>

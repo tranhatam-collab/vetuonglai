@@ -175,6 +175,7 @@ completion trong 3–4 tuần dev.
 | 6 | T+95 | Wallet UI reskin V2 (light theme) + Brand kit V3 apply (2 agents //) | +2 | 72 |
 | 7 | T+114 | VC issuer registry API + Admin page + Member unified dashboard (2 agents //) | +5 | **77** |
 | 8 | T+133 | Affiliate mobile responsive + Edu course wallet integration (2 agents //) | +3 | **80** |
+| 9 | T+152 | Sitemap lastmod polish + Robots.txt + Canonical audit (2 agents //) | +2 | **82** |
 - CSS bug fix homepage ecosystem cards
 - KV binding pattern + auto-deploy via deploy-workers.mjs
 

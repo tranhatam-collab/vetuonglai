@@ -1,174 +1,495 @@
 <!doctype html>
-<html lang="vi" data-language="vi" data-domain="vc">
+<html lang="vi">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Ví VTL — vc.vetuonglai.com</title>
-<meta name="description" content="Ví VTL: địa chỉ ví, số dư, lịch sử giao dịch và yêu cầu rút tiền." />
-<meta name="robots" content="noindex,nofollow" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" />
-<style>
-:root{--bg:#f7fbfa;--card:#ffffff;--border:#e2e8f0;--fg:#0f172a;--muted:#64748b;--accent:#6366f1;--warn:#ca8a04;--danger:#dc2626;--mono:'JetBrains Mono',ui-monospace,monospace}
-*{box-sizing:border-box}
-body{margin:0;font-family:Inter,system-ui,sans-serif;background:var(--bg);color:var(--fg);line-height:1.5}
-.wrap{max-width:880px;margin:0 auto;padding:32px 20px}
-h1{font-size:24px;font-weight:700;margin:0 0 4px}
-.sub{color:var(--muted);font-size:14px;margin-bottom:24px}
-.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 4px 12px rgba(15,23,42,0.06)}
-.addr{font-family:var(--mono);font-size:14px;word-break:break-all;background:#ecf6f4;padding:12px;border-radius:8px;border:1px solid var(--border);color:var(--accent)}
-.balance-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-top:12px}
-.balance-cell{background:#ecf6f4;border:1px solid var(--border);border-radius:8px;padding:12px}
-.balance-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.balance-value{font-family:var(--mono);font-size:18px;font-weight:600;margin-top:4px}
-.kyc-none{color:var(--warn)}
-.kyc-basic{color:var(--warn)}
-.kyc-verified{color:#16a34a}
-button{font:inherit;border:1px solid var(--border);background:#f8fafc;color:var(--fg);padding:8px 14px;border-radius:6px;cursor:pointer}
-button:hover{border-color:var(--accent);background:var(--bg)}
-button:disabled{opacity:.5;cursor:not-allowed}
-.history{font-family:var(--mono);font-size:12px;max-height:300px;overflow:auto}
-.history-row{padding:8px 0;border-bottom:1px dashed var(--border);display:flex;justify-content:space-between;gap:12px}
-.history-row:last-child{border-bottom:none}
-.tx-credit{color:#16a34a}
-.tx-debit,.tx-transfer_out,.tx-payout_request{color:var(--danger)}
-.tx-transfer_in,.tx-payout_settled{color:#16a34a}
-.muted{color:var(--muted);font-size:12px}
-.error{background:rgba(220,38,38,0.08);border:1px solid var(--danger);color:var(--danger);padding:12px;border-radius:8px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-a{color:var(--accent)}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-vi-title="Ví điện tử  |  VC Vetuonglai" data-en-title="Digital Wallet  |  VC Vetuonglai">Ví điện tử  |  VC Vetuonglai</title>
+  <meta name="description" content="Quản lý ví điện tử, địa chỉ ví và lịch sử giao dịch trên Vetuonglai." />
+  <meta name="robots" content="noindex,nofollow" />
+  <link rel="canonical" href="https://vc.vetuonglai.com/wallet/" />
+  <link rel="icon" href="/assets/icon.svg" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .navbar {
+      background: white;
+      border-bottom: 1px solid #eee;
+      padding: 15px 20px;
+    }
+
+    .navbar-content {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .lang-toggle {
+      background: none;
+      border: 1px solid #ddd;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .wallet-info {
+      background: #f8f9fa;
+      border-left: 4px solid #667eea;
+      padding: 20px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .wallet-field {
+      margin-bottom: 15px;
+    }
+
+    .wallet-field label {
+      display: block;
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .wallet-field-value {
+      background: white;
+      padding: 12px;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      word-break: break-all;
+      border: 1px solid #ddd;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #667eea;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .copy-btn:hover {
+      background: #5568d3;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 6px 12px;
+      background: #e8f5e9;
+      color: #27ae60;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .balance-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .balance-item {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .balance-label {
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .balance-value {
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .balance-unit {
+      font-size: 12px;
+      color: #999;
+      margin-left: 5px;
+    }
+
+    .transaction-list {
+      margin-top: 20px;
+    }
+
+    .transaction-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+    }
+
+    .transaction-item:last-child {
+      border-bottom: none;
+    }
+
+    .transaction-type {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .transaction-date {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .transaction-amount {
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+    }
+
+    .transaction-amount.credit {
+      color: #27ae60;
+    }
+
+    .transaction-amount.debit {
+      color: #d63031;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: #999;
+    }
+
+    .error-box {
+      background: #ffe0e0;
+      border: 1px solid #ff6b6b;
+      color: #d63031;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 20px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-primary {
+      background: #667eea;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #5568d3;
+    }
+
+    .btn-secondary {
+      background: #f0f0f0;
+      color: #333;
+      border: 1px solid #ddd;
+    }
+
+    .btn-secondary:hover {
+      background: #e8e8e8;
+    }
+
+    @media (max-width: 600px) {
+      .card {
+        padding: 20px;
+      }
+
+      .balance-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .transaction-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .transaction-date {
+        margin-top: 5px;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+    }
+
+    [data-language="en"] .vi-text {
+      display: none;
+    }
+
+    [data-language="vi"] .en-text {
+      display: none;
+    }
+  </style>
 </head>
-<body>
-<div class="wrap">
-  <h1>Ví VTL</h1>
-  <div class="sub">Địa chỉ ví, số dư, lịch sử và yêu cầu rút tiền — đồng bộ trên toàn vetuonglai.com.</div>
-
-  <div id="status-card" class="card"><div class="muted">Đang tải ví…</div></div>
-
-  <div id="wallet-content" hidden>
-    <div class="card">
-      <div class="muted">Địa chỉ ví của bạn</div>
-      <div id="address" class="addr"></div>
-      <div class="actions">
-        <button id="btn-copy">Sao chép địa chỉ</button>
-        <button id="btn-refresh">Làm mới</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="muted">Số dư (VND)</div>
-      <div class="balance-grid">
-        <div class="balance-cell"><div class="balance-label">Available</div><div class="balance-value" id="bal-available">0</div></div>
-        <div class="balance-cell"><div class="balance-label">Pending</div><div class="balance-value" id="bal-pending">0</div></div>
-        <div class="balance-cell"><div class="balance-label">Tax held</div><div class="balance-value" id="bal-tax">0</div></div>
-        <div class="balance-cell"><div class="balance-label">Withdrawn</div><div class="balance-value" id="bal-withdrawn">0</div></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="muted">KYC</div>
-      <div>Cấp độ: <strong id="kyc-level" class="kyc-none">none</strong></div>
-      <div class="muted" style="margin-top:6px">Cần cấp <code>verified</code> trước khi yêu cầu rút tiền.</div>
-    </div>
-
-    <div class="card">
-      <div class="muted">Lịch sử giao dịch (gần nhất)</div>
-      <div id="history" class="history" style="margin-top:8px"><div class="muted">Đang tải…</div></div>
+<body data-language="vi">
+  <div class="navbar">
+    <div class="navbar-content">
+      <h1 data-vi-text="Ví điện tử của bạn" data-en-text="Your Wallet">Ví điện tử của bạn</h1>
+      <button class="lang-toggle" onclick="toggleLanguage()" id="langBtn">EN</button>
     </div>
   </div>
-</div>
 
-<script>
-const API_BASE = "/api/wallet";
+  <div class="container">
+    <!-- Loading state -->
+    <div id="loadingState" class="loading" style="display: none;">
+      <p data-vi-text="Đang tải thông tin ví..." data-en-text="Loading wallet information...">Đang tải thông tin ví...</p>
+    </div>
 
-function fmtVnd(value){
-  const n=Number(value||0);
-  return n.toLocaleString("vi-VN") + " ₫";
-}
+    <!-- Error state -->
+    <div id="errorState" style="display: none;">
+      <div class="card">
+        <div class="error-box" id="errorMessage"></div>
+        <button class="btn btn-primary" onclick="location.href='/onboarding'" data-vi-text="Quay lại Onboarding" data-en-text="Back to Onboarding">Quay lại Onboarding</button>
+      </div>
+    </div>
 
-function fmtDate(unix){
-  if(!unix) return "";
-  return new Date(unix*1000).toLocaleString("vi-VN");
-}
+    <!-- Wallet info -->
+    <div id="walletState" style="display: none;">
+      <!-- Wallet Address Card -->
+      <div class="card">
+        <h2 data-vi-text="Địa chỉ Ví" data-en-text="Wallet Address">Địa chỉ Ví</h2>
 
-function showError(msg){
-  document.getElementById("status-card").innerHTML = '<div class="error">' + msg + '</div>';
-}
+        <div class="wallet-info">
+          <div class="wallet-field">
+            <label data-vi-text="Mã định danh duy nhất của bạn" data-en-text="Your unique identifier">Mã định danh duy nhất của bạn</label>
+            <div class="wallet-field-value" style="position: relative;">
+              <span id="walletAddress"></span>
+              <button class="copy-btn" onclick="copyAddress()" data-vi-text="Sao chép" data-en-text="Copy">Sao chép</button>
+            </div>
+          </div>
 
-function renderWallet(wallet){
-  document.getElementById("status-card").remove();
-  const content = document.getElementById("wallet-content");
-  content.hidden = false;
-  document.getElementById("address").textContent = wallet.address;
-  document.getElementById("bal-available").textContent = fmtVnd(wallet.balances.available_vnd);
-  document.getElementById("bal-pending").textContent = fmtVnd(wallet.balances.pending_vnd);
-  document.getElementById("bal-tax").textContent = fmtVnd(wallet.balances.tax_held_vnd);
-  document.getElementById("bal-withdrawn").textContent = fmtVnd(wallet.balances.withdrawn_vnd);
-  const kycEl = document.getElementById("kyc-level");
-  const level = wallet.kyc?.level || "none";
-  kycEl.textContent = level;
-  kycEl.className = "kyc-" + level;
-}
+          <div class="wallet-field">
+            <label data-vi-text="Trạng thái" data-en-text="Status">Trạng thái</label>
+            <div style="padding: 12px;">
+              <span class="status-badge" data-vi-text="Hoạt động" data-en-text="Active">Hoạt động</span>
+            </div>
+          </div>
 
-function renderHistory(entries){
-  const el = document.getElementById("history");
-  if(!entries || entries.length === 0){
-    el.innerHTML = '<div class="muted">Chưa có giao dịch.</div>';
-    return;
-  }
-  el.innerHTML = entries.map(function(e){
-    const sign = ["credit","transfer_in","payout_settled","tax_release"].includes(e.type) ? "+" : "-";
-    return '<div class="history-row">'
-      + '<div><span class="tx-' + e.type + '">' + sign + fmtVnd(e.amount_vnd) + '</span> <span class="muted">' + e.type + '</span><br><span class="muted">' + (e.memo || e.ref || e.source) + '</span></div>'
-      + '<div class="muted">' + fmtDate(e.created_at) + '</div>'
-      + '</div>';
-  }).join("");
-}
+          <div class="wallet-field">
+            <label data-vi-text="Ngày tạo" data-en-text="Created">Ngày tạo</label>
+            <div style="padding: 12px; font-size: 14px;" id="createdDate"></div>
+          </div>
+        </div>
+      </div>
 
-async function loadWallet(){
-  try{
-    const r = await fetch(API_BASE + "/me", { credentials: "include" });
-    if(r.status === 401){
-      showError('Bạn chưa đăng nhập. <a href="https://member.vetuonglai.com/signup/">Đăng ký / đăng nhập</a> để xem ví.');
-      return;
+      <!-- Balances Card -->
+      <div class="card">
+        <h2 data-vi-text="Số dư" data-en-text="Balances">Số dư</h2>
+
+        <div class="balance-grid">
+          <div class="balance-item">
+            <div class="balance-label" data-vi-text="Sẵn dùng" data-en-text="Available">Sẵn dùng</div>
+            <div class="balance-value" id="balanceAvailable">0<span class="balance-unit">VND</span></div>
+          </div>
+          <div class="balance-item">
+            <div class="balance-label" data-vi-text="Đang chờ" data-en-text="Pending">Đang chờ</div>
+            <div class="balance-value" id="balancePending">0<span class="balance-unit">VND</span></div>
+          </div>
+          <div class="balance-item">
+            <div class="balance-label" data-vi-text="Đã rút" data-en-text="Withdrawn">Đã rút</div>
+            <div class="balance-value" id="balanceWithdrawn">0<span class="balance-unit">VND</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Transactions -->
+      <div class="card">
+        <h2 data-vi-text="Giao dịch gần đây" data-en-text="Recent Transactions">Giao dịch gần đây</h2>
+
+        <div class="transaction-list" id="transactionList">
+          <div class="loading" data-vi-text="Đang tải..." data-en-text="Loading...">Đang tải...</div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="location.href='/dashboard'" data-vi-text="Quay lại Bảng Điều Khiển" data-en-text="Back to Dashboard">Quay lại Bảng Điều Khiển</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let walletData = null;
+
+    function setLanguage(lang) {
+      document.body.setAttribute('data-language', lang);
+      localStorage.setItem('preferredLanguage', lang);
+      document.getElementById('langBtn').textContent = lang === 'vi' ? 'EN' : 'VI';
     }
-    const data = await r.json();
-    if(!data.wallet){
-      showError("Không lấy được ví: " + (data.detail || data.status));
-      return;
+
+    function toggleLanguage() {
+      const current = document.body.getAttribute('data-language') || 'vi';
+      setLanguage(current === 'vi' ? 'en' : 'vi');
     }
-    renderWallet(data.wallet);
-    loadHistory();
-  }catch(err){
-    showError("Lỗi kết nối: " + err.message);
-  }
-}
 
-async function loadHistory(){
-  try{
-    const r = await fetch(API_BASE + "/history?limit=20", { credentials: "include" });
-    const data = await r.json();
-    renderHistory(data.entries || []);
-  }catch(err){
-    document.getElementById("history").innerHTML = '<div class="muted">Không tải được lịch sử: ' + err.message + '</div>';
-  }
-}
+    async function loadWallet() {
+      const loadingEl = document.getElementById('loadingState');
+      const errorEl = document.getElementById('errorState');
+      const walletEl = document.getElementById('walletState');
 
-document.addEventListener("click", function(e){
-  if(e.target.id === "btn-copy"){
-    const addr = document.getElementById("address").textContent;
-    navigator.clipboard?.writeText(addr);
-    e.target.textContent = "Đã sao chép";
-    setTimeout(function(){ e.target.textContent = "Sao chép địa chỉ"; }, 1500);
-  }
-  if(e.target.id === "btn-refresh"){
-    location.reload();
-  }
-});
+      try {
+        loadingEl.style.display = 'block';
+        errorEl.style.display = 'none';
+        walletEl.style.display = 'none';
 
-loadWallet();
-</script>
+        const response = await fetch('/api/wallet/me');
+        if (!response.ok) {
+          throw new Error('Failed to load wallet');
+        }
+
+        walletData = await response.json();
+        if (!walletData.wallet) {
+          throw new Error('No wallet data');
+        }
+
+        displayWallet();
+        loadingEl.style.display = 'none';
+        walletEl.style.display = 'block';
+      } catch (error) {
+        loadingEl.style.display = 'none';
+        errorEl.style.display = 'block';
+        document.getElementById('errorMessage').textContent = error.message;
+      }
+    }
+
+    function displayWallet() {
+      const w = walletData.wallet;
+
+      // Address
+      document.getElementById('walletAddress').textContent = w.address || 'N/A';
+
+      // Created date
+      const createdDate = new Date((w.created_at || 0) * 1000);
+      document.getElementById('createdDate').textContent = createdDate.toLocaleDateString();
+
+      // Balances
+      const balances = w.balances || {};
+      document.getElementById('balanceAvailable').innerHTML = formatBalance(balances.available_vnd || 0);
+      document.getElementById('balancePending').innerHTML = formatBalance(balances.pending_vnd || 0);
+      document.getElementById('balanceWithdrawn').innerHTML = formatBalance(balances.withdrawn_vnd || 0);
+
+      // Transactions
+      loadTransactions();
+    }
+
+    async function loadTransactions() {
+      try {
+        const response = await fetch('/api/wallet/history?limit=10');
+        if (!response.ok) {
+          throw new Error('Failed to load transactions');
+        }
+
+        const data = await response.json();
+        const entries = data.entries || [];
+
+        const listEl = document.getElementById('transactionList');
+        if (entries.length === 0) {
+          listEl.innerHTML = '<p style="text-align: center; color: #999; padding: 20px;" class="vi-text">Chưa có giao dịch nào</p><p style="text-align: center; color: #999; padding: 20px; display: none;" class="en-text">No transactions yet</p>';
+          return;
+        }
+
+        listEl.innerHTML = entries.map(tx => {
+          const isCredit = tx.type === 'credit' || tx.type === 'transfer_in';
+          const date = new Date((tx.created_at || 0) * 1000).toLocaleDateString();
+          const amount = (isCredit ? '+' : '-') + formatAmount(tx.amount_vnd);
+
+          return `
+            <div class="transaction-item">
+              <div>
+                <div class="transaction-type">${tx.type}</div>
+                <div class="transaction-date">${date}</div>
+              </div>
+              <div class="transaction-amount ${isCredit ? 'credit' : 'debit'}">${amount} VND</div>
+            </div>
+          `;
+        }).join('');
+      } catch (error) {
+        console.error('Failed to load transactions:', error);
+      }
+    }
+
+    function formatBalance(vnd) {
+      return formatAmount(vnd) + '<span class="balance-unit">VND</span>';
+    }
+
+    function formatAmount(vnd) {
+      return Number(vnd || 0).toLocaleString('en-US');
+    }
+
+    function copyAddress() {
+      const address = document.getElementById('walletAddress').textContent;
+      navigator.clipboard.writeText(address).then(() => {
+        alert('Copied!');
+      });
+    }
+
+    // Initialize
+    window.addEventListener('load', () => {
+      const savedLang = localStorage.getItem('preferredLanguage') || 'vi';
+      setLanguage(savedLang);
+      loadWallet();
+    });
+  </script>
 </body>
 </html>
