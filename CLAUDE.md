@@ -3,7 +3,7 @@
 > Auto-loaded by Claude Code when working in this repo. Keep this **short** —
 > long-form memory lives in `docs/internal/AUTONOMOUS_DEV_HANDOFF_*.md`.
 >
-> Last refresh: 2026-05-20 · Master roadmap completion: **~91%**
+> Last refresh: 2026-05-20 · Master roadmap completion: **~91%** (89% autonomous ceiling; email pipeline ✅)
 
 ---
 
@@ -43,9 +43,11 @@ export CLOUDFLARE_ACCOUNT_ID=62d57eaa548617aeecac766e5a1cb98e  # Anhhatam@gmail.
 export ACCESS_KV_NAMESPACE_ID=4b1329f961744a1aa3056b625c9b33e7
 ```
 
-Workers deployed: `vetuonglai-{home, vc, edu-github, member, green, finance, kids}`. Other subdomains (community, work, read, etc.) deploy via Cloudflare Pages.
+Workers deployed: `vetuonglai-{home, vc, edu-github, member, green, finance, kids}`. `vetuonglai-home` + `vetuonglai-member` have email pipeline live (Mailgun via generic-worker). Other subdomains (community, work, read, etc.) deploy via Cloudflare Pages.
 
-Required secrets on home/vc/member: `SESSION_COOKIE_SECRET`, `WALLET_ADDRESS_SECRET` (deterministic — NEVER rotate), `WALLET_INTERNAL_TOKEN`, `MAGIC_LINK_SIGNING_KEY` (home+member), `PAY_IAI_ONE_*` (home+member), `VC_*` (vc only). KV binding `ACCESS_KV_NAMESPACE` on all three.
+Required secrets on home/vc/member: `SESSION_COOKIE_SECRET`, `WALLET_ADDRESS_SECRET` (deterministic — NEVER rotate), `WALLET_INTERNAL_TOKEN`, `MAGIC_LINK_SIGNING_KEY` (home+member), `PAY_IAI_ONE_*` (home+member), `VC_*` (vc only).
+Email pipeline (home+member): `MAIL_API_KEY`, `MAIL_API_BASE_URL`, `MAIL_API_WORKSPACE_ID` (set 2026-05-20, smoke-tested ✅).
+KV binding `ACCESS_KV_NAMESPACE` on all three.
 
 ## Deploy commands
 
@@ -134,9 +136,11 @@ When resuming in a new session, paste `docs/internal/AUTONOMOUS_DEV_HANDOFF_2026
 
 ## External blockers (10% to 100%)
 
-Listed in `docs/internal/BLOCKERS_NEED_USER_INPUT.md` section 10. Items requiring Founder action: KYC provider key, PayPal/Stripe production secrets, bank disbursement contract, Anthropic API key (EDU AI tutor), email provider (Resend) + DKIM, VC issuer pool, App Store/Play submission, TM filing.
+Listed in `docs/internal/BLOCKERS_NEED_USER_INPUT.md` section 10. Items requiring Founder action: KYC provider key, PayPal/Stripe production secrets, bank disbursement contract, Anthropic API key (EDU AI tutor), VC issuer pool, App Store/Play submission, TM filing.
 
-Cap on autonomous dev = ~90% until Founder unblocks ≥ 5 of those 8.
+✅ **Resolved 2026-05-20**: Email provider (Mailgun via generic-worker) — secrets set, `message_idempotency_key` bug fixed, smoke test passed (internal notification + external ack).
+
+Cap on autonomous dev = ~89% until Founder unblocks ≥ 5 of remaining 7.
 
 ## Reference docs (long-form memory)
 
