@@ -1,13 +1,13 @@
 {
   "ok": false,
   "advisory_only": true,
-  "scanned_files": 86,
+  "scanned_files": 118,
   "canon_size": 44,
-  "drift_count": 268,
+  "drift_count": 321,
   "top_drift": [
     {
       "text": "VITiếng Việt",
-      "count": 86,
+      "count": 85,
       "files": [
         "dist/work.vetuonglai.com/index.html",
         "dist/work.vetuonglai.com/brief/index.html",
@@ -18,7 +18,7 @@
     },
     {
       "text": "ENEnglish",
-      "count": 86,
+      "count": 85,
       "files": [
         "dist/work.vetuonglai.com/index.html",
         "dist/work.vetuonglai.com/brief/index.html",
@@ -29,13 +29,24 @@
     },
     {
       "text": "Trang chủ",
-      "count": 60,
+      "count": 71,
       "files": [
         "dist/work.vetuonglai.com/index.html",
         "dist/work.vetuonglai.com/brief/index.html",
         "dist/vetuonglai.com/index.html",
         "dist/vetuonglai.com/ve-chung-toi/index.html",
         "dist/vetuonglai.com/tin-tuc/index.html"
+      ]
+    },
+    {
+      "text": "Tới nội dung",
+      "count": 53,
+      "files": [
+        "dist/read.vetuonglai.com/index.html",
+        "dist/read.vetuonglai.com/write/index.html",
+        "dist/read.vetuonglai.com/write/tiers/index.html",
+        "dist/read.vetuonglai.com/write/guidelines/index.html",
+        "dist/read.vetuonglai.com/write/apply/index.html"
       ]
     },
     {
@@ -47,17 +58,6 @@
         "dist/vetuonglai.com/index.html",
         "dist/vetuonglai.com/ve-chung-toi/index.html",
         "dist/vetuonglai.com/tin-tuc/index.html"
-      ]
-    },
-    {
-      "text": "Tới nội dung",
-      "count": 43,
-      "files": [
-        "dist/read.vetuonglai.com/index 2.html",
-        "dist/read.vetuonglai.com/index.html",
-        "dist/read.vetuonglai.com/write/index.html",
-        "dist/read.vetuonglai.com/write/tiers/index.html",
-        "dist/read.vetuonglai.com/write/guidelines/index.html"
       ]
     },
     {
@@ -117,6 +117,17 @@
     },
     {
       "text": "docs.vetuonglai.comhttps://docs.vetuonglai.comĐang chuẩn bị",
+      "count": 42,
+      "files": [
+        "dist/work.vetuonglai.com/index.html",
+        "dist/work.vetuonglai.com/brief/index.html",
+        "dist/vetuonglai.com/index.html",
+        "dist/vetuonglai.com/ve-chung-toi/index.html",
+        "dist/vetuonglai.com/tin-tuc/index.html"
+      ]
+    },
+    {
+      "text": "contact@vetuonglai.com",
       "count": 42,
       "files": [
         "dist/work.vetuonglai.com/index.html",
@@ -193,6 +204,17 @@
       ]
     },
     {
+      "text": "community.vetuonglai.comhttps://community.vetuonglai.comĐang chuẩn bị",
+      "count": 40,
+      "files": [
+        "dist/work.vetuonglai.com/index.html",
+        "dist/work.vetuonglai.com/brief/index.html",
+        "dist/vetuonglai.com/index.html",
+        "dist/vetuonglai.com/ve-chung-toi/index.html",
+        "dist/vetuonglai.com/tin-tuc/index.html"
+      ]
+    },
+    {
       "text": "ai.vetuonglai.comhttps://ai.vetuonglai.comĐang chuẩn bị",
       "count": 40,
       "files": [
@@ -212,17 +234,6 @@
         "dist/vetuonglai.com/tin-tuc/index.html",
         "dist/vetuonglai.com/thanh-vien/index.html",
         "dist/vetuonglai.com/sitemap/index.html"
-      ]
-    },
-    {
-      "text": "community.vetuonglai.comhttps://community.vetuonglai.comĐang chuẩn bị",
-      "count": 39,
-      "files": [
-        "dist/work.vetuonglai.com/index.html",
-        "dist/work.vetuonglai.com/brief/index.html",
-        "dist/vetuonglai.com/index.html",
-        "dist/vetuonglai.com/ve-chung-toi/index.html",
-        "dist/vetuonglai.com/tin-tuc/index.html"
       ]
     },
     {
@@ -249,7 +260,7 @@
     },
     {
       "text": "vetuonglai.comhttps://vetuonglai.comĐang hoạt động",
-      "count": 33,
+      "count": 32,
       "files": [
         "dist/work.vetuonglai.com/index.html",
         "dist/work.vetuonglai.com/brief/index.html",
@@ -270,58 +281,69 @@
       ]
     },
     {
-      "text": "READ",
-      "count": 28,
+      "text": "Pháp lý",
+      "count": 30,
       "files": [
-        "dist/read.vetuonglai.com/index 2.html",
+        "dist/docs.vetuonglai.com/index.html",
+        "dist/docs.vetuonglai.com/work/index.html",
+        "dist/docs.vetuonglai.com/verification/index.html",
+        "dist/docs.vetuonglai.com/trust-system/index.html",
+        "dist/docs.vetuonglai.com/support/index.html"
+      ]
+    },
+    {
+      "text": "READ",
+      "count": 27,
+      "files": [
         "dist/read.vetuonglai.com/index.html",
         "dist/read.vetuonglai.com/write/index.html",
         "dist/read.vetuonglai.com/write/tiers/index.html",
-        "dist/read.vetuonglai.com/write/guidelines/index.html"
+        "dist/read.vetuonglai.com/write/guidelines/index.html",
+        "dist/read.vetuonglai.com/write/apply/index.html"
       ]
     },
     {
       "text": "Bài luận",
-      "count": 27,
+      "count": 25,
       "files": [
-        "dist/read.vetuonglai.com/index 2.html",
         "dist/read.vetuonglai.com/index.html",
         "dist/read.vetuonglai.com/write/index.html",
         "dist/read.vetuonglai.com/write/tiers/index.html",
-        "dist/read.vetuonglai.com/write/guidelines/index.html"
+        "dist/read.vetuonglai.com/write/guidelines/index.html",
+        "dist/read.vetuonglai.com/write/apply/index.html"
       ]
     },
     {
       "text": "Sách",
-      "count": 27,
+      "count": 25,
       "files": [
-        "dist/read.vetuonglai.com/index 2.html",
         "dist/read.vetuonglai.com/index.html",
         "dist/read.vetuonglai.com/write/index.html",
         "dist/read.vetuonglai.com/write/tiers/index.html",
-        "dist/read.vetuonglai.com/write/guidelines/index.html"
+        "dist/read.vetuonglai.com/write/guidelines/index.html",
+        "dist/read.vetuonglai.com/write/apply/index.html"
       ]
     },
     {
       "text": "Danh sách đọc",
-      "count": 27,
+      "count": 25,
       "files": [
-        "dist/read.vetuonglai.com/index 2.html",
         "dist/read.vetuonglai.com/index.html",
         "dist/read.vetuonglai.com/write/index.html",
         "dist/read.vetuonglai.com/write/tiers/index.html",
-        "dist/read.vetuonglai.com/write/guidelines/index.html"
+        "dist/read.vetuonglai.com/write/guidelines/index.html",
+        "dist/read.vetuonglai.com/write/apply/index.html"
       ]
     },
     {
       "text": "Nguyên tắc công bố",
-      "count": 27,
+      "count": 25,
       "files": [
-        "dist/read.vetuonglai.com/index 2.html",
         "dist/read.vetuonglai.com/index.html",
         "dist/read.vetuonglai.com/write/index.html",
         "dist/read.vetuonglai.com/write/tiers/index.html",
-        "dist/read.vetuonglai.com/write/guidelines/index.html"
+        "dist/read.vetuonglai.com/write/guidelines/index.html",
+        "dist/read.vetuonglai.com/write/apply/index.html"
       ]
     },
     {
@@ -358,25 +380,19 @@
       ]
     },
     {
-      "text": "Pháp lý",
-      "count": 19,
+      "text": "Xem lộ trình",
+      "count": 18,
       "files": [
-        "dist/docs.vetuonglai.com/index.html",
-        "dist/docs.vetuonglai.com/work/index.html",
-        "dist/docs.vetuonglai.com/verification/index.html",
-        "dist/docs.vetuonglai.com/trust-system/index.html",
-        "dist/docs.vetuonglai.com/support/index.html"
+        "dist/vetuonglai.com/index.html",
+        "dist/vetuonglai.com/en/index.html"
       ]
     },
     {
-      "text": "Đăng ký quan tâm",
+      "text": "Mở ở homepage",
       "count": 18,
       "files": [
-        "dist/work.vetuonglai.com/index.html",
-        "dist/work.vetuonglai.com/brief/index.html",
-        "dist/market.vetuonglai.com/index.html",
-        "dist/market.vetuonglai.com/rules/index.html",
-        "dist/life.vetuonglai.com/index.html"
+        "dist/vetuonglai.com/index.html",
+        "dist/vetuonglai.com/en/index.html"
       ]
     },
     {
@@ -446,6 +462,17 @@
       ]
     },
     {
+      "text": "Đăng ký quan tâm",
+      "count": 16,
+      "files": [
+        "dist/work.vetuonglai.com/index.html",
+        "dist/work.vetuonglai.com/brief/index.html",
+        "dist/market.vetuonglai.com/index.html",
+        "dist/market.vetuonglai.com/rules/index.html",
+        "dist/life.vetuonglai.com/index.html"
+      ]
+    },
+    {
       "text": "Về hub",
       "count": 14,
       "files": [
@@ -457,18 +484,62 @@
       ]
     },
     {
+      "text": "Skip to content",
+      "count": 13,
+      "files": [
+        "dist/kids.vetuonglai.com/en/index.html",
+        "dist/docs.vetuonglai.com/en/legal/tos/index.html",
+        "dist/docs.vetuonglai.com/en/legal/spam/index.html",
+        "dist/docs.vetuonglai.com/en/legal/refund/index.html",
+        "dist/docs.vetuonglai.com/en/legal/privacy/index.html"
+      ]
+    },
+    {
+      "text": "Back to Legal & Terms",
+      "count": 12,
+      "files": [
+        "dist/docs.vetuonglai.com/en/legal/tos/index.html",
+        "dist/docs.vetuonglai.com/en/legal/spam/index.html",
+        "dist/docs.vetuonglai.com/en/legal/refund/index.html",
+        "dist/docs.vetuonglai.com/en/legal/privacy/index.html",
+        "dist/docs.vetuonglai.com/en/legal/material-connection/index.html"
+      ]
+    },
+    {
+      "text": "Legal",
+      "count": 12,
+      "files": [
+        "dist/docs.vetuonglai.com/en/legal/tos/index.html",
+        "dist/docs.vetuonglai.com/en/legal/spam/index.html",
+        "dist/docs.vetuonglai.com/en/legal/refund/index.html",
+        "dist/docs.vetuonglai.com/en/legal/privacy/index.html",
+        "dist/docs.vetuonglai.com/en/legal/material-connection/index.html"
+      ]
+    },
+    {
+      "text": "Home",
+      "count": 12,
+      "files": [
+        "dist/docs.vetuonglai.com/en/legal/tos/index.html",
+        "dist/docs.vetuonglai.com/en/legal/spam/index.html",
+        "dist/docs.vetuonglai.com/en/legal/refund/index.html",
+        "dist/docs.vetuonglai.com/en/legal/privacy/index.html",
+        "dist/docs.vetuonglai.com/en/legal/material-connection/index.html"
+      ]
+    },
+    {
       "text": "Về trang chủ",
-      "count": 14,
+      "count": 11,
       "files": [
         "dist/work.vetuonglai.com/index.html",
         "dist/member.vetuonglai.com/index.html",
         "dist/market.vetuonglai.com/index.html",
-        "dist/community.vetuonglai.com/index 4.html",
-        "dist/community.vetuonglai.com/index.html"
+        "dist/community.vetuonglai.com/index.html",
+        "dist/ai.vetuonglai.com/index.html"
       ]
     },
     {
-      "text": "EDFuture EDUMinh bạch vừa đủ, xác minh được độc lập.",
+      "text": "Future EDUMinh bạch vừa đủ, xác minh được độc lập.",
       "count": 11,
       "files": [
         "dist/edu.vetuonglai.com/index.html",
@@ -477,70 +548,7 @@
         "dist/edu.vetuonglai.com/learn/money-discipline-sprint/index.html",
         "dist/edu.vetuonglai.com/learn/money-discipline-sprint/player/index.html"
       ]
-    },
-    {
-      "text": "VTVề Tương LaiMinh bạch vừa đủ, xác minh được độc lập.",
-      "count": 9,
-      "files": [
-        "dist/vetuonglai.com/index.html",
-        "dist/vetuonglai.com/ve-chung-toi/index.html",
-        "dist/vetuonglai.com/tin-tuc/index.html",
-        "dist/vetuonglai.com/thanh-vien/index.html",
-        "dist/vetuonglai.com/sitemap/index.html"
-      ]
-    },
-    {
-      "text": "Xem lộ trình",
-      "count": 9,
-      "files": [
-        "dist/vetuonglai.com/index.html"
-      ]
-    },
-    {
-      "text": "Mở ở homepage",
-      "count": 9,
-      "files": [
-        "dist/vetuonglai.com/index.html"
-      ]
-    },
-    {
-      "text": "Mở VC",
-      "count": 6,
-      "files": [
-        "dist/vetuonglai.com/index.html",
-        "dist/vetuonglai.com/bat-dau/index.html",
-        "dist/member.vetuonglai.com/onboarding/step-2-goals/index.html",
-        "dist/green.vetuonglai.com/index.html",
-        "dist/finance.vetuonglai.com/index.html"
-      ]
-    },
-    {
-      "text": "Xem chi tiết",
-      "count": 6,
-      "files": [
-        "dist/edu.vetuonglai.com/index.html",
-        "dist/edu.vetuonglai.com/courses/index.html"
-      ]
-    },
-    {
-      "text": "Mô hình thành viên",
-      "count": 6,
-      "files": [
-        "dist/docs.vetuonglai.com/work/index.html",
-        "dist/docs.vetuonglai.com/products/index.html",
-        "dist/docs.vetuonglai.com/kids/index.html",
-        "dist/docs.vetuonglai.com/invest/index.html",
-        "dist/docs.vetuonglai.com/faq/index.html"
-      ]
-    },
-    {
-      "text": "Mở nguyên tắc",
-      "count": 6,
-      "files": [
-        "dist/community.vetuonglai.com/index 4.html",
-        "dist/community.vetuonglai.com/index.html"
-      ]
     }
   ],
-  "timestamp": "2026-05-07T01:44:56.013Z"
+  "timestamp": "2026-05-18T07:25:21.846Z"
 }

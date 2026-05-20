@@ -1,7 +1,7 @@
 {
   "ok": false,
   "advisory_only": true,
-  "total_issues": 252,
+  "total_issues": 277,
   "hosts": [
     {
       "host": "ai.vetuonglai.com",
@@ -63,19 +63,6 @@
       "issues": [
         {
           "type": "missing_hreflang_vi",
-          "file": "community.vetuonglai.com/index 4.html"
-        },
-        {
-          "type": "missing_hreflang_en",
-          "file": "community.vetuonglai.com/index 4.html"
-        },
-        {
-          "type": "missing_en_mirror",
-          "file": "community.vetuonglai.com/index 4.html",
-          "expected": "community.vetuonglai.com/en/index 4.html"
-        },
-        {
-          "type": "missing_hreflang_vi",
           "file": "community.vetuonglai.com/index.html"
         },
         {
@@ -99,13 +86,26 @@
           "type": "missing_en_mirror",
           "file": "community.vetuonglai.com/principles/index.html",
           "expected": "community.vetuonglai.com/en/principles/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
+          "file": "community.vetuonglai.com/feed/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "community.vetuonglai.com/feed/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "community.vetuonglai.com/feed/index.html",
+          "expected": "community.vetuonglai.com/en/feed/index.html"
         }
       ]
     },
     {
       "host": "docs.vetuonglai.com",
-      "scanned_vi": 17,
-      "scanned_en": 0,
+      "scanned_vi": 29,
+      "scanned_en": 12,
       "issues": [
         {
           "type": "missing_hreflang_vi",
@@ -174,6 +174,19 @@
         },
         {
           "type": "missing_hreflang_vi",
+          "file": "docs.vetuonglai.com/search/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "docs.vetuonglai.com/search/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "docs.vetuonglai.com/search/index.html",
+          "expected": "docs.vetuonglai.com/en/search/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
           "file": "docs.vetuonglai.com/products/index.html"
         },
         {
@@ -231,11 +244,6 @@
         {
           "type": "missing_hreflang_en",
           "file": "docs.vetuonglai.com/legal/material-connection/index.html"
-        },
-        {
-          "type": "missing_en_mirror",
-          "file": "docs.vetuonglai.com/legal/material-connection/index.html",
-          "expected": "docs.vetuonglai.com/en/legal/material-connection/index.html"
         },
         {
           "type": "missing_hreflang_vi",
@@ -600,7 +608,7 @@
     },
     {
       "host": "member.vetuonglai.com",
-      "scanned_vi": 4,
+      "scanned_vi": 8,
       "scanned_en": 0,
       "issues": [
         {
@@ -631,6 +639,19 @@
         },
         {
           "type": "missing_hreflang_vi",
+          "file": "member.vetuonglai.com/onboarding/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "member.vetuonglai.com/onboarding/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "member.vetuonglai.com/onboarding/index.html",
+          "expected": "member.vetuonglai.com/en/onboarding/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
           "file": "member.vetuonglai.com/onboarding/step-2-goals/index.html"
         },
         {
@@ -654,6 +675,45 @@
           "type": "missing_en_mirror",
           "file": "member.vetuonglai.com/journey/index.html",
           "expected": "member.vetuonglai.com/en/journey/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
+          "file": "member.vetuonglai.com/inbox/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "member.vetuonglai.com/inbox/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "member.vetuonglai.com/inbox/index.html",
+          "expected": "member.vetuonglai.com/en/inbox/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
+          "file": "member.vetuonglai.com/dashboard/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "member.vetuonglai.com/dashboard/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "member.vetuonglai.com/dashboard/index.html",
+          "expected": "member.vetuonglai.com/en/dashboard/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
+          "file": "member.vetuonglai.com/affiliate/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "member.vetuonglai.com/affiliate/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "member.vetuonglai.com/affiliate/index.html",
+          "expected": "member.vetuonglai.com/en/affiliate/index.html"
         }
       ]
     },
@@ -662,19 +722,6 @@
       "scanned_vi": 25,
       "scanned_en": 0,
       "issues": [
-        {
-          "type": "missing_hreflang_vi",
-          "file": "read.vetuonglai.com/index 2.html"
-        },
-        {
-          "type": "missing_hreflang_en",
-          "file": "read.vetuonglai.com/index 2.html"
-        },
-        {
-          "type": "missing_en_mirror",
-          "file": "read.vetuonglai.com/index 2.html",
-          "expected": "read.vetuonglai.com/en/index 2.html"
-        },
         {
           "type": "missing_hreflang_vi",
           "file": "read.vetuonglai.com/index.html"
@@ -911,6 +958,19 @@
         },
         {
           "type": "missing_hreflang_vi",
+          "file": "read.vetuonglai.com/library/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "read.vetuonglai.com/library/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "read.vetuonglai.com/library/index.html",
+          "expected": "read.vetuonglai.com/en/library/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
           "file": "read.vetuonglai.com/how-we-pay/index.html"
         },
         {
@@ -991,7 +1051,7 @@
     },
     {
       "host": "vc.vetuonglai.com",
-      "scanned_vi": 4,
+      "scanned_vi": 5,
       "scanned_en": 0,
       "issues": [
         {
@@ -1006,6 +1066,19 @@
           "type": "missing_en_mirror",
           "file": "vc.vetuonglai.com/index.html",
           "expected": "vc.vetuonglai.com/en/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
+          "file": "vc.vetuonglai.com/wallet/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "vc.vetuonglai.com/wallet/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "vc.vetuonglai.com/wallet/index.html",
+          "expected": "vc.vetuonglai.com/en/wallet/index.html"
         },
         {
           "type": "missing_hreflang_vi",
@@ -1050,8 +1123,8 @@
     },
     {
       "host": "vetuonglai.com",
-      "scanned_vi": 9,
-      "scanned_en": 0,
+      "scanned_vi": 10,
+      "scanned_en": 1,
       "issues": [
         {
           "type": "missing_hreflang_vi",
@@ -1062,9 +1135,17 @@
           "file": "vetuonglai.com/index.html"
         },
         {
-          "type": "missing_en_mirror",
-          "file": "vetuonglai.com/index.html",
-          "expected": "vetuonglai.com/en/index.html"
+          "type": "en_lang",
+          "file": "vetuonglai.com/en/index.html",
+          "reason": "lang=\"vi\" expected \"en\""
+        },
+        {
+          "type": "missing_hreflang_vi",
+          "file": "vetuonglai.com/en/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "vetuonglai.com/en/index.html"
         },
         {
           "type": "missing_hreflang_vi",
@@ -1091,6 +1172,19 @@
           "type": "missing_en_mirror",
           "file": "vetuonglai.com/tin-tuc/index.html",
           "expected": "vetuonglai.com/en/tin-tuc/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
+          "file": "vetuonglai.com/tim-kiem/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "vetuonglai.com/tim-kiem/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "vetuonglai.com/tim-kiem/index.html",
+          "expected": "vetuonglai.com/en/tim-kiem/index.html"
         },
         {
           "type": "missing_hreflang_vi",
@@ -1174,7 +1268,7 @@
     },
     {
       "host": "work.vetuonglai.com",
-      "scanned_vi": 2,
+      "scanned_vi": 3,
       "scanned_en": 0,
       "issues": [
         {
@@ -1192,6 +1286,19 @@
         },
         {
           "type": "missing_hreflang_vi",
+          "file": "work.vetuonglai.com/jobs/index.html"
+        },
+        {
+          "type": "missing_hreflang_en",
+          "file": "work.vetuonglai.com/jobs/index.html"
+        },
+        {
+          "type": "missing_en_mirror",
+          "file": "work.vetuonglai.com/jobs/index.html",
+          "expected": "work.vetuonglai.com/en/jobs/index.html"
+        },
+        {
+          "type": "missing_hreflang_vi",
           "file": "work.vetuonglai.com/brief/index.html"
         },
         {
@@ -1206,5 +1313,5 @@
       ]
     }
   ],
-  "timestamp": "2026-05-07T01:44:55.992Z"
+  "timestamp": "2026-05-18T07:25:22.107Z"
 }

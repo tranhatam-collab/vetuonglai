@@ -172,10 +172,20 @@ const NEGATION_TOKENS_SINGLE = [
 const NEGATION_TOKENS_MULTI = [
   // VI multi-word
   "loại bỏ",
-  "không được", "không có", "không phải", "không dùng",
-  "không cam kết", "không hứa",
+  "không được",
+  "không có",
+  "không phải",
+  "không dùng",
+  "không cam kết",
+  "không hứa",
   // EN multi-word
-  "do not", "does not", "is not", "are not",
+  "do not",
+  "does not",
+  "is not",
+  "are not",
+  // Added for material-connection legal prose
+  "Không được dùng các từ ngữ kiểu:",
+  "The following wording is prohibited:"
 ];
 // Build a single regex for single-word tokens with word boundaries.
 // We escape regex special chars defensively, though current tokens
@@ -191,7 +201,7 @@ const NEGATION_SINGLE_RE = new RegExp(
 );
 
 function hasNegationBefore(lineLower, idx) {
-  const start = Math.max(0, idx - 50);
+  const start = Math.max(0, idx - 200);
   const window = lineLower.slice(start, idx);
   if (NEGATION_SINGLE_RE.test(window)) return true;
   for (const tok of NEGATION_TOKENS_MULTI) {
