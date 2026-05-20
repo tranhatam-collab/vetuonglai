@@ -223,7 +223,7 @@ async function sendMailApiMessage(env, message, requestId) {
       "x-workspace-id": env.MAIL_API_WORKSPACE_ID,
       "x-request-id": requestId,
     },
-    body: JSON.stringify(message),
+    body: JSON.stringify({ ...message, message_idempotency_key: requestId }),
   });
 
   let payload = null;
