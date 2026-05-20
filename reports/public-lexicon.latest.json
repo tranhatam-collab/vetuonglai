@@ -1,98 +1,17 @@
 {
   "ok": false,
-  "scanned_files": 123,
+  "scanned_files": 125,
   "hard_failures": 4,
-  "manual_review": 14,
-  "negation_filtered_count": 51,
+  "manual_review": 5,
+  "negation_filtered_count": 49,
   "negation_filter_enabled": true,
-  "allowlisted_count": 22,
-  "allowlist_entries_loaded": 17,
+  "allowlisted_count": 31,
+  "allowlist_entries_loaded": 22,
   "allowlist_path": "docs/final-lock/VTL_75_INFRA_IAI_ONE_ALLOWLIST_2026-05-07.md",
   "allowlist_present": true,
   "allowlist_signed": true,
   "allowlist_signer": "Tran Ha Tam",
   "hits": [
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 1,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "<!doctype html><html lang=\"vi\" data-language=\"vi\" data-domain=\"member\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title data-text-vi=\"Dashboard - Vetuonglai\" data-text-en=\"Dashboard "
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 45,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "</style></head><body><div class=\"shell\"><div class=\"header\"><a class=\"brand\" href=\"https://member.vetuonglai.com\"><img class=\"brand-mark\" src=\"/assets/brand/vetuonglai-monogram.svg\" alt=\"\" width=\"36\" height=\"36\" loading=\"eager\" /><span clas"
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 47,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "const API_AFFILIATE = \"https://vc.vetuonglai.com/api/affiliate\";"
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 91,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "async function loadAffiliate(){"
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 92,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "const card = document.getElementById(\"card-affiliate\");"
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 95,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "const r = await fetch(API_AFFILIATE + \"/stats\", { credentials: \"include\" });"
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 107,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "<a class=\"card-link\" href=\"https://member.vetuonglai.com/affiliate/\" data-text-vi=\"Xem affiliate →\" data-text-en=\"View affiliate →\">Xem affiliate →</a>"
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 112,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "console.error(\"Affiliate error:\", err);"
-    },
-    {
-      "file": "dist/member.vetuonglai.com/dashboard/index.html",
-      "line": 236,
-      "term": "affiliate",
-      "matched": "affiliate",
-      "manual_review": true,
-      "negation_checked": true,
-      "snippet": "loadAffiliate(),"
-    },
     {
       "file": "dist/member.vetuonglai.com/affiliate/index.html",
       "line": 1,
@@ -175,5 +94,5 @@
       "snippet": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><title>Material Connection Disclosure | DOCS Future</title><meta name=\"description\" content=\"Material-connect"
     }
   ],
-  "timestamp": "2026-05-18T08:30:55.500Z"
+  "timestamp": "2026-05-20T13:16:08.513Z"
 }

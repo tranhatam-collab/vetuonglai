@@ -23,4 +23,9 @@ Founder signature: Tran Ha Tam
 - `dist/vetuonglai.com/index.html`
 - `dist/vetuonglai.com/en/index.html`
 - `dist/vetuonglai.com/he-sinh-thai/index.html`
-- `dist/vetuonglai.com/lien-he/index.html`- `dist/member.vetuonglai.com/dashboard/index.html` (term: affiliate)
+- `dist/vetuonglai.com/lien-he/index.html`
+- `dist/member.vetuonglai.com/dashboard/index.html` (term: affiliate)
+- `dist/docs.vetuonglai.com/faq/index.html` (term: "kiếm tiền")
+- `dist/docs.vetuonglai.com/legal/material-connection/index.html` (term: "multi-level")
+- `dist/docs.vetuonglai.com/en/legal/material-connection/index.html` (term: "MLM")
+- `dist/docs.vetuonglai.com/en/legal/material-connection/index.html` (term: "multi-level")
