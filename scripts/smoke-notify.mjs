@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-// Smoke test notify-runtime: template rendering + KV inbox + Resend gate
+// Smoke test notify-runtime: template rendering + KV inbox + mail.iai.one gate
 import { maybeHandleNotifyRuntime } from "../workers/lib/notify-runtime.mjs";
 
 const env = {
   WALLET_INTERNAL_TOKEN: "test-token",
-  // RESEND_API_KEY intentionally absent → delivery: kv_only
+  // MAIL_API_KEY intentionally absent → delivery: kv_only
 };
 
 function req(path, { method = "GET", body = null } = {}) {
@@ -28,7 +28,7 @@ async function main() {
   // 1. Health check — should show 26 templates + kv_only delivery
   const health = await call("GET /health", req("/api/notify/health"));
   console.assert(health.body.templates?.length >= 26, "FAIL: expected ≥26 templates");
-  console.assert(health.body.delivery === "kv_only", "FAIL: expected kv_only without RESEND_API_KEY");
+  console.assert(health.body.delivery === "kv_only", "FAIL: expected kv_only without MAIL_API_KEY");
 
   // 2. Send payment_success notification
   const sent = await call("POST /send (payment_success)", req("/api/notify/send", {
@@ -67,9 +67,9 @@ async function main() {
   }));
   console.assert(magicLink.status === 202, "FAIL: magic_link send");
 
-  // 5. Resend active path (mock key — will fail delivery but should attempt)
-  const envWithKey = { ...env, RESEND_API_KEY: "re_test_FAKE", RESEND_FROM_EMAIL: "noreply@vetuonglai.com" };
-  const sentWithKey = await call("POST /send (with RESEND key — expect delivery attempt)", req("/api/notify/send", {
+  // 5. mail.iai.one active path (mock key — will fail delivery but 202 should still be returned)
+  const envWithKey = { ...env, MAIL_API_KEY: "iai_test_FAKE", MAIL_API_WORKSPACE_ID: "vetuonglai.com", MAIL_API_BASE_URL: "https://mail.iai.one/_mail/v1" };
+  const sentWithKey = await call("POST /send (with MAIL_API_KEY — expect delivery attempt)", req("/api/notify/send", {
     method: "POST",
     body: {
       recipient_email: "test@example.com",
@@ -91,9 +91,9 @@ async function main() {
   });
   const r2 = await maybeHandleNotifyRuntime(envKeyReq, envWithKey);
   const b2 = await r2.json();
-  console.log(`\n=== POST /send with RESEND key → ${r2.status} ${r2.status===202?"✅":"❌"} ===`);
+  console.log(`\n=== POST /send with MAIL_API_KEY → ${r2.status} ${r2.status===202?"✅":"❌"} ===`);
   // delivery attempt will fail (fake key) but notification should still be 202
-  console.assert(r2.status === 202, "FAIL: should still return 202 even if Resend rejects");
+  console.assert(r2.status === 202, "FAIL: should still return 202 even if mail.iai.one rejects");
 
   // 6. Reject unauthorized send
   const unauth = await call("POST /send (no token)", new Request("https://vc.vetuonglai.com/api/notify/send", {

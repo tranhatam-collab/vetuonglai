@@ -483,8 +483,211 @@ function maybeHandleKidsRuntime(request) {
   return null;
 }
 
+// ─── Google OAuth handler ────────────────────────────────────────────────────
+
+const GOOGLE_OAUTH_ALLOWED_HOSTS = new Set([
+  "vetuonglai.com",
+  "www.vetuonglai.com",
+]);
+
+const SESSION_COOKIE_NAME_GOOGLE = "vtl_session";
+const SESSION_TTL_SECONDS_GOOGLE = 30 * 24 * 60 * 60;
+const GOOGLE_OAUTH_STATE_TTL_SECONDS = 10 * 60;
+const GOOGLE_OAUTH_CALLBACK_URI = "https://vetuonglai.com/api/auth/google/callback";
+const GOOGLE_OAUTH_DASHBOARD_REDIRECT = "https://member.vetuonglai.com/app/dashboard/";
+const COOKIE_DOMAIN_GOOGLE = ".vetuonglai.com";
+
+function toBase64UrlGoogle(bytes) {
+  let binary = "";
+  for (const byte of bytes) binary += String.fromCharCode(byte);
+  return btoa(binary).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+}
+
+async function signTokenGoogle(secret, payload) {
+  const payloadString = JSON.stringify(payload);
+  const encodedPayload = toBase64UrlGoogle(new TextEncoder().encode(payloadString));
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(secret),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const signature = await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(encodedPayload));
+  const sigHex = Array.from(new Uint8Array(signature), (byte) => byte.toString(16).padStart(2, "0")).join("");
+  return `${encodedPayload}.${sigHex}`;
+}
+
+async function maybeHandleGoogleOAuth(request, env) {
+  const url = new URL(request.url);
+  if (!GOOGLE_OAUTH_ALLOWED_HOSTS.has(url.hostname)) return null;
+  if (!url.pathname.startsWith("/api/auth/google/")) return null;
+
+  const clientId = env.GOOGLE_CLIENT_ID || "";
+  const clientSecret = env.GOOGLE_CLIENT_SECRET || "";
+  const redirectUri = env.GOOGLE_REDIRECT_URI || GOOGLE_OAUTH_CALLBACK_URI;
+  const sessionSecret = (typeof env.SESSION_COOKIE_SECRET === "string" && env.SESSION_COOKIE_SECRET)
+    ? env.SESSION_COOKIE_SECRET
+    : "debug-session-secret";
+  const kvStore = env.ACCESS_KV_NAMESPACE;
+
+  // ── /api/auth/google/start ──────────────────────────────────────────────
+  if (url.pathname === "/api/auth/google/start" || url.pathname === "/api/auth/google/start/") {
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      return new Response("Method Not Allowed", { status: 405 });
+    }
+
+    // Generate a random CSRF state token
+    const stateBytes = crypto.getRandomValues(new Uint8Array(24));
+    const state = toBase64UrlGoogle(stateBytes);
+
+    // Store state in KV for later verification (best-effort)
+    if (kvStore && typeof kvStore.put === "function") {
+      await kvStore.put(`google_oauth_state:${state}`, "1", {
+        expirationTtl: GOOGLE_OAUTH_STATE_TTL_SECONDS,
+      }).catch(() => {});
+    }
+
+    const authUrl = new URL("https://accounts.google.com/o/oauth2/v2/auth");
+    authUrl.searchParams.set("client_id", clientId);
+    authUrl.searchParams.set("redirect_uri", redirectUri);
+    authUrl.searchParams.set("response_type", "code");
+    authUrl.searchParams.set("scope", "openid email profile");
+    authUrl.searchParams.set("state", state);
+    authUrl.searchParams.set("access_type", "online");
+
+    return Response.redirect(authUrl.toString(), 302);
+  }
+
+  // ── /api/auth/google/callback ───────────────────────────────────────────
+  if (url.pathname === "/api/auth/google/callback" || url.pathname === "/api/auth/google/callback/") {
+    if (request.method !== "GET" && request.method !== "HEAD") {
+      return new Response("Method Not Allowed", { status: 405 });
+    }
+
+    const code = url.searchParams.get("code") || "";
+    const state = url.searchParams.get("state") || "";
+    const errorParam = url.searchParams.get("error") || "";
+
+    if (errorParam) {
+      return Response.redirect("https://member.vetuonglai.com/signup/?error=google_denied", 302);
+    }
+
+    if (!code) {
+      return Response.redirect("https://member.vetuonglai.com/signup/?error=google_no_code", 302);
+    }
+
+    // Optional: verify CSRF state from KV
+    if (state && kvStore && typeof kvStore.get === "function") {
+      const storedState = await kvStore.get(`google_oauth_state:${state}`).catch(() => null);
+      if (!storedState) {
+        return Response.redirect("https://member.vetuonglai.com/signup/?error=google_state_invalid", 302);
+      }
+      // Consume state token
+      await kvStore.delete(`google_oauth_state:${state}`).catch(() => {});
+    }
+
+    // Exchange code for tokens
+    let tokenResponse;
+    try {
+      const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+        method: "POST",
+        headers: { "content-type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          code,
+          client_id: clientId,
+          client_secret: clientSecret,
+          redirect_uri: redirectUri,
+          grant_type: "authorization_code",
+        }),
+      });
+      tokenResponse = await tokenRes.json();
+    } catch {
+      return Response.redirect("https://member.vetuonglai.com/signup/?error=google_token_exchange_failed", 302);
+    }
+
+    const accessToken = tokenResponse?.access_token || "";
+    if (!accessToken) {
+      return Response.redirect("https://member.vetuonglai.com/signup/?error=google_no_access_token", 302);
+    }
+
+    // Fetch user info
+    let userInfo;
+    try {
+      const userRes = await fetch("https://openidconnect.googleapis.com/v1/userinfo", {
+        headers: { "authorization": `Bearer ${accessToken}` },
+      });
+      userInfo = await userRes.json();
+    } catch {
+      return Response.redirect("https://member.vetuonglai.com/signup/?error=google_userinfo_failed", 302);
+    }
+
+    const email = String(userInfo?.email || "").trim().toLowerCase();
+    const name = String(userInfo?.name || "").trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return Response.redirect("https://member.vetuonglai.com/signup/?error=google_no_email", 302);
+    }
+
+    // Build session payload matching access-runtime.mjs format
+    const nowSeconds = Math.floor(Date.now() / 1000);
+    const sessionPayload = {
+      candidate_email: email,
+      member_state: "pending_member",
+      annual_access_status: "none",
+      pack_key: "",
+      owned_packs: [],
+      entitlements: [],
+      entry: "hub",
+      lang: "vi",
+      return_to: "/",
+      created_from: "google_oauth",
+      google_name: name,
+      exp: nowSeconds + SESSION_TTL_SECONDS_GOOGLE,
+    };
+
+    const sessionToken = await signTokenGoogle(sessionSecret, sessionPayload);
+
+    // Upsert user record in KV (best-effort, matches pending_members pattern)
+    if (kvStore && typeof kvStore.put === "function") {
+      await kvStore.put(
+        `pending_members:${email}`,
+        JSON.stringify({
+          candidate_email: email,
+          member_state: "pending_member",
+          provider: "google",
+          google_name: name,
+          last_google_login_at: nowSeconds,
+        }),
+        { expirationTtl: SESSION_TTL_SECONDS_GOOGLE },
+      ).catch(() => {});
+    }
+
+    const cookieDomainGoogle = (typeof env.SESSION_COOKIE_DOMAIN === "string" && env.SESSION_COOKIE_DOMAIN)
+      ? env.SESSION_COOKIE_DOMAIN
+      : COOKIE_DOMAIN_GOOGLE;
+    const cookieValue = `${SESSION_COOKIE_NAME_GOOGLE}=${sessionToken}; Path=/; Domain=${cookieDomainGoogle}; HttpOnly; Secure; SameSite=Lax; Max-Age=${SESSION_TTL_SECONDS_GOOGLE}`;
+
+    return new Response(null, {
+      status: 302,
+      headers: {
+        location: GOOGLE_OAUTH_DASHBOARD_REDIRECT,
+        "set-cookie": cookieValue,
+      },
+    });
+  }
+
+  return null;
+}
+
+// ─── End Google OAuth handler ─────────────────────────────────────────────────
+
 export default {
   async fetch(request, env) {
+    const googleOAuthResponse = await maybeHandleGoogleOAuth(request, env);
+    if (googleOAuthResponse) {
+      return googleOAuthResponse;
+    }
+
     const emailFormResponse = await maybeHandleEmailForms(request, env);
     if (emailFormResponse) {
       return emailFormResponse;

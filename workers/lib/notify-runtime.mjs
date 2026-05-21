@@ -8,7 +8,7 @@ const NOTIFICATION_TTL = 90 * 24 * 60 * 60;
 const TEMPLATE_TTL = 365 * 24 * 60 * 60;
 const TITLE_MAX = 140;
 const BODY_MAX = 4000;
-const RESEND_API_URL = "https://api.resend.com/emails";
+const MAIL_IAI_DEFAULT_BASE = "https://mail.iai.one/_mail/v1";
 
 const DEFAULT_TEMPLATES = {
   // Authentication
@@ -203,41 +203,43 @@ function buildEmailHtml(subject, body, lang, env) {
   return `<!DOCTYPE html><html><head><meta charset="utf-8"></head><body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;padding:24px"><div style="max-width:560px;margin:0 auto;background:#fff;border-radius:8px;padding:32px;border:1px solid #eee"><div style="border-bottom:3px solid ${accentColor};padding-bottom:12px;margin-bottom:24px"><span style="font-size:18px;font-weight:700;color:${accentColor}">Vetuonglai</span></div><h2 style="font-size:20px;font-weight:600;color:#1a1a2e;margin-bottom:16px">${esc(subject)}</h2><div style="font-size:15px;color:#444;line-height:1.6">${esc(body)}</div>${footer}</div></body></html>`;
 }
 
-async function deliverViaResend(env, record) {
-  // Only attempt if RESEND_API_KEY is set — otherwise silently skip (stays KV-only)
-  if (!env.RESEND_API_KEY) return { attempted: false, reason: "no_key" };
-  const from = env.RESEND_FROM_EMAIL || "noreply@vetuonglai.com";
+async function deliverViaMailIAI(env, record) {
+  // mail.iai.one is the sole email provider — no Resend
+  if (!env.MAIL_API_KEY) return { attempted: false, reason: "no_key" };
+  const baseUrl = (env.MAIL_API_BASE_URL || MAIL_IAI_DEFAULT_BASE).replace(/\/+$/, "");
+  const workspaceId = env.MAIL_API_WORKSPACE_ID || "vetuonglai.com";
+  const from = `Vetuonglai <noreply@vetuonglai.com>`;
   const payload = {
     from,
-    to: [record.recipient_email],
+    to: record.recipient_email,
     subject: record.subject,
     text: record.body,
-    // html version: wrap body in minimal branded wrapper
     html: buildEmailHtml(record.subject, record.body, record.lang, env),
-    headers: {
-      "X-Notify-Id": record.id,
-      "X-Template": record.template,
-    },
+    message_idempotency_key: record.id,
+    tags: ["notify", record.template],
+    metadata: { notify_id: record.id, template: record.template },
   };
   try {
-    const resp = await fetch(RESEND_API_URL, {
+    const resp = await fetch(`${baseUrl}/send`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${env.RESEND_API_KEY}`,
+        "Authorization": `Bearer ${env.MAIL_API_KEY}`,
         "Content-Type": "application/json",
+        "x-workspace-id": workspaceId,
+        "x-request-id": record.id,
       },
       body: JSON.stringify(payload),
     });
-    const body = await resp.json().catch(() => ({}));
+    const data = await resp.json().catch(() => ({}));
     return {
       attempted: true,
       accepted: resp.status >= 200 && resp.status < 300,
-      provider: "resend",
-      message_id: body.id || null,
+      provider: "mail.iai.one",
+      message_id: data.id || data.message_id || null,
       status: resp.status,
     };
   } catch (err) {
-    return { attempted: true, accepted: false, provider: "resend", error: String(err?.message || err) };
+    return { attempted: true, accepted: false, provider: "mail.iai.one", error: String(err?.message || err) };
   }
 }
 
@@ -275,7 +277,7 @@ async function handleSend(request, env) {
   await store.put("notify_message", `${recipient}:${id}`, record, { ttlSeconds: NOTIFICATION_TTL });
   await store.put("notify_inbox", `${recipient}:${id}`, { id, unread: true }, { ttlSeconds: NOTIFICATION_TTL });
 
-  const delivery = await deliverViaResend(env, record);
+  const delivery = await deliverViaMailIAI(env, record);
   if (delivery.attempted) {
     record.delivered_at = delivery.accepted ? currentUnixSeconds() : null;
     record.delivery_provider = delivery.provider || null;
@@ -343,7 +345,7 @@ export async function maybeHandleNotifyRuntime(request, env = {}) {
     return jsonResponse({
       status: "notify_ok",
       templates: Object.keys(DEFAULT_TEMPLATES),
-      delivery: env.RESEND_API_KEY ? "resend_active" : "kv_only",
+      delivery: env.MAIL_API_KEY ? "mail_iai_one_active" : "kv_only",
     });
   }
   if (request.method === "POST" && url.pathname === `${BASE}/send`) {
