@@ -336,6 +336,11 @@ document.getElementById("delete-cancel-btn").addEventListener("click", () => {
 document.getElementById("delete-confirm-btn").addEventListener("click", async () => {
   if (!selectedIssuer) return;
 
+  const lang = document.documentElement.getAttribute("data-language") || "vi";
+  if (!confirm(lang === "en"
+    ? "Delete this issuer? This cannot be undone."
+    : "Xoá issuer này? Hành động này không thể hoàn tác.")) return;
+
   try {
     document.getElementById("delete-confirm-btn").disabled = true;
 

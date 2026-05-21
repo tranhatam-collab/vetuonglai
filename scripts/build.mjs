@@ -5268,20 +5268,112 @@ function renderMemberJourneyPage() {
     afterActions: renderDisclosureStack(["DPM-017"]),
   });
 
-  const stages = renderCards([
-    renderCard({
-      title: cardTitle(pair("Discover", "Discover")),
-      body: cardText(pair("Xác định điểm xuất phát và mục tiêu gần.", "Define your starting point and near-term goal.")),
-    }),
-    renderCard({
-      title: cardTitle(pair("Build", "Build")),
-      body: cardText(pair("Học - làm - thử nghiệm với output rõ ràng.", "Learn, build, and practice with clear outputs.")),
-    }),
-    renderCard({
-      title: cardTitle(pair("Prove", "Prove")),
-      body: cardText(pair("Xác minh proof và cập nhật VC.", "Verify proof and update VC.")),
-    }),
-  ]);
+  // 3-stage interactive timeline (Discover → Build → Prove)
+  const timelineCSS = `<style>
+.journey-timeline{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;position:relative;margin-bottom:2.5rem}
+.journey-timeline::before{content:'';position:absolute;top:2.5rem;left:calc(16.66% + 1.5rem);right:calc(16.66% + 1.5rem);height:3px;background:linear-gradient(90deg,#818CF8,#C7D2FE,#818CF8);z-index:0}
+.journey-stage{position:relative;z-index:1;padding:0 1rem;text-align:center}
+.stage-badge{display:inline-flex;align-items:center;justify-content:center;width:5rem;height:5rem;border-radius:50%;background:var(--accent,#818CF8);color:#fff;font-size:1.5rem;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;margin:0 auto 1rem;box-shadow:0 4px 16px rgba(129,140,248,.35)}
+.stage-name{font-size:1.1rem;font-weight:700;margin-bottom:.4rem;color:#1a1a2e}
+.stage-sub{font-size:.85rem;color:#666;margin-bottom:1rem;line-height:1.5}
+.stage-links{display:flex;flex-direction:column;gap:.4rem;align-items:center}
+.stage-cta{padding:.4rem 1rem;border-radius:6px;font-size:.8rem;font-weight:600;text-decoration:none;transition:background .2s}
+.stage-cta.primary{background:var(--accent,#818CF8);color:#fff}
+.stage-cta.ghost{background:transparent;border:1px solid var(--accent,#818CF8);color:var(--accent,#818CF8)}
+.stage-cta.primary:hover{background:#5568d3}
+.stage-cta.ghost:hover{background:rgba(129,140,248,.08)}
+.wallet-preview{background:#f8f9fa;border-left:4px solid var(--accent,#818CF8);border-radius:8px;padding:1.5rem;margin-top:.5rem}
+.wallet-preview-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:#888;margin-bottom:.5rem}
+.wallet-addr{font-family:'JetBrains Mono',monospace;font-size:.85rem;color:#333;word-break:break-all;margin-bottom:.8rem}
+.wallet-bal{font-size:1.4rem;font-weight:700;color:#333}
+.wallet-bal-unit{font-size:.75rem;color:#999;margin-left:.25rem}
+@media(max-width:700px){.journey-timeline{grid-template-columns:1fr}.journey-timeline::before{display:none}.journey-stage{padding:.75rem 0;border-left:3px solid var(--accent,#818CF8);padding-left:1.5rem;text-align:left;margin-left:2.5rem}.stage-badge{width:3.5rem;height:3.5rem;font-size:1.1rem;margin:0 0 .75rem}}
+</style>`;
+
+  const stagesTimeline = `${timelineCSS}
+<div class="journey-timeline" data-animate-stagger>
+  <div class="journey-stage" id="stage-1">
+    <div class="stage-badge">01</div>
+    <div class="stage-name" data-text-vi="Khám phá" data-text-en="Discover">Khám phá</div>
+    <div class="stage-sub" data-text-vi="Xác định điểm xuất phát, mục tiêu gần và khoá học phù hợp trên Edu." data-text-en="Define your starting point, near-term goal, and matching courses on Edu.">Xác định điểm xuất phát, mục tiêu gần và khoá học phù hợp trên Edu.</div>
+    <div class="stage-links">
+      <a class="stage-cta ghost" href="https://${domains.edu}" data-text-vi="→ Edu" data-text-en="→ Edu">→ Edu</a>
+      <a class="stage-cta ghost" id="stage1-cta" href="https://${domains.edu}" data-text-vi="→ Bắt đầu" data-text-en="→ Start">→ Bắt đầu</a>
+    </div>
+  </div>
+  <div class="journey-stage" id="stage-2">
+    <div class="stage-badge">02</div>
+    <div class="stage-name" data-text-vi="Xây dựng" data-text-en="Build">Xây dựng</div>
+    <div class="stage-sub" data-text-vi="Học và thực hành với output rõ ràng. Đóng góp vào cộng đồng và tìm đầu việc phù hợp." data-text-en="Learn and practise with clear outputs. Contribute to community and find matching work.">Học và thực hành với output rõ ràng. Đóng góp vào cộng đồng và tìm đầu việc phù hợp.</div>
+    <div class="stage-links">
+      <a class="stage-cta ghost" href="https://${domains.community}" data-text-vi="→ Cộng đồng" data-text-en="→ Community">→ Cộng đồng</a>
+      <a class="stage-cta ghost" id="stage2-cta" href="https://${domains.work}/jobs/" data-text-vi="→ Việc làm" data-text-en="→ Jobs">→ Việc làm</a>
+    </div>
+  </div>
+  <div class="journey-stage" id="stage-3">
+    <div class="stage-badge">03</div>
+    <div class="stage-name" data-text-vi="Chứng minh" data-text-en="Prove">Chứng minh</div>
+    <div class="stage-sub" data-text-vi="Xác minh thành tích bằng VC và xây dựng hồ sơ proof kiểm chứng độc lập." data-text-en="Verify achievements with VC and build an independently verifiable proof record.">Xác minh thành tích bằng VC và xây dựng hồ sơ proof kiểm chứng độc lập.</div>
+    <div class="stage-links">
+      <a class="stage-cta ghost" href="https://${domains.vc}" data-text-vi="→ VC" data-text-en="→ VC">→ VC</a>
+      <a class="stage-cta primary" id="stage3-cta" href="https://${domains.vc}/wallet/" data-text-vi="→ Ví của bạn" data-text-en="→ Your Wallet">→ Ví của bạn</a>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var lang=document.body.getAttribute('data-language')||'vi';
+  function t(vi,en){return lang==='en'?en:vi;}
+  fetch('/api/access/session/current',{credentials:'include'})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(s){
+      var a=s&&s.authenticated===true;
+      ['stage1-cta','stage2-cta','stage3-cta'].forEach(function(id){
+        var el=document.getElementById(id);if(!el)return;
+        if(a){el.textContent=t('→ Tiếp tục','→ Continue');el.classList.remove('ghost');el.classList.add('primary');}
+        else{el.textContent=t('→ Bắt đầu','→ Start');}
+      });
+    }).catch(function(){});
+})();
+</script>`;
+
+  const walletPreview = `
+<article class="card" id="wallet-card">
+  <div class="card-body">
+    <div id="wj-loading" class="wallet-preview" style="color:#999" data-text-vi="Đang tải ví..." data-text-en="Loading wallet...">Đang tải ví...</div>
+    <div id="wj-info" class="wallet-preview" style="display:none">
+      <div class="wallet-preview-label" data-text-vi="Địa chỉ ví" data-text-en="Wallet address">Địa chỉ ví</div>
+      <div class="wallet-addr" id="wj-address">—</div>
+      <div class="wallet-preview-label" data-text-vi="Số dư khả dụng" data-text-en="Available balance">Số dư khả dụng</div>
+      <div class="wallet-bal"><span id="wj-balance">0</span><span class="wallet-bal-unit">VND</span></div>
+      <div class="cluster" style="margin-top:1rem">
+        <a class="button primary" href="https://${domains.vc}/wallet/" data-text-vi="Quản lý ví →" data-text-en="Manage wallet →">Quản lý ví →</a>
+      </div>
+    </div>
+    <div id="wj-unauth" style="display:none">
+      <p data-text-vi="Đăng nhập để xem ví của bạn." data-text-en="Sign in to view your wallet.">Đăng nhập để xem ví của bạn.</p>
+      <a class="button ghost" href="https://${domains.member}/signup/" data-text-vi="Đăng ký / Đăng nhập" data-text-en="Sign up / Sign in">Đăng ký / Đăng nhập</a>
+    </div>
+  </div>
+</article>
+<script>
+(function(){
+  fetch('https://${domains.vc}/api/wallet/me',{credentials:'include'})
+    .then(function(r){return r.ok?r.json():null;})
+    .then(function(d){
+      document.getElementById('wj-loading').style.display='none';
+      if(d&&d.wallet){
+        document.getElementById('wj-address').textContent=d.wallet.address||'—';
+        var bal=(d.wallet.balances&&d.wallet.balances.available_vnd)||0;
+        document.getElementById('wj-balance').textContent=Number(bal).toLocaleString('en-US');
+        document.getElementById('wj-info').style.display='block';
+      }else{document.getElementById('wj-unauth').style.display='block';}
+    }).catch(function(){
+      document.getElementById('wj-loading').style.display='none';
+      document.getElementById('wj-unauth').style.display='block';
+    });
+})();
+</script>`;
 
   const kidsParentBridge = ecosystemDirectoryByKey.get("kids")?.publicDiscovery !== false
     ? renderKidsParentBridgeBlock()
@@ -5295,7 +5387,8 @@ function renderMemberJourneyPage() {
     navItems: ecosystemNav("member"),
     hero,
     sections: [
-      renderSection(pair("Các giai đoạn", "Stages"), pair("Hành trình từ học đến proof", "From learning to proof"), stages),
+      renderSection(pair("Các giai đoạn", "Stages"), pair("Hành trình từ học đến proof", "From learning to proof"), stagesTimeline),
+      renderSection(pair("Ví của bạn", "Your Wallet"), pair("Số dư và địa chỉ VTL của bạn", "Your VTL balance and address"), walletPreview),
       kidsParentBridge
         ? renderSection(
             pair("Phụ huynh có trẻ em", "Parents with children"),

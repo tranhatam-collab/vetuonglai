@@ -433,6 +433,21 @@
       loadTransactions();
     }
 
+    function txTypeLabel(type, lang) {
+      const labels = {
+        credit:          { vi: 'Nhận tiền',          en: 'Credit' },
+        debit:           { vi: 'Chi tiêu',            en: 'Debit' },
+        transfer_in:     { vi: 'Nhận chuyển khoản',  en: 'Transfer In' },
+        transfer_out:    { vi: 'Chuyển tiền đi',      en: 'Transfer Out' },
+        payout_request:  { vi: 'Yêu cầu rút',         en: 'Payout Request' },
+        payout_settled:  { vi: 'Đã rút',              en: 'Payout Settled' },
+        tax_hold:        { vi: 'Giữ thuế',            en: 'Tax Hold' },
+        tax_release:     { vi: 'Giải phóng thuế',     en: 'Tax Release' },
+      };
+      const l = labels[type] || { vi: type, en: type };
+      return lang === 'en' ? l.en : l.vi;
+    }
+
     async function loadTransactions() {
       try {
         const response = await fetch('/api/wallet/history?limit=10');
@@ -453,11 +468,12 @@
           const isCredit = tx.type === 'credit' || tx.type === 'transfer_in';
           const date = new Date((tx.created_at || 0) * 1000).toLocaleDateString();
           const amount = (isCredit ? '+' : '-') + formatAmount(tx.amount_vnd);
+          const lang = document.body.getAttribute('data-language') || 'vi';
 
           return `
             <div class="transaction-item">
               <div>
-                <div class="transaction-type">${tx.type}</div>
+                <div class="transaction-type">${txTypeLabel(tx.type, lang)}</div>
                 <div class="transaction-date">${date}</div>
               </div>
               <div class="transaction-amount ${isCredit ? 'credit' : 'debit'}">${amount} VND</div>

@@ -295,8 +295,9 @@ document.addEventListener("click", e => {
   }
   if(e.target.matches('[data-action="copy"]')){
     const url = e.target.dataset.share;
+    const lang = document.documentElement.getAttribute("data-language") || "vi";
     navigator.clipboard?.writeText(url);
-    toast("Đã sao chép link");
+    toast(lang === "en" ? "Link copied!" : "Đã sao chép link!");
     if(window.vtlTrack) window.vtlTrack("affiliate_copy", { code: e.target.closest("[data-code]")?.dataset.code });
   }
 });
