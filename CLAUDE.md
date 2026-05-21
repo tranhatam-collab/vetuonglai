@@ -3,7 +3,7 @@
 > Auto-loaded by Claude Code when working in this repo. Keep this **short** —
 > long-form memory lives in `docs/internal/AUTONOMOUS_DEV_HANDOFF_*.md`.
 >
-> Last refresh: 2026-05-21 · Master roadmap completion: **~96%** (7/7 workers deployed ✅ · 26 email templates live · mail.iai.one active · awaiting Founder: Stripe/PayPal live keys + Google OAuth URIs + ANTHROPIC_API_KEY)
+> Last refresh: 2026-05-21 · Master roadmap completion: **~97%** (7/7 workers deployed ✅ · 26 email templates live · mail.iai.one active · V1 TTP payment switch ✅ · awaiting Founder: Stripe/PayPal live keys + Google OAuth URIs + ANTHROPIC_API_KEY)
 
 ---
 
@@ -162,6 +162,7 @@ When resuming in a new session, paste `docs/internal/AUTONOMOUS_DEV_HANDOFF_2026
 
 ✅ **Resolved 2026-05-21**: 26 transactional email templates + mail.iai.one delivery live (`delivery: "mail_iai_one_active"`). Resend removed.
 ✅ **Resolved 2026-05-21**: Webhook→email pipeline wired (Stripe+PayPal success/failed → notifications).
+✅ **Resolved 2026-05-21**: VN payment switch V8 KASAN → V1 TTP (PayOS active interim). D1 tenant update, build.mjs disclosure switch, smoke test PASS. commit `4a30ea8`.
 ✅ **Resolved 2026-05-21**: Invoice API `/api/invoice/{id}` + invoice web page.
 ✅ **Resolved 2026-05-20**: Email form delivery + magic-link via mail.iai.one (smoke-tested).
 ✅ **Resolved 2026-05-20**: 277 bilingual issues → 0. kids.vetuonglai.com deployed. 7/7 workers live.
