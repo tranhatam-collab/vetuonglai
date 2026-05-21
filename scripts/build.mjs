@@ -1885,8 +1885,8 @@ ${renderAlternateLocaleLinks(domains[currentKey], pathname, canonical)}
         )}
         <div class="footer-legal" data-compliance="entity-disclosure" style="font-size:0.85em;opacity:0.85;margin-top:1.5em;line-height:1.6;border-top:1px solid rgba(255,255,255,0.1);padding-top:1em">
           <p><strong data-text-vi="Đơn vị vận hành quốc tế" data-text-en="International operator">Đơn vị vận hành quốc tế</strong>: VIET CAN NEW CORP <span class="subtle">(Georgia, USA — Entity ID 21193460)</span></p>
-          <p><strong data-text-vi="Đại diện tại Việt Nam" data-text-en="Vietnam local representative">Đại diện tại Việt Nam</strong>: CÔNG TY CỔ PHẦN ĐẦU TƯ GIÁO DỤC VÀ DU LỊCH HÀNH TRÌNH KASAN <span class="subtle">(MST 0315521422 — Tầng 10 Century Building, 100 Nguyễn Thị Minh Khai, Q.3, TP.HCM)</span></p>
-          <p><strong data-text-vi="Thanh toán nội địa" data-text-en="Domestic payment">Thanh toán nội địa</strong>: VietQR ACB 30051378 (tên thụ hưởng: KASAN Edu Tour Investment JSC)</p>
+          <p><strong data-text-vi="Đại diện tại Việt Nam" data-text-en="Vietnam local representative">Đại diện tại Việt Nam</strong>: CÔNG TY TNHH ĐẦU TƯ THƯƠNG MẠI THÀNH TÂM PHÁT <span class="subtle">(MST 0312788139 — Lầu 23, Tòa nhà AB, 76A Lê Lai, P.Bến Thành, Q.1, TP.HCM)</span></p>
+          <p><strong data-text-vi="Thanh toán nội địa" data-text-en="Domestic payment">Thanh toán nội địa</strong>: VietQR ACB 369999996 (tên thụ hưởng: CÔNG TY TNHH ĐẦU TƯ THƯƠNG MẠI THÀNH TÂM PHÁT) qua pay.iai.one / PayOS (NHNN-licensed)</p>
           <p><strong data-text-vi="Liên hệ" data-text-en="Contact">Liên hệ</strong>: <a href="mailto:contact@vetuonglai.com">contact@vetuonglai.com</a></p>
         </div>
       </div>
