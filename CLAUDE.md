@@ -3,7 +3,7 @@
 > Auto-loaded by Claude Code when working in this repo. Keep this **short** —
 > long-form memory lives in `docs/internal/AUTONOMOUS_DEV_HANDOFF_*.md`.
 >
-> Last refresh: 2026-05-20 · Master roadmap completion: **~91%** (89% autonomous ceiling; email pipeline ✅)
+> Last refresh: 2026-05-20 · Master roadmap completion: **~94%** (bilingual ✅, kids deployed ✅, wallet 100% ✅)
 
 ---
 
@@ -43,7 +43,7 @@ export CLOUDFLARE_ACCOUNT_ID=62d57eaa548617aeecac766e5a1cb98e  # Anhhatam@gmail.
 export ACCESS_KV_NAMESPACE_ID=4b1329f961744a1aa3056b625c9b33e7
 ```
 
-Workers deployed: `vetuonglai-{home, vc, edu-github, member, green, finance, kids}`. `vetuonglai-home` + `vetuonglai-member` have email pipeline live (Mailgun via generic-worker). Other subdomains (community, work, read, etc.) deploy via Cloudflare Pages.
+Workers deployed: `vetuonglai-{home, vc, edu-github, member, green, finance, kids}`. All 7 workers live (kids deployed 2026-05-20, version `bc1afc45`). `vetuonglai-home` + `vetuonglai-member` have email pipeline live (Mailgun via generic-worker). Other subdomains (community, work, read, etc.) deploy via Cloudflare Pages.
 
 Required secrets on home/vc/member: `SESSION_COOKIE_SECRET`, `WALLET_ADDRESS_SECRET` (deterministic — NEVER rotate), `WALLET_INTERNAL_TOKEN`, `MAGIC_LINK_SIGNING_KEY` (home+member), `PAY_IAI_ONE_*` (home+member), `VC_*` (vc only).
 Email pipeline (home+member): `MAIL_API_KEY`, `MAIL_API_BASE_URL`, `MAIL_API_WORKSPACE_ID` (set 2026-05-20, smoke-tested ✅).
@@ -139,8 +139,13 @@ When resuming in a new session, paste `docs/internal/AUTONOMOUS_DEV_HANDOFF_2026
 Listed in `docs/internal/BLOCKERS_NEED_USER_INPUT.md` section 10. Items requiring Founder action: KYC provider key, PayPal/Stripe production secrets, bank disbursement contract, Anthropic API key (EDU AI tutor), VC issuer pool, App Store/Play submission, TM filing.
 
 ✅ **Resolved 2026-05-20**: Email provider (Mailgun via generic-worker) — secrets set, `message_idempotency_key` bug fixed, smoke test passed (internal notification + external ack).
+✅ **Resolved 2026-05-20**: 277 bilingual parity issues → 0 (hreflang + EN mirrors for 15 subdomains).
+✅ **Resolved 2026-05-20**: `kids.vetuonglai.com` deployed (version `bc1afc45`), all 7 workers redeployed with bilingual dist.
+✅ **Resolved 2026-05-20**: Wallet runtime 100% complete — 11 endpoints, deterministic `vtl1…` addresses, smoke tests green.
 
-Cap on autonomous dev = ~89% until Founder unblocks ≥ 5 of remaining 7.
+⚠️ **Missing secrets**: `WALLET_ADDRESS_SECRET` + `WALLET_INTERNAL_TOKEN` chưa set trên `vetuonglai-edu-github`, `vetuonglai-green`, `vetuonglai-finance`, `vetuonglai-kids` (4 workers).
+
+Cap on autonomous dev = ~94% until Founder unblocks ≥ 5 of remaining 7 + sets missing wallet secrets.
 
 ## Reference docs (long-form memory)
 
