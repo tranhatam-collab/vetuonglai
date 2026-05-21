@@ -16,8 +16,9 @@
           "PAY_IAI_ONE_WEBHOOK_SECRET",
           "WALLET_ADDRESS_SECRET",
           "WALLET_INTERNAL_TOKEN",
-          "RESEND_API_KEY",
-          "RESEND_FROM_EMAIL"
+          "MAIL_API_KEY",
+          "MAIL_API_BASE_URL",
+          "MAIL_API_WORKSPACE_ID"
         ],
         "recommendedVars": [
           "VTL_ENV",
@@ -96,8 +97,9 @@
           "PAY_IAI_ONE_WEBHOOK_SECRET",
           "WALLET_ADDRESS_SECRET",
           "WALLET_INTERNAL_TOKEN",
-          "RESEND_API_KEY",
-          "RESEND_FROM_EMAIL"
+          "MAIL_API_KEY",
+          "MAIL_API_BASE_URL",
+          "MAIL_API_WORKSPACE_ID"
         ],
         "recommendedVars": [
           "VTL_ENV",
