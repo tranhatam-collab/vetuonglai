@@ -3,7 +3,7 @@
 > Auto-loaded by Claude Code when working in this repo. Keep this **short** —
 > long-form memory lives in `docs/internal/AUTONOMOUS_DEV_HANDOFF_*.md`.
 >
-> Last refresh: 2026-05-20 · Master roadmap completion: **~94%** (bilingual ✅, kids deployed ✅, wallet 100% ✅)
+> Last refresh: 2026-05-21 · Master roadmap completion: **~96%** (email+payment sprint fully coded ✅, awaiting live secrets)
 
 ---
 
@@ -45,8 +45,8 @@ export ACCESS_KV_NAMESPACE_ID=4b1329f961744a1aa3056b625c9b33e7
 
 Workers deployed: `vetuonglai-{home, vc, edu-github, member, green, finance, kids}`. All 7 workers live (kids deployed 2026-05-20, version `bc1afc45`). `vetuonglai-home` + `vetuonglai-member` have email pipeline live (Mailgun via generic-worker). Other subdomains (community, work, read, etc.) deploy via Cloudflare Pages.
 
-Required secrets on home/vc/member: `SESSION_COOKIE_SECRET`, `WALLET_ADDRESS_SECRET` (deterministic — NEVER rotate), `WALLET_INTERNAL_TOKEN`, `MAGIC_LINK_SIGNING_KEY` (home+member), `PAY_IAI_ONE_*` (home+member), `VC_*` (vc only).
-Email pipeline (home+member): `MAIL_API_KEY`, `MAIL_API_BASE_URL`, `MAIL_API_WORKSPACE_ID` (set 2026-05-20, smoke-tested ✅).
+Required secrets on home/vc/member: `SESSION_COOKIE_SECRET`, `WALLET_ADDRESS_SECRET` (deterministic — NEVER rotate), `WALLET_INTERNAL_TOKEN`, `MAGIC_LINK_SIGNING_KEY` (home+member), `PAY_IAI_ONE_*` (home+member), `VC_*` (vc only), `RESEND_API_KEY` (home+member), `RESEND_FROM_EMAIL` (home+member).
+Email pipeline (home+member): `MAIL_API_KEY`, `MAIL_API_BASE_URL`, `MAIL_API_WORKSPACE_ID` (set 2026-05-20, smoke-tested ✅). Notify transactional (26 templates + Resend layer ✅ 2026-05-21, activation pending `RESEND_API_KEY`).
 KV binding `ACCESS_KV_NAMESPACE` on all three.
 
 ## Deploy commands
@@ -136,7 +136,7 @@ When resuming in a new session, paste `docs/internal/AUTONOMOUS_DEV_HANDOFF_2026
 
 ## External blockers (10% to 100%)
 
-Listed in `docs/internal/BLOCKERS_NEED_USER_INPUT.md` section 10. Items requiring Founder action: KYC provider key, PayPal/Stripe production secrets, bank disbursement contract, Anthropic API key (EDU AI tutor), VC issuer pool, App Store/Play submission, TM filing.
+Listed in `docs/internal/BLOCKERS_NEED_USER_INPUT.md` section 10. Items requiring Founder action: `RESEND_API_KEY` + domain DKIM verification, PayPal/Stripe production secrets + webhook registration, bank disbursement contract, Anthropic API key (EDU AI tutor), VC issuer pool, App Store/Play submission, TM filing.
 
 ✅ **Resolved 2026-05-20**: Email provider (Mailgun via generic-worker) — secrets set, `message_idempotency_key` bug fixed, smoke test passed (internal notification + external ack).
 ✅ **Resolved 2026-05-20**: 277 bilingual parity issues → 0 (hreflang + EN mirrors for 15 subdomains).
@@ -145,7 +145,7 @@ Listed in `docs/internal/BLOCKERS_NEED_USER_INPUT.md` section 10. Items requirin
 
 ⚠️ **Missing secrets**: `WALLET_ADDRESS_SECRET` + `WALLET_INTERNAL_TOKEN` chưa set trên `vetuonglai-edu-github`, `vetuonglai-green`, `vetuonglai-finance`, `vetuonglai-kids` (4 workers).
 
-Cap on autonomous dev = ~94% until Founder unblocks ≥ 5 of remaining 7 + sets missing wallet secrets.
+Cap on autonomous dev = ~96% until Founder unblocks ≥ 5 of remaining 7 + sets missing wallet secrets + provides `RESEND_API_KEY` + Stripe/PayPal live keys.
 
 ## Reference docs (long-form memory)
 

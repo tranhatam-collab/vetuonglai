@@ -917,9 +917,60 @@ async function handleEscrowGet(request, env, jobId) {
   });
 }
 
+async function handleGetInvoice(request, env, invoiceId) {
+  // invoiceId comes from URL: /api/invoice/{id}
+  // Try direct lookup first (public, no auth required — invoice ID is a secret in itself)
+  const store = walletStore(env);
+
+  // Reverse index: invoice_by_id:{id} → { address, candidate_email }
+  const idx = await store.get("invoice_by_id", invoiceId);
+  if (!idx) {
+    return jsonResponse({ status: "invoice_not_found", id: invoiceId }, { status: 404 });
+  }
+
+  const invoice = await store.get("invoice", `${idx.address}:${invoiceId}`);
+  if (!invoice) {
+    return jsonResponse({ status: "invoice_not_found", id: invoiceId }, { status: 404 });
+  }
+
+  // Return public fields only (no internal payment provider secrets)
+  return jsonResponse({
+    status: "invoice_ok",
+    invoice: {
+      id: invoice.id,
+      invoice_number: invoice.invoice_number || `VTL-${invoice.id?.slice(-8)?.toUpperCase()}`,
+      candidate_email: invoice.candidate_email,
+      payer_name: invoice.payer_name || "",
+      product_name: invoice.product_name || "",
+      amount_vnd: invoice.amount_vnd || 0,
+      payment_method: invoice.payment_method || "",
+      transaction_id: invoice.transaction_id || "",
+      payment_date: invoice.payment_date || invoice.created_at || null,
+      status: invoice.status || "paid",
+      created_at: invoice.created_at || null,
+    },
+  });
+}
+
+export async function writeInvoice(env, invoiceData) {
+  // invoiceData: { id, address, candidate_email, product_name, amount_vnd, payment_method, transaction_id, payer_name?, payment_date? }
+  const store = walletStore(env);
+  const record = {
+    ...invoiceData,
+    invoice_number: `VTL-${String(invoiceData.id || "").slice(-8).toUpperCase()}`,
+    created_at: currentUnixSeconds(),
+    status: "paid",
+  };
+  const TTL = 7 * 365 * 24 * 60 * 60; // 7 years
+  await store.put("invoice", `${invoiceData.address}:${invoiceData.id}`, record, { ttlSeconds: TTL });
+  await store.put("invoice_by_id", invoiceData.id, { address: invoiceData.address, candidate_email: invoiceData.candidate_email }, { ttlSeconds: TTL });
+  return record;
+}
+
 export async function maybeHandleWalletRuntime(request, env = {}) {
   const url = new URL(request.url);
-  if (!url.pathname.startsWith(WALLET_BASE)) return null;
+  const isInvoicePath = url.pathname.startsWith("/api/invoice/");
+  if (!url.pathname.startsWith(WALLET_BASE) && !isInvoicePath) return null;
 
   if (request.method === "GET" && url.pathname === `${WALLET_BASE}/health`) {
     const store = walletStore(env);
@@ -973,6 +1024,11 @@ export async function maybeHandleWalletRuntime(request, env = {}) {
   const escrowMatch = url.pathname.match(/^\/api\/wallet\/escrow\/([^/]+)$/);
   if (escrowMatch && request.method === "GET") {
     return handleEscrowGet(request, env, escrowMatch[1]);
+  }
+
+  const invoiceMatch = url.pathname.match(/^\/api\/invoice\/([^/]+)$/);
+  if (invoiceMatch && request.method === "GET") {
+    return handleGetInvoice(request, env, invoiceMatch[1]);
   }
 
   return jsonResponse({

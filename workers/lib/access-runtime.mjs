@@ -10,6 +10,25 @@ import protectedTanCung from "../../protected/read-books/tan-cung-mot-cuoc-song/
 import { createAccessStore } from "./access-state.mjs";
 import { ensureWalletForEmail } from "./wallet-runtime.mjs";
 
+// lazy import to avoid circular dependency
+async function sendNotification(env, recipient_email, template, vars, lang = "vi") {
+  try {
+    const { maybeHandleNotifyRuntime } = await import("./notify-runtime.mjs");
+    const req = new Request("https://internal/api/notify/send", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-wallet-internal-token": env.WALLET_INTERNAL_TOKEN || "",
+      },
+      body: JSON.stringify({ recipient_email, template, vars, lang }),
+    });
+    await maybeHandleNotifyRuntime(req, env);
+  } catch (err) {
+    // notification failure must not break payment processing
+    console.error("[notify] failed to send notification:", String(err?.message || err));
+  }
+}
+
 const ACCESS_BASE = "/api/access";
 const SESSION_COOKIE_NAME = "vtl_session";
 const MAGIC_LINK_TTL_SECONDS = 15 * 60;
@@ -2287,6 +2306,25 @@ async function handlePayPalWebhook(request, env, routeKey) {
 
   const runtimeProvisioning = await upsertRuntimeMemberState(env, normalizedEvent, payload);
 
+  // Wire: PayPal payment success → email notification
+  if (normalizedEvent === "pack.order.captured" || normalizedEvent === "annual.subscription.activated" || normalizedEvent === "annual.subscription.renewed") {
+    const paypalEvent = payload;
+    const ppEmail = (paypalEvent?.resource?.payer?.email_address || paypalEvent?.resource?.subscriber?.email_address || "").trim().toLowerCase();
+    const ppAmount = Math.round(parseFloat(paypalEvent?.resource?.amount?.value || paypalEvent?.resource?.amount?.breakdown?.gross_amount?.value || "0") * 23000); // approx USD→VND
+    const ppTxId = paypalEvent?.resource?.id || paypalEvent?.id || "unknown";
+    const ppProduct = paypalEvent?.resource?.purchase_units?.[0]?.description || "Vetuonglai Access";
+
+    if (ppEmail && ppAmount > 0) {
+      await sendNotification(env, ppEmail, "payment_success", {
+        amount: ppAmount.toLocaleString("en-US"),
+        product_name: ppProduct,
+        transaction_id: ppTxId,
+        payment_date: new Date().toLocaleDateString("vi-VN"),
+        access_url: "https://member.vetuonglai.com/journey/",
+      }, "vi");
+    }
+  }
+
   return jsonResponse({
     status: normalizedEvent.startsWith("pack.order.") ? "pack_provisioning_evaluated" : "subscription_event_normalized",
     runtimeEvent: normalizedEvent,
@@ -2323,6 +2361,48 @@ async function handleStripeWebhook(request, env) {
   }
 
   const runtimeProvisioning = await upsertRuntimeMemberState(env, normalizedEvent, payload);
+
+  // Wire: payment success → wallet credit + email notification
+  if (normalizedEvent === "pack.order.captured" || normalizedEvent === "annual.subscription.activated" || normalizedEvent === "annual.subscription.renewed") {
+    const stripeEvent = payload;
+    const email = (stripeEvent?.data?.object?.metadata?.candidate_email || stripeEvent?.data?.object?.customer_email || stripeEvent?.data?.object?.customer_details?.email || "").trim().toLowerCase();
+    const amountVnd = Math.round((stripeEvent?.data?.object?.amount_total || stripeEvent?.data?.object?.amount || 0));
+    const transactionId = stripeEvent?.data?.object?.id || stripeEvent?.id || "unknown";
+    const productName = stripeEvent?.data?.object?.metadata?.product_name || "Vetuonglai Access";
+
+    if (email && amountVnd > 0) {
+      try {
+        // Only credit wallet if the product explicitly has wallet_credit: true in metadata
+        if (stripeEvent?.data?.object?.metadata?.wallet_credit === "true") {
+          await ensureWalletForEmail(email, env, { createdFrom: "stripe_payment" });
+        }
+      } catch (err) {
+        console.error("[stripe-webhook] wallet ensure failed:", String(err?.message || err));
+      }
+      await sendNotification(env, email, "payment_success", {
+        amount: amountVnd.toLocaleString("en-US"),
+        product_name: productName,
+        transaction_id: transactionId,
+        payment_date: new Date().toLocaleDateString("vi-VN"),
+        access_url: "https://member.vetuonglai.com/journey/",
+      }, "vi");
+    }
+  }
+
+  // Wire: payment failure → email notification
+  if (normalizedEvent === "annual.subscription.past_due") {
+    const stripeEvent = payload;
+    const failEmail = (stripeEvent?.data?.object?.metadata?.candidate_email || stripeEvent?.data?.object?.customer_email || stripeEvent?.data?.object?.customer_details?.email || "").trim().toLowerCase();
+    const failAmount = Math.round((stripeEvent?.data?.object?.amount_total || stripeEvent?.data?.object?.amount || 0));
+    if (failEmail) {
+      await sendNotification(env, failEmail, "payment_failed", {
+        amount: failAmount.toLocaleString("en-US"),
+        provider: "Stripe",
+        failure_reason: stripeEvent?.data?.object?.last_payment_error?.message || "Payment declined",
+        retry_url: "https://vetuonglai.com/",
+      }, "vi");
+    }
+  }
 
   return jsonResponse({
     status: normalizedEvent.startsWith("pack.order.") ? "pack_provisioning_evaluated" : "subscription_event_normalized",

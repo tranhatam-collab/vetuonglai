@@ -15,7 +15,9 @@
           "PAY_IAI_ONE_API_KEY",
           "PAY_IAI_ONE_WEBHOOK_SECRET",
           "WALLET_ADDRESS_SECRET",
-          "WALLET_INTERNAL_TOKEN"
+          "WALLET_INTERNAL_TOKEN",
+          "RESEND_API_KEY",
+          "RESEND_FROM_EMAIL"
         ],
         "recommendedVars": [
           "VTL_ENV",
@@ -93,7 +95,9 @@
           "PAY_IAI_ONE_API_KEY",
           "PAY_IAI_ONE_WEBHOOK_SECRET",
           "WALLET_ADDRESS_SECRET",
-          "WALLET_INTERNAL_TOKEN"
+          "WALLET_INTERNAL_TOKEN",
+          "RESEND_API_KEY",
+          "RESEND_FROM_EMAIL"
         ],
         "recommendedVars": [
           "VTL_ENV",

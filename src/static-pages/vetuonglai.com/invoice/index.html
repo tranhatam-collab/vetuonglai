@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="vi" data-language="vi" data-domain="hub">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title data-text-vi="Hóa đơn — Về Tương Lai" data-text-en="Invoice — Về Tương Lai">Hóa đơn — Về Tương Lai</title>
+<meta name="description" content="Xem hóa đơn thanh toán của bạn trên Về Tương Lai." />
+<meta name="robots" content="noindex,nofollow" />
+<link rel="icon" type="image/svg+xml" href="/assets/brand/vetuonglai-logo-primary.svg" />
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/vetuonglai-favicon.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/vetuonglai-monogram.png" />
+<meta name="theme-color" content="#22D3EE" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;600&display=swap&subset=latin,latin-ext,vietnamese" />
+<link rel="stylesheet" href="/assets/design-tokens.css" />
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--vt-font-sans,Inter,sans-serif);background:#f8fafc;color:#0f172a;line-height:1.6}
+
+/* ── Layout ── */
+.page-nav{background:#fff;border-bottom:1px solid #e2e8f0;padding:12px 20px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:#0f172a}
+.brand-logo{height:32px;width:auto}
+.brand-wordmark{font-family:var(--vt-font-display,'Plus Jakarta Sans',sans-serif);font-weight:800;font-size:16px;letter-spacing:-0.02em}
+.lang-toggle{background:none;border:1px solid #e2e8f0;border-radius:6px;padding:4px 10px;font-size:13px;cursor:pointer;color:#475569;transition:border-color .15s}
+.lang-toggle:hover{border-color:#22D3EE}
+
+.shell{max-width:720px;margin:40px auto;padding:0 20px 80px}
+
+/* ── States ── */
+.state{text-align:center;padding:64px 20px}
+.state-icon{font-size:48px;margin-bottom:16px}
+.state-title{font-family:var(--vt-font-display,'Plus Jakarta Sans',sans-serif);font-size:1.5rem;font-weight:700;margin:0 0 8px}
+.state-msg{color:#64748b;margin:0 0 24px;max-width:400px;margin-left:auto;margin-right:auto}
+.btn-back{display:inline-block;padding:10px 20px;background:#22D3EE;color:#fff;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;transition:background .15s}
+.btn-back:hover{background:#06b6d4}
+.spinner{display:inline-block;width:32px;height:32px;border:3px solid #e2e8f0;border-top-color:#22D3EE;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Invoice card ── */
+.invoice-card{background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.invoice-head{background:linear-gradient(135deg,#0e7490 0%,#164e63 100%);padding:32px;color:#fff;display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.invoice-head-logo{height:36px;filter:brightness(0) invert(1);opacity:.95}
+.invoice-head-meta{text-align:right}
+.invoice-number{font-family:var(--vt-font-mono,'JetBrains Mono',monospace);font-size:13px;opacity:.8;margin:0 0 4px}
+.invoice-title-word{font-family:var(--vt-font-display,'Plus Jakarta Sans',sans-serif);font-size:1.6rem;font-weight:800;margin:0;letter-spacing:-0.02em}
+.invoice-date{font-size:13px;opacity:.75;margin:4px 0 0}
+
+.invoice-body{padding:32px}
+.invoice-section{margin-bottom:28px}
+.invoice-section:last-child{margin-bottom:0}
+.section-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#94a3b8;margin:0 0 10px}
+
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:480px){.detail-grid{grid-template-columns:1fr}}
+
+.detail-item{}
+.detail-key{font-size:12px;color:#64748b;margin:0 0 2px}
+.detail-val{font-size:14px;font-weight:600;color:#0f172a;margin:0;word-break:break-all}
+.detail-val.mono{font-family:var(--vt-font-mono,'JetBrains Mono',monospace);font-size:13px;font-weight:400}
+
+.amount-row{background:#f0fdff;border:1px solid #a5f3fc;border-radius:10px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.amount-label{font-weight:700;font-size:15px;color:#0e7490}
+.amount-value{font-family:var(--vt-font-mono,'JetBrains Mono',monospace);font-size:28px;font-weight:700;color:#0e7490}
+
+.status-badge{display:inline-flex;align-items:center;gap:8px;background:#dcfce7;color:#16a34a;border:1px solid #86efac;border-radius:20px;padding:6px 14px;font-size:13px;font-weight:700}
+.status-badge-icon{font-size:16px}
+
+.divider{border:none;border-top:1px solid #f1f5f9;margin:24px 0}
+
+.invoice-footer-note{font-size:12px;color:#94a3b8;text-align:center;margin:0}
+
+/* ── Action bar ── */
+.action-bar{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;transition:background .15s,border-color .15s;border:none}
+.btn-primary{background:#22D3EE;color:#fff}
+.btn-primary:hover{background:#06b6d4}
+.btn-secondary{background:#fff;color:#475569;border:1px solid #e2e8f0}
+.btn-secondary:hover{border-color:#94a3b8}
+.btn-ghost{background:transparent;color:#64748b;font-size:13px;padding:8px 14px;border:1px solid #e2e8f0;border-radius:6px}
+.btn-ghost:hover{border-color:#94a3b8}
+
+/* ── Print ── */
+@media print{
+  .page-nav,.action-bar,.lang-toggle{display:none!important}
+  body{background:#fff}
+  .shell{margin:0;padding:0;max-width:100%}
+  .invoice-card{border:none;box-shadow:none;border-radius:0}
+  .invoice-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="page-nav" aria-label="site navigation">
+  <a href="https://vetuonglai.com/" class="brand" aria-label="Về Tương Lai">
+    <img src="/assets/brand/vetuonglai-logo-primary.svg" alt="" class="brand-logo" onerror="this.style.display='none'" />
+    <span class="brand-wordmark">Về Tương Lai</span>
+  </a>
+  <button class="lang-toggle" id="langToggle" aria-label="Toggle language" type="button">EN</button>
+</nav>
+
+<!-- Shell -->
+<main class="shell" id="main">
+
+  <!-- Loading state -->
+  <div class="state" id="stateLoading" aria-live="polite">
+    <div class="spinner" role="status" aria-label="Loading"></div>
+    <p class="state-msg" style="margin-top:16px" data-text-vi="Đang tải hóa đơn…" data-text-en="Loading invoice…">Đang tải hóa đơn…</p>
+  </div>
+
+  <!-- Error: no ID -->
+  <div class="state" id="stateNoId" hidden>
+    <div class="state-icon" aria-hidden="true">📋</div>
+    <h1 class="state-title" data-text-vi="Thiếu mã hóa đơn" data-text-en="Invoice ID required">Thiếu mã hóa đơn</h1>
+    <p class="state-msg" data-text-vi="Vui lòng kiểm tra lại liên kết hóa đơn của bạn." data-text-en="Please check your invoice link.">Vui lòng kiểm tra lại liên kết hóa đơn của bạn.</p>
+    <a href="https://member.vetuonglai.com/dashboard/" class="btn-back" data-text-vi="Về Dashboard" data-text-en="Back to Dashboard">Về Dashboard</a>
+  </div>
+
+  <!-- Error: not found -->
+  <div class="state" id="stateNotFound" hidden>
+    <div class="state-icon" aria-hidden="true">🔍</div>
+    <h1 class="state-title" data-text-vi="Không tìm thấy hóa đơn" data-text-en="Invoice not found">Không tìm thấy hóa đơn</h1>
+    <p class="state-msg" data-text-vi="Hóa đơn không tồn tại hoặc bạn không có quyền xem." data-text-en="This invoice does not exist or you do not have permission to view it.">Hóa đơn không tồn tại hoặc bạn không có quyền xem.</p>
+    <a href="https://member.vetuonglai.com/dashboard/" class="btn-back" data-text-vi="Về Dashboard" data-text-en="Back to Dashboard">Về Dashboard</a>
+  </div>
+
+  <!-- Error: generic fetch error -->
+  <div class="state" id="stateError" hidden>
+    <div class="state-icon" aria-hidden="true">⚠️</div>
+    <h1 class="state-title" data-text-vi="Lỗi tải hóa đơn" data-text-en="Error loading invoice">Lỗi tải hóa đơn</h1>
+    <p class="state-msg" id="stateErrorMsg" data-text-vi="Đã xảy ra lỗi. Vui lòng thử lại." data-text-en="Something went wrong. Please try again.">Đã xảy ra lỗi. Vui lòng thử lại.</p>
+    <a href="https://member.vetuonglai.com/dashboard/" class="btn-back" data-text-vi="Về Dashboard" data-text-en="Back to Dashboard">Về Dashboard</a>
+  </div>
+
+  <!-- Invoice display -->
+  <div id="invoiceDisplay" hidden>
+    <div class="invoice-card" role="region" aria-labelledby="invoiceHeading">
+
+      <!-- Header -->
+      <div class="invoice-head">
+        <div>
+          <img src="/assets/brand/vetuonglai-logo-primary.svg" alt="Về Tương Lai" class="invoice-head-logo" />
+        </div>
+        <div class="invoice-head-meta">
+          <p class="invoice-number" id="invoiceNumberLabel" data-text-vi="HÓA ĐƠN" data-text-en="INVOICE">HÓA ĐƠN</p>
+          <h1 class="invoice-title-word" id="invoiceHeading">#<span id="invoiceId">—</span></h1>
+          <p class="invoice-date" id="invoiceDate">—</p>
+        </div>
+      </div>
+
+      <!-- Body -->
+      <div class="invoice-body">
+
+        <!-- Status -->
+        <div class="invoice-section">
+          <span class="status-badge">
+            <span class="status-badge-icon" aria-hidden="true">✅</span>
+            <span data-text-vi="Thanh toán đã xác nhận" data-text-en="Payment verified">Thanh toán đã xác nhận</span>
+          </span>
+        </div>
+
+        <!-- Payer info -->
+        <div class="invoice-section">
+          <p class="section-label" data-text-vi="Thông tin người thanh toán" data-text-en="Payer information">Thông tin người thanh toán</p>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <p class="detail-key" data-text-vi="Họ tên" data-text-en="Name">Họ tên</p>
+              <p class="detail-val" id="payerName">—</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-key" data-text-vi="Email" data-text-en="Email">Email</p>
+              <p class="detail-val mono" id="payerEmail">—</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- Product info -->
+        <div class="invoice-section">
+          <p class="section-label" data-text-vi="Chi tiết sản phẩm" data-text-en="Product details">Chi tiết sản phẩm</p>
+          <div class="detail-grid">
+            <div class="detail-item">
+              <p class="detail-key" data-text-vi="Sản phẩm" data-text-en="Product">Sản phẩm</p>
+              <p class="detail-val" id="productName">—</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-key" data-text-vi="Phương thức thanh toán" data-text-en="Payment method">Phương thức thanh toán</p>
+              <p class="detail-val" id="paymentMethod">—</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-key" data-text-vi="Mã giao dịch" data-text-en="Transaction ID">Mã giao dịch</p>
+              <p class="detail-val mono" id="transactionId">—</p>
+            </div>
+            <div class="detail-item">
+              <p class="detail-key" data-text-vi="Ngày thanh toán" data-text-en="Payment date">Ngày thanh toán</p>
+              <p class="detail-val" id="paymentDate">—</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- Amount -->
+        <div class="invoice-section">
+          <div class="amount-row">
+            <span class="amount-label" data-text-vi="Tổng thanh toán" data-text-en="Total paid">Tổng thanh toán</span>
+            <span class="amount-value" id="amountDisplay">— VND</span>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <p class="invoice-footer-note" data-text-vi="Cảm ơn bạn đã tin tưởng Về Tương Lai. Hóa đơn này được tạo tự động và có giá trị pháp lý." data-text-en="Thank you for trusting Về Tương Lai. This invoice is auto-generated and legally valid.">Cảm ơn bạn đã tin tưởng Về Tương Lai. Hóa đơn này được tạo tự động và có giá trị pháp lý.</p>
+
+      </div><!-- /invoice-body -->
+    </div><!-- /invoice-card -->
+
+    <!-- Actions -->
+    <div class="action-bar" aria-label="invoice actions">
+      <button type="button" class="btn btn-primary" id="btnPrint" onclick="window.print()">
+        <span aria-hidden="true">🖨️</span>
+        <span data-text-vi="In hóa đơn" data-text-en="Print invoice">In hóa đơn</span>
+      </button>
+      <button type="button" class="btn btn-secondary" id="btnPdf" onclick="showPdfNotice()">
+        <span aria-hidden="true">📄</span>
+        <span data-text-vi="Tải PDF" data-text-en="Download PDF">Tải PDF</span>
+      </button>
+      <a href="https://member.vetuonglai.com/dashboard/" class="btn btn-ghost" data-text-vi="Về Dashboard" data-text-en="Back to Dashboard">Về Dashboard</a>
+    </div>
+
+    <!-- PDF notice (shown on demand) -->
+    <p id="pdfNotice" hidden style="text-align:center;margin-top:12px;font-size:13px;color:#64748b" data-text-vi="Tính năng xuất PDF đang được phát triển — vui lòng dùng In hóa đơn." data-text-en="PDF export is coming soon — please use Print invoice for now.">Tính năng xuất PDF đang được phát triển — vui lòng dùng In hóa đơn.</p>
+
+  </div><!-- /invoiceDisplay -->
+
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ── Language ──────────────────────────────────────────────────────────────
+  var lang = (new URLSearchParams(location.search).get("lang") || "vi") === "en" ? "en" : "vi";
+  var html = document.documentElement;
+  var langToggle = document.getElementById("langToggle");
+
+  function applyLang(l) {
+    lang = l;
+    html.setAttribute("lang", l === "vi" ? "vi" : "en");
+    html.setAttribute("data-language", l);
+    langToggle.textContent = l === "vi" ? "EN" : "VI";
+    langToggle.setAttribute("aria-label", l === "vi" ? "Switch to English" : "Chuyển sang tiếng Việt");
+    document.querySelectorAll("[data-text-vi][data-text-en]").forEach(function (el) {
+      el.textContent = l === "vi" ? el.getAttribute("data-text-vi") : el.getAttribute("data-text-en");
+    });
+    document.querySelectorAll("[data-content-vi][data-content-en]").forEach(function (el) {
+      el.setAttribute("content", l === "vi" ? el.getAttribute("data-content-vi") : el.getAttribute("data-content-en"));
+    });
+    document.title = l === "vi" ? "Hóa đơn — Về Tương Lai" : "Invoice — Về Tương Lai";
+  }
+
+  langToggle.addEventListener("click", function () {
+    applyLang(lang === "vi" ? "en" : "vi");
+  });
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function esc(str) {
+    var d = document.createElement("div");
+    d.appendChild(document.createTextNode(String(str || "")));
+    return d.innerHTML;
+  }
+
+  function setText(id, value) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = value || "—";
+  }
+
+  function formatVnd(n) {
+    var num = parseInt(n, 10);
+    if (isNaN(num)) return "—";
+    return num.toLocaleString("vi-VN") + " VND";
+  }
+
+  function formatDate(str) {
+    if (!str) return "—";
+    try {
+      var d = new Date(str);
+      if (isNaN(d.getTime())) return str;
+      return d.toLocaleDateString("vi-VN", { year: "numeric", month: "2-digit", day: "2-digit" });
+    } catch (e) {
+      return str;
+    }
+  }
+
+  function showState(id) {
+    ["stateLoading", "stateNoId", "stateNotFound", "stateError", "invoiceDisplay"].forEach(function (s) {
+      var el = document.getElementById(s);
+      if (el) el.hidden = s !== id;
+    });
+  }
+
+  function showPdfNotice() {
+    var el = document.getElementById("pdfNotice");
+    if (el) { el.hidden = false; applyLang(lang); }
+  }
+  window.showPdfNotice = showPdfNotice;
+
+  // ── Main logic ────────────────────────────────────────────────────────────
+  var params = new URLSearchParams(location.search);
+  var invoiceId = (params.get("id") || "").trim();
+
+  if (!invoiceId) {
+    applyLang(lang);
+    showState("stateNoId");
+    return;
+  }
+
+  // Fetch invoice
+  fetch("/api/invoice/" + encodeURIComponent(invoiceId), {
+    credentials: "include",
+    headers: { "accept": "application/json" }
+  })
+    .then(function (res) {
+      if (res.status === 404) throw { type: "not_found" };
+      if (!res.ok) throw { type: "error", status: res.status };
+      return res.json();
+    })
+    .then(function (data) {
+      // Populate invoice
+      setText("invoiceId", data.invoice_id || invoiceId);
+      setText("invoiceDate", lang === "en" ? formatDate(data.payment_date) : formatDate(data.payment_date));
+      setText("payerName", data.payer_name);
+      setText("payerEmail", data.payer_email);
+      setText("productName", data.product_name);
+      setText("paymentMethod", data.payment_method);
+      setText("transactionId", data.transaction_id);
+      setText("paymentDate", formatDate(data.payment_date));
+      setText("amountDisplay", formatVnd(data.amount_vnd));
+
+      // Update page title with invoice ID
+      document.title = (lang === "vi" ? "Hóa đơn #" : "Invoice #") + (data.invoice_id || invoiceId) + " — Về Tương Lai";
+
+      applyLang(lang);
+      showState("invoiceDisplay");
+    })
+    .catch(function (err) {
+      applyLang(lang);
+      if (err && err.type === "not_found") {
+        showState("stateNotFound");
+      } else {
+        showState("stateError");
+      }
+    });
+
+  // Initial lang apply (while loading)
+  applyLang(lang);
+
+}());
+</script>
+
+</body>
+</html>
