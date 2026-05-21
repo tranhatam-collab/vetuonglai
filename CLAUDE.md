@@ -3,7 +3,7 @@
 > Auto-loaded by Claude Code when working in this repo. Keep this **short** —
 > long-form memory lives in `docs/internal/AUTONOMOUS_DEV_HANDOFF_*.md`.
 >
-> Last refresh: 2026-05-21 · Master roadmap completion: **~96%** (email+payment sprint fully coded ✅, awaiting live secrets)
+> Last refresh: 2026-05-21 · Master roadmap completion: **~96%** (7/7 workers deployed ✅ · 26 email templates live · mail.iai.one active · awaiting Founder: Stripe/PayPal live keys + Google OAuth URIs + ANTHROPIC_API_KEY)
 
 ---
 
@@ -43,10 +43,21 @@ export CLOUDFLARE_ACCOUNT_ID=62d57eaa548617aeecac766e5a1cb98e  # Anhhatam@gmail.
 export ACCESS_KV_NAMESPACE_ID=4b1329f961744a1aa3056b625c9b33e7
 ```
 
-Workers deployed: `vetuonglai-{home, vc, edu-github, member, green, finance, kids}`. All 7 workers live (kids deployed 2026-05-20, version `bc1afc45`). `vetuonglai-home` + `vetuonglai-member` have email pipeline live (Mailgun via generic-worker). Other subdomains (community, work, read, etc.) deploy via Cloudflare Pages.
+Workers deployed (all 7, 2026-05-21):
+| Worker | Version | Domain |
+|--------|---------|--------|
+| vetuonglai-home | `8d6d938f` | vetuonglai.com |
+| vetuonglai-member | `7f843eb4` | member.vetuonglai.com |
+| vetuonglai-vc | `b5658211` | vc.vetuonglai.com |
+| vetuonglai-edu-github | `4f19cf0c` | edu.vetuonglai.com |
+| vetuonglai-green | `d7657a89` | green.vetuonglai.com |
+| vetuonglai-finance | `73a8bc14` | finance.vetuonglai.com |
+| vetuonglai-kids | `aeaffe27` | kids.vetuonglai.com |
 
-Required secrets on home/vc/member: `SESSION_COOKIE_SECRET`, `WALLET_ADDRESS_SECRET` (deterministic — NEVER rotate), `WALLET_INTERNAL_TOKEN`, `MAGIC_LINK_SIGNING_KEY` (home+member), `PAY_IAI_ONE_*` (home+member), `VC_*` (vc only), `RESEND_API_KEY` (home+member), `RESEND_FROM_EMAIL` (home+member).
-Email pipeline (home+member): `MAIL_API_KEY`, `MAIL_API_BASE_URL`, `MAIL_API_WORKSPACE_ID` (set 2026-05-20, smoke-tested ✅). Notify transactional (26 templates + Resend layer ✅ 2026-05-21, activation pending `RESEND_API_KEY`).
+Other subdomains (community, work, read, etc.) deploy via Cloudflare Pages.
+
+Required secrets on home/member: `SESSION_COOKIE_SECRET`, `WALLET_ADDRESS_SECRET` (NEVER rotate), `WALLET_INTERNAL_TOKEN`, `MAGIC_LINK_SIGNING_KEY`, `PAY_IAI_ONE_*`, `MAIL_API_KEY`, `MAIL_API_BASE_URL`, `MAIL_API_WORKSPACE_ID`. VC only adds: `VC_*`.
+Email pipeline: Channel A (forms) + Channel B (magic-link) → mail.iai.one ✅ LIVE. Channel C (notify transactional) → mail.iai.one, 26 templates ✅ LIVE (`delivery: "mail_iai_one_active"` confirmed 2026-05-21). Resend completely removed.
 KV binding `ACCESS_KV_NAMESPACE` on all three.
 
 ## Deploy commands
@@ -134,13 +145,27 @@ When resuming in a new session, paste `docs/internal/AUTONOMOUS_DEV_HANDOFF_2026
 4. `WALLET_ADDRESS_SECRET` is HMAC seed for deterministic addresses → rotating it invalidates every existing wallet. **Never rotate.**
 5. Cookie domain is `.vetuonglai.com` (dot-prefixed) so all subdomains share `vtl_session`. Don't change.
 
-## External blockers (10% to 100%)
+## External blockers (4% to 100%) — Founder action only
 
-Listed in `docs/internal/BLOCKERS_NEED_USER_INPUT.md` section 10. Items requiring Founder action: `RESEND_API_KEY` + domain DKIM verification, PayPal/Stripe production secrets + webhook registration, bank disbursement contract, Anthropic API key (EDU AI tutor), VC issuer pool, App Store/Play submission, TM filing.
+**Code complete. Only secrets/console access remain.**
 
-✅ **Resolved 2026-05-20**: Email provider (Mailgun via generic-worker) — secrets set, `message_idempotency_key` bug fixed, smoke test passed (internal notification + external ack).
-✅ **Resolved 2026-05-20**: 277 bilingual parity issues → 0 (hreflang + EN mirrors for 15 subdomains).
-✅ **Resolved 2026-05-20**: `kids.vetuonglai.com` deployed (version `bc1afc45`), all 7 workers redeployed with bilingual dist.
+| # | Blocker | Action | Impact |
+|---|---------|--------|--------|
+| P0 | Google OAuth URIs | Google Console → IAI ONE client → add 3 URIs: `https://vetuonglai.com/api/auth/google/callback`, `https://tueban-api.tranhatam.workers.dev/api/auth/google/callback`, `https://api.lamviec.muonnoi.org/v1/auth/google/callback` | Google login broken until fixed |
+| P0 | Stripe live secrets | `STRIPE_SECRET_KEY` + `STRIPE_WEBHOOK_SECRET` on home+member; webhook: `https://vetuonglai.com/api/access/webhook/stripe` | Credit card payments |
+| P0 | PayPal live secrets | `PAYPAL_CLIENT_ID` + `PAYPAL_CLIENT_SECRET` + `PAYPAL_WEBHOOK_ID` on home+member; webhook: `https://vetuonglai.com/api/access/webhook/paypal` | PayPal payments |
+| P0 | `ANTHROPIC_API_KEY` | Set on `vetuonglai-edu-github` | EDU AI tutor |
+| P1 | KYC provider | Sumsub/Veriff API key | Wallet payout unlocks |
+| P1 | Bank disbursement | NAPAS Pro / IAI ONE Payout | VND withdrawal |
+| P1 | VC issuer pool | Issuer list + approval workflow | VC attestation |
+| P2 | App Store / Play | Apple Developer + Google Play Console | Native mobile |
+
+✅ **Resolved 2026-05-21**: 26 transactional email templates + mail.iai.one delivery live (`delivery: "mail_iai_one_active"`). Resend removed.
+✅ **Resolved 2026-05-21**: Webhook→email pipeline wired (Stripe+PayPal success/failed → notifications).
+✅ **Resolved 2026-05-21**: Invoice API `/api/invoice/{id}` + invoice web page.
+✅ **Resolved 2026-05-20**: Email form delivery + magic-link via mail.iai.one (smoke-tested).
+✅ **Resolved 2026-05-20**: 277 bilingual issues → 0. kids.vetuonglai.com deployed. 7/7 workers live.
+✅ **Resolved 2026-05-16**: Wallet runtime 100% — 11 endpoints, vtl1 addresses, KV ledger.
 ✅ **Resolved 2026-05-20**: Wallet runtime 100% complete — 11 endpoints, deterministic `vtl1…` addresses, smoke tests green.
 
 ⚠️ **Missing secrets**: `WALLET_ADDRESS_SECRET` + `WALLET_INTERNAL_TOKEN` chưa set trên `vetuonglai-edu-github`, `vetuonglai-green`, `vetuonglai-finance`, `vetuonglai-kids` (4 workers).
