@@ -362,7 +362,7 @@
           <span class="pill"><span class="rdot" aria-hidden="true"></span><span data-i18n="pillCalm">Calm UI</span></span>
         </div>
         <div style="margin-top:10px" data-i18n="noticeBody">
-          Nếu anh/chị chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán + webhook để tự cấp chứng cứ/chứng chỉ.
+          Nội dung công khai đang hoạt động. Thanh toán vẫn tạm khóa cho đến khi merchant, webhook và bằng chứng cấp quyền được xác minh.
         </div>
       </div>
 
@@ -385,17 +385,17 @@
         </article>
 
         <article class="card">
-          <span class="tag" data-i18n="tagLive">LIVE</span>
+          <span class="tag" data-i18n="tagHold">HOLD</span>
           <h2 data-i18n="cardPayTitle">Thanh toán + Webhook</h2>
           <p data-i18n="cardPayBody">
-            Nếu chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán và tự cấp chứng cứ.
+            Chưa nhận thanh toán. Chỉ mở sau khi merchant, callback ký và luồng cấp quyền được kiểm tra đầu-cuối.
           </p>
 
           <div class="split">
             <div class="smallcard">
               <h3 data-i18n="smallStripeTitle">Stripe</h3>
               <p data-i18n="smallStripeBody">
-                Dùng để thanh toán. Webhook xác nhận trả tiền để mở quyền học/thi.
+                Kênh thanh toán dự kiến; hiện chưa được xác nhận vận hành công khai.
               </p>
             </div>
             <div class="smallcard">
@@ -415,11 +415,6 @@
             </a>
           </div>
 
-          <div class="mini" id="secretsHint">
-STRIPE_SECRET_KEY: <span id="stripeKey" data-i18n="setMaybe">đang kiểm tra…</span>
-STRIPE_WEBHOOK_SECRET: <span id="stripeWh" data-i18n="setMaybe">đang kiểm tra…</span>
-VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
-          </div>
         </article>
       </div>
     </section>
@@ -464,20 +459,21 @@ VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
         heroSub: "Khóa học ngắn và dài, lộ trình rõ ràng, minh bạch. Chứng chỉ có bằng chứng xác minh (liên kết qua VC).",
         heroPrinciple: "Nguyên tắc: Minh bạch vừa đủ, không lộ thông tin thừa. Những gì công bố phải kiểm chứng được.",
         noticeTitle: "Trạng thái nền tảng",
-        noticeBody: "Nếu anh/chị chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán + webhook để tự cấp chứng cứ/chứng chỉ.",
+        noticeBody: "Nội dung công khai đang hoạt động. Thanh toán vẫn tạm khóa cho đến khi merchant, webhook và bằng chứng cấp quyền được xác minh.",
         pillLocalFirst: "Local-first tư duy",
         pillNoTracking: "No tracking",
         pillProof: "Proof-based",
         pillCalm: "Calm UI",
         tagLive: "LIVE",
+        tagHold: "HOLD",
         cardCoursesTitle: "Khóa học",
         cardCoursesBody: "Xem danh sách khóa học, mô tả, giá, nội dung, tài liệu đọc theo trang.",
         btnOpen: "Mở",
         btnCheck: "Kiểm tra hệ thống",
         cardPayTitle: "Thanh toán + Webhook",
-        cardPayBody: "Nếu chưa cấu hình Stripe, site vẫn chạy. Khi sẵn sàng, bật thanh toán và tự cấp chứng cứ.",
+        cardPayBody: "Chưa nhận thanh toán. Chỉ mở sau khi merchant, callback ký và luồng cấp quyền được kiểm tra đầu-cuối.",
         smallStripeTitle: "Stripe",
-        smallStripeBody: "Dùng để thanh toán. Webhook xác nhận trả tiền để mở quyền học/thi.",
+        smallStripeBody: "Kênh thanh toán dự kiến; hiện chưa được xác nhận vận hành công khai.",
         smallVcTitle: "VC",
         smallVcBody: "Dùng để cấp chứng chỉ/chứng cứ xác minh (liên kết qua VC).",
         btnCert: "Đi tới chứng chỉ",
@@ -504,20 +500,21 @@ VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
         heroSub: "Short and long courses with clear, verifiable transparency. Certificates with evidence (via VC).",
         heroPrinciple: "Principle: enough transparency, no extra exposure. What we publish must be verifiable.",
         noticeTitle: "Platform status",
-        noticeBody: "If Stripe isn't configured yet, the site still works. When ready, enable payment + webhook to auto-issue evidence/certificates.",
+        noticeBody: "Public content is available. Payments remain on hold until the merchant, signed webhook, and entitlement evidence are verified.",
         pillLocalFirst: "Local-first mindset",
         pillNoTracking: "No tracking",
         pillProof: "Proof-based",
         pillCalm: "Calm UI",
         tagLive: "LIVE",
+        tagHold: "HOLD",
         cardCoursesTitle: "Courses",
         cardCoursesBody: "Browse courses, pricing, content, and page-by-page reading materials.",
         btnOpen: "Open",
         btnCheck: "System check",
         cardPayTitle: "Payments + Webhook",
-        cardPayBody: "If Stripe isn't configured, the site still works. When ready, enable payment to auto-issue proofs.",
+        cardPayBody: "Payments are not being accepted yet. Activation requires a verified merchant, signed callback, and end-to-end entitlement proof.",
         smallStripeTitle: "Stripe",
-        smallStripeBody: "Used for payments. Webhook confirms payment to unlock learning/exams.",
+        smallStripeBody: "Planned payment rail; public operation has not yet been verified.",
         smallVcTitle: "VC",
         smallVcBody: "Used to issue verifiable certificates/proofs (via VC).",
         btnCert: "Go to certificates",
@@ -537,7 +534,7 @@ VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
         heroTitle:"미래 교육", heroSub:"(KO) Translation pending.", heroPrinciple:"(KO) Translation pending.",
         noticeTitle:"상태", noticeBody:"(KO) Translation pending.",
         pillLocalFirst:"Local-first", pillNoTracking:"No tracking", pillProof:"Proof-based", pillCalm:"Calm UI",
-        tagLive:"LIVE", cardCoursesTitle:"Courses", cardCoursesBody:"(KO) Translation pending.", btnOpen:"Open", btnCheck:"Check",
+        tagLive:"LIVE", tagHold:"HOLD", cardCoursesTitle:"Courses", cardCoursesBody:"(KO) Translation pending.", btnOpen:"Open", btnCheck:"Check",
         cardPayTitle:"Payments + Webhook", cardPayBody:"(KO) Translation pending.",
         smallStripeTitle:"Stripe", smallStripeBody:"(KO) Translation pending.", smallVcTitle:"VC", smallVcBody:"(KO) Translation pending.",
         btnCert:"Certificates", btnApi:"API",
@@ -548,7 +545,7 @@ VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
         heroTitle:"未来の教育", heroSub:"(JA) Translation pending.", heroPrinciple:"(JA) Translation pending.",
         noticeTitle:"ステータス", noticeBody:"(JA) Translation pending.",
         pillLocalFirst:"Local-first", pillNoTracking:"No tracking", pillProof:"Proof-based", pillCalm:"Calm UI",
-        tagLive:"LIVE", cardCoursesTitle:"Courses", cardCoursesBody:"(JA) Translation pending.", btnOpen:"Open", btnCheck:"Check",
+        tagLive:"LIVE", tagHold:"HOLD", cardCoursesTitle:"Courses", cardCoursesBody:"(JA) Translation pending.", btnOpen:"Open", btnCheck:"Check",
         cardPayTitle:"Payments + Webhook", cardPayBody:"(JA) Translation pending.",
         smallStripeTitle:"Stripe", smallStripeBody:"(JA) Translation pending.", smallVcTitle:"VC", smallVcBody:"(JA) Translation pending.",
         btnCert:"Certificates", btnApi:"API",
@@ -587,16 +584,9 @@ VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
       });
     })();
 
-    // Health check + secrets hint (best-effort, non-fatal)
+    // Public health check. Secret readiness is intentionally not inferred in the browser.
     const healthBox = document.getElementById("healthBox");
     const btnHealth = document.getElementById("btnHealth");
-
-    function setHint(id, ok){
-      const el = document.getElementById(id);
-      if(!el) return;
-      const lang = document.documentElement.dataset.lang || "vi";
-      el.textContent = ok ? i18n[lang].setOk : i18n[lang].setNo;
-    }
 
     async function ping(){
       healthBox.hidden = false;
@@ -606,30 +596,13 @@ VC_ISSUE_URL: <span id="vcUrl" data-i18n="setMaybe">đang kiểm tra…</span>
         const t = await r.text();
         healthBox.textContent = `Status: ${r.status}\n\n${t.slice(0, 1200)}`;
 
-        // crude checks for config flags inside response (optional)
-        const lower = t.toLowerCase();
-        setHint("stripeKey", lower.includes("stripe_secret_key") ? lower.includes("true") : lower.includes("stripe") ? true : false);
-        setHint("stripeWh", lower.includes("stripe_webhook_secret") ? lower.includes("true") : lower.includes("webhook") ? true : false);
-        setHint("vcUrl", lower.includes("vc_issue_url") ? lower.includes("http") : lower.includes("vc") ? true : false);
       }catch(e){
         healthBox.textContent = "Không gọi được /api/health. (Nếu backend chưa có endpoint này thì bỏ qua.)\n\n" + String(e);
-        // if endpoint missing, don't scare users
-        setHint("stripeKey", false);
-        setHint("stripeWh", false);
-        setHint("vcUrl", false);
       }
     }
 
     btnHealth.addEventListener("click", ping);
 
-    // initial best-effort: don't auto-fetch to keep calm + fast
-    setTimeout(()=>{
-      // Only set placeholders to "…" without hitting network
-      const lang = document.documentElement.dataset.lang || "vi";
-      document.getElementById("stripeKey").textContent = i18n[lang].setMaybe;
-      document.getElementById("stripeWh").textContent = i18n[lang].setMaybe;
-      document.getElementById("vcUrl").textContent = i18n[lang].setMaybe;
-    }, 0);
   </script>
 </body>
 </html>
